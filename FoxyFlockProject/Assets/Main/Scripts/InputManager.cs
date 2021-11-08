@@ -13,14 +13,17 @@ public class InputManager : MonoBehaviour
     private float triggerMinTreshold;
     [HideInInspector] public bool canMove;
     public CharacterStats characterStats;
+    // spawn
+    private bool canSpawn;
 
-    
+
     public UnityEvent OnLeftTrigger;
     public UnityEvent OnRightTrigger;
     public UnityEvent OnBothTrigger;
     public UnityEvent OnLeftTriggerRelease;
     public UnityEvent OnRightTriggerRelease;
     public UnityEvent OnCanMove;
+    public UnityEvent OnSpawn;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +41,7 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         InputHelpers.IsPressed(rightHand.inputDevice, characterStats.moveTrigger, out rightHandIsTrigger, triggerMinTreshold);
+        InputHelpers.IsPressed(leftHand.inputDevice, characterStats.moveTrigger, out leftHandIsTrigger, triggerMinTreshold);
         InputHelpers.IsPressed(leftHand.inputDevice, characterStats.moveTrigger, out leftHandIsTrigger, triggerMinTreshold);
 
         //if right trigger is press, only call once like a press enter

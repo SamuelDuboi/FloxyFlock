@@ -22,7 +22,7 @@ public class CharacterStatsEditor : Editor
 
         statsTarget.minTriggerTreshold = EditorGUILayout.Slider(" Minimum press forced to activate Move", statsTarget.minTriggerTreshold, 0,1);
         EditorGUILayout.HelpBox("Rotation",MessageType.None);
-        statsTarget.xPower = EditorGUILayout.Slider(" Power", statsTarget.xPower,-2,2);
+        statsTarget.xPower = EditorGUILayout.Slider(" Power", statsTarget.xPower,-10,10);
         EditorGUILayout.BeginHorizontal();
         statsTarget.RotateXOffset = EditorGUILayout.FloatField("Left-Right Offsset", statsTarget.RotateXOffset);
         statsTarget.RotateYOffset = EditorGUILayout.FloatField("Up-Down Offsset", statsTarget.RotateYOffset);
@@ -30,13 +30,13 @@ public class CharacterStatsEditor : Editor
 
 
         EditorGUILayout.HelpBox("Up Down", MessageType.None);
-        statsTarget.yPower = EditorGUILayout.Slider("Power",statsTarget.yPower,-2,2);
+        statsTarget.yPower = EditorGUILayout.Slider("Power",statsTarget.yPower,-10,10);
         EditorGUILayout.BeginHorizontal();
         statsTarget.upOffset = EditorGUILayout.FloatField("Up-Down Offsett", statsTarget.upOffset);
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.HelpBox("Forward", MessageType.None);
-        statsTarget.zPower = EditorGUILayout.Slider(" Power",statsTarget.zPower,-2,2);
+        statsTarget.zPower = EditorGUILayout.Slider(" Power",statsTarget.zPower,-10,10);
         EditorGUILayout.BeginHorizontal();
         statsTarget.forwardZOffset = EditorGUILayout.FloatField("Forwrad-Backward Offsset", statsTarget.forwardZOffset);
         statsTarget.forwardYOffset = EditorGUILayout.FloatField("Up-Down Offsset", statsTarget.forwardYOffset);

@@ -27,7 +27,6 @@ public class InputManagerEditor : Editor
     }
     public override void OnInspectorGUI()
     {
-
         player.rightHand = (HandController) EditorGUILayout.ObjectField("Right hand", player.rightHand, typeof(HandController), true);
         player.leftHand = (HandController) EditorGUILayout.ObjectField("Left hand", player.leftHand, typeof(HandController), true);
         player.characterStats = (CharacterStats) EditorGUILayout.ObjectField("Character stats", player.characterStats, typeof(CharacterStats), true);
