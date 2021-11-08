@@ -1,10 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
-namespace Local
-{
     public class HandPresence : MonoBehaviour
     {
         public bool showController = false;
@@ -18,7 +15,7 @@ namespace Local
         private InputDevice targetDevice;
         private GameObject spawnedController;
         private Animator handAnimator;
-
+        private bool isGrib;
         private void Start()
         {
             parent = GetComponentInParent<PlayerMovement>();
@@ -64,11 +61,6 @@ namespace Local
 
             InputDevices.GetDevicesWithCharacteristics(controllerCharacteristics, devices);
 
-            foreach (var item in devices)
-            {
-                print(item.name + item.characteristics);
-            }
-
             if (devices.Count > 0)
             {
                 targetDevice = devices[0];
@@ -76,41 +68,59 @@ namespace Local
                 spawnedHandModel = Instantiate(handModelPrefab, this.transform);
                 handAnimator = spawnedHandModel.GetComponent<Animator>();
             }
-            if (targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool triggerValue) && triggerValue)
+            
+        }
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.gameObject.layer == 6)
             {
-                Debug.Log("yo");
+                isGrib = true;
             }
         }
 
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.layer == 6)
+            {
+                isGrib = false;
+            }
+        }
         private void UpdateHandAnimation()
         {
-            if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue) && triggerValue > 0.1f)
+            if (targetDevice.TryGetFeatureValue(CommonUsages.grip, out float gripValue) && gripValue > 0.1f)
             {
-                handAnimator.SetFloat("Trigger", triggerValue);
-                if (triggerValue > 0.5f)
+                if (!isGrib)
                 {
-                    indexCollider.isTrigger = false;
+                    handAnimator.SetFloat("Trigger", gripValue);
+                    if (gripValue > 0.5f)
+                    {
+                        indexCollider.isTrigger = false;
+                    }
+                    else
+                    {
+                        indexCollider.isTrigger = true;
+                    }
                 }
                 else
                 {
+                    handAnimator.SetFloat("Grip", gripValue);
+                }
+                
+            }
+            else
+            {
+                if (!isGrib)
+                {
+                    handAnimator.SetFloat("Trigger", 0);
                     indexCollider.isTrigger = true;
                 }
-            }
-            else
-            {
-                handAnimator.SetFloat("Trigger", 0);
-                indexCollider.isTrigger = true;
+                else
+                {
+                    handAnimator.SetFloat("Grip", 0);
+                }
             }
 
-            if (targetDevice.TryGetFeatureValue(CommonUsages.grip, out float gripValue) && gripValue > 0.1f)
-            {
-                handAnimator.SetFloat("Grip", gripValue);
-            }
-            else
-            {
-                handAnimator.SetFloat("Grip", 0);
-            }
         }
     }
 
-}
+
