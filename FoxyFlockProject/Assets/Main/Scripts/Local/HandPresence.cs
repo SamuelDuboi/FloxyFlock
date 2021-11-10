@@ -15,7 +15,7 @@ using UnityEngine.XR;
         private InputDevice targetDevice;
         private GameObject spawnedController;
         private Animator handAnimator;
-        private bool isGrib;
+        public bool isGrab;
         private void Start()
         {
             parent = GetComponentInParent<PlayerMovement>();
@@ -67,6 +67,9 @@ using UnityEngine.XR;
 
                 spawnedHandModel = Instantiate(handModelPrefab, this.transform);
                 handAnimator = spawnedHandModel.GetComponent<Animator>();
+            //if is not menu desable ray track
+            if (!ScenesManager.instance.IsMenuScene())
+                spawnedHandModel.GetComponentInChildren<LineRenderer>().gameObject.SetActive(false);
             }
             
         }
@@ -74,7 +77,7 @@ using UnityEngine.XR;
         {
             if(other.gameObject.layer == 6)
             {
-                isGrib = true;
+                isGrab = true;
             }
         }
 
@@ -82,14 +85,17 @@ using UnityEngine.XR;
         {
             if (other.gameObject.layer == 6)
             {
-                isGrib = false;
+                isGrab = false;
             }
         }
+    private bool isGrabReset;
         private void UpdateHandAnimation()
         {
             if (targetDevice.TryGetFeatureValue(CommonUsages.grip, out float gripValue) && gripValue > 0.1f)
             {
-                if (!isGrib)
+                isGrabReset = false;
+
+            if (!isGrab)
                 {
                     handAnimator.SetFloat("Trigger", gripValue);
                     if (gripValue > 0.5f)
@@ -107,20 +113,17 @@ using UnityEngine.XR;
                 }
                 
             }
-            else
-            {
-                if (!isGrib)
-                {
-                    handAnimator.SetFloat("Trigger", 0);
-                    indexCollider.isTrigger = true;
-                }
-                else
-                {
-                    handAnimator.SetFloat("Grip", 0);
-                }
-            }
+        else if (!isGrabReset)
+        {
 
+            handAnimator.SetFloat("Trigger", 0);
+            indexCollider.isTrigger = true;
+
+            handAnimator.SetFloat("Grip", 0);
+            isGrabReset = true;
         }
+
+    }
     }
 
 
