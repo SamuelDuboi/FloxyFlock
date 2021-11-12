@@ -3,7 +3,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.Events;
 public class InputManager : MonoBehaviour
 {
-
+    
     public HandController rightHand;
     public HandController leftHand;
     private bool rightHandIsTrigger;
