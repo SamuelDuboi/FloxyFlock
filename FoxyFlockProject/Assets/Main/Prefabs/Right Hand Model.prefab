@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2117290057660416025}
   m_LocalRotation: {x: -0.45025736, y: -0.8544113, z: 0.22387195, w: -0.13088556}
-  m_LocalPosition: {x: -0.004, y: -0.016, z: 0.009}
+  m_LocalPosition: {x: 0.0012, y: -0.0682, z: -0.0639}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5686134208185136530}
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_SphereCastRadius: 0.1
   m_RaycastMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 119
   m_RaycastTriggerInteraction: 1
   m_HitClosestOnly: 0
   m_KeepSelectedTargetValid: 1
@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 6706628776094242632}
   - component: {fileID: 7488594515221599384}
   - component: {fileID: 2009370432869056856}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

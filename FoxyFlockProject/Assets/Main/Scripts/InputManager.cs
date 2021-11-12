@@ -10,6 +10,10 @@ public class InputManager : MonoBehaviour
     private bool rightHandIsTriggerRelease;
     private bool leftHandIsTrigger;
     private bool leftHandIsTriggerRelease;
+    private bool leftHandIsGrab;
+    private bool rightHandIsGrab;
+    private bool rightHandIsGrabRelease;
+    private bool leftHandIsGrabRelease;
     private float triggerMinTreshold;
     [HideInInspector] public bool canMove;
     public CharacterStats characterStats;
@@ -24,6 +28,10 @@ public class InputManager : MonoBehaviour
     public UnityEvent OnRightTriggerRelease;
     public UnityEvent OnCanMove;
     public UnityEvent OnSpawn;
+    public UnityEvent OnLeftGrab;
+    public UnityEvent OnRightGrab;
+    public UnityEvent OnRightGrabRelease;
+    public UnityEvent OnLeftGrabRelease;
 
     public static InputManager instance;
     private void Awake()
@@ -40,19 +48,48 @@ public class InputManager : MonoBehaviour
     {
         rightHandIsTriggerRelease = true;
         leftHandIsTriggerRelease = true;
+        leftHandIsGrabRelease = true;
+        rightHandIsGrabRelease = true;
         triggerMinTreshold = characterStats.minTriggerTreshold;
         OnRightTrigger.AddListener(OnRightTriggerListener);
         OnLeftTrigger.AddListener(OnLeftTriggerListener);
         OnBothTrigger.AddListener(OnBothTriggerListener);
         OnRightTriggerRelease.AddListener(OnRightTriggerReleaseListener);
         OnLeftTriggerRelease.AddListener(OnLeftTriggerReleaseListener);
+
+        OnLeftGrab.AddListener(OnLeftHandGrabListener);
+        OnRightGrab.AddListener(OnRightHandGrabListener);
+        OnLeftGrabRelease.AddListener(OnLeftHandGrabReleaseListener);
+        OnRightGrabRelease.AddListener(OnRightHandGrabReleaseListener);
     }
 
     // Update is called once per frame
     void Update()
     {
+      
+        #region Grab
+        InputHelpers.IsPressed(rightHand.inputDevice, characterStats.gripBtton, out rightHandIsGrab);
+        InputHelpers.IsPressed(leftHand.inputDevice, characterStats.gripBtton, out leftHandIsGrab);
+
+        if(rightHandIsGrabRelease && rightHandIsGrab)
+        {
+            OnRightGrab.Invoke();
+        }
+        if (leftHandIsGrabRelease && leftHandIsGrab)
+        {
+            OnLeftGrab.Invoke();
+        }
+        if (!leftHandIsGrabRelease && !leftHandIsGrab)
+        {
+            OnLeftGrabRelease.Invoke();
+        }
+        if (!rightHandIsGrabRelease && !rightHandIsGrabRelease)
+        {
+            OnRightGrabRelease.Invoke();
+        }
+        #endregion
+        #region Trigger
         InputHelpers.IsPressed(rightHand.inputDevice, characterStats.moveTrigger, out rightHandIsTrigger, triggerMinTreshold);
-        InputHelpers.IsPressed(leftHand.inputDevice, characterStats.moveTrigger, out leftHandIsTrigger, triggerMinTreshold);
         InputHelpers.IsPressed(leftHand.inputDevice, characterStats.moveTrigger, out leftHandIsTrigger, triggerMinTreshold);
 
         //if right trigger is press, only call once like a press enter
@@ -80,6 +117,7 @@ public class InputManager : MonoBehaviour
         {
             OnCanMove.Invoke();
         }
+        #endregion
     }
 
     /// <summary>
@@ -127,5 +165,21 @@ public class InputManager : MonoBehaviour
     {
         leftHandIsTriggerRelease = true;
         canMove = false;
+    }
+    private void OnLeftHandGrabListener()
+    {
+        leftHandIsGrabRelease = false;
+    }
+    private void OnRightHandGrabListener()
+    {
+        rightHandIsGrabRelease = false;
+    }
+    private void OnLeftHandGrabReleaseListener()
+    {
+        leftHandIsGrabRelease = true;
+    }
+    private void OnRightHandGrabReleaseListener()
+    {
+        rightHandIsGrabRelease = false;
     }
 }
