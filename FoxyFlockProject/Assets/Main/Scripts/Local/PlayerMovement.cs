@@ -24,8 +24,11 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inputManager.OnCanMove.AddListener(Movement);
-        inputManager.OnBothTrigger.AddListener(InitMovement);
+        if(!ScenesManager.instance.IsLobbyScene() && !ScenesManager.instance.IsMenuScene())
+        {
+            inputManager.OnCanMove.AddListener(Movement);
+            inputManager.OnBothTrigger.AddListener(InitMovement);
+        }
         characterStats = inputManager.characterStats;
         forwardOffset = new Vector3(0, characterStats.forwardYOffset, characterStats.forwardZOffset);
         rotateOffset = new Vector3(characterStats.RotateXOffset, characterStats.RotateYOffset, 0);
@@ -67,12 +70,12 @@ public class PlayerMovement : MonoBehaviour
             if (forwardOffset.z < Mathf.Abs(deltaPose.z))
             {
                 //if is to close and want to come closer, return
-                if (Vector2.Distance(ToVector2XZ(vrHeadSett.position), ToVector2XZ(tableTransform.position)) < Vector2.Distance(ToVector2XZ(zClampMin.position), ToVector2XZ(tableTransform.position)) && deltaPose.z < 0)
+                if (Vector2.Distance(ToVector2XZ(transform.position), ToVector2XZ(tableTransform.position)) < Vector2.Distance(ToVector2XZ(zClampMin.position), ToVector2XZ(tableTransform.position)) && deltaPose.z*characterStats.zPower*-1 < 0)
                 {
                     return;
                 }
                 //if is to far and want to go farer (is that english ?)
-                else if (Vector2.Distance(ToVector2XZ(vrHeadSett.position), ToVector2XZ(tableTransform.position)) > Vector2.Distance(ToVector2XZ(zClampMax.position), ToVector2XZ(tableTransform.position)) && deltaPose.z > 0)
+                else if (Vector2.Distance(ToVector2XZ(transform.position), ToVector2XZ(tableTransform.position)) > Vector2.Distance(ToVector2XZ(zClampMax.position), ToVector2XZ(tableTransform.position)) && deltaPose.z * characterStats.zPower * -1 > 0)
                     return;
                 //move the pos to the table
                 transform.position += new Vector3(tableTransform.position.x - vrHeadSett.transform.position.x, 0, tableTransform.position.z - vrHeadSett.transform.position.z).normalized * deltaPose.z * zPower;

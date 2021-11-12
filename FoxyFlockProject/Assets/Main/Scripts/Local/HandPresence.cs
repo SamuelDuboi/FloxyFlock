@@ -16,6 +16,9 @@ using UnityEngine.XR;
         private GameObject spawnedController;
         private Animator handAnimator;
         public bool isGrab;
+        public bool isLeft;
+        private bool isMenu;
+        private GameObject pointerGO;
         private void Start()
         {
             parent = GetComponentInParent<PlayerMovement>();
@@ -24,6 +27,9 @@ using UnityEngine.XR;
             {
                 TryInitialize();
             }
+
+            InputManager.instance.OnLeftTrigger.AddListener(OnTriggerPressLeft);
+            InputManager.instance.OnRightTrigger.AddListener(OnTriggerPressRight);
         }
 
 
@@ -49,7 +55,7 @@ using UnityEngine.XR;
                 }
                 else
                 {
-                    if (indexCollider)
+                    if (indexCollider && !isMenu)
                         UpdateHandAnimation();
                 }
             }
@@ -67,10 +73,15 @@ using UnityEngine.XR;
 
                 spawnedHandModel = Instantiate(handModelPrefab, this.transform);
                 handAnimator = spawnedHandModel.GetComponent<Animator>();
+                pointerGO = spawnedHandModel.GetComponentInChildren<LineRenderer>().gameObject;
+                isMenu = ScenesManager.instance.IsMenuScene();
+                if (isLeft)
+                    pointerGO.SetActive(false);
             //if is not menu desable ray track
-            if (!ScenesManager.instance.IsMenuScene())
-                spawnedHandModel.GetComponentInChildren<LineRenderer>().gameObject.SetActive(false);
+                else if (!isMenu)          
+                    pointerGO.SetActive(false);
             }
+            
             
         }
         private void OnTriggerEnter(Collider other)
@@ -124,6 +135,31 @@ using UnityEngine.XR;
         }
 
     }
+
+        private void OnTriggerPressLeft()
+        {
+            if (isLeft)
+            {
+                if (!pointerGO.activeSelf)
+                    pointerGO.SetActive(true);
+
+            }
+            else if (pointerGO.activeSelf)
+                pointerGO.SetActive(false);
+
+        }
+    private void OnTriggerPressRight()
+    {
+        if (!isLeft)
+        {
+            if (!pointerGO.activeSelf)
+                pointerGO.SetActive(true);
+
+        }
+        else if (pointerGO.activeSelf)
+            pointerGO.SetActive(false);
+
     }
+}
 
 

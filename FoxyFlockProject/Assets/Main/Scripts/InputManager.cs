@@ -24,6 +24,17 @@ public class InputManager : MonoBehaviour
     public UnityEvent OnRightTriggerRelease;
     public UnityEvent OnCanMove;
     public UnityEvent OnSpawn;
+
+    public static InputManager instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else 
+            Destroy(gameObject);
+    }
     // Start is called before the first frame update
     void Start()
     {
