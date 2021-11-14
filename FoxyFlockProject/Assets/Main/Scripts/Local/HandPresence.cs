@@ -7,7 +7,8 @@ using UnityEngine.XR;
         public bool showController = false;
         public InputDeviceCharacteristics controllerCharacteristics;
         public List<GameObject> controllerPrefabs;
-        public GameObject handModelPrefab;
+        public GameObject handModelPrefabOcculus;
+        public GameObject handModelPrefabVive;
 
         private Collider indexCollider;
         public PlayerMovement parent;
@@ -66,13 +67,17 @@ using UnityEngine.XR;
             List<InputDevice> devices = new List<InputDevice>();
 
             InputDevices.GetDevicesWithCharacteristics(controllerCharacteristics, devices);
-
+            
             if (devices.Count > 0)
             {
                 targetDevice = devices[0];
+                if(targetDevice.manufacturer == "HTC")
+                spawnedHandModel = Instantiate(handModelPrefabVive, this.transform);
+                else
+                spawnedHandModel = Instantiate(handModelPrefabOcculus, this.transform);
 
-                spawnedHandModel = Instantiate(handModelPrefab, this.transform);
-                handAnimator = spawnedHandModel.GetComponent<Animator>();
+
+            handAnimator = spawnedHandModel.GetComponent<Animator>();
                 pointerGO = spawnedHandModel.GetComponentInChildren<LineRenderer>().gameObject;
                 isMenu = ScenesManager.instance.IsMenuScene();
                 if (isLeft)
