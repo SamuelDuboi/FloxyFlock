@@ -43,6 +43,9 @@ public class CharacterStatsEditor : Editor
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        statsTarget.snapTurnAngle = EditorGUILayout.Slider(" Angle of snap turn", statsTarget.snapTurnAngle, 0, 180);
+        EditorGUILayout.Space();
         
         EditorGUILayout.HelpBox("Buttons", MessageType.None);
         statsTarget.gripBtton = (InputHelpers.Button) EditorGUILayout.EnumPopup("Grip Button", statsTarget.gripBtton);

@@ -13,6 +13,7 @@ public class CharacterStats : ScriptableObject
     public float zPower = 2;
     public float forwardZOffset = 0.01f;
     public float forwardYOffset = 0.02f;
+    public float snapTurnAngle = 15f;
     public InputHelpers.Button fingerButton = InputHelpers.Button.Trigger;
     public InputHelpers.Button moveTrigger = InputHelpers.Button.Trigger;
     public float minTriggerTreshold = 0.5f;

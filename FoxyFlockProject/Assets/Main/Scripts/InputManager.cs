@@ -14,6 +14,12 @@ public class InputManager : MonoBehaviour
     private bool rightHandIsGrab;
     private bool rightHandIsGrabRelease;
     private bool leftHandIsGrabRelease;
+
+
+    private bool snapTurnLeft;
+    private bool snapTurnRight;
+    private bool snapTurnRelease;
+
     private float triggerMinTreshold;
     [HideInInspector] public bool canMove;
     public CharacterStats characterStats;
@@ -33,7 +39,11 @@ public class InputManager : MonoBehaviour
     public UnityEvent OnRightGrabRelease;
     public UnityEvent OnLeftGrabRelease;
 
+    public UnityEvent<Vector3> OnSnapTurn;
+    public UnityEvent OnSnapTurnRelease;
+
     public static InputManager instance;
+    private Vector3 snapTurnAngle;
     private void Awake()
     {
         if (instance == null)
@@ -50,6 +60,7 @@ public class InputManager : MonoBehaviour
         leftHandIsTriggerRelease = true;
         leftHandIsGrabRelease = true;
         rightHandIsGrabRelease = true;
+        snapTurnRelease = true;
         triggerMinTreshold = characterStats.minTriggerTreshold;
         OnRightTrigger.AddListener(OnRightTriggerListener);
         OnLeftTrigger.AddListener(OnLeftTriggerListener);
@@ -61,12 +72,24 @@ public class InputManager : MonoBehaviour
         OnRightGrab.AddListener(OnRightHandGrabListener);
         OnLeftGrabRelease.AddListener(OnLeftHandGrabReleaseListener);
         OnRightGrabRelease.AddListener(OnRightHandGrabReleaseListener);
+
+        OnSnapTurn.AddListener(OnSnapTurnActiveListener);
+        OnSnapTurnRelease.AddListener(OnSnapTurnReleaseListener);
+        snapTurnAngle = Vector3.up * characterStats.snapTurnAngle;
     }
 
     // Update is called once per frame
     void Update()
     {
-      
+        InputHelpers.IsPressed(rightHand.inputDevice, InputHelpers.Button.PrimaryAxis2DRight, out snapTurnRight);
+        InputHelpers.IsPressed(rightHand.inputDevice, InputHelpers.Button.PrimaryAxis2DLeft, out snapTurnLeft);
+        if (snapTurnLeft && snapTurnRelease)
+            OnSnapTurn.Invoke(snapTurnAngle*-1);
+        if (snapTurnRight && snapTurnRelease)
+            OnSnapTurn.Invoke(snapTurnAngle);
+        if (!snapTurnLeft && !snapTurnRight && !snapTurnRelease)
+            OnSnapTurnRelease.Invoke();
+
         #region Grab
         InputHelpers.IsPressed(rightHand.inputDevice, characterStats.gripBtton, out rightHandIsGrab);
         InputHelpers.IsPressed(leftHand.inputDevice, characterStats.gripBtton, out leftHandIsGrab);
@@ -181,5 +204,15 @@ public class InputManager : MonoBehaviour
     private void OnRightHandGrabReleaseListener()
     {
         rightHandIsGrabRelease = false;
+    }
+
+    private void OnSnapTurnActiveListener(Vector3 direction)
+    {
+        snapTurnRelease = false;
+    }
+    private void OnSnapTurnReleaseListener( )
+    {
+        snapTurnRelease = true;
+
     }
 }

@@ -15,6 +15,8 @@ public class PlayerMovementEditor : Editor
         playerMovement.vrHeadSett = (Transform) EditorGUILayout.ObjectField("Vr Head Sett", playerMovement.vrHeadSett, typeof(Transform), true);
         playerMovement.tableRenderer = (Renderer) EditorGUILayout.ObjectField("Table Renderer", playerMovement.tableRenderer, typeof(Renderer), true);
         playerMovement.tableTransform = (Transform) EditorGUILayout.ObjectField("Table Transform", playerMovement.tableTransform, typeof(Transform), true);
+        playerMovement.tempLeftHand = (Transform) EditorGUILayout.ObjectField("Left Hand Transform", playerMovement.tempLeftHand, typeof(Transform), true);
+        playerMovement.tempRighttHand = (Transform) EditorGUILayout.ObjectField("Right Hand Transform", playerMovement.tempRighttHand, typeof(Transform), true);
 
         //foldout
         clampBool = EditorGUILayout.Foldout( clampBool, "Clamp transforms");
