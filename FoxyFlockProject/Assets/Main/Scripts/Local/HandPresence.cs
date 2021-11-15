@@ -2,136 +2,153 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
-    public class HandPresence : MonoBehaviour
+public class HandPresence : MonoBehaviour
+{
+    public bool showController = false;
+    public InputDeviceCharacteristics controllerCharacteristics;
+    public List<GameObject> controllerPrefabs;
+    public GameObject handModelPrefabOcculus;
+    public GameObject handModelPrefabVive;
+
+    private Collider indexCollider;
+    public PlayerMovement parent;
+    public GameObject spawnedHandModel;
+    private InputDevice targetDevice;
+    private GameObject spawnedController;
+    private Animator handAnimator;
+    public bool isGrab;
+    public bool isLeft;
+    private bool isMenu;
+    private GameObject pointerGO;
+    private void Start()
     {
-        public bool showController = false;
-        public InputDeviceCharacteristics controllerCharacteristics;
-        public List<GameObject> controllerPrefabs;
-        public GameObject handModelPrefabOcculus;
-        public GameObject handModelPrefabVive;
+        parent = GetComponentInParent<PlayerMovement>();
 
-        private Collider indexCollider;
-        public PlayerMovement parent;
-        public GameObject spawnedHandModel;
-        private InputDevice targetDevice;
-        private GameObject spawnedController;
-        private Animator handAnimator;
-        public bool isGrab;
-        public bool isLeft;
-        private bool isMenu;
-        private GameObject pointerGO;
-        private void Start()
+        if (!targetDevice.isValid)
         {
-            parent = GetComponentInParent<PlayerMovement>();
-
-            if (!targetDevice.isValid)
-            {
-                TryInitialize();
-            }
-
-            InputManager.instance.OnLeftTrigger.AddListener(OnTriggerPressLeft);
-            InputManager.instance.OnRightTrigger.AddListener(OnTriggerPressRight);
+            TryInitialize();
         }
 
+        
+    }
 
-        private void Update()
+
+    private void Update()
+    {
+        if (!indexCollider && spawnedHandModel)
         {
-            if (!indexCollider && transform.childCount > 0)
+            indexCollider = spawnedHandModel.GetComponentInChildren<Collider>();
+        }
+        if (!targetDevice.isValid)
+        {
+            TryInitialize();
+        }
+        else
+        {
+            if (showController)
             {
-                indexCollider = transform.GetChild(0).GetComponentInChildren<Collider>();
-            }
-            if (!targetDevice.isValid)
-            {
-                TryInitialize();
+                if (spawnedHandModel.activeSelf)
+                {
+                    spawnedHandModel.SetActive(false);
+                    spawnedController.SetActive(true);
+                }
             }
             else
             {
-                if (showController)
-                {
-                    if (spawnedHandModel.activeSelf)
-                    {
-                        spawnedHandModel.SetActive(false);
-                        spawnedController.SetActive(true);
-                    }
-                }
-                else
-                {
-                    if (indexCollider && !isMenu)
-                        UpdateHandAnimation();
-                }
+                if (indexCollider && !isMenu)
+                    UpdateHandAnimation();
             }
         }
+    }
 
-        private void TryInitialize()
+    private void TryInitialize()
+    {
+        List<InputDevice> devices = new List<InputDevice>();
+
+        InputDevices.GetDevicesWithCharacteristics(controllerCharacteristics, devices);
+
+        if (devices.Count > 0)
         {
-            List<InputDevice> devices = new List<InputDevice>();
-
-            InputDevices.GetDevicesWithCharacteristics(controllerCharacteristics, devices);
-            
-            if (devices.Count > 0)
-            {
-                targetDevice = devices[0];
-                if(targetDevice.manufacturer == "HTC")
+            targetDevice = devices[0];
+            if (targetDevice.manufacturer == "HTC")
                 spawnedHandModel = Instantiate(handModelPrefabVive, this.transform);
-                else
+            else
                 spawnedHandModel = Instantiate(handModelPrefabOcculus, this.transform);
 
 
             handAnimator = spawnedHandModel.GetComponent<Animator>();
-                pointerGO = spawnedHandModel.GetComponentInChildren<LineRenderer>().gameObject;
-                isMenu = ScenesManager.instance.IsMenuScene();
-                if (isLeft)
-                    pointerGO.SetActive(false);
+            pointerGO = spawnedHandModel.GetComponentInChildren<LineRenderer>().gameObject;
+            isMenu = ScenesManager.instance.IsMenuScene();
+            if (isLeft)
+                pointerGO.SetActive(false);
             //if is not menu desable ray track
-                else if (!isMenu)          
-                    pointerGO.SetActive(false);
-            }
-            
-            
-        }
-        private void OnTriggerEnter(Collider other)
-        {
-            if(other.gameObject.layer == 6)
+            else if (!isMenu)
+                pointerGO.SetActive(false);
+            if (isMenu)
             {
-                isGrab = true;
+                InputManager.instance.OnLeftTrigger.AddListener(OnTriggerPressLeft);
+                InputManager.instance.OnRightTrigger.AddListener(OnTriggerPressRight);
             }
+            
         }
 
-        private void OnTriggerExit(Collider other)
+
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 6)
         {
-            if (other.gameObject.layer == 6)
-            {
-                isGrab = false;
-            }
+            isGrab = true;
         }
-    private bool isGrabReset;
-        private void UpdateHandAnimation()
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 6)
         {
-            if (targetDevice.TryGetFeatureValue(CommonUsages.grip, out float gripValue) && gripValue > 0.1f)
-            {
-                isGrabReset = false;
+            isGrab = false;
+        }
+    }
+    private bool isGrabReset;
+    private void UpdateHandAnimation()
+    {
+        if (targetDevice.TryGetFeatureValue(CommonUsages.grip, out float gripValue) && gripValue > 0.1f)
+        {
+            isGrabReset = false;
 
             if (!isGrab)
+            {
+                handAnimator.SetFloat("Trigger", gripValue);
+                if (gripValue > 0.5f)
                 {
-                    handAnimator.SetFloat("Trigger", gripValue);
-                    if (gripValue > 0.5f)
-                    {
-                        indexCollider.isTrigger = false;
-                    }
-                    else
-                    {
-                        indexCollider.isTrigger = true;
-                    }
+                    
+                        if (!isLeft)
+                            InputManager.instance.OnGrabbingRight.Invoke();
+                        else
+                            InputManager.instance.OnGrabbingLeft.Invoke();                    
+                    indexCollider.isTrigger = false;
                 }
                 else
                 {
-                    handAnimator.SetFloat("Grip", gripValue);
+                    indexCollider.isTrigger = true;
                 }
-                
             }
+            else
+            {
+                handAnimator.SetFloat("Grip", gripValue);
+            }
+
+        }
         else if (!isGrabReset)
         {
+            if (!isGrab)
+            {
+                if(!isLeft)
+                InputManager.instance.OnGrabbingReleaseRight.Invoke();
+                else
+                    InputManager.instance.OnGrabbingReleaseLeft.Invoke();
 
+            }
             handAnimator.SetFloat("Trigger", 0);
             indexCollider.isTrigger = true;
 
@@ -141,18 +158,18 @@ using UnityEngine.XR;
 
     }
 
-        private void OnTriggerPressLeft(bool seeTable)
+    private void OnTriggerPressLeft(bool seeTable)
+    {
+        if (isLeft)
         {
-            if (isLeft)
-            {
-                if (!pointerGO.activeSelf)
-                    pointerGO.SetActive(true);
-
-            }
-            else if (pointerGO.activeSelf)
-                pointerGO.SetActive(false);
+            if (!pointerGO.activeSelf)
+                pointerGO.SetActive(true);
 
         }
+        else if (pointerGO.activeSelf)
+            pointerGO.SetActive(false);
+
+    }
     private void OnTriggerPressRight(bool seeTable)
     {
         if (!isLeft)

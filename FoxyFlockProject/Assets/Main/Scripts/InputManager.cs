@@ -39,6 +39,10 @@ public class InputManager : MonoBehaviour
     public UnityEvent OnRightGrab;
     public UnityEvent OnRightGrabRelease;
     public UnityEvent OnLeftGrabRelease;
+    public UnityEvent OnGrabbingRight;
+    public UnityEvent OnGrabbingLeft;
+    public UnityEvent OnGrabbingReleaseLeft;
+    public UnityEvent OnGrabbingReleaseRight;
 
     public UnityEvent<Vector3> OnSnapTurn;
     public UnityEvent OnSnapTurnRelease;
