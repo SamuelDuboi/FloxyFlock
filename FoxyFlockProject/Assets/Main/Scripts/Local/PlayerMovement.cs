@@ -43,27 +43,33 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void InitMovement()
+    private void InitMovement(bool seeTable = false)
     {
         tempLeftHand.position = inputManager.leftHand.transform.position;
         tempRighttHand.position = inputManager.leftHand.transform.position;
         initMidle = Vector3.Lerp(tempLeftHand.localPosition, tempRighttHand.localPosition, 0.5f);
     }
-    private void Movement()
+    public bool SeeTable()
     {
-        //check if table is on screen
         Vector3 pointOnScreen = vrHeadSett.GetComponent<Camera>().WorldToScreenPoint(tableRenderer.bounds.center);
         if ((pointOnScreen.x < 0) || (pointOnScreen.x > Screen.width) ||
             (pointOnScreen.y < 0) || (pointOnScreen.y > Screen.height))
         {
             InitMovement();
-            return;
+            return false;
         }
         if (pointOnScreen.z < 0)
         {
             InitMovement();
-            return;
+            return false;
         }
+        return true;
+    }
+    private void Movement()
+    {
+        //check if table is on screen
+        SeeTable();
+
         tempLeftHand.position = inputManager.leftHand.transform.position;
         tempRighttHand.position = inputManager.leftHand.transform.position;
         movementMidle = Vector3.Lerp(tempRighttHand.localPosition  , tempLeftHand.localPosition, 0.5f);

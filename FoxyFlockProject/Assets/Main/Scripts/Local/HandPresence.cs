@@ -141,7 +141,7 @@ using UnityEngine.XR;
 
     }
 
-        private void OnTriggerPressLeft()
+        private void OnTriggerPressLeft(bool seeTable)
         {
             if (isLeft)
             {
@@ -153,7 +153,7 @@ using UnityEngine.XR;
                 pointerGO.SetActive(false);
 
         }
-    private void OnTriggerPressRight()
+    private void OnTriggerPressRight(bool seeTable)
     {
         if (!isLeft)
         {

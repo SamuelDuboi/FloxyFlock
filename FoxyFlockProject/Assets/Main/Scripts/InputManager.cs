@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.Events;
+using System.Collections;
 public class InputManager : MonoBehaviour
 {
     
@@ -27,9 +28,9 @@ public class InputManager : MonoBehaviour
     private bool canSpawn;
 
 
-    public UnityEvent OnLeftTrigger;
-    public UnityEvent OnRightTrigger;
-    public UnityEvent OnBothTrigger;
+    public UnityEvent<bool> OnLeftTrigger;
+    public UnityEvent<bool> OnRightTrigger;
+    public UnityEvent<bool> OnBothTrigger;
     public UnityEvent OnLeftTriggerRelease;
     public UnityEvent OnRightTriggerRelease;
     public UnityEvent OnCanMove;
@@ -44,6 +45,8 @@ public class InputManager : MonoBehaviour
 
     public static InputManager instance;
     private Vector3 snapTurnAngle;
+    public PlayerMovement playerMovement;
+    [HideInInspector] public bool seeTable;
     private void Awake()
     {
         if (instance == null)
@@ -118,12 +121,14 @@ public class InputManager : MonoBehaviour
         //if right trigger is press, only call once like a press enter
         if (rightHandIsTriggerRelease && rightHandIsTrigger )
         {
-            OnRightTrigger.Invoke();
+            seeTable = playerMovement.SeeTable();
+            OnRightTrigger.Invoke(seeTable);
         }
         //if left trigger is press, only call once like a press enter
         if (leftHandIsTriggerRelease && leftHandIsTrigger )
         {
-            OnLeftTrigger.Invoke();
+            seeTable = playerMovement.SeeTable();
+            OnLeftTrigger.Invoke(seeTable);
         }
         //if right trigger is reales, only call once like a press exit
         if (!rightHandIsTriggerRelease && !rightHandIsTrigger )
@@ -146,29 +151,35 @@ public class InputManager : MonoBehaviour
     /// <summary>
     /// Call when the right trigger is pressed once
     /// </summary>
-    private void OnRightTriggerListener()
+    private void OnRightTriggerListener(bool seeTable)
     {
         rightHandIsTriggerRelease = false;
         if (!leftHandIsTriggerRelease)
         {
-            OnBothTrigger.Invoke();
+            StartCoroutine(WaitTonInvokeBoth(seeTable));
         }
     }
     /// <summary>
     /// call when the left trigger is pressed once
     /// </summary>
-    private void OnLeftTriggerListener()
+    private void OnLeftTriggerListener(bool seeTable)
     {
         leftHandIsTriggerRelease = false;
         if (!rightHandIsTriggerRelease)
         {
-            OnBothTrigger.Invoke();
+            StartCoroutine(WaitTonInvokeBoth(seeTable));
         }
+    }
+
+    IEnumerator WaitTonInvokeBoth(bool seeTable)
+    {
+        yield return new WaitForEndOfFrame();
+        OnBothTrigger.Invoke(seeTable);
     }
     /// <summary>
     /// call when both trigger are pressed
     /// </summary>
-    private void OnBothTriggerListener()
+    private void OnBothTriggerListener(bool seeTable)
     {
         canMove = true;
     }
