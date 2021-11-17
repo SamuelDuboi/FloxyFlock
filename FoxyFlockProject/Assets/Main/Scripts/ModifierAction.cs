@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class ModifierAction 
+[System.Serializable]
+public class ModifierAction : MonoBehaviour
 {
     public virtual void OnGrabed(GameObject objcet)
     {
-        Debug.Log("yo");
+        
     }
     public virtual void OnReleased(GameObject objcet)
     {

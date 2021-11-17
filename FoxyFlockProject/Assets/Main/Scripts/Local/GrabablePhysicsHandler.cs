@@ -17,21 +17,8 @@ public class GrabablePhysicsHandler : MonoBehaviour
     public UnityEvent<GameObject,bool> OnEnterStasis;
     void Start()
     {
-        for (int i = 0; i < colliders.Length; i++)
-        {
-            colliders[i].material = modifiers[0].physiqueMaterial;
-        }
-        for (int i = 0; i < modifiers.Length; i++)
-        {
-            //faire un manager de modifier comme ça ca les instantie
-            OnGrabed.AddListener(modifiers[i].actions.OnGrabed);
-            OnReleased.AddListener(modifiers[i].actions.OnReleased);
-            OnHitSomething.AddListener(modifiers[i].actions.OnHitSomething);
-            OnHitGround.AddListener(modifiers[i].actions.OnHitGround);
-            OnEnterStasis.AddListener(modifiers[i].actions.OnEnterStasis);
-        }
+        
 
-        OnGrabed.Invoke(gameObject);
     }
 
   
@@ -68,5 +55,34 @@ public class GrabablePhysicsHandler : MonoBehaviour
     {
        OnReleased.Invoke(gameObject);
         
+    }
+
+    public void ChangeBehavior(Modifier[] modifier)
+    {
+        for (int i = 0; i < modifiers.Length; i++)
+        {
+            //faire un manager de modifier comme ça ca les instantie
+            OnGrabed.RemoveListener(modifiers[i].actions.OnGrabed);
+            OnReleased.RemoveListener(modifiers[i].actions.OnReleased);
+            OnHitSomething.RemoveListener(modifiers[i].actions.OnHitSomething);
+            OnHitGround.RemoveListener(modifiers[i].actions.OnHitGround);
+            OnEnterStasis.RemoveListener(modifiers[i].actions.OnEnterStasis);
+        }
+
+        modifiers = modifier;
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            colliders[i].material = modifiers[0].physiqueMaterial;
+        }
+        for (int i = 0; i < modifiers.Length; i++)
+        {
+            //faire un manager de modifier comme ça ca les instantie
+            OnGrabed.AddListener(modifiers[i].actions.OnGrabed);
+            OnReleased.AddListener(modifiers[i].actions.OnReleased);
+            OnHitSomething.AddListener(modifiers[i].actions.OnHitSomething);
+            OnHitGround.AddListener(modifiers[i].actions.OnHitGround);
+            OnEnterStasis.AddListener(modifiers[i].actions.OnEnterStasis);
+        }
+
     }
 }

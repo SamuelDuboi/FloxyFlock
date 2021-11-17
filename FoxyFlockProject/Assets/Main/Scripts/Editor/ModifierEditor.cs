@@ -7,11 +7,7 @@ public class ModifierEditor : Editor
     private Modifier targeModifier;
     private SerializedProperty asPhysiqueMaterial;
     private SerializedProperty physiqueMaterial;
-    private SerializedProperty OnGrabed;
-    private SerializedProperty OnHitSomething;
-    private SerializedProperty OnHitGround;
-    private SerializedProperty OnEnterStasis;
-    private SerializedProperty OnReleased;
+    private SerializedProperty actions;
 
 
     private void OnEnable()
@@ -19,23 +15,14 @@ public class ModifierEditor : Editor
         targeModifier = target as Modifier;
         asPhysiqueMaterial = serializedObject.FindProperty("asPhysiqueMaterial");
         physiqueMaterial = serializedObject.FindProperty("physiqueMaterial");
-        OnGrabed = serializedObject.FindProperty("OnGrabed");
-        OnHitSomething = serializedObject.FindProperty("OnHitSomething");
-        OnHitGround = serializedObject.FindProperty("OnHitGround");
-        OnEnterStasis = serializedObject.FindProperty("OnEnterStasis");
-        OnReleased = serializedObject.FindProperty("OnReleased");
+        actions = serializedObject.FindProperty("actions");
     }
 
     public override void OnInspectorGUI()
     {
         EditorGUILayout.PropertyField(asPhysiqueMaterial);
+        EditorGUILayout.PropertyField(actions);
         if(asPhysiqueMaterial.boolValue)
             EditorGUILayout.PropertyField(physiqueMaterial);
-
-        EditorGUILayout.PropertyField(OnGrabed);
-        EditorGUILayout.PropertyField(OnReleased);
-        EditorGUILayout.PropertyField(OnHitSomething, new GUIContent("On Hit Something", "Throw the velocity at the collision and the collider"));
-        EditorGUILayout.PropertyField(OnHitGround);
-        EditorGUILayout.PropertyField(OnEnterStasis);
     }
 }
