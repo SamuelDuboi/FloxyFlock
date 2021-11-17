@@ -11,6 +11,6 @@ public class DontFollowHead : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_transform.position = -headTransform.position;
+        m_transform.localPosition = -headTransform.localPosition;
     }
 }
