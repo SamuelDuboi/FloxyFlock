@@ -17,8 +17,8 @@ public class TestVfxGraph : MonoBehaviour
         {
             if (!visualEffect.enabled)
                 visualEffect.enabled = true;
-            visualEffect.SetInt(Size, 1);
-            currentsize = 1;
+            visualEffect.SetInt(Size, 4);
+            currentsize = 4;
         }
         
     }
@@ -26,17 +26,17 @@ public class TestVfxGraph : MonoBehaviour
     {
         if (seeTable)
         {
-            currentsize = 25;
-            visualEffect.SetInt(Size, 25);
+            currentsize = 10;
+            visualEffect.SetInt(Size, 10);
             visualEffect.SendEvent("MoveAroundPossible", eventAttribute);
         }
     }
     public  void OnTriggerPressReleaseListener()
     {
-        if(currentsize == 25)
+        if(currentsize == 10)
         {
-            visualEffect.SetInt(Size, 1);
-            currentsize = 1;
+            visualEffect.SetInt(Size, 4);
+            currentsize = 4;
         }
         else
         {
@@ -67,7 +67,7 @@ public class TestVfxGraph : MonoBehaviour
         NoiseStrength = Shader.PropertyToID("Link Noise Strength");
         Size = Shader.PropertyToID("Link Size");
 
-        visualEffect.SetInt(Size, 1);
+        visualEffect.SetInt(Size, 4);
         visualEffect.enabled = false;
         
 
