@@ -11,8 +11,12 @@ public class GrabManager : MonoBehaviour
 
 
     //note dispplayed yet
+#if UNITY_EDITOR
     public List< int> numberPerBatch;
-    public List<int> numbersPerModifer; 
+    public bool modifierFoldout;
+    public bool batcheFoldout;
+   [SerializeField] public List<int> numbersPerModifer;
+#endif
     // Start is called before the first frame update
     void Start()
     {
