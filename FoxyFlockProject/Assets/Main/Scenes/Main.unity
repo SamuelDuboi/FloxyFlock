@@ -1179,6 +1179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 180954027}
   - component: {fileID: 180954026}
+  - component: {fileID: 180954028}
   m_Layer: 0
   m_Name: GrabManager
   m_TagString: Untagged
@@ -1213,9 +1214,10 @@ MonoBehaviour:
   - {fileID: 144915564}
   - {fileID: 144915564}
   - {fileID: 144915564}
-  numberPerBatch: 000000000000000000000000
-  modifierFoldout: 0
-  batcheFoldout: 0
+  numberPerBatch: 020000000200000002000000
+  modifierFoldout: 1
+  batcheFoldout: 1
+  actions: []
   numbersPerModifer: 00000000
 --- !u!4 &180954027
 Transform:
@@ -1231,6 +1233,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &180954028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180954025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7145c8e47d5e0e544ba49b9077638060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &326349824
 GameObject:
   m_ObjectHideFlags: 0

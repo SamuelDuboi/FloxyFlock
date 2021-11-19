@@ -34,6 +34,8 @@ public class GrabManagerEditor : Editor
         rlistGrabbableToSpawn.onRemoveCallback += RemoveG;
         rlistGrabbableToSpawn.drawElementCallback += ElementDrawerG;
         rlistGrabbableToSpawn.elementHeightCallback += ElementHeighG;
+
+        
     }
 
     public override void OnInspectorGUI()

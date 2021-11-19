@@ -21,8 +21,12 @@ public class ModifierEditor : Editor
     public override void OnInspectorGUI()
     {
         EditorGUILayout.PropertyField(asPhysiqueMaterial);
-        EditorGUILayout.PropertyField(actions);
+     
         if(asPhysiqueMaterial.boolValue)
             EditorGUILayout.PropertyField(physiqueMaterial);
+        targeModifier.actions = (ModifierAction)EditorGUILayout.ObjectField(targeModifier.actions, typeof(ModifierAction), true);
+        serializedObject.ApplyModifiedProperties();
+        EditorUtility.SetDirty(targeModifier);
+        serializedObject.Update();
     }
 }

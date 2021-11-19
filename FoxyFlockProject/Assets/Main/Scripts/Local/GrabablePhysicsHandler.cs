@@ -75,6 +75,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
             colliders[i].material = modifiers[0].physiqueMaterial;
         }
         for (int i = 0; i < modifiers.Length; i++)
+
         {
             //faire un manager de modifier comme ça ca les instantie
             OnGrabed.AddListener(modifiers[i].actions.OnGrabed);
