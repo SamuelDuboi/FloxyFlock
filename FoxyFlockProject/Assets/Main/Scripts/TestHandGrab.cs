@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 public class TestHandGrab : MonoBehaviour
 {
-    public XRInteractionManager interactionManager;
     public XRBaseInteractor baseInteractor;
     public XRBaseInteractable baseInteractable;
     // Start is called before the first frame update
@@ -15,6 +14,6 @@ public class TestHandGrab : MonoBehaviour
 
     void Grav()
     {
-        interactionManager.ForceSelect(baseInteractor, baseInteractable);
+        InteractionManager.instance.ForceSelect(baseInteractor, baseInteractable);
     }
 }

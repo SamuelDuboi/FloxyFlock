@@ -6,14 +6,17 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class GrabbableObject : XRGrabInteractable
 {
     public bool isGrab;
+    public XRBaseInteractor currentInteractor;
     protected override void OnSelectEntering(XRBaseInteractor interactor)
     {
         base.OnSelectEntering(interactor);
+        currentInteractor = interactor;
         isGrab = true;
     }
     protected override void OnSelectExited(XRBaseInteractor interactor)
     {
         base.OnSelectExited(interactor);
+        currentInteractor = null;
         isGrab = false;
     }
 
