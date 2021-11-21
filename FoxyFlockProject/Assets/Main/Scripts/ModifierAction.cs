@@ -4,6 +4,10 @@ using UnityEngine;
 [System.Serializable]
 public class ModifierAction : MonoBehaviour
 {
+    public virtual void OnStarted(GameObject _object)
+    {
+
+    }
     public virtual void OnGrabed(GameObject _object)
     {
         

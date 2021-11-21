@@ -47,6 +47,11 @@ public class InputManager : MonoBehaviour
     public UnityEvent<Vector3> OnSnapTurn;
     public UnityEvent OnSnapTurnRelease;
 
+    //
+    public UnityEvent<bool> ActiveSound;
+    private bool isActiveSound;
+
+
     public static InputManager instance;
     private Vector3 snapTurnAngle;
     public PlayerMovement playerMovement;
@@ -151,7 +156,8 @@ public class InputManager : MonoBehaviour
         }
         #endregion
     }
-
+    #region TriggerListener
+   
     /// <summary>
     /// Call when the right trigger is pressed once
     /// </summary>
@@ -204,6 +210,8 @@ public class InputManager : MonoBehaviour
         leftHandIsTriggerRelease = true;
         canMove = false;
     }
+    #endregion
+    #region GrabListeners
     private void OnLeftHandGrabListener()
     {
         leftHandIsGrabRelease = false;
@@ -220,7 +228,8 @@ public class InputManager : MonoBehaviour
     {
         rightHandIsGrabRelease = false;
     }
-
+    #endregion
+    #region SnapeTurnListener
     private void OnSnapTurnActiveListener(Vector3 direction)
     {
         snapTurnRelease = false;
@@ -229,5 +238,16 @@ public class InputManager : MonoBehaviour
     {
         snapTurnRelease = true;
 
+    }
+    #endregion
+
+    public void OnActiveSound()
+    {
+        isActiveSound = !isActiveSound;
+        ActiveSound.Invoke(isActiveSound);
+    }
+    public void Sound()
+    {
+        SoundManager.instance.ActiveSound(!SoundManager.instance.mute);
     }
 }

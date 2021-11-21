@@ -13,7 +13,8 @@ public class HotPotato : ModifierAction
     private MeshRenderer mesh;
     public Material[] mats;
     private int stateIndex;
- 
+    private SoundReader sound;
+    public string clipName;
     private void Update()
     {
         if (isGrab)
@@ -29,6 +30,12 @@ public class HotPotato : ModifierAction
                 InteractionManager.instance.SelectExit(currentInteractor, flockInteractable);
             }
         }
+    }
+    public override void OnStarted(GameObject _object)
+    {
+        base.OnStarted(_object);
+       sound= _object.AddComponent<SoundReader>();
+        sound.clipName = clipName;
     }
     public override void OnEnterStasis(GameObject _object, bool isGrab)
     {
@@ -51,6 +58,8 @@ public class HotPotato : ModifierAction
     public override void OnHitSomething(GameObject _object, Vector3 velocity, GameObject collision)
     {
         base.OnHitSomething(_object, velocity, collision);
+        if(sound)
+        sound.Play();
     }
     public override void OnReleased(GameObject _object)
     {

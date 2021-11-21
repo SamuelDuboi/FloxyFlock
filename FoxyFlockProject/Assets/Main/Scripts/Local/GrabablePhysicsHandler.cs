@@ -11,14 +11,17 @@ public class GrabablePhysicsHandler : MonoBehaviour
     public GrabbableObject m_grabbable;
 
     public UnityEvent<GameObject> OnGrabed;
+    public UnityEvent<GameObject> OnStart;
     public UnityEvent<GameObject> OnReleased;
     public UnityEvent<GameObject,Vector3, GameObject> OnHitSomething;
     public UnityEvent<GameObject> OnHitGround;
     public UnityEvent<GameObject,bool> OnEnterStasis;
-    void Start()
-    {
-        
 
+    public IEnumerator Start()
+    {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        InvokeOnStart();
     }
 
   
@@ -46,7 +49,12 @@ public class GrabablePhysicsHandler : MonoBehaviour
         }
         
     }
-   public void InvokeOngrab()
+    public void InvokeOnStart()
+    {
+        OnStart.Invoke(gameObject);
+
+    }
+    public void InvokeOngrab()
     {
        OnGrabed.Invoke(gameObject);
         
@@ -67,6 +75,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
             OnHitSomething.RemoveListener(modifiers[i].actions.OnHitSomething);
             OnHitGround.RemoveListener(modifiers[i].actions.OnHitGround);
             OnEnterStasis.RemoveListener(modifiers[i].actions.OnEnterStasis);
+            OnStart.RemoveListener(modifiers[i].actions.OnStarted);
         }
 
         modifiers = modifier;
@@ -83,6 +92,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
             OnHitSomething.AddListener(modifiers[i].actions.OnHitSomething);
             OnHitGround.AddListener(modifiers[i].actions.OnHitGround);
             OnEnterStasis.AddListener(modifiers[i].actions.OnEnterStasis);
+            OnStart.AddListener(modifiers[i].actions.OnStarted);
         }
 
     }
