@@ -15,19 +15,45 @@ public class HotPotato : ModifierAction
     private int stateIndex;
     private SoundReader sound;
     public string clipName;
+    private bool isCooling;
+    public float cooldDown;
+
     private void Update()
     {
         if (isGrab)
         {
             timer += Time.deltaTime;
-            if(timer>timerBeforAutoRelease*stateIndex/4 )
+            if (timer > timerBeforAutoRelease)
+            {
+                InteractionManager.instance.SelectExit(currentInteractor, flockInteractable);
+                flockInteractable.enabled = false;
+                isCooling = true;
+                timer = cooldDown;
+                stateIndex = 3;
+                return;
+                
+            }
+            if (timer>timerBeforAutoRelease*stateIndex/4 )
             {
                 mesh.material = mats[stateIndex];
                 stateIndex++;
             }
-            if (timer > timerBeforAutoRelease)
+            
+        }
+        if (isCooling)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
             {
-                InteractionManager.instance.SelectExit(currentInteractor, flockInteractable);
+                flockInteractable.enabled = true;
+                isCooling = false;
+                timer = 0;
+                return;
+            }
+            if (timer < cooldDown * stateIndex / 4)
+            {
+                mesh.material = mats[stateIndex];
+                stateIndex--;
             }
         }
     }
@@ -66,8 +92,5 @@ public class HotPotato : ModifierAction
         base.OnReleased(_object);
         currentInteractor = null;
         isGrab = false;
-        timer = 0;
-        stateIndex = 0;
-        mesh.material = mats[0];
     }
 }

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System;
+using System.Reflection;
+
 public class GrabablePhysicsHandler : MonoBehaviour
 {
 
@@ -17,6 +20,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
     public UnityEvent<GameObject> OnHitGround;
     public UnityEvent<GameObject,bool> OnEnterStasis;
 
+    private ModifierAction[] actions = new ModifierAction[2];
     public IEnumerator Start()
     {
         yield return new WaitForEndOfFrame();
@@ -65,17 +69,20 @@ public class GrabablePhysicsHandler : MonoBehaviour
         
     }
 
-    public void ChangeBehavior(Modifier[] modifier)
+    public void ChangeBehavior(Modifier[] modifier, ModifierAction action)
     {
-        for (int i = 0; i < modifiers.Length; i++)
+        for (int i = 0; i < actions.Length; i++)
         {
-            //faire un manager de modifier comme ça ca les instantie
-            OnGrabed.RemoveListener(modifiers[i].actions.OnGrabed);
-            OnReleased.RemoveListener(modifiers[i].actions.OnReleased);
-            OnHitSomething.RemoveListener(modifiers[i].actions.OnHitSomething);
-            OnHitGround.RemoveListener(modifiers[i].actions.OnHitGround);
-            OnEnterStasis.RemoveListener(modifiers[i].actions.OnEnterStasis);
-            OnStart.RemoveListener(modifiers[i].actions.OnStarted);
+            if (!actions[i])
+                continue;
+
+            OnGrabed.RemoveListener(actions[i].OnGrabed);
+            OnReleased.RemoveListener(actions[i].OnReleased);
+            OnHitSomething.RemoveListener(actions[i].OnHitSomething);
+            OnHitGround.RemoveListener(actions[i].OnHitGround);
+            OnEnterStasis.RemoveListener(actions[i].OnEnterStasis);
+            OnStart.RemoveListener(actions[i].OnStarted);
+            actions[i].enabled = false;
         }
 
         modifiers = modifier;
@@ -83,17 +90,49 @@ public class GrabablePhysicsHandler : MonoBehaviour
         {
             colliders[i].material = modifiers[0].physiqueMaterial;
         }
-        for (int i = 0; i < modifiers.Length; i++)
+        for (int i = 0; i < actions.Length; i++)
 
         {
-            //faire un manager de modifier comme ça ca les instantie
-            OnGrabed.AddListener(modifiers[i].actions.OnGrabed);
-            OnReleased.AddListener(modifiers[i].actions.OnReleased);
-            OnHitSomething.AddListener(modifiers[i].actions.OnHitSomething);
-            OnHitGround.AddListener(modifiers[i].actions.OnHitGround);
-            OnEnterStasis.AddListener(modifiers[i].actions.OnEnterStasis);
-            OnStart.AddListener(modifiers[i].actions.OnStarted);
+            Type type = modifiers[i].actions.GetType();
+            actions[i] = gameObject.AddComponent(type) as ModifierAction;
+            MyExtension.GetCopyOf(actions[i], action);
+            OnGrabed.AddListener(actions[i].OnGrabed);
+            OnReleased.AddListener(actions[i].OnReleased);
+            OnHitSomething.AddListener(actions[i].OnHitSomething);
+            OnHitGround.AddListener(actions[i].OnHitGround);
+            OnEnterStasis.AddListener(actions[i].OnEnterStasis);
+            OnStart.AddListener(actions[i].OnStarted);
         }
 
+    }
+}
+public static class MyExtension
+{
+    public static T GetCopyOf<T>(this Component comp, T other) where T : Component
+    {
+        Type type = comp.GetType();
+        if (type != other.GetType())
+            return null; // type mis-match
+        BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Default | BindingFlags.DeclaredOnly;
+        PropertyInfo[] pinfos = type.GetProperties(flags);
+        foreach (var pinfo in pinfos)
+        {
+            if (pinfo.CanWrite)
+            {
+                try
+                {
+                    pinfo.SetValue(comp, pinfo.GetValue(other, null), null);
+                }
+                catch
+                {
+                } // In case of NotImplementedException being thrown. For some reason specifying that exception didn't seem to catch it, so I didn't catch anything specific.
+            }
+        }
+        FieldInfo[] finfos = type.GetFields(flags);
+        foreach (var finfo in finfos)
+        {
+            finfo.SetValue(comp, finfo.GetValue(other));
+        }
+        return comp as T;
     }
 }
