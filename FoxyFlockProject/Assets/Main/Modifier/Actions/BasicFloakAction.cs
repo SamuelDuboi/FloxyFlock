@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BasicFloakAction : ModifierAction
 {
-    public override void OnEnterStasis(GameObject _object, bool isGrab)
+    public override void OnEnterStasis(GameObject _object, bool isGrab, Rigidbody rgb)
     {
-        base.OnEnterStasis(_object, isGrab);
+        base.OnEnterStasis(_object, isGrab,rgb);
     }
     public override void OnGrabed(GameObject _object)
     {
@@ -18,7 +18,6 @@ public class BasicFloakAction : ModifierAction
     }
     public override void OnHitSomething(GameObject _object, Vector3 velocity, GameObject collision)
     {
-        Debug.Log("hit");
         base.OnHitSomething(_object, velocity, collision);
     }
     public override void OnReleased(GameObject _object)

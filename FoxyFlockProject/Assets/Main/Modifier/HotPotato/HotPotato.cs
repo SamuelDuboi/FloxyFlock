@@ -1,19 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 public class HotPotato : ModifierAction
 {
     private float timer;
     private bool isGrab;
     public float timerBeforAutoRelease;
-    private GameObject flock;
-    private XRBaseInteractor currentInteractor;
-    private GrabbableObject flockInteractable;
+   
     private MeshRenderer mesh;
     public Material[] mats;
     private int stateIndex;
-    private SoundReader sound;
     public string clipName;
     private bool isCooling;
     public float cooldDown;
@@ -63,9 +59,9 @@ public class HotPotato : ModifierAction
        sound= _object.AddComponent<SoundReader>();
         sound.clipName = clipName;
     }
-    public override void OnEnterStasis(GameObject _object, bool isGrab)
+    public override void OnEnterStasis(GameObject _object, bool isGrab, Rigidbody rgb)
     {
-        base.OnEnterStasis(_object, isGrab);
+        base.OnEnterStasis(_object, isGrab,rgb);
     }
     public override void OnGrabed(GameObject _object)
     {

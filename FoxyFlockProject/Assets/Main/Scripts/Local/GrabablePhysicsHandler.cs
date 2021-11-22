@@ -18,8 +18,14 @@ public class GrabablePhysicsHandler : MonoBehaviour
     public UnityEvent<GameObject> OnReleased;
     public UnityEvent<GameObject,Vector3, GameObject> OnHitSomething;
     public UnityEvent<GameObject> OnHitGround;
-    public UnityEvent<GameObject,bool> OnEnterStasis;
+    public UnityEvent<GameObject,bool, Rigidbody> OnEnterStasis;
 
+    //enter on playgroundValue
+   [HideInInspector] public float slowForce;
+   [HideInInspector] public float timeToSlow;
+    public bool isOnPlayground;
+    public bool isOnStasisOnce;
+    public float timerToExit;
     private ModifierAction[] actions = new ModifierAction[2];
     public IEnumerator Start()
     {
@@ -28,8 +34,31 @@ public class GrabablePhysicsHandler : MonoBehaviour
         InvokeOnStart();
     }
 
-  
-
+    private void Update()
+    {
+        if (isOnPlayground)
+        {
+            isOnStasisOnce = false;
+            timerToExit += Time.deltaTime;
+            if (timerToExit > 0.1f)
+            {
+                isOnPlayground = false;
+                timerToExit = 0;
+            }
+        }
+        else if (!isOnStasisOnce)
+        {
+            isOnStasisOnce = true;
+            OnEnterStasis.Invoke(gameObject, m_grabbable.isGrab, m_rgb);
+        }
+    }
+    public void SetIsOnPlayGround(float _lowForce, float _timeToSlow)
+    {
+        slowForce = _lowForce;
+        timeToSlow = _timeToSlow;
+        isOnPlayground = true;
+        timerToExit = 0;
+    }
     void OnGrabListener() 
     {
         Debug.Log("Grab");
@@ -41,11 +70,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
             OnHitGround.Invoke(gameObject);
             
         }
-        else if(collision.gameObject.layer == 9)
-        {
-            OnEnterStasis.Invoke(gameObject, m_grabbable.isGrab);
-            
-        }
+
         else
         {
             OnHitSomething.Invoke(gameObject, m_rgb.velocity, collision.gameObject); ;

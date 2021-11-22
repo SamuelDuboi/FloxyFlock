@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1897938308515805256}
   - component: {fileID: 1897938308515805257}
-  - component: {fileID: 9133556912260582695}
   - component: {fileID: 1897938308515805263}
+  - component: {fileID: 9133556912260582695}
   m_Layer: 0
   m_Name: GrabManager
   m_TagString: Untagged
@@ -65,26 +65,6 @@ MonoBehaviour:
   batcheFoldout: 1
   actions: []
   numbersPerModifer: 00000000
---- !u!114 &9133556912260582695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1897938308515805258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 185b543000fc8d845ab57d4b8543a683, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timerBeforAutoRelease: 5
-  mats:
-  - {fileID: 2100000, guid: d5a440440fa9bf041ade3022fe3b4d46, type: 2}
-  - {fileID: 2100000, guid: 09098101136a7db4db21df0da8ff56fa, type: 2}
-  - {fileID: 2100000, guid: 861798734abefb14694be4d4be401d3c, type: 2}
-  - {fileID: 2100000, guid: ddf58db17049e7c42848a78473b18302, type: 2}
-  clipName: Laser
-  cooldDown: 3
 --- !u!114 &1897938308515805263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,3 +77,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7145c8e47d5e0e544ba49b9077638060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timerToSlowInStasis: 1
+  slowForce: 1.2
+--- !u!114 &9133556912260582695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897938308515805258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 185b543000fc8d845ab57d4b8543a683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerToSlowInStasis: 1
+  slowForce: 1.5
+  timerBeforAutoRelease: 5
+  mats:
+  - {fileID: 2100000, guid: d5a440440fa9bf041ade3022fe3b4d46, type: 2}
+  - {fileID: 2100000, guid: 09098101136a7db4db21df0da8ff56fa, type: 2}
+  - {fileID: 2100000, guid: 861798734abefb14694be4d4be401d3c, type: 2}
+  - {fileID: 2100000, guid: ddf58db17049e7c42848a78473b18302, type: 2}
+  clipName: Laser
+  cooldDown: 3
