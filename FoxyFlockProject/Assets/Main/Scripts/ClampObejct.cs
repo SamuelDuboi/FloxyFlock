@@ -5,6 +5,8 @@ public class ClampObejct : MonoBehaviour
     public GameObject table;
     public bool UpDownClamp;
     public bool forwardClamp;
+    public bool isMin;
+    public CapsuleCollider sphere;
     private void OnDrawGizmos()
     {
         if (table )
@@ -14,6 +16,10 @@ public class ClampObejct : MonoBehaviour
                 Handles.color = Color.red;
                 float distance = (transform.position - table.transform.position).magnitude;
                 Handles.DrawWireDisc(table.transform.position, transform.up, distance);
+                if (isMin)
+                {
+                    sphere.radius = distance;
+                }
             }
             if (UpDownClamp)
             {

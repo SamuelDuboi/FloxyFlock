@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a49e97d058d52d45a675c4567174e0d, type: 3}
+  m_Name: New SoundList
+  m_EditorClassIdentifier: 
+  music:
+  - name: Laser
+    clip: {fileID: 8300000, guid: 2651fa9ee39d7c449a76e500e41d4125, type: 3}
+    volume: 0.5
