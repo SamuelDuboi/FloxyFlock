@@ -25,21 +25,7 @@ public class InteractableEvents : MonoBehaviour
         }
     }
 
-    public void ChangePhysicsMaterialOnSelectEntering()
-    {
-        foreach (Collider collider in colliderList)
-        {
-            collider.material = grabPMat;
-        }
-    }
-
-    public void ChangePhysicsMaterialOnSelectExiting()
-    {
-        foreach (Collider collider in colliderList)
-        {
-            collider.material = basePMat;
-        }
-    }
+ 
 
     public void ChangeMatOnHoverEntering()
     {
