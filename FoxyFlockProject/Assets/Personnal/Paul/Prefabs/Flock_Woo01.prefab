@@ -38,7 +38,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541792121384223086}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0ec93648bcb5b33408f6d7c3e1badb68, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -82,7 +82,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1184690267449300335}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0ec93648bcb5b33408f6d7c3e1badb68, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -126,7 +126,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1644222199825276891}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0ec93648bcb5b33408f6d7c3e1badb68, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -144,8 +144,8 @@ GameObject:
   - component: {fileID: 672922369671021771}
   - component: {fileID: 3364826765623504897}
   - component: {fileID: 3131632291500136746}
-  - component: {fileID: 8431679051069376039}
   - component: {fileID: 1624829422373941394}
+  - component: {fileID: 7406241934773135600}
   m_Layer: 0
   m_Name: Flock_Woo01
   m_TagString: Untagged
@@ -233,19 +233,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &8431679051069376039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3869357810992583124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b1be3f679ea93f458af66b6675a9043, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoverMat: {fileID: 2100000, guid: 0fcbb763755f9c343a3dba9c9ddf82be, type: 2}
 --- !u!114 &1624829422373941394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,8 +269,8 @@ MonoBehaviour:
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8431679051069376039}
-        m_TargetAssemblyTypeName: SCR_HoverEvent, Assembly-CSharp
+      - m_Target: {fileID: 7406241934773135600}
+        m_TargetAssemblyTypeName: InteractableEvents, Assembly-CSharp
         m_MethodName: ChangeMatOnHoverEntering
         m_Mode: 1
         m_Arguments:
@@ -297,8 +284,8 @@ MonoBehaviour:
   m_HoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8431679051069376039}
-        m_TargetAssemblyTypeName: SCR_HoverEvent, Assembly-CSharp
+      - m_Target: {fileID: 7406241934773135600}
+        m_TargetAssemblyTypeName: InteractableEvents, Assembly-CSharp
         m_MethodName: ChangeMatOnHoverExiting
         m_Mode: 1
         m_Arguments:
@@ -312,9 +299,33 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8431679051069376039}
-        m_TargetAssemblyTypeName: SCR_HoverEvent, Assembly-CSharp
+      - m_Target: {fileID: 7406241934773135600}
+        m_TargetAssemblyTypeName: InteractableEvents, Assembly-CSharp
         m_MethodName: ChangeMatOnHoverExiting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7406241934773135600}
+        m_TargetAssemblyTypeName: InteractableEvents, Assembly-CSharp
+        m_MethodName: ChangePhysicsMaterialOnSelectEntering
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7406241934773135600}
+        m_TargetAssemblyTypeName: InteractableEvents, Assembly-CSharp
+        m_MethodName: ChangePieceState
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -326,7 +337,31 @@ MonoBehaviour:
         m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7406241934773135600}
+        m_TargetAssemblyTypeName: InteractableEvents, Assembly-CSharp
+        m_MethodName: ChangePhysicsMaterialOnSelectExiting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7406241934773135600}
+        m_TargetAssemblyTypeName: InteractableEvents, Assembly-CSharp
+        m_MethodName: ChangePieceState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_Activated:
     m_PersistentCalls:
       m_Calls: []
@@ -408,6 +443,22 @@ MonoBehaviour:
   m_AttachPointCompatibilityMode: 0
   follow: {fileID: 0}
   followRotation: {fileID: 0}
+--- !u!114 &7406241934773135600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3869357810992583124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42796eae635f50142b7b17c48491a988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverMat: {fileID: 2100000, guid: 0fcbb763755f9c343a3dba9c9ddf82be, type: 2}
+  basePMat: {fileID: 13400000, guid: 0ec93648bcb5b33408f6d7c3e1badb68, type: 2}
+  grabPMat: {fileID: 13400000, guid: f49b989612fc3e34f8e1d4904afb1022, type: 2}
+  isGrab: 0
 --- !u!1 &5869012247078133049
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +536,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6110747045447543769}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0ec93648bcb5b33408f6d7c3e1badb68, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -529,7 +580,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6152476431361925428}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0ec93648bcb5b33408f6d7c3e1badb68, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -573,7 +624,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7673624173677661683}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0ec93648bcb5b33408f6d7c3e1badb68, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -617,7 +668,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8159809759079214245}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0ec93648bcb5b33408f6d7c3e1badb68, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -661,7 +712,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8268655943396780207}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0ec93648bcb5b33408f6d7c3e1badb68, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -705,7 +756,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8573367253266631674}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0ec93648bcb5b33408f6d7c3e1badb68, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
