@@ -5,15 +5,12 @@ using UnityEngine.VFX;
 public class TestVfxGraph : MonoBehaviour
 {
     public VisualEffect visualEffect;
+    private VFXEventAttribute eventAttribute;
     public GameObject child;
-    GameObject rightHand;
-
-    private VFXEventAttribute movePossibleAttribute;
-    private VFXEventAttribute moveImpossibleAttribute;
-        
+    public float NoiseStrength;
     public int Size;
     private float currentsize;
-    
+    GameObject rightHand;
     public void OnTriggerPressListener(bool seeTable)
     {
         if (seeTable)
@@ -21,9 +18,6 @@ public class TestVfxGraph : MonoBehaviour
             if (!visualEffect.enabled)
                 visualEffect.enabled = true;
             visualEffect.SetInt(Size, 4);
-            visualEffect.SetFloat("Link Noise Strength", 0.35f);
-            visualEffect.SetFloat("Link Noise Speed", 0.3f);
-            visualEffect.SetBool("Sparks Noise Changes", false);
             currentsize = 4;
         }
         
@@ -34,10 +28,7 @@ public class TestVfxGraph : MonoBehaviour
         {
             currentsize = 10;
             visualEffect.SetInt(Size, 10);
-            visualEffect.SendEvent("MoveAroundPossible", movePossibleAttribute);
-            visualEffect.SetFloat("Link Noise Strength", 0.1f);
-            visualEffect.SetFloat("Link Noise Speed", 0.5f);
-            visualEffect.SetBool("Sparks Noise Changes", true);
+            visualEffect.SendEvent("MoveAroundPossible", eventAttribute);
         }
     }
     public  void OnTriggerPressReleaseListener()
@@ -46,10 +37,6 @@ public class TestVfxGraph : MonoBehaviour
         {
             visualEffect.SetInt(Size, 4);
             currentsize = 4;
-            visualEffect.SendEvent("MoveAroundNotPossible", moveImpossibleAttribute);
-            visualEffect.SetFloat("Link Noise Strength", 0.35f);
-            visualEffect.SetFloat("Link Noise Speed", 0.3f);
-            visualEffect.SetBool("Sparks Noise Changes", false);
         }
         else
         {
@@ -75,17 +62,15 @@ public class TestVfxGraph : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        movePossibleAttribute = visualEffect.CreateVFXEventAttribute();
-        moveImpossibleAttribute = visualEffect.CreateVFXEventAttribute();
+        eventAttribute = visualEffect.CreateVFXEventAttribute();
 
-        visualEffect.SetFloat("Link Noise Strength", 0.35f);
-        visualEffect.SetFloat("Link Noise Speed", 0.3f);
+        NoiseStrength = Shader.PropertyToID("Link Noise Strength");
         Size = Shader.PropertyToID("Link Size");
-        visualEffect.SetBool("Sparks Noise Changes", false);
 
         visualEffect.SetInt(Size, 4);
         visualEffect.enabled = false;
         
 
+        //visualEffect.SetFloat(NoiseStrength, 0.5f);
     }
 }
