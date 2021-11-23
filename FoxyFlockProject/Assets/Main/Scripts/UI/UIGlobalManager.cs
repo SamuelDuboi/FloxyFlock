@@ -40,6 +40,7 @@ public class UIGlobalManager : MonoBehaviour
             {
                 stopWatch[i].text =ConvertToHourMinSec(timer);
             }
+            Win(1);
         }
     }
 
@@ -108,6 +109,8 @@ public class UIGlobalManager : MonoBehaviour
         }
         else
         {
+            if (Player2Image == null)
+                return;
             for (int i = 0; i < Player2Image.Length; i++)
             {
                 Player2Image[i].sprite = sprite;
@@ -138,5 +141,13 @@ public class UIGlobalManager : MonoBehaviour
                 losePlayer2[i].SetActive(true);
             }
         }
+        else
+        {
+            for (int i = 0; i < winPlayer1.Length; i++)
+            {
+                winPlayer1[i].SetActive(true);
+            }
+        }
+
     }
 }
