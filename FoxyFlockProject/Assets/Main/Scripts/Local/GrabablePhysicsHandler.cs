@@ -18,10 +18,10 @@ public class GrabablePhysicsHandler : MonoBehaviour
     public UnityEvent<GameObject> OnStart;
     public UnityEvent<GameObject> OnReleased;
     public UnityEvent<GameObject, Vector3, GameObject> OnHitSomething;
-    public UnityEvent<GameObject> OnHitGround;
+    public UnityEvent<GameObject, Vector3, bool> OnHitGround;
     public UnityEvent<GameObject, bool, Rigidbody> OnEnterStasis;
     public UnityEvent<GameObject> OnExitStasis;
-
+    private Vector3 initPos;
     //enter on playgroundValue
     [HideInInspector] public float slowForce;
     [HideInInspector] public float timeToSlow;
@@ -35,6 +35,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
         colliders = m_grabbable.colliders;
+        initPos = transform.position;
         meshRenderer = GetComponent<MeshRenderer>();
         InvokeOnStart();
     }
@@ -72,18 +73,17 @@ public class GrabablePhysicsHandler : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 8)
-        {
-            OnHitGround.Invoke(gameObject);
 
-        }
-
-        else
-        {
             OnHitSomething.Invoke(gameObject, m_rgb.velocity, collision.gameObject); ;
 
-        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == 8)
+        {
+            OnHitGround.Invoke(gameObject, initPos, m_grabbable.isGrab);
 
+        }
     }
 
     public void InvokeOnStart()

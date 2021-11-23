@@ -4,7 +4,6 @@ using UnityEngine;
 public class HotPotato : ModifierAction
 {
     private float timer;
-    private bool isGrab;
     public float timerBeforAutoRelease;
    
     private MeshRenderer mesh;
@@ -70,9 +69,9 @@ public class HotPotato : ModifierAction
         mesh = GetComponent<MeshRenderer>();
         stateIndex = 0;
     }
-    public override void OnHitGround(GameObject _object)
+    public override void OnHitGround(GameObject _object, Vector3 initPos, bool isGrab)
     {
-        base.OnHitGround(_object);
+        base.OnHitGround(_object, initPos, isGrab);
     }
     public override void OnHitSomething(GameObject _object, Vector3 velocity, GameObject collision)
     {

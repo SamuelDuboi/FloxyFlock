@@ -18,6 +18,7 @@ public class ModifierAction : MonoBehaviour
     public float slowForce = 1.2f;
     public float vibrationForce = 0.5f;
     public float vibrationTime = 0.2f;
+    protected bool isGrab;
     public virtual void OnStarted(GameObject _object)
     {
 
@@ -27,28 +28,51 @@ public class ModifierAction : MonoBehaviour
         flock = _object;
         flockInteractable = flock.GetComponent<GrabbableObject>();
         currentInteractor = flockInteractable.currentInteractor;
-        if (isSlowingDown)
-        {
-            isSlowingDown = false;
-
-        }
+        timerSlow = 0;
+        isGrab = true;
+       
     }
     public virtual void OnReleased(GameObject _object)
     {
+        isGrab = false;
+
         if (isOnStasis)
             StartCoroutine(SlowCoroutine());
+        else 
+        {
+            isSlowingDown = false;
+            rgb.useGravity = true;
+        }
     }
     public virtual void OnHitSomething(GameObject _object, Vector3 velocity, GameObject collision)
     {
 
     }
-    public virtual void OnHitGround(GameObject _object)
+    public virtual void OnHitGround(GameObject _object, Vector3 initPos, bool isGrab)
     {
-
+        if (!isGrab)
+        {
+            _object.transform.position = initPos;
+        }
     }
     public virtual void OnExitStasis(GameObject _object)
     {
         isOnStasis = false;
+        if(rgb)
+        rgb.useGravity = true;
+        if (isGrab)
+        {
+            if (currentInteractor.name == "RightHand Controller")
+            {
+                InputManager.instance.OnHapticImpulseRight.Invoke(vibrationForce, vibrationTime);
+            }
+            else if (currentInteractor.name == "LeftHand Controller")
+            {
+                InputManager.instance.OnHapticImpulseLeft.Invoke(vibrationForce, vibrationTime);
+
+            }
+            else { Debug.LogError("Your hand dont have the good name, please name it RightHand Controller and LeftHand Controller"); }
+        }
     }
     public virtual void OnEnterStasis(GameObject _object, bool isGrab, Rigidbody _rgb )
     {
