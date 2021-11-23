@@ -8,21 +8,23 @@ using System.Reflection;
 public class GrabablePhysicsHandler : MonoBehaviour
 {
 
-    public Modifier[] modifiers;
+    public Modifier modifier;
     public Rigidbody m_rgb;
-    public Collider[] colliders;
+    public List<Collider> colliders;
     public GrabbableObject m_grabbable;
-
+    private MeshRenderer meshRenderer;
+    private Material[] mats;
     public UnityEvent<GameObject> OnGrabed;
     public UnityEvent<GameObject> OnStart;
     public UnityEvent<GameObject> OnReleased;
-    public UnityEvent<GameObject,Vector3, GameObject> OnHitSomething;
+    public UnityEvent<GameObject, Vector3, GameObject> OnHitSomething;
     public UnityEvent<GameObject> OnHitGround;
-    public UnityEvent<GameObject,bool, Rigidbody> OnEnterStasis;
+    public UnityEvent<GameObject, bool, Rigidbody> OnEnterStasis;
 
     //enter on playgroundValue
-   [HideInInspector] public float slowForce;
-   [HideInInspector] public float timeToSlow;
+    [HideInInspector] public float slowForce;
+    [HideInInspector] public float timeToSlow;
+    private PhysicMaterial[] physicMaterials;
     public bool isOnPlayground;
     public bool isOnStasisOnce;
     public float timerToExit;
@@ -31,6 +33,8 @@ public class GrabablePhysicsHandler : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
+        colliders = m_grabbable.colliders;
+        meshRenderer = GetComponent<MeshRenderer>();
         InvokeOnStart();
     }
 
@@ -59,43 +63,49 @@ public class GrabablePhysicsHandler : MonoBehaviour
         isOnPlayground = true;
         timerToExit = 0;
     }
-    void OnGrabListener() 
+    void OnGrabListener()
     {
         Debug.Log("Grab");
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == 8)
         {
             OnHitGround.Invoke(gameObject);
-            
+
         }
 
         else
         {
             OnHitSomething.Invoke(gameObject, m_rgb.velocity, collision.gameObject); ;
-            
+
         }
-        
+
     }
+
+    [Obsolete]
     public void InvokeOnStart()
     {
+        m_grabbable.OnHover += OnHover;
+        m_grabbable.OnHoverExit += OnHoverExit;
+        m_grabbable.OnSelect += OnSelect;
         OnStart.Invoke(gameObject);
 
     }
     public void InvokeOngrab()
     {
-       OnGrabed.Invoke(gameObject);
-        
+        OnGrabed.Invoke(gameObject);
+        ChangePhysicMatsOnDeSelect();
     }
     public void InvokeOnRelease()
     {
-       OnReleased.Invoke(gameObject);
-        
+        OnReleased.Invoke(gameObject);
+        ChangePhysicMatsOnSelect();
     }
 
-    public void ChangeBehavior(Modifier[] modifier, ModifierAction action)
+    public void ChangeBehavior(Modifier _modifier, ModifierAction action, PhysicMaterial[] grabedMat)
     {
+
         for (int i = 0; i < actions.Length; i++)
         {
             if (!actions[i])
@@ -110,15 +120,15 @@ public class GrabablePhysicsHandler : MonoBehaviour
             actions[i].enabled = false;
         }
 
-        modifiers = modifier;
-        for (int i = 0; i < colliders.Length; i++)
+        modifier = _modifier;
+        for (int i = 0; i < colliders.Count; i++)
         {
-            colliders[i].material = modifiers[0].physiqueMaterial;
+            colliders[i].material = modifier.physiqueMaterial;
         }
         for (int i = 0; i < actions.Length; i++)
 
         {
-            Type type = modifiers[i].actions.GetType();
+            Type type = modifier.actions.GetType();
             actions[i] = gameObject.AddComponent(type) as ModifierAction;
             MyExtension.GetCopyOf(actions[i], action);
             OnGrabed.AddListener(actions[i].OnGrabed);
@@ -128,7 +138,51 @@ public class GrabablePhysicsHandler : MonoBehaviour
             OnEnterStasis.AddListener(actions[i].OnEnterStasis);
             OnStart.AddListener(actions[i].OnStarted);
         }
+        PhysicMaterial[] tempMat = new PhysicMaterial[2];
+        tempMat[0] = grabedMat[0];
+        if (_modifier.hasPhysiqueMaterial)
+            tempMat[1] = _modifier.physiqueMaterial;
+        else
+            tempMat[1] = grabedMat[1];
+        ChangeMat(_modifier.mats, tempMat);
 
+    }
+
+    private void OnHover()
+    {
+        meshRenderer.material = mats[1];
+    }
+    private void OnHoverExit()
+    {
+        meshRenderer.material = mats[0];
+    }
+
+    private void OnSelect()
+    {
+        meshRenderer.material = mats[0];
+    }
+
+    private void ChangePhysicMatsOnSelect()
+    {
+        for (int i = 0; i < colliders.Count; i++)
+        {
+            colliders[i].material = physicMaterials[0];
+        }
+    }
+    private void ChangePhysicMatsOnDeSelect()
+    {
+        for (int i = 0; i < colliders.Count; i++)
+        {
+            colliders[i].material = physicMaterials[1];
+        }
+    }
+    private void ChangeMat(Material[] _mats, PhysicMaterial[] _physicMaterial)
+    {
+        physicMaterials = _physicMaterial;
+        mats = _mats;
+        if (!meshRenderer)
+            meshRenderer = GetComponent<MeshRenderer>();
+        meshRenderer.material = mats[0];
     }
 }
 public static class MyExtension

@@ -1,29 +1,122 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.XR.Interaction.Toolkit;
-[RequireComponent(typeof(ChangeMatOnSelect))]
+[RequireComponent(typeof(GrabablePhysicsHandler))]
 public class GrabbableObject : XRGrabInteractable
 {
-    public bool isGrab;
+    [HideInInspector] public bool isGrab;
     public XRBaseInteractor currentInteractor;
+    Rigidbody m_Rb;
+    private Vector3 startParentPosition;
+    private Quaternion startParentRotationQ;
+    private Vector3 startChildPosition;
+    private Quaternion startChildRotationQ;
+    private Matrix4x4 parentMatrix;
+    private bool grabedOnce;
+   [HideInInspector] public Transform follow;
+   [HideInInspector] public Transform followRotation;
+   [HideInInspector] public event Action OnHover;
+   [HideInInspector] public event Action OnHoverExit;
+   [HideInInspector] public event Action OnSelect;
+   class SavedTransform
+    {
+        public Vector3 OriginalPosition;
+        public Quaternion OriginalRotation;
+    }
+    Dictionary<XRBaseInteractor, SavedTransform> m_SavedTransforms = new Dictionary<XRBaseInteractor, SavedTransform>();
+
 #pragma warning disable CS0672 // Un membre se substitue au membre obsolète
 #pragma warning disable CS0618 // Le type ou le membre est obsolète
 
     protected override void OnSelectEntering(XRBaseInteractor interactor)
     {
         base.OnSelectEntering(interactor);
+        if (interactor is XRDirectInteractor)
+        {
+            SavedTransform savedTransform = new SavedTransform();
+
+            savedTransform.OriginalPosition = interactor.attachTransform.localPosition;
+            savedTransform.OriginalRotation = interactor.attachTransform.localRotation;
+
+            m_SavedTransforms[interactor] = savedTransform;
+
+
+            bool haveAttach = attachTransform != null;
+
+            interactor.attachTransform.position = haveAttach ? attachTransform.position : m_Rb.worldCenterOfMass;
+            interactor.attachTransform.rotation = haveAttach ? attachTransform.rotation : m_Rb.rotation;
+        }
         currentInteractor = interactor;
         isGrab = true;
+        OnSelect.Invoke();
     }
     protected override void OnSelectExited(XRBaseInteractor interactor)
     {
         base.OnSelectExited(interactor);
+        if (interactor is XRDirectInteractor)
+        {
+            SavedTransform savedTransform = null;
+            if (m_SavedTransforms.TryGetValue(interactor, out savedTransform))
+            {
+                interactor.attachTransform.localPosition = savedTransform.OriginalPosition;
+                interactor.attachTransform.localRotation = savedTransform.OriginalRotation;
+
+                m_SavedTransforms.Remove(interactor);
+            }
+        }
         currentInteractor = null;
         isGrab = false;
     }
+    protected override void OnHoverEntered(XRBaseInteractor interactor)
+    {
+        base.OnHoverEntered(interactor);
+        OnHover.Invoke();
+
+    }
+    protected override void OnHoverExited(XRBaseInteractor interactor)
+    {
+        base.OnHoverExited(interactor);
+        OnHoverExit.Invoke();
+    }
 #pragma warning restore CS0618 // Le type ou le membre est obsolète
 #pragma warning restore CS0672 // Un membre se substitue au membre obsolète
+    private void Start()
+    {
+        if (!m_Rb)
+            m_Rb = GetComponent<Rigidbody>();
+        if (follow)
+        {
+            m_Rb.constraints = RigidbodyConstraints.FreezeAll;
+
+            startParentPosition = follow.position;
+            startParentRotationQ = follow.rotation;
+
+            startChildPosition = transform.position;
+            startChildRotationQ = transform.rotation;
+            //founded by testing
+            startChildPosition = DivideVectors(Quaternion.Inverse(follow.rotation) * (startChildPosition - startParentPosition), follow.lossyScale);
+        }
+    }
+    private void Update()
+    {
+        if (!grabedOnce && follow != null)
+        {
+            //simulate child effect
+            parentMatrix = Matrix4x4.TRS(follow.position, follow.rotation, follow.lossyScale);
+
+            transform.position = parentMatrix.MultiplyPoint3x4(startChildPosition);
+
+            transform.rotation = (follow.rotation * Quaternion.Inverse(startParentRotationQ)) * startChildRotationQ;
+        }
+    }
+    Vector3 DivideVectors(Vector3 num, Vector3 den)
+    {
+
+        return new Vector3(num.x / den.x, num.y / den.y, num.z / den.z);
+
+    }
 
 
 }

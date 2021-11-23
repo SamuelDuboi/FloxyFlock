@@ -5,8 +5,8 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName ="NewModifier", menuName ="Modifier",order =1)]
 public class Modifier : ScriptableObject
 {
-    public bool asPhysiqueMaterial;
+    public bool hasPhysiqueMaterial;
     public PhysicMaterial physiqueMaterial;
     public ModifierAction actions;
-
+    public Material[] mats;
 }

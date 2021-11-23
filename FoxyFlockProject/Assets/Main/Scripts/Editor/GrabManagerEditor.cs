@@ -9,6 +9,7 @@ public class GrabManagerEditor : Editor
     SerializedProperty numberPerBatch;
     SerializedProperty numbersPerModifer;
     SerializedProperty modifiers;
+    SerializedProperty basicMats;
     private GrabManager managerTarget;
     ReorderableList rlistModifier;
     ReorderableList rlistGrabbableToSpawn;
@@ -20,6 +21,7 @@ public class GrabManagerEditor : Editor
         numbersPerModifer = serializedObject.FindProperty("numbersPerModifer");
         numberPerBatch = serializedObject.FindProperty("numberPerBatch");
         modifiers = serializedObject.FindProperty("modifiers");
+        basicMats = serializedObject.FindProperty("basicMats");
         rlistModifier = new ReorderableList(serializedObject, modifiers, true, true, true, true);
         rlistModifier.onAddCallback += Add;
         rlistModifier.drawHeaderCallback += HeaderDrawer;
@@ -40,6 +42,8 @@ public class GrabManagerEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        managerTarget.basicMats[0] = (PhysicMaterial) EditorGUILayout.ObjectField("Grabed mat" ,managerTarget.basicMats[0], typeof(PhysicMaterial), true);
+        managerTarget.basicMats[1] = (PhysicMaterial) EditorGUILayout.ObjectField("default released mat",managerTarget.basicMats[1], typeof(PhysicMaterial), true);
         managerTarget.modifierFoldout = EditorGUILayout.Foldout(managerTarget.modifierFoldout, "Modifier");
         if (managerTarget.modifierFoldout)
         {

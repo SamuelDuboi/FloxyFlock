@@ -18,7 +18,6 @@ public class SCR_XROffsetGrabbable : XRGrabInteractable
     }
     private bool grabedOnce;
     public Transform follow;
-    private Vector3 posStart;
     public Transform followRotation;
     Dictionary<XRBaseInteractor, SavedTransform> m_SavedTransforms = new Dictionary<XRBaseInteractor, SavedTransform>();
 

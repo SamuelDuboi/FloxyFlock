@@ -8,7 +8,7 @@ public class GrabManager : MonoBehaviour
     public List<Modifier> modifiers;
     public List<GrabablePhysicsHandler> grabableObjects;
     public List<GameObject> grabableObjectsToSpawn;
-
+    public PhysicMaterial[] basicMats = new PhysicMaterial[2];
 #if UNITY_EDITOR
     public List<int> numberPerBatch;
     public bool modifierFoldout;
@@ -21,14 +21,10 @@ public class GrabManager : MonoBehaviour
     {
         for (int i = 0; i < grabableObjects.Count; i++)
         {
-            Modifier[] _modifer = new Modifier[2];
-            _modifer[0] = modifiers[0];
-            _modifer[1] = modifiers[UnityEngine.Random.Range(0, modifiers.Count)];
-            Type type = modifiers[0].actions.GetType();
-            Type type2 = modifiers[1].actions.GetType();
+            Modifier _modifer = modifiers[UnityEngine.Random.Range(0, modifiers.Count)];
+            Type type = _modifer.actions.GetType();
             var _object = GetComponent(type);
-            var _object2 = GetComponent(type2);
-            grabableObjects[i].ChangeBehavior(_modifer, _object as ModifierAction);
+            grabableObjects[i].ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
         }
         InputManager.instance.OnSpawn.AddListener(SpawnBacth);
         for (int i = 0; i < modifiers.Count; i++)
@@ -49,12 +45,10 @@ public class GrabManager : MonoBehaviour
             for (int x = 0; x < numberPerBatch[i]; x++)
             {
                 GameObject grabbable = Instantiate(grabableObjectsToSpawn[i], grabableObjectsToSpawn[i].transform.position, Quaternion.identity);
-                Modifier[] _modifer = new Modifier[2];
-                _modifer[0] = modifiers[0];
-                _modifer[1] = modifiers[UnityEngine.Random.Range(0, modifiers.Count)];
-                Type type = modifiers[i].actions.GetType();
+                Modifier _modifer =  modifiers[UnityEngine.Random.Range(0, modifiers.Count)];
+                Type type = _modifer.actions.GetType();
                 var _object = GetComponent(type);
-                grabbable.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifer,_object as ModifierAction);
+                grabbable.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(modifiers[UnityEngine.Random.Range(0, modifiers.Count)], _object as ModifierAction, basicMats);
             }
         }
     }
