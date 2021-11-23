@@ -20,6 +20,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
     public UnityEvent<GameObject, Vector3, GameObject> OnHitSomething;
     public UnityEvent<GameObject> OnHitGround;
     public UnityEvent<GameObject, bool, Rigidbody> OnEnterStasis;
+    public UnityEvent<GameObject> OnExitStasis;
 
     //enter on playgroundValue
     [HideInInspector] public float slowForce;
@@ -60,6 +61,8 @@ public class GrabablePhysicsHandler : MonoBehaviour
     {
         slowForce = _lowForce;
         timeToSlow = _timeToSlow;
+        if (!isOnPlayground)
+            OnExitStasis.Invoke(gameObject);
         isOnPlayground = true;
         timerToExit = 0;
     }
@@ -83,7 +86,6 @@ public class GrabablePhysicsHandler : MonoBehaviour
 
     }
 
-    [Obsolete]
     public void InvokeOnStart()
     {
         m_grabbable.OnHover += OnHover;
@@ -117,6 +119,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
             OnHitGround.RemoveListener(actions[i].OnHitGround);
             OnEnterStasis.RemoveListener(actions[i].OnEnterStasis);
             OnStart.RemoveListener(actions[i].OnStarted);
+            OnExitStasis.RemoveListener(actions[i].OnExitStasis);
             actions[i].enabled = false;
         }
 
@@ -136,6 +139,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
             OnHitSomething.AddListener(actions[i].OnHitSomething);
             OnHitGround.AddListener(actions[i].OnHitGround);
             OnEnterStasis.AddListener(actions[i].OnEnterStasis);
+            OnExitStasis.AddListener(actions[i].OnExitStasis);
             OnStart.AddListener(actions[i].OnStarted);
         }
         PhysicMaterial[] tempMat = new PhysicMaterial[2];

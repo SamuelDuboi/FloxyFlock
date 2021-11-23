@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
-public class TestVfxGraph : MonoBehaviour
+public class VFXMoveAround : MonoBehaviour
 {
     public VisualEffect visualEffect;
     private VFXEventAttribute eventAttribute;
     public GameObject child;
-    public float NoiseStrength;
-    public int Size;
+    private float NoiseStrength;
+    private int Size;
     private float currentsize;
     GameObject rightHand;
     public void OnTriggerPressListener(bool seeTable)

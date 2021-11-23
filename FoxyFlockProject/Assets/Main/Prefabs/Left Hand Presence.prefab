@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: child
       value: 
       objectReference: {fileID: 5101020603740246813}
+    - target: {fileID: 9015990683211654507, guid: bedc4466dfc26754db04196e9ceebbb1, type: 3}
+      propertyPath: visualEffect
+      value: 
+      objectReference: {fileID: 4854470622108040820}
     - target: {fileID: 9015990683211654508, guid: bedc4466dfc26754db04196e9ceebbb1, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -223,5 +227,10 @@ PrefabInstance:
 --- !u!4 &4854470622108040821 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9015990683211654508, guid: bedc4466dfc26754db04196e9ceebbb1, type: 3}
+  m_PrefabInstance: {fileID: 4486060829789018905}
+  m_PrefabAsset: {fileID: 0}
+--- !u!2083052967 &4854470622108040820 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 9015990683211654509, guid: bedc4466dfc26754db04196e9ceebbb1, type: 3}
   m_PrefabInstance: {fileID: 4486060829789018905}
   m_PrefabAsset: {fileID: 0}

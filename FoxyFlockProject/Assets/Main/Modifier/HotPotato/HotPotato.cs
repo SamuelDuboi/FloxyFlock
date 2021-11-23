@@ -67,9 +67,6 @@ public class HotPotato : ModifierAction
     {
         base.OnGrabed(_object);
         isGrab = true;
-        flock = _object;
-        flockInteractable = flock.GetComponent<GrabbableObject>();
-        currentInteractor = flockInteractable.currentInteractor;
         mesh = GetComponent<MeshRenderer>();
         stateIndex = 0;
     }

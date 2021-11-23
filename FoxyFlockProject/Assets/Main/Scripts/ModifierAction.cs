@@ -9,24 +9,34 @@ public class ModifierAction : MonoBehaviour
     protected XRBaseInteractor currentInteractor;
     protected GrabbableObject flockInteractable;
     protected SoundReader sound;
+    protected Rigidbody rgb;
     protected bool isOnStasis;
     protected bool canEnter;
     protected bool isSlowingDown;
     protected float timerSlow;
     public float timerToSlowInStasis = 1.0f;
     public float slowForce = 1.2f;
+    public float vibrationForce = 0.5f;
+    public float vibrationTime = 0.2f;
     public virtual void OnStarted(GameObject _object)
     {
 
     }
     public virtual void OnGrabed(GameObject _object)
     {
+        flock = _object;
+        flockInteractable = flock.GetComponent<GrabbableObject>();
+        currentInteractor = flockInteractable.currentInteractor;
         if (isSlowingDown)
+        {
             isSlowingDown = false;
+
+        }
     }
     public virtual void OnReleased(GameObject _object)
     {
-
+        if (isOnStasis)
+            StartCoroutine(SlowCoroutine());
     }
     public virtual void OnHitSomething(GameObject _object, Vector3 velocity, GameObject collision)
     {
@@ -36,22 +46,46 @@ public class ModifierAction : MonoBehaviour
     {
 
     }
-    public virtual void OnEnterStasis(GameObject _object, bool isGrab, Rigidbody rgb )
+    public virtual void OnExitStasis(GameObject _object)
     {
+        isOnStasis = false;
+    }
+    public virtual void OnEnterStasis(GameObject _object, bool isGrab, Rigidbody _rgb )
+    {
+        isOnStasis = true;
         isSlowingDown = true;
         timerSlow = 0;
         timerToSlowInStasis = _object.GetComponent<GrabablePhysicsHandler>().timeToSlow;
         slowForce = _object.GetComponent<GrabablePhysicsHandler>().slowForce;
-        StartCoroutine(SlowCoroutine(rgb));
+        rgb = _rgb;
+        if(!isGrab)
+        StartCoroutine(SlowCoroutine());
+        else
+        {
+            if(currentInteractor.name == "RightHand Controller")
+            {
+                InputManager.instance.OnHapticImpulseRight.Invoke(vibrationForce,vibrationTime);
+            }
+            else if(currentInteractor.name == "LeftHand Controller")
+            {
+                InputManager.instance.OnHapticImpulseLeft.Invoke(vibrationForce, vibrationTime);
+
+            }
+            else { Debug.LogError("Your hand dont have the good name, please name it RightHand Controller and LeftHand Controller"); }
+        }
     }
-    public IEnumerator SlowCoroutine(Rigidbody rgb)
+
+    public IEnumerator SlowCoroutine( )
     {
-        while(isSlowingDown && timerSlow < timerToSlowInStasis && rgb.velocity.magnitude>0.1f)
+        rgb.useGravity = false;
+        while(isSlowingDown && timerSlow < timerToSlowInStasis)
         {
             rgb.velocity /= slowForce;
             timerSlow += 0.01f;
             yield return new WaitForSeconds(0.01f);
         }
+        rgb.useGravity = true;
+
         isSlowingDown = false;
         timerSlow = 0;
         rgb.velocity = Vector3.zero;

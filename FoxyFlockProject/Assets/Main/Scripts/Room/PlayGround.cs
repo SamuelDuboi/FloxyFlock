@@ -44,7 +44,14 @@ public class PlayGround : MonoBehaviour
             }
         }
        
-       
     }
-    
+    private void OnDrawGizmos()
+    {
+        for (float i = 0; i < 5f; i++)
+        {
+            Vector3 pos = Vector3.Lerp(point1, point2, i / 5);
+            Handles.DrawWireDisc(pos, Vector3.up, radius);
+        }
+    }
+   
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BasicFloakAction : ModifierAction
 {
+    
     public override void OnEnterStasis(GameObject _object, bool isGrab, Rigidbody rgb)
     {
         base.OnEnterStasis(_object, isGrab,rgb);

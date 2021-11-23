@@ -43,6 +43,8 @@ public class InputManager : MonoBehaviour
     public UnityEvent OnGrabbingLeft;
     public UnityEvent OnGrabbingReleaseLeft;
     public UnityEvent OnGrabbingReleaseRight;
+    public UnityEvent<float, float> OnHapticImpulseRight;
+    public UnityEvent<float,float> OnHapticImpulseLeft;
 
     public UnityEvent<Vector3> OnSnapTurn;
     public UnityEvent OnSnapTurnRelease;
@@ -88,6 +90,9 @@ public class InputManager : MonoBehaviour
         OnSnapTurn.AddListener(OnSnapTurnActiveListener);
         OnSnapTurnRelease.AddListener(OnSnapTurnReleaseListener);
         snapTurnAngle = Vector3.up * characterStats.snapTurnAngle;
+
+        OnHapticImpulseLeft.AddListener(LeftHapticListener);
+        OnHapticImpulseRight.AddListener(RightHapticListener);
     }
 
     // Update is called once per frame
@@ -240,7 +245,14 @@ public class InputManager : MonoBehaviour
 
     }
     #endregion
-
+    private void LeftHapticListener(float force, float timer)
+    {
+        leftHand.SendHapticImpulse(force, timer);
+    }
+    private void RightHapticListener(float force, float timer)
+    {
+        rightHand.SendHapticImpulse(force, timer);
+    }
     public void OnActiveSound()
     {
         isActiveSound = !isActiveSound;
