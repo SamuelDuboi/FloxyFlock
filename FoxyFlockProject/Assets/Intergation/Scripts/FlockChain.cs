@@ -39,8 +39,8 @@ public class FlockChain : MonoBehaviour
 
     private int YPositionComparison(Transform b, Transform a)
     {
-        if (a == null || a.GetComponent<InteractableEvents>().isGrab) return (b == null) ? 0 : -1;
-        if (b == null || b.GetComponent<InteractableEvents>().isGrab) return 1;
+        if (a == null) return (b == null) ? 0 : -1;
+        if (b == null) return 1;
 
         var ya = a.transform.position.y;
         var yb = b.transform.position.y;

@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FloxBaseWood
+  m_Shader: {fileID: -6465566751694194690, guid: 5436f3c3a5d65064eb6409bdd570fde3, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_fac2268ce5aa479a8e33a1ae262686cb:
+        m_Texture: {fileID: 2800000, guid: e831a88c8eb77b5488eee17273138b87, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_1eb31d364112410495ed8dec68c9d7f0_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 11c458a0725c8034d97cc385be64193b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_26a24a80892a4332a88c2404c170a666_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 5d5b3a1aa4b7cb44cae857e4f4477578, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - BOOLEAN_7747527491F0414793DBEE8B44CE33BF: 0
+    - Vector1_0bf06800e92644c8a9c19faf16ab8165: 10
+    - Vector1_4cfc3f553b2f4ebbb9eee3f04c498d73: 3.84
+    - Vector1_688861A9: 6
+    - Vector1_870cd5d8dd5a407a8a621a681303639a: 0.9
+    - Vector1_903A7FAB: 10
+    - Vector1_E39B1B65: 0.2
+    - Vector1_a9c01cac01c243db9c5cec5b8af2f308: 0.55
+    m_Colors:
+    - Color_29366eada27a4b0b9b42de996d4cf1d2: {r: 0, g: 0.49760765, b: 1, a: 0}
+    - Color_a8cbeac0810e45919f25cf579b20221e: {r: 0.01886791, g: 0.01886791, b: 0.01886791, a: 1}
+    - Vector2_6141d7dac06746a08cdc702ae44ca3ab: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
