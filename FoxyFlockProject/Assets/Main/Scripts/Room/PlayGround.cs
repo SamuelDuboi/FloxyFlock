@@ -20,7 +20,7 @@ public class PlayGround : MonoBehaviour
     private Vector3 extend;
     private Vector3 point2;
     private GrabablePhysicsHandler _temp;
-    private HandsPlayground _tempHand;
+    public  HandsPlayground _tempHand;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,18 +35,30 @@ public class PlayGround : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
         var collidiers = Physics.OverlapCapsule(point1, point2, radius, layerMask);
-        
+
+        bool hands =false;
 
         for (int i = 0; i < collidiers.Length; i++)
         {
-            collidiers[i].GetComponentInParent<HandsPlayground>().inPlayground = true;
+            if (collidiers[i].GetComponentInParent<HandsPlayground>() != false)
+            {
+                collidiers[i].GetComponentInParent<HandsPlayground>().inPlayground = true;
+                _tempHand = collidiers[i].GetComponentInParent<HandsPlayground>();
+                hands = true;
+            }
 
             /*_temp = collidiers[i].GetComponentInParent<GrabablePhysicsHandler>();
             if (_temp)
             {
                 _temp.SetIsOnPlayGround(slowForce,timeBeforFall);
             }*/
+        }
+        if (hands == false && _tempHand != null)
+        {
+            _tempHand.inPlayground = false;
+            _tempHand = null;
         }
        
        
