@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1897938308515805257}
   - component: {fileID: 1897938308515805263}
   - component: {fileID: 9133556912260582695}
+  - component: {fileID: 1379461113510754067}
   m_Layer: 0
   m_Name: GrabManager 1
   m_TagString: Untagged
@@ -46,25 +47,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modifiers:
-  - {fileID: 11400000, guid: 4699a5b6ae4b6d84b950885f34b07e25, type: 2}
+  - {fileID: 11400000, guid: 4c073c5cbab240d48973ebe5933e2e35, type: 2}
+  - {fileID: 11400000, guid: 4c073c5cbab240d48973ebe5933e2e35, type: 2}
   grabableObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   grabableObjectsToSpawn:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  basicMats:
+  - {fileID: 13400000, guid: f49b989612fc3e34f8e1d4904afb1022, type: 2}
+  - {fileID: 13400000, guid: 0ec93648bcb5b33408f6d7c3e1badb68, type: 2}
   numberPerBatch: 020000000200000002000000
   modifierFoldout: 1
   batcheFoldout: 1
   actions: []
-  numbersPerModifer: 00000000
+  numbersPerModifer: 0000000000000000
 --- !u!114 &1897938308515805263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,3 +99,19 @@ MonoBehaviour:
   - {fileID: 2100000, guid: ddf58db17049e7c42848a78473b18302, type: 2}
   clipName: Laser
   cooldDown: 3
+--- !u!114 &1379461113510754067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897938308515805258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2ccc0ac6e95b3a4f88e016146d44ad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerToSlowInStasis: 1
+  slowForce: 1.2
+  massScale: 4
+  smoothPosition: 3
