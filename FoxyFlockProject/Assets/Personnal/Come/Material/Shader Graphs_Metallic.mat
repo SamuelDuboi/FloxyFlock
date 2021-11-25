@@ -7,22 +7,18 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_Metal
-  m_Shader: {fileID: -6465566751694194690, guid: afe6062b02f189a418a8c504b7d54fc1, type: 3}
+  m_Name: Shader Graphs_Metallic
+  m_Shader: {fileID: -6465566751694194690, guid: 069a1f7db24c2bf41b29daea7314c1ed, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -35,9 +31,8 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - Vector1_6FDE9E35: 2
+    m_Floats: []
     m_Colors:
-    - Color_1F941ABA: {r: 1, g: 1, b: 1, a: 0}
-    - Color_E1E415D4: {r: 0.5254902, g: 0.5215686, b: 0.48627448, a: 1}
+    - Color_bb4f32dd151d44c29efa425734db2436: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 0}
+    - Color_de329179224d46beba167a94bed7b579: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
