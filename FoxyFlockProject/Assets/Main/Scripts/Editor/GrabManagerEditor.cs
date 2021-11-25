@@ -5,23 +5,24 @@ using UnityEditorInternal;
 public class GrabManagerEditor : Editor
 {
     SerializedProperty grabableObjects;
-    SerializedProperty grabableObjectsToSpawn;
+    SerializedProperty batches;
     SerializedProperty numberPerBatch;
     SerializedProperty numbersPerModifer;
     SerializedProperty modifiers;
-    SerializedProperty basicMats;
+    SerializedProperty representations;
     private GrabManager managerTarget;
     ReorderableList rlistModifier;
-    ReorderableList rlistGrabbableToSpawn;
+    private bool doOnce;
+    private string[] popUpBacthes;
     private void OnEnable()
     {
         managerTarget = target as GrabManager;
         grabableObjects = serializedObject.FindProperty("grabableObjects");
-        grabableObjectsToSpawn = serializedObject.FindProperty("grabableObjectsToSpawn");
+        batches = serializedObject.FindProperty("batches");
         numbersPerModifer = serializedObject.FindProperty("numbersPerModifer");
         numberPerBatch = serializedObject.FindProperty("numberPerBatch");
         modifiers = serializedObject.FindProperty("modifiers");
-        basicMats = serializedObject.FindProperty("basicMats");
+        representations = serializedObject.FindProperty("representations");
         rlistModifier = new ReorderableList(serializedObject, modifiers, true, true, true, true);
         rlistModifier.onAddCallback += Add;
         rlistModifier.drawHeaderCallback += HeaderDrawer;
@@ -29,19 +30,23 @@ public class GrabManagerEditor : Editor
         rlistModifier.drawElementCallback += ElementDrawer;
         rlistModifier.elementHeightCallback += ElementHeigh;
 
-
-        rlistGrabbableToSpawn = new ReorderableList(serializedObject, grabableObjectsToSpawn, true, true, true, true);
-        rlistGrabbableToSpawn.onAddCallback += AddG;
-        rlistGrabbableToSpawn.drawHeaderCallback += HeaderDrawerG;
-        rlistGrabbableToSpawn.onRemoveCallback += RemoveG;
-        rlistGrabbableToSpawn.drawElementCallback += ElementDrawerG;
-        rlistGrabbableToSpawn.elementHeightCallback += ElementHeighG;
-
-        
+      
     }
 
     public override void OnInspectorGUI()
     {
+        if (!doOnce)
+        {
+            doOnce = true;
+            Object[] tempflockes = Resources.LoadAll("Floxes", typeof(GameObject));
+            managerTarget.allflocks = new GameObject[tempflockes.Length];
+            popUpBacthes = new string[tempflockes.Length];
+            for (int i = 0; i < tempflockes.Length; i++)
+            {
+                managerTarget.allflocks[i] = (GameObject)tempflockes[i];
+                popUpBacthes[i] = managerTarget.allflocks[i].name;
+            }
+        }
         managerTarget.basicMats[0] = (PhysicMaterial) EditorGUILayout.ObjectField("Grabed mat" ,managerTarget.basicMats[0], typeof(PhysicMaterial), true);
         managerTarget.basicMats[1] = (PhysicMaterial) EditorGUILayout.ObjectField("default released mat",managerTarget.basicMats[1], typeof(PhysicMaterial), true);
         managerTarget.modifierFoldout = EditorGUILayout.Foldout(managerTarget.modifierFoldout, "Modifier");
@@ -65,26 +70,8 @@ public class GrabManagerEditor : Editor
             }
         }
 
-        managerTarget.batcheFoldout = EditorGUILayout.Foldout(managerTarget.batcheFoldout, "Batche");
-        if (managerTarget.batcheFoldout)
-        {
-            rlistGrabbableToSpawn.DoLayoutList();
-
-            for (int i = 0; i < grabableObjectsToSpawn.arraySize; i++)
-            {
-                SerializedProperty prop = grabableObjectsToSpawn.GetArrayElementAtIndex(i);
-                if (prop.serializedObject == null) continue;
-
-                int nextIndex = (i + 1) % grabableObjectsToSpawn.arraySize;
-                SerializedProperty nextProp = grabableObjectsToSpawn.GetArrayElementAtIndex(nextIndex);
-                if (grabableObjectsToSpawn.arraySize == managerTarget.numberPerBatch.Count && managerTarget.grabableObjectsToSpawn[i])
-                    managerTarget.numberPerBatch[i] = EditorGUILayout.IntField(managerTarget.grabableObjectsToSpawn[i].name + "Numbers per batches", managerTarget.numberPerBatch[i]);
-
-            }
-        }
-
+        EditorGUILayout.PropertyField(batches);
         EditorGUILayout.PropertyField(grabableObjects);
-
         if (GUILayout.Button("Add all Scenes Grabable"))
         {
             var _object = Object.FindObjectsOfType(typeof(GrabablePhysicsHandler));
@@ -98,6 +85,8 @@ public class GrabManagerEditor : Editor
             serializedObject.Update();
             
         }
+        EditorGUILayout.Space(10);
+        EditorGUILayout.PropertyField(representations);
         serializedObject.ApplyModifiedProperties();
         serializedObject.Update();
     }
@@ -144,36 +133,5 @@ public class GrabManagerEditor : Editor
         return line * lineHeight;
     }
 
-    void HeaderDrawerG(Rect rect)
-    {
-        EditorGUI.LabelField(rect, "Game mode pieces To Spawn");
-    }
-    void ElementDrawerG(Rect rect, int index, bool isActive, bool isFocus)
-    {
 
-        EditorGUI.PropertyField(rect, grabableObjectsToSpawn.GetArrayElementAtIndex(index));
-    }
-    void AddG(ReorderableList rlist)
-    {
-        grabableObjectsToSpawn.arraySize++;
-        numberPerBatch.InsertArrayElementAtIndex(numberPerBatch.arraySize);
-        EditorUtility.SetDirty(managerTarget);
-        serializedObject.ApplyModifiedProperties();
-    }
-    void RemoveG(ReorderableList rlist)
-    {
-        grabableObjectsToSpawn.DeleteArrayElementAtIndex(rlist.index);
-        if (numberPerBatch.arraySize> grabableObjectsToSpawn.arraySize)
-        numberPerBatch.DeleteArrayElementAtIndex(rlist.index);
-    }
-    void ReorderG(ReorderableList rlist)
-    {
-
-    }
-    float ElementHeighG(int inxed)
-    {
-        float line = EditorGUIUtility.currentViewWidth > 332 ? 1 : 2;
-        float lineHeight = EditorGUIUtility.singleLineHeight + 1;
-        return line * lineHeight;
-    }
 }

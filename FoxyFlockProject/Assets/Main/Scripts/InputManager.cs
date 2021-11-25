@@ -101,7 +101,10 @@ public class InputManager : MonoBehaviour
         InputHelpers.IsPressed(rightHand.inputDevice, InputHelpers.Button.PrimaryAxis2DRight, out snapTurnRight);
         InputHelpers.IsPressed(rightHand.inputDevice, InputHelpers.Button.PrimaryAxis2DLeft, out snapTurnLeft);
         if (snapTurnLeft && snapTurnRelease)
+        {
             OnSnapTurn.Invoke(snapTurnAngle*-1);
+            OnSpawn.Invoke();
+        }
         if (snapTurnRight && snapTurnRelease)
             OnSnapTurn.Invoke(snapTurnAngle);
         if (!snapTurnLeft && !snapTurnRight && !snapTurnRelease)

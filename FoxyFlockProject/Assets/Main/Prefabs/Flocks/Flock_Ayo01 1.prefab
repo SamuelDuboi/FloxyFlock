@@ -102,8 +102,9 @@ GameObject:
   - component: {fileID: 3769740337178434335}
   - component: {fileID: -9111260855410012163}
   - component: {fileID: 7608741055610583529}
+  - component: {fileID: -2571988993775999155}
   m_Layer: 0
-  m_Name: Flock_Ayo01
+  m_Name: Flock_Ayo01 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -221,6 +222,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnEnterStasis:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExitStasis:
     m_PersistentCalls:
       m_Calls: []
   slowForce: 0
@@ -426,6 +430,19 @@ MonoBehaviour:
   currentInteractor: {fileID: 0}
   follow: {fileID: 0}
   followRotation: {fileID: 0}
+--- !u!114 &-2571988993775999155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069128699973587937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf2e57e98712d84887d77e2789353c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texture: {fileID: 8400000, guid: 6ec8af18dd9590e4b976a3619a2e1fd4, type: 2}
 --- !u!1 &4323605721872298282
 GameObject:
   m_ObjectHideFlags: 0

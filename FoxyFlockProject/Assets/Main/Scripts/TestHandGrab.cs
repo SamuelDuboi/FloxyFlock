@@ -9,7 +9,7 @@ public class TestHandGrab : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InputManager.instance.OnLeftGrab.AddListener(Grav);
+        InputManager.instance.OnRightGrab.AddListener(Grav);
     }
 
     void Grav()

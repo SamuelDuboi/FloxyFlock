@@ -8,7 +8,7 @@ public class GrabbableObject : XRGrabInteractable
 {
     [HideInInspector] public bool isGrab;
     public XRBaseInteractor currentInteractor;
-    Rigidbody m_Rb;
+    Rigidbody m_Rib;
     private Vector3 startParentPosition;
     private Quaternion startParentRotationQ;
     private Vector3 startChildPosition;
@@ -44,12 +44,12 @@ public class GrabbableObject : XRGrabInteractable
 
 
             bool haveAttach = attachTransform != null;
-
-            interactor.attachTransform.position = haveAttach ? attachTransform.position : m_Rb.worldCenterOfMass;
-            interactor.attachTransform.rotation = haveAttach ? attachTransform.rotation : m_Rb.rotation;
+            interactor.attachTransform.position = haveAttach ? attachTransform.position : m_Rib.worldCenterOfMass;
+            interactor.attachTransform.rotation = haveAttach ? attachTransform.rotation : m_Rib.rotation;
         }
         currentInteractor = interactor;
         isGrab = true;
+        if(OnSelect !=null)
         OnSelect.Invoke();
     }
     protected override void OnSelectExited(XRBaseInteractor interactor)
@@ -84,11 +84,11 @@ public class GrabbableObject : XRGrabInteractable
 #pragma warning restore CS0672 // Un membre se substitue au membre obsolète
     private void Start()
     {
-        if (!m_Rb)
-            m_Rb = GetComponent<Rigidbody>();
+        if (!m_Rib)
+            m_Rib = GetComponent<Rigidbody>();
         if (follow)
         {
-            m_Rb.constraints = RigidbodyConstraints.FreezeAll;
+            m_Rib.constraints = RigidbodyConstraints.FreezeAll;
 
             startParentPosition = follow.position;
             startParentRotationQ = follow.rotation;
