@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 1.01
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0.99999905, b: 0.99999905, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -151,7 +151,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh26434
+  m_Name: pb_Mesh22712
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -848,7 +848,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh26508
+  m_Name: pb_Mesh22790
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1385,7 +1385,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -4181,10 +4181,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1897938308515805257, guid: a239aebd9aaca5a479b1c4a8f76db2f8, type: 3}
-      propertyPath: grabableObjects.Array.size
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1897938308515805257, guid: a239aebd9aaca5a479b1c4a8f76db2f8, type: 3}
       propertyPath: grabableObjects.Array.data[0]
       value: 
       objectReference: {fileID: 1359810391}
@@ -4224,10 +4220,6 @@ PrefabInstance:
       propertyPath: grabableObjects.Array.data[9]
       value: 
       objectReference: {fileID: 1038712643}
-    - target: {fileID: 1897938308515805257, guid: a239aebd9aaca5a479b1c4a8f76db2f8, type: 3}
-      propertyPath: grabableObjects.Array.data[10]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1897938308515805258, guid: a239aebd9aaca5a479b1c4a8f76db2f8, type: 3}
       propertyPath: m_Name
       value: GrabManager 1
@@ -4659,27 +4651,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1969021142}
   m_CullTransparentMesh: 1
---- !u!1 &2020907738 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1897938308515805258, guid: a239aebd9aaca5a479b1c4a8f76db2f8, type: 3}
-  m_PrefabInstance: {fileID: 1755565421}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2020907739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2020907738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0829ae3b00274546b9bb1a468edfd8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timerToSlowInStasis: 1
-  slowForce: 1.2
-  shardsParticleSystem: {fileID: 0}
-  breakThreshold: 10
 --- !u!1 &2026756417
 GameObject:
   m_ObjectHideFlags: 0
@@ -5433,14 +5404,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1972585047039669064}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.78, z: 4.13}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000029653306}
+  m_LocalPosition: {x: 0, y: 0.84999996, z: 2.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 549874145963220926}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!114 &1972585047039669071
 MonoBehaviour:
   m_ObjectHideFlags: 0

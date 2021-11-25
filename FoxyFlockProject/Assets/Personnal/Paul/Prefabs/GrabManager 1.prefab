@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1897938308515805256}
+  - component: {fileID: 1379461113510754067}
+  - component: {fileID: 2020907739}
   - component: {fileID: 1897938308515805263}
   - component: {fileID: 1897938308515805257}
-  - component: {fileID: 1379461113510754067}
   - component: {fileID: 9133556912260582695}
   m_Layer: 0
   m_Name: GrabManager 1
@@ -34,6 +35,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1379461113510754067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897938308515805258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2ccc0ac6e95b3a4f88e016146d44ad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerToSlowInStasis: 1
+  slowForce: 1.2
+  massScale: 4
+  smoothPosition: 3
+--- !u!114 &2020907739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897938308515805258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0829ae3b00274546b9bb1a468edfd8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerToSlowInStasis: 1
+  slowForce: 1.2
+  shardsParticleSystem: {fileID: 0}
+  breakThreshold: 10
 --- !u!114 &1897938308515805263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,6 +98,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4c073c5cbab240d48973ebe5933e2e35, type: 2}
   grabableObjects:
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   grabableObjectsToSpawn:
   - {fileID: 0}
   - {fileID: 0}
@@ -77,22 +119,6 @@ MonoBehaviour:
   batcheFoldout: 1
   actions: []
   numbersPerModifer: 0000000000000000
---- !u!114 &1379461113510754067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1897938308515805258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2ccc0ac6e95b3a4f88e016146d44ad4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timerToSlowInStasis: 1
-  slowForce: 1.2
-  massScale: 4
-  smoothPosition: 3
 --- !u!114 &9133556912260582695
 MonoBehaviour:
   m_ObjectHideFlags: 0
