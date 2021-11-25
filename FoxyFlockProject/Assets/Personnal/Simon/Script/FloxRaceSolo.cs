@@ -28,18 +28,18 @@ public class FloxRaceSolo : GameModeSolo
         base.FixedUpdate();
         if (winLimit.triggered && hands.inPlayground == false)
         {
-            Debug.Log("can win");
+            tip = "can win";
             winLimit.GetComponent<MeshRenderer>().material = winLimit.winMat;
             timeAboveHeight += Time.deltaTime;
         } else if (winLimit.triggered && hands.inPlayground == true)
         {
-            Debug.Log("hands out");
+            tip = "hands out";
             timeAboveHeight = 0;
             winLimit.GetComponent<MeshRenderer>().material = winLimit.defeatMat;
         }
         else
         {
-            Debug.Log("try too reach height");
+            tip = "try too reach height";
             timeAboveHeight = 0;
             winLimit.GetComponent<MeshRenderer>().material = winLimit.baseMat;
         }

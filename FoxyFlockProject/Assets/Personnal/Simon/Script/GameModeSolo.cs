@@ -12,6 +12,7 @@ public class GameModeSolo : MonoBehaviour
     public List<GameObject> Tables;
 
     public int batchesNumbers;
+    public string tip;
     //public List<Batches> batches;
 
 

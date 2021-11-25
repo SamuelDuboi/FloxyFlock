@@ -6,16 +6,17 @@ public class FloxBoxSolo : GameModeSolo
 {
     public Vector3 boxSize;
     public float timeToWin;
+    public List<GameObject> FlocksToWin;
 
     [HideInInspector] public float timeInBox;
 
-    public Limits box;
+    public Box box;
     [HideInInspector] public Vector3 p;
 
-    public int floxesToPlace;
+    [HideInInspector] public int floxesToPlace;
     void Start()
     {
-        gameObject.transform.GetChild(0).transform.localScale = boxSize;
+        box.transform.localScale = boxSize;
         p = box.transform.position;
         p.y = Tables[0].transform.GetChild(0).transform.position.y + boxSize.y/2;
         box.transform.position = p;
@@ -26,23 +27,23 @@ public class FloxBoxSolo : GameModeSolo
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        if (box.triggered && hands.inPlayground == false)
+        if (box.objectsInBox.Count == floxesToPlace && hands.inPlayground == false)
         {
-            Debug.Log("can win");
-            winLimit.GetComponent<MeshRenderer>().material = winLimit.winMat;
+            tip = "can win";
+            box.GetComponent<MeshRenderer>().material = box.winMat;
             timeInBox += Time.deltaTime;
         }
-        else if (winLimit.triggered && hands.inPlayground == true)
+        else if (box.objectsInBox.Count != floxesToPlace && hands.inPlayground )
         {
-            Debug.Log("hands out");
+            tip ="Place all you're flocks in the box";
             timeInBox = 0;
-            winLimit.GetComponent<MeshRenderer>().material = winLimit.defeatMat;
+            box.GetComponent<MeshRenderer>().material = box.baseMat;
         }
-        else
+        else if(box.objectsInBox.Count == floxesToPlace && hands.inPlayground)
         {
-            Debug.Log("try too reach height");
+            tip = "hands out";
             timeInBox = 0;
-            winLimit.GetComponent<MeshRenderer>().material = winLimit.baseMat;
+            box.GetComponent<MeshRenderer>().material = box.defeatMat;
         }
         if (timeInBox >= timeToWin)
         {
