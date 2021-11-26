@@ -67,10 +67,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
         isOnPlayground = true;
         timerToExit = 0;
     }
-    void OnGrabListener()
-    {
-        Debug.Log("Grab");
-    }
+
     private void OnCollisionEnter(Collision collision)
     {
 

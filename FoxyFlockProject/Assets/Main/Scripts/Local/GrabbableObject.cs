@@ -37,8 +37,8 @@ public class GrabbableObject : XRGrabInteractable
         {
             SavedTransform savedTransform = new SavedTransform();
 
-            savedTransform.OriginalPosition = interactor.attachTransform.localPosition;
-            savedTransform.OriginalRotation = interactor.attachTransform.localRotation;
+            savedTransform.OriginalPosition = interactor.attachTransform.position;
+            savedTransform.OriginalRotation = interactor.attachTransform.rotation;
 
             m_SavedTransforms[interactor] = savedTransform;
 

@@ -50,10 +50,10 @@ public class ModifierAction : MonoBehaviour
     }
     public virtual void OnHitGround(GameObject _object, Vector3 initPos, bool isGrab)
     {
-        if (!isGrab)
+        /*if (!isGrab)
         {
             _object.transform.position = initPos;
-        }
+        }*/
     }
     public virtual void OnExitStasis(GameObject _object)
     {
@@ -81,6 +81,8 @@ public class ModifierAction : MonoBehaviour
         timerSlow = 0;
         timerToSlowInStasis = _object.GetComponent<GrabablePhysicsHandler>().timeToSlow;
         slowForce = _object.GetComponent<GrabablePhysicsHandler>().slowForce;
+        if (_object.transform.position.x > 200)
+            return;
         rgb = _rgb;
         if(!isGrab)
         StartCoroutine(SlowCoroutine());

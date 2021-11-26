@@ -30,7 +30,10 @@ public class GrabManagerEditor : Editor
         rlistModifier.drawElementCallback += ElementDrawer;
         rlistModifier.elementHeightCallback += ElementHeigh;
 
-      
+        if (!managerTarget.playGround)
+        {
+            managerTarget.playGround = GameObject.Find("PlayGroundCollider").GetComponent<PlayGround>();
+        }
     }
 
     public override void OnInspectorGUI()

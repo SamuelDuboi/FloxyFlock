@@ -10,7 +10,7 @@ public class Representation : MonoBehaviour
     public GrabManager manager;
     public RawImage image;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         manager.GetPiece(other.GetComponentInParent<XRDirectInteractor>(), index);
     }
