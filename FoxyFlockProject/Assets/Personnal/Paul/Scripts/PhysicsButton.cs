@@ -7,17 +7,27 @@ public class PhysicsButton : MonoBehaviour
 {
     [SerializeField] private float detectionThreshold = 0.1f;
     [SerializeField] private float deadzone = 0.025f;
+    [SerializeField] private bool isRotation = false;
 
     private bool _isPressed;
-    private Vector3 _startPos;
-    private ConfigurableJoint _joint;
+
+    private Vector3 startPos;
+    private Quaternion startRotation;
+
+    private ConfigurableJoint joint;
+    private Rigidbody rb;
 
     public UnityEvent onPressed, onReleased;
 
     private void Start()
     {
-        _startPos = transform.localPosition;
-        _joint = GetComponent<ConfigurableJoint>();
+        if (!isRotation)
+            startPos = transform.localPosition;
+        else
+            startRotation = transform.localRotation;
+
+        joint = GetComponent<ConfigurableJoint>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -30,7 +40,16 @@ public class PhysicsButton : MonoBehaviour
 
     private float GetValue()
     {
-        var value = Vector3.Distance(_startPos, transform.localPosition) / _joint.linearLimit.limit;
+        var value = 0f;
+
+        if (!isRotation)
+        {
+            value = Vector3.Distance(startPos, transform.localPosition) / joint.linearLimit.limit;
+        }
+        else
+        {
+            value = Quaternion.Angle(startRotation, transform.localRotation) / Mathf.Abs(joint.lowAngularXLimit.limit);
+        }
 
         if (Mathf.Abs(value) < deadzone)
             value = 0;
@@ -41,6 +60,7 @@ public class PhysicsButton : MonoBehaviour
     private void Pressed()
     {
         _isPressed = true;
+        StartCoroutine(MakeKinematic());
         onPressed.Invoke();
         Debug.Log(this.gameObject.name + " Pressed");
     }
@@ -50,5 +70,14 @@ public class PhysicsButton : MonoBehaviour
         _isPressed = false;
         onReleased.Invoke();
         Debug.Log(this.gameObject.name + " Released");
+    }
+
+    private IEnumerator MakeKinematic()
+    {
+        rb.isKinematic = true;
+
+        yield return new WaitForSeconds(0.5f);
+
+        rb.isKinematic = false;
     }
 }

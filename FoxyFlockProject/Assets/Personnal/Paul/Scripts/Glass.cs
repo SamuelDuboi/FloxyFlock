@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class Glass : ModifierAction
 {
-    [SerializeField] private GameObject shardsParticleSystem;
     [SerializeField] private float breakThreshold = 10;
+    [SerializeField] private GameObject shardsParticleSystem;
+    [SerializeField] private string clipName = "";
 
     public override void OnStarted(GameObject _object)
     {
         base.OnStarted(_object);
+
+        sound = _object.AddComponent<SoundReader>();
+        sound.clipName = clipName;
     }
     public override void OnEnterStasis(GameObject _object, bool isGrab, Rigidbody rgb)
     {
@@ -27,11 +31,16 @@ public class Glass : ModifierAction
     {
         base.OnHitSomething(_object, velocity, collision);
 
-        Vector3 collisionVelocity = collision.GetComponentInParent<Rigidbody>().velocity;
-
-        if (velocity.magnitude >= breakThreshold || (collisionVelocity != null && collisionVelocity.magnitude >= breakThreshold))
+        if (velocity.magnitude >= breakThreshold || (collision.GetComponent<Rigidbody>() != null && collision.GetComponent<Rigidbody>().velocity.magnitude >= breakThreshold)) // TODO : Find a way to make this work with any colliding object
         {
-            BreakGlass(_object);
+            Instantiate(shardsParticleSystem, this.transform.position, Quaternion.identity);
+
+            if (sound)
+                sound.Play();
+
+            InteractionManager.instance.SelectExit(currentInteractor, flockInteractable); // Should be working on main
+            _object.GetComponent<MeshRenderer>().enabled = false;
+            _object.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
     public override void OnReleased(GameObject _object)
@@ -39,9 +48,4 @@ public class Glass : ModifierAction
         base.OnReleased(_object);
     }
 
-    private void BreakGlass(GameObject flox)
-    {
-        Instantiate(shardsParticleSystem, this.transform.position, Quaternion.identity);
-        flox.SetActive(false);
-    }
 }
