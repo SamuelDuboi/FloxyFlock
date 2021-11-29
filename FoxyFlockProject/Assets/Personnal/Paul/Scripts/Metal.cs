@@ -29,9 +29,9 @@ public class Metal : ModifierAction
     {
         base.OnGrabed(_object);
     }
-    public override void OnHitGround(GameObject _object)
+    public override void OnHitGround(GameObject _object, Vector3 initPos, bool isGrab)
     {
-        base.OnHitGround(_object);
+        base.OnHitGround(_object,initPos,isGrab);
     }
     public override void OnHitSomething(GameObject _object, Vector3 velocity, GameObject collision)
     {

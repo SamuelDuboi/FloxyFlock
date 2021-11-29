@@ -6,21 +6,24 @@ public class FloxBoxSolo : GameModeSolo
 {
     public Vector3 boxSize;
     public float timeToWin;
-    public List<GameObject> FlocksToWin;
-
+    public List<GameObject> flocksToWin;
     [HideInInspector] public float timeInBox;
 
     public Box box;
+    public MeshRenderer boxMesh;
     [HideInInspector] public Vector3 p;
+    private int floxesToPlace;
 
-    [HideInInspector] public int floxesToPlace;
-    void Start()
+
+    IEnumerator Start()
     {
         box.transform.localScale = boxSize;
         p = box.transform.position;
-        p.y = Tables[0].transform.GetChild(0).transform.position.y + boxSize.y/2;
+        p.y = tableTransform.position.y + boxSize.y/2;
         box.transform.position = p;
 
+        yield return new WaitForEndOfFrame();
+        floxesToPlace = ScenesManager.instance.numberOfFlocksInScene;
         //floxesToPlace = batch.l
     }
 
@@ -30,21 +33,22 @@ public class FloxBoxSolo : GameModeSolo
         if (box.objectsInBox.Count == floxesToPlace && hands.inPlayground == false)
         {
             tip = "can win";
-            box.GetComponent<MeshRenderer>().material = box.winMat;
+            boxMesh.material = box.winMat;
             timeInBox += Time.deltaTime;
         }
-        else if (box.objectsInBox.Count != floxesToPlace && hands.inPlayground )
+        else if (box.objectsInBox.Count != floxesToPlace /*&& hands.inPlayground*/ )
         {
             tip ="Place all you're flocks in the box";
             timeInBox = 0;
-            box.GetComponent<MeshRenderer>().material = box.baseMat;
+            boxMesh.material = box.baseMat;
         }
         else if(box.objectsInBox.Count == floxesToPlace && hands.inPlayground)
         {
             tip = "hands out";
             timeInBox = 0;
-            box.GetComponent<MeshRenderer>().material = box.defeatMat;
+            boxMesh.material = box.defeatMat;
         }
+
         if (timeInBox >= timeToWin)
         {
             playerWin = true;

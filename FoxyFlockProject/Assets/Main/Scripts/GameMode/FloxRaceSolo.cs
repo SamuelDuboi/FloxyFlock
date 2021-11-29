@@ -15,7 +15,7 @@ public class FloxRaceSolo : GameModeSolo
     void Start()
     {
         p = winLimit.transform.position;
-        p.y = Tables[0].transform.GetChild(0).transform.position.y + limitHeight;
+        p.y = tableTransform.position.y + limitHeight;
         winLimit.transform.position = p;
 
         //winLimit.gameObject.diameter = limitDiameter;

@@ -8,6 +8,7 @@ public class ScenesManager : MonoBehaviour
     [Scene]
     public int[] lobbyScene;
     public static ScenesManager instance;
+   [HideInInspector] public int numberOfFlocksInScene;
     private void Awake()
     {
         if (!instance)

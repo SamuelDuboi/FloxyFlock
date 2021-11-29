@@ -12,6 +12,7 @@ public class SnapTurn : MonoBehaviour
 
     void Turn(Vector3 direction)
     {
+        
         m_transform.Rotate(direction);
     }
 }

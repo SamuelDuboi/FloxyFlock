@@ -10,8 +10,8 @@ public class GameModeSolo : MonoBehaviour
     public bool playerWin;
     public HandsPlayground hands;
     public List<GameObject> Tables;
+    public Transform tableTransform;
 
-    public int batchesNumbers;
     public string tip;
     //public List<Batches> batches;
 

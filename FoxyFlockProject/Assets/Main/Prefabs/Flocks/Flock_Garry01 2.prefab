@@ -403,7 +403,6 @@ GameObject:
   - component: {fileID: 6300934498088836372}
   - component: {fileID: 8112563765251549662}
   - component: {fileID: 8453840498622398709}
-  - component: {fileID: 43292423320147024}
   - component: {fileID: 4273169358947583073}
   - component: {fileID: -5613956910827931864}
   - component: {fileID: -7152951264444888547}
@@ -494,22 +493,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &43292423320147024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7752209755336706059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c3486e03f236eb4388f001b6564057c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mesh: {fileID: 8112563765251549662}
-  mats:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &4273169358947583073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,34 +519,10 @@ MonoBehaviour:
       m_Calls: []
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 43292423320147024}
-        m_TargetAssemblyTypeName: ChangeMatOnSelect, Assembly-CSharp
-        m_MethodName: OnSelect
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_HoverExited:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 43292423320147024}
-        m_TargetAssemblyTypeName: ChangeMatOnSelect, Assembly-CSharp
-        m_MethodName: OnDeselet
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:

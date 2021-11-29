@@ -52,6 +52,7 @@ public class GrabManager : MonoBehaviour
     private void InitPool()
     {
         mainPool = new List<pool>();
+        ScenesManager.instance.numberOfFlocksInScene=0;
         for (int i = 0; i < batches.Count; i++)
         {
             mainPool.Add(new pool());
@@ -69,7 +70,7 @@ public class GrabManager : MonoBehaviour
                 flock.GetComponent<Rigidbody>().useGravity= false;
                 mainPool[i].floxes.Add(flock);
                 mainPool[i].isSelected.Add(false);
-
+                ScenesManager.instance.numberOfFlocksInScene++;
             }
         }
     }

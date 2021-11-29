@@ -42,18 +42,20 @@ public class PlayGround : MonoBehaviour
 
         for (int i = 0; i < collidiers.Length; i++)
         {
-            if (collidiers[i].GetComponentInParent<HandsPlayground>() != false)
+            var hand = collidiers[i].GetComponentInParent<HandsPlayground>();
+            if (hand != null)
             {
-                collidiers[i].GetComponentInParent<HandsPlayground>().inPlayground = true;
-                _tempHand = collidiers[i].GetComponentInParent<HandsPlayground>();
+                hand.inPlayground = true;
+                _tempHand = hand;
                 hands = true;
+                return;
             }
 
-            /*_temp = collidiers[i].GetComponentInParent<GrabablePhysicsHandler>();
+            _temp = collidiers[i].GetComponentInParent<GrabablePhysicsHandler>();
             if (_temp)
             {
                 _temp.SetIsOnPlayGround(slowForce,timeBeforFall);
-            }*/
+            }
         }
         if (hands == false && _tempHand != null)
         {

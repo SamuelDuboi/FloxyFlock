@@ -14,4 +14,8 @@ public class Representation : MonoBehaviour
     {
         manager.GetPiece(other.GetComponentInParent<XRDirectInteractor>(), index);
     }
+    private void OnCollisionStay(Collision collision)
+    {
+        manager.GetPiece(collision.gameObject.GetComponentInParent<XRDirectInteractor>(), index);
+    }
 }
