@@ -13,7 +13,8 @@ public class GrabablePhysicsHandler : MonoBehaviour
     public List<Collider> colliders;
     public GrabbableObject m_grabbable;
     private MeshRenderer meshRenderer;
-    private Material[] mats;
+    private Material initialMat;
+    private Material mats;
     public UnityEvent<GameObject> OnGrabed;
     public UnityEvent<GameObject> OnStart;
     public UnityEvent<GameObject> OnReleased;
@@ -37,6 +38,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
         colliders = m_grabbable.colliders;
         initPos = transform.position;
         meshRenderer = GetComponent<MeshRenderer>();
+        initialMat =meshRenderer.material;
         InvokeOnStart();
     }
 
@@ -145,22 +147,25 @@ public class GrabablePhysicsHandler : MonoBehaviour
             tempMat[1] = _modifier.physiqueMaterial;
         else
             tempMat[1] = grabedMat[1];
-        ChangeMat(_modifier.mats, tempMat);
+        if (!modifier.isBasciFloat)
+            ChangeMat(_modifier.material, tempMat);
+        else
+            ChangeMat(tempMat);
 
     }
 
     private void OnHover()
     {
-        meshRenderer.material = mats[1];
+        //change value in shader
     }
     private void OnHoverExit()
     {
-        meshRenderer.material = mats[0];
+        //change value in shader
     }
 
     private void OnSelect()
     {
-        meshRenderer.material = mats[0];
+        //change value in shader
     }
 
     private void ChangePhysicMatsOnSelect()
@@ -177,13 +182,23 @@ public class GrabablePhysicsHandler : MonoBehaviour
             colliders[i].material = physicMaterials[1];
         }
     }
-    private void ChangeMat(Material[] _mats, PhysicMaterial[] _physicMaterial)
+    private void ChangeMat(Material _mat, PhysicMaterial[] _physicMaterial)
     {
         physicMaterials = _physicMaterial;
-        mats = _mats;
+        mats = _mat;
         if (!meshRenderer)
             meshRenderer = GetComponent<MeshRenderer>();
-        meshRenderer.material = mats[0];
+        meshRenderer.material = mats;
+        //change value in shader
+    }
+    private void ChangeMat( PhysicMaterial[] _physicMaterial)
+    {
+        physicMaterials = _physicMaterial;
+        mats = initialMat;
+        if (!meshRenderer)
+            meshRenderer = GetComponent<MeshRenderer>();
+        meshRenderer.material = mats;
+        //change value in shader
     }
 }
 public static class MyExtension

@@ -16,7 +16,7 @@ public class ModifierEditor : Editor
         targeModifier = target as Modifier;
         hasPhysiqueMaterial = serializedObject.FindProperty("hasPhysiqueMaterial");
         physiqueMaterial = serializedObject.FindProperty("physiqueMaterial");
-        mats = serializedObject.FindProperty("mats");
+        mats = serializedObject.FindProperty("material");
         actions = serializedObject.FindProperty("actions");
     }
 
