@@ -27,20 +27,12 @@ public class Glass : ModifierAction
     {
         base.OnHitSomething(_object, velocity, collision);
 
-        if (velocity.magnitude >= breakThreshold)
+        Vector3 collisionVelocity = collision.GetComponentInParent<Rigidbody>().velocity;
+
+        if (velocity.magnitude >= breakThreshold || (collisionVelocity != null && collisionVelocity.magnitude >= breakThreshold))
         {
             BreakGlass(_object);
         }
-        //else
-        //{
-        //    Rigidbody collisionRb = collision.GetComponent<Collider>().attachedRigidbody;
-
-        //    if (collisionRb != null && collisionRb.velocity.magnitude >= breakThreshold)
-        //    {
-        //        BreakGlass(_object);
-        //    }
-        //}
-
     }
     public override void OnReleased(GameObject _object)
     {
