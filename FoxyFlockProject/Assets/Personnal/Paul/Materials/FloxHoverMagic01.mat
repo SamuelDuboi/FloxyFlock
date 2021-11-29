@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FlocksCouleur
-  m_Shader: {fileID: -6465566751694194690, guid: 5436f3c3a5d65064eb6409bdd570fde3, type: 3}
+  m_Name: FloxHoverMagic01
+  m_Shader: {fileID: -6465566751694194690, guid: 9c2e9e706fa3313499cf03e5f5b3e547, type: 3}
   m_ShaderKeywords: BOOLEAN_7747527491F0414793DBEE8B44CE33BF_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_fac2268ce5aa479a8e33a1ae262686cb:
-        m_Texture: {fileID: 2800000, guid: e831a88c8eb77b5488eee17273138b87, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0a88319ef328e9649b43aaf188f3b6f0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_1eb31d364112410495ed8dec68c9d7f0_Texture_1:
@@ -46,18 +46,18 @@ Material:
     m_Floats:
     - BOOLEAN_7747527491F0414793DBEE8B44CE33BF: 1
     - Vector1_0bf06800e92644c8a9c19faf16ab8165: 10
-    - Vector1_4cfc3f553b2f4ebbb9eee3f04c498d73: 1.34
-    - Vector1_688861A9: 4
+    - Vector1_4cfc3f553b2f4ebbb9eee3f04c498d73: 3
+    - Vector1_688861A9: 6
     - Vector1_870cd5d8dd5a407a8a621a681303639a: 0.9
-    - Vector1_903A7FAB: 10.19
-    - Vector1_949a4921a03e40ae83d8ed07ecee88a6: 6.35
-    - Vector1_E39B1B65: 0.23
-    - Vector1_a9c01cac01c243db9c5cec5b8af2f308: 0.55
-    - Vector1_b51fc2be0fa347498098668bb7e15a4d: 0.8
+    - Vector1_903A7FAB: 10
+    - Vector1_949a4921a03e40ae83d8ed07ecee88a6: 6.5
+    - Vector1_E39B1B65: 0.2
+    - Vector1_a9c01cac01c243db9c5cec5b8af2f308: 1
+    - Vector1_b51fc2be0fa347498098668bb7e15a4d: 0.75
     - Vector1_e48afbaa45a8490faa0d8a1acdfdc14d: 0.1
     m_Colors:
-    - Color_29366eada27a4b0b9b42de996d4cf1d2: {r: 0, g: 0.49760765, b: 1, a: 0}
-    - Color_4efd9c8e6933410f9cdc6afd87d1ebb6: {r: 0, g: 0.49803913, b: 1, a: 1}
-    - Color_a8cbeac0810e45919f25cf579b20221e: {r: 0, g: 0, b: 0, a: 1}
+    - Color_29366eada27a4b0b9b42de996d4cf1d2: {r: 1, g: 1, b: 1, a: 1}
+    - Color_4efd9c8e6933410f9cdc6afd87d1ebb6: {r: 0.6784314, g: 0.6784314, b: 0.6784314, a: 1}
+    - Color_a8cbeac0810e45919f25cf579b20221e: {r: 1, g: 1, b: 1, a: 1}
     - Vector2_6141d7dac06746a08cdc702ae44ca3ab: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
