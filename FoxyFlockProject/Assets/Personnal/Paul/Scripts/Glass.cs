@@ -29,12 +29,27 @@ public class Glass : ModifierAction
 
         if (velocity.magnitude >= breakThreshold)
         {
-            Instantiate(shardsParticleSystem, this.transform.position, Quaternion.identity);
+            BreakGlass(_object);
         }
+        //else
+        //{
+        //    Rigidbody collisionRb = collision.GetComponent<Collider>().attachedRigidbody;
+
+        //    if (collisionRb != null && collisionRb.velocity.magnitude >= breakThreshold)
+        //    {
+        //        BreakGlass(_object);
+        //    }
+        //}
 
     }
     public override void OnReleased(GameObject _object)
     {
         base.OnReleased(_object);
+    }
+
+    private void BreakGlass(GameObject flox)
+    {
+        Instantiate(shardsParticleSystem, this.transform.position, Quaternion.identity);
+        flox.SetActive(false);
     }
 }

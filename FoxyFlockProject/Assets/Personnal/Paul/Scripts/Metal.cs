@@ -6,20 +6,28 @@ public class Metal : ModifierAction
 {
     [SerializeField] private float massScale = 3;
     [SerializeField] [Range(0, 20)] private float smoothPosition = 4;
+    [SerializeField] [Range(0, 1f)] private float tightenPosition = 0.1f;
+    [SerializeField] [Range(0, 20)] private float smoothRotation = 4;
+    [SerializeField] [Range(0, 1f)] private float tightenRotation = 0.1f;
 
     public override void OnStarted(GameObject _object)
     {
         base.OnStarted(_object);
 
-        flock = _object;
+        flox = _object;
 
-        GrabbableObject flockGrabbable = flock.GetComponent<GrabbableObject>();
+        GrabbableObject flockGrabbable = flox.GetComponent<GrabbableObject>();
+
         flockGrabbable.smoothPosition = true;
         flockGrabbable.smoothPositionAmount = smoothPosition;
-        flockGrabbable.tightenPosition = 0;
+        flockGrabbable.tightenPosition = tightenPosition;
 
-        Rigidbody flockRb = flock.GetComponent<Rigidbody>();
-        flockRb.mass = flockRb.mass * massScale;
+        flockGrabbable.smoothRotation = true;
+        flockGrabbable.smoothRotationAmount = smoothRotation;
+        flockGrabbable.tightenRotation = tightenRotation;
+
+        Rigidbody flockRb = flox.GetComponent<Rigidbody>();
+        flockRb.mass *= massScale;
     }
     public override void OnEnterStasis(GameObject _object, bool isGrab, Rigidbody rgb)
     {

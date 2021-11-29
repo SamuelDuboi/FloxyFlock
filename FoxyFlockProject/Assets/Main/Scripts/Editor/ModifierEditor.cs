@@ -5,7 +5,7 @@ using UnityEngine;
 public class ModifierEditor : Editor
 {
     private Modifier targeModifier;
-    private SerializedProperty asPhysiqueMaterial;
+    private SerializedProperty hasPhysiqueMaterial;
     private SerializedProperty physiqueMaterial;
     private SerializedProperty mats;
     private SerializedProperty actions;
@@ -14,7 +14,7 @@ public class ModifierEditor : Editor
     private void OnEnable()
     {
         targeModifier = target as Modifier;
-        asPhysiqueMaterial = serializedObject.FindProperty("asPhysiqueMaterial");
+        hasPhysiqueMaterial = serializedObject.FindProperty("hasPhysiqueMaterial");
         physiqueMaterial = serializedObject.FindProperty("physiqueMaterial");
         mats = serializedObject.FindProperty("mats");
         actions = serializedObject.FindProperty("actions");
@@ -22,9 +22,9 @@ public class ModifierEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        EditorGUILayout.PropertyField(asPhysiqueMaterial);
+        EditorGUILayout.PropertyField(hasPhysiqueMaterial);
      
-        if(asPhysiqueMaterial.boolValue)
+        if(hasPhysiqueMaterial.boolValue)
             EditorGUILayout.PropertyField(physiqueMaterial);
         targeModifier.actions = (ModifierAction)EditorGUILayout.ObjectField(targeModifier.actions, typeof(ModifierAction), true);
         serializedObject.ApplyModifiedProperties();

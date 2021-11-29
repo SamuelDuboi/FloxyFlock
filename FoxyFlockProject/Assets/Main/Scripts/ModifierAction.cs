@@ -5,7 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 [System.Serializable]
 public class ModifierAction : MonoBehaviour
 {
-    protected GameObject flock;
+    protected GameObject flox;
     protected XRBaseInteractor currentInteractor;
     protected GrabbableObject flockInteractable;
     protected SoundReader sound;

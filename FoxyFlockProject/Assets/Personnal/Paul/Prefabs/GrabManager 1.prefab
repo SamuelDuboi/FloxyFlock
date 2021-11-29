@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1897938308515805256}
   - component: {fileID: 1379461113510754067}
-  - component: {fileID: 2020907739}
   - component: {fileID: 1897938308515805263}
+  - component: {fileID: 2020907739}
   - component: {fileID: 1897938308515805257}
   - component: {fileID: 9133556912260582695}
   m_Layer: 0
@@ -51,6 +51,20 @@ MonoBehaviour:
   slowForce: 1.2
   massScale: 4
   smoothPosition: 3
+--- !u!114 &1897938308515805263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897938308515805258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7145c8e47d5e0e544ba49b9077638060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerToSlowInStasis: 1
+  slowForce: 1.2
 --- !u!114 &2020907739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,20 +81,6 @@ MonoBehaviour:
   slowForce: 1.2
   shardsParticleSystem: {fileID: 0}
   breakThreshold: 10
---- !u!114 &1897938308515805263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1897938308515805258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7145c8e47d5e0e544ba49b9077638060, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timerToSlowInStasis: 1
-  slowForce: 1.2
 --- !u!114 &1897938308515805257
 MonoBehaviour:
   m_ObjectHideFlags: 0
