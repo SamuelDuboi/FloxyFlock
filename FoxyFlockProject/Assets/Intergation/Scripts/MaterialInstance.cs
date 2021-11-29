@@ -10,14 +10,13 @@ public class MaterialInstance : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        floxMaterial = flox.GetComponent<MeshRenderer>().material; //on instancie le material 
-        floxMaterial.SetInt("inHand", 0);
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-       DansLesMains ? floxMaterial.SetInt("inHand", 1) : floxMaterial.SetInt("inHand", 0); 
+       //DansLesMains ? floxMaterial.SetInt("inHand", 1) : floxMaterial.SetInt("inHand", 0); 
         //et là on change le paramètre du shader qui nous intéresse (ici le bool qui va changer les couleurs quand on prend un flox dans les mains)
         //(c'est un set int parce que le material.SetBool n'existe pas)
     }

@@ -60,7 +60,7 @@ public class GrabManager : MonoBehaviour
             mainPool[i].isSelected = new List<bool>();
             for (int x = 0; x < batches[i].pieces.Count; x++)
             {
-                GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300+x*5, 300, 300), Quaternion.identity);
+                GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300+x*20+i*5, 300 + x * 20 + i * 5, 300 + x * 20 + i * 5), Quaternion.identity);
                 Modifier _modifer = modifiers[UnityEngine.Random.Range(0, modifiers.Count)];
                 Type type = _modifer.actions.GetType();
                 var _object = GetComponent(type);

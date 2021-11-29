@@ -33,12 +33,13 @@ public class GrabablePhysicsHandler : MonoBehaviour
     private ModifierAction[] actions = new ModifierAction[2];
     public IEnumerator Start()
     {
+        initialMat = meshRenderer.material;
+
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
         colliders = m_grabbable.colliders;
         initPos = transform.position;
         meshRenderer = GetComponent<MeshRenderer>();
-        initialMat =meshRenderer.material;
         InvokeOnStart();
     }
 
@@ -156,16 +157,16 @@ public class GrabablePhysicsHandler : MonoBehaviour
 
     private void OnHover()
     {
-        //change value in shader
+        mats.SetInt("inHand", 1);
     }
     private void OnHoverExit()
     {
-        //change value in shader
+        mats.SetInt("inHand", 0);
     }
 
     private void OnSelect()
     {
-        //change value in shader
+        mats.SetInt("inHand", 1);
     }
 
     private void ChangePhysicMatsOnSelect()
@@ -194,9 +195,11 @@ public class GrabablePhysicsHandler : MonoBehaviour
     private void ChangeMat( PhysicMaterial[] _physicMaterial)
     {
         physicMaterials = _physicMaterial;
-        mats = initialMat;
         if (!meshRenderer)
             meshRenderer = GetComponent<MeshRenderer>();
+        if (!initialMat)
+            initialMat = meshRenderer.material;
+        mats = initialMat;
         meshRenderer.material = mats;
         //change value in shader
     }
