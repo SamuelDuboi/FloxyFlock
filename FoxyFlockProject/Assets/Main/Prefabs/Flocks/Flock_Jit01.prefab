@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 6254339699525460318}
   - component: {fileID: 5065954506491773976}
   - component: {fileID: 8070194755144034207}
+  - component: {fileID: 3016414992456519400}
   m_Layer: 6
   m_Name: Flock_Jit01
   m_TagString: Untagged
@@ -186,7 +187,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4e2fa3485f1ce9645b8ecd62efaa62bd, type: 2}
+  - {fileID: 2100000, guid: 62309bf7d5813d44584466cae0d4576b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -406,11 +407,27 @@ MonoBehaviour:
   OnEnterStasis:
     m_PersistentCalls:
       m_Calls: []
+  OnExitStasis:
+    m_PersistentCalls:
+      m_Calls: []
   slowForce: 0
   timeToSlow: 0
   isOnPlayground: 0
   isOnStasisOnce: 0
   timerToExit: 0
+--- !u!114 &3016414992456519400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5191685301571692960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf2e57e98712d84887d77e2789353c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texture: {fileID: 8400000, guid: 575c78974c406f6418f909b143d8d4a5, type: 2}
 --- !u!1 &7439024318472477456
 GameObject:
   m_ObjectHideFlags: 0

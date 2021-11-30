@@ -25,8 +25,8 @@ public class ModifierAction : MonoBehaviour
     }
     public virtual void OnGrabed(GameObject _object)
     {
-        flock = _object;
-        flockInteractable = flock.GetComponent<GrabbableObject>();
+        flox = _object;
+        flockInteractable = flox.GetComponent<GrabbableObject>();
         currentInteractor = flockInteractable.currentInteractor;
         timerSlow = 0;
         isGrab = true;
