@@ -30,19 +30,19 @@ public class FloxBoxSolo : GameModeSolo
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        if (box.objectsInBox.Count == floxesToPlace && hands.inPlayground == false)
+        if (box.grabbableObjects.Count == floxesToPlace && hands.inPlayground == false)
         {
             tip = "can win";
             boxMesh.material = box.winMat;
             timeInBox += Time.deltaTime;
         }
-        else if (box.objectsInBox.Count != floxesToPlace /*&& hands.inPlayground*/ )
+        else if (box.grabbableObjects.Count != floxesToPlace /*&& hands.inPlayground*/ )
         {
             tip ="Place all you're flocks in the box";
             timeInBox = 0;
             boxMesh.material = box.baseMat;
         }
-        else if(box.objectsInBox.Count == floxesToPlace && hands.inPlayground)
+        else if(box.grabbableObjects.Count == floxesToPlace && hands.inPlayground)
         {
             tip = "hands out";
             timeInBox = 0;

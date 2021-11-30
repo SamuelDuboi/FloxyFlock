@@ -40,7 +40,7 @@ public class Box : MonoBehaviour
             {
                 for (int i = 0; i < parent.colliders.Count; i++)
                 {
-                    if(!thisBox.bounds.Contains(parent.colliders[i].bounds.max) || !thisBox.bounds.Contains(parent.colliders[i].bounds.max))
+                    if(!thisBox.bounds.Contains(parent.colliders[i].bounds.max) || !thisBox.bounds.Contains(parent.colliders[i].bounds.min))
                     {
                         return;
                     }
@@ -49,14 +49,46 @@ public class Box : MonoBehaviour
             }
         }
  }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 6)
+        {
+            GrabbableObject parent = other.GetComponentInParent<GrabbableObject>();
+            if (grabbableObjects.Contains(parent))
+                grabbableObjects.Remove(parent);
+        }
+    }
     private void OnTriggerStay(Collider other)
     {
 
         if (other.gameObject.layer == 6)
         {
-          
 
-            if (other.bounds.Contains(thisBox.bounds.min) && other.bounds.Contains(thisBox.bounds.max))
+            GrabbableObject parent = other.GetComponentInParent<GrabbableObject>();
+            if (grabbableObjects.Contains(parent))
+            {
+                for (int i = 0; i < parent.colliders.Count; i++)
+                {
+                    if (!thisBox.bounds.Contains(parent.colliders[i].bounds.max) || !thisBox.bounds.Contains(parent.colliders[i].bounds.min))
+                    {
+                        grabbableObjects.Remove(parent);
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < parent.colliders.Count; i++)
+                {
+                    if (!thisBox.bounds.Contains(parent.colliders[i].bounds.max) || !thisBox.bounds.Contains(parent.colliders[i].bounds.min))
+                    {
+                        return;
+                    }
+                }
+                grabbableObjects.Add(parent);
+            }
+
+           /* if (other.bounds.Contains(thisBox.bounds.min) && other.bounds.Contains(thisBox.bounds.max))
             {
                 objectsInBox.Add(other.gameObject);
             }
@@ -65,7 +97,7 @@ public class Box : MonoBehaviour
                 if (objectsInBox.Count < 1)
                     return;
                 objectsInBox.RemoveAt(objectsInBox.BinarySearch(other.gameObject));
-            }
+            }*/
 
         }
     }

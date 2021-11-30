@@ -31,12 +31,18 @@ public class GrabablePhysicsHandler : MonoBehaviour
     public bool isOnStasisOnce;
     public float timerToExit;
     private ModifierAction[] actions = new ModifierAction[2];
+    MaterialPropertyBlock propBlock;
+
     public IEnumerator Start()
     {
         initialMat = meshRenderer.material;
 
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
+        //overrid mat without creat new instance or modify it
+        propBlock = new MaterialPropertyBlock();
+
+        
         colliders = m_grabbable.colliders;
         initPos = transform.position;
         meshRenderer = GetComponent<MeshRenderer>();
@@ -157,16 +163,34 @@ public class GrabablePhysicsHandler : MonoBehaviour
 
     private void OnHover()
     {
-        mats.SetInt("inHand", 1);
+        //Recup Data
+        meshRenderer.GetPropertyBlock(propBlock);
+        //EditZone
+        propBlock.SetInt("inHand", 1);
+
+        //Push Data
+        meshRenderer.SetPropertyBlock(propBlock);
     }
     private void OnHoverExit()
     {
-        mats.SetInt("inHand", 0);
+        //Recup Data
+        meshRenderer.GetPropertyBlock(propBlock);
+        //EditZone
+        propBlock.SetInt("inHand", 0);
+
+        //Push Data
+        meshRenderer.SetPropertyBlock(propBlock);
     }
 
     private void OnSelect()
     {
-        mats.SetInt("inHand", 1);
+        //Recup Data
+        meshRenderer.GetPropertyBlock(propBlock);
+        //EditZone
+        propBlock.SetInt("inHand", 1);
+
+        //Push Data
+        meshRenderer.SetPropertyBlock(propBlock);
     }
 
     private void ChangePhysicMatsOnSelect()
