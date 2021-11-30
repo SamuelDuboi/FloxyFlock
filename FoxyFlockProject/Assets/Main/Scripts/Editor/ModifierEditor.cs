@@ -27,8 +27,8 @@ public class ModifierEditor : Editor
         if(hasPhysiqueMaterial.boolValue)
             EditorGUILayout.PropertyField(physiqueMaterial);
         targeModifier.actions = (ModifierAction)EditorGUILayout.ObjectField(targeModifier.actions, typeof(ModifierAction), true);
-        serializedObject.ApplyModifiedProperties();
         EditorGUILayout.PropertyField(mats);
+        serializedObject.ApplyModifiedProperties();
         EditorUtility.SetDirty(targeModifier);
         serializedObject.Update();
     }
