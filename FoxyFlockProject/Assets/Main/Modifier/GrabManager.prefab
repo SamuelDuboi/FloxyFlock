@@ -828,6 +828,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1897938308515805256}
+  - component: {fileID: -4865766839934655187}
+  - component: {fileID: -6922997318105744018}
   - component: {fileID: 1897938308515805257}
   - component: {fileID: 1897938308515805263}
   - component: {fileID: 9133556912260582695}
@@ -855,6 +857,46 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4865766839934655187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897938308515805258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0829ae3b00274546b9bb1a468edfd8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerToSlowInStasis: 1
+  slowForce: 1.2
+  vibrationForce: 0.5
+  vibrationTime: 0.2
+  breakThreshold: 1
+  shardsParticleSystem: {fileID: 8319655972397218208, guid: 99b292702a7828e45bd3e76b03c6f5f4, type: 3}
+  clipName: Laser
+--- !u!114 &-6922997318105744018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897938308515805258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2ccc0ac6e95b3a4f88e016146d44ad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerToSlowInStasis: 1
+  slowForce: 1.2
+  vibrationForce: 0.5
+  vibrationTime: 0.2
+  massScale: 4
+  smoothPosition: 3
+  tightenPosition: 0.1
+  smoothRotation: 4
+  tightenRotation: 0.1
 --- !u!114 &1897938308515805257
 MonoBehaviour:
   m_ObjectHideFlags: 0
