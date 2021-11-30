@@ -62,14 +62,12 @@ public class PhysicsButton : MonoBehaviour
         _isPressed = true;
         StartCoroutine(MakeKinematic());
         onPressed.Invoke();
-        Debug.Log(this.gameObject.name + " Pressed");
     }
 
     private void Released()
     {
         _isPressed = false;
         onReleased.Invoke();
-        Debug.Log(this.gameObject.name + " Released");
     }
 
     private IEnumerator MakeKinematic()

@@ -35,10 +35,11 @@ public class GrabablePhysicsHandler : MonoBehaviour
 
     public IEnumerator Start()
     {
-        initialMat = meshRenderer.material;
 
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
+        initialMat = meshRenderer.material;
+
         //overrid mat without creat new instance or modify it
         propBlock = new MaterialPropertyBlock();
 
