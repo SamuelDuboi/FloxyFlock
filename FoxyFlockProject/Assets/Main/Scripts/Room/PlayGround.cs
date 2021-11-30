@@ -64,6 +64,7 @@ public class PlayGround : MonoBehaviour
         }
        
     }
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         for (float i = 0; i < 5f; i++)
@@ -72,5 +73,5 @@ public class PlayGround : MonoBehaviour
             Handles.DrawWireDisc(pos, Vector3.up, radius);
         }
     }
-   
+#endif
 }

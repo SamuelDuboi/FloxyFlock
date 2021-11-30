@@ -24,6 +24,8 @@ public class FloxBoxSolo : GameModeSolo
 
         yield return new WaitForEndOfFrame();
         floxesToPlace = ScenesManager.instance.numberOfFlocksInScene;
+        UIGlobalManager.instance.SetGameMode("Flock Box", "0");
+        UIGlobalManager.instance.ChangeFlockNumner(floxesToPlace);
         //floxesToPlace = batch.l
     }
 
@@ -33,24 +35,32 @@ public class FloxBoxSolo : GameModeSolo
         if (box.grabbableObjects.Count == floxesToPlace && hands.inPlayground == false)
         {
             tip = "can win";
+            UIGlobalManager.instance.SetRulesMode(tip);
+
             boxMesh.material = box.winMat;
             timeInBox += Time.deltaTime;
         }
         else if (box.grabbableObjects.Count != floxesToPlace /*&& hands.inPlayground*/ )
         {
             tip ="Place all you're flocks in the box";
+            UIGlobalManager.instance.SetRulesMode(tip);
+
             timeInBox = 0;
             boxMesh.material = box.baseMat;
         }
         else if(box.grabbableObjects.Count == floxesToPlace && hands.inPlayground)
         {
             tip = "hands out";
+            UIGlobalManager.instance.SetRulesMode(tip);
+
             timeInBox = 0;
             boxMesh.material = box.defeatMat;
         }
 
         if (timeInBox >= timeToWin)
         {
+            UIGlobalManager.instance.Win(1);
+
             playerWin = true;
         }
     }

@@ -46,6 +46,7 @@ public class Box : MonoBehaviour
                     }
                 }
                 grabbableObjects.Add(parent);
+                UIGlobalManager.instance.ChangeFlockNumner(-1);
             }
         }
  }
@@ -55,7 +56,10 @@ public class Box : MonoBehaviour
         {
             GrabbableObject parent = other.GetComponentInParent<GrabbableObject>();
             if (grabbableObjects.Contains(parent))
+            {
                 grabbableObjects.Remove(parent);
+                UIGlobalManager.instance.ChangeFlockNumner(1);
+            }
         }
     }
     private void OnTriggerStay(Collider other)
@@ -72,6 +76,7 @@ public class Box : MonoBehaviour
                     if (!thisBox.bounds.Contains(parent.colliders[i].bounds.max) || !thisBox.bounds.Contains(parent.colliders[i].bounds.min))
                     {
                         grabbableObjects.Remove(parent);
+                        UIGlobalManager.instance.ChangeFlockNumner(1);
                         return;
                     }
                 }
@@ -86,18 +91,19 @@ public class Box : MonoBehaviour
                     }
                 }
                 grabbableObjects.Add(parent);
+                UIGlobalManager.instance.ChangeFlockNumner(-1);
             }
 
-           /* if (other.bounds.Contains(thisBox.bounds.min) && other.bounds.Contains(thisBox.bounds.max))
-            {
-                objectsInBox.Add(other.gameObject);
-            }
-            else
-            {
-                if (objectsInBox.Count < 1)
-                    return;
-                objectsInBox.RemoveAt(objectsInBox.BinarySearch(other.gameObject));
-            }*/
+            /* if (other.bounds.Contains(thisBox.bounds.min) && other.bounds.Contains(thisBox.bounds.max))
+             {
+                 objectsInBox.Add(other.gameObject);
+             }
+             else
+             {
+                 if (objectsInBox.Count < 1)
+                     return;
+                 objectsInBox.RemoveAt(objectsInBox.BinarySearch(other.gameObject));
+             }*/
 
         }
     }

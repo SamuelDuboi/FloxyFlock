@@ -74,6 +74,14 @@ public class UIGlobalManager : MonoBehaviour
             gameModeRules[i].text = rule;
         }
     }
+    public void SetRulesMode(string rule)
+    {
+        
+        for (int i = 0; i < gameModeRules.Length; i++)
+        {
+            gameModeRules[i].text = rule;
+        }
+    }
     public void ChangeFlockNumner(int add)
     {
         flockNumber += add;

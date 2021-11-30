@@ -7,6 +7,7 @@ public class ClampObejct : MonoBehaviour
     public bool forwardClamp;
     public bool isMin;
     public CapsuleCollider sphere;
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if (table )
@@ -29,4 +30,5 @@ public class ClampObejct : MonoBehaviour
             }
         }
     }
+#endif
 }
