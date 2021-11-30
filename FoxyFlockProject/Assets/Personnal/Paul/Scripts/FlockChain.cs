@@ -33,7 +33,9 @@ public class FlockChain : MonoBehaviour
     {
         for (int i = 0; i < _flocksPositionArray.Length; i++)
         {
-            _flocksPositionArray[i].GetComponent<Rigidbody>().mass = 10*(i+1);
+            _flocksPositionArray[i].GetComponent<Rigidbody>().mass = 5*(i*1.5f);
+            //_flocksPositionArray[i].GetComponent<Rigidbody>().drag = i * 3f;
+            //_flocksPositionArray[i].GetComponent<Rigidbody>().angularDrag = i * 3f;
         }
     }
 
