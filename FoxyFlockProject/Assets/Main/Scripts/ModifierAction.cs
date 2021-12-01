@@ -19,9 +19,21 @@ public class ModifierAction : MonoBehaviour
     public float vibrationForce = 0.5f;
     public float vibrationTime = 0.2f;
     protected bool isGrab;
+    public string grab;
+    public string collisionTable;
     public virtual void OnStarted(GameObject _object)
     {
+        sound = _object.AddComponent<SoundReader>();
+        int rand = Random.Range(0, 2);
 
+        if (rand == 0)
+            grab = "Grab1";
+        else
+            grab = "Grab2";
+        sound.clipName = grab;
+        collisionTable = "CollisionTable";
+        sound.secondClipName = "EnterStasis";
+        sound.ThirdClipName = collisionTable;
     }
     public virtual void OnGrabed(GameObject _object)
     {
@@ -30,7 +42,13 @@ public class ModifierAction : MonoBehaviour
         currentInteractor = flockInteractable.currentInteractor;
         timerSlow = 0;
         isGrab = true;
-       
+        int rand = Random.Range(0, 2);
+        if (rand == 0)
+            grab = "Grab1";
+        else
+            grab = "Grab2";
+        sound.clipName = grab;
+        sound.Play();
     }
     public virtual void OnReleased(GameObject _object)
     {
@@ -58,6 +76,8 @@ public class ModifierAction : MonoBehaviour
     public virtual void OnExitStasis(GameObject _object)
     {
         isOnStasis = false;
+        sound.secondClipName = "ExitStasis";
+        sound.PlaySeconde();
         if(rgb)
         rgb.useGravity = true;
         if (isGrab)
@@ -76,6 +96,8 @@ public class ModifierAction : MonoBehaviour
     }
     public virtual void OnEnterStasis(GameObject _object, bool isGrab, Rigidbody _rgb )
     {
+        sound.secondClipName = "EnterStasis";
+        sound.PlaySeconde();
         isOnStasis = true;
         isSlowingDown = true;
         timerSlow = 0;
