@@ -140,6 +140,11 @@ public class GrabManager : MonoBehaviour
             }
         }*/
     }
+    public void LockBatche(GameObject gameObject)
+    {
+
+    }
+
 
     public void GetPiece(XRBaseInteractor baseInteractor, int index)
     {
