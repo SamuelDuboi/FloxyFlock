@@ -44,7 +44,7 @@ public class GrabManagerMulti : GrabManager
             mainPool[i].isSelected = new List<bool>();
             for (int x = 0; x < batches[i].pieces.Count; x++)
             {
-                player.InitBacth(authority, i, x, batches, modifiers, basicMats, mainPool);
+                player.InitBacth(authority, i, x, batches, basicMats, mainPool);
             }
 
         }

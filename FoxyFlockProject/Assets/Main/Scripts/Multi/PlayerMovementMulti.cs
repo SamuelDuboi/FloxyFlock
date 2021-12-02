@@ -242,19 +242,16 @@ public class PlayerMovementMulti : NetworkBehaviour
         return new Vector2(a.x, a.z);
     }
 
-    public void InitBacth(GameObject authority, int i, int x, List<Batch> batches, List<Modifier> modifiers, PhysicMaterial[] basicMats, List<pool> mainPool)
+    public void InitBacth(GameObject authority, int i, int x, List<Batch> batches, PhysicMaterial[] basicMats, List<pool> mainPool)
     {
-        CmdSpawnPiece(authority, i, x, batches, modifiers, basicMats, mainPool);
+        CmdSpawnPiece(authority, i, x, batches, basicMats, mainPool);
     }
 
     [Command]
-    private void CmdSpawnPiece(GameObject authority, int i, int x, List<Batch> batches, List<Modifier> modifiers, PhysicMaterial[] basicMats, List<pool> mainPool)
+    private void CmdSpawnPiece(GameObject authority, int i, int x, List<Batch> batches, PhysicMaterial[] basicMats, List<pool> mainPool)
     {
         GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + x * 20 + i * 5, 300 + x * 20 + i * 5, 300 + x * 20 + i * 5), Quaternion.identity);
-        Modifier _modifer = modifiers[UnityEngine.Random.Range(0, modifiers.Count)];
-        Type type = _modifer.actions.GetType();
-        var _object = GetComponent(type);
-        flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
+        //flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(modifier, _object as ModifierAction, basicMats);
         flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
         flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
 
