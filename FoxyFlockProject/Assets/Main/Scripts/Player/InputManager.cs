@@ -7,21 +7,20 @@ public class InputManager : MonoBehaviour
     
     public HandController rightHand;
     public HandController leftHand;
-    private bool rightHandIsTrigger;
-    private bool rightHandIsTriggerRelease;
-    private bool leftHandIsTrigger;
-    private bool leftHandIsTriggerRelease;
-    private bool leftHandIsGrab;
-    private bool rightHandIsGrab;
-    private bool rightHandIsGrabRelease;
-    private bool leftHandIsGrabRelease;
+    protected bool rightHandIsTrigger;
+    protected bool rightHandIsTriggerRelease;
+    protected bool leftHandIsTrigger;
+    protected bool leftHandIsTriggerRelease;
+    protected bool leftHandIsGrab;
+    protected bool rightHandIsGrab;
+    protected bool rightHandIsGrabRelease;
+    protected bool leftHandIsGrabRelease;
 
 
-    private bool snapTurnLeft;
-    private bool snapTurnRight;
-    private bool snapTurnRelease;
-
-    private float triggerMinTreshold;
+    protected bool snapTurnLeft;
+    protected bool snapTurnRight;
+    protected bool snapTurnRelease;
+    protected float triggerMinTreshold;
     [HideInInspector] public bool canMove;
     public CharacterStats characterStats;
     // spawn
@@ -51,24 +50,16 @@ public class InputManager : MonoBehaviour
 
     //
     public UnityEvent<bool> ActiveSound;
-    private bool isActiveSound;
+    protected bool isActiveSound;
 
 
-    public static InputManager instance;
-    private Vector3 snapTurnAngle;
-    public PlayerMovement playerMovement;
+    protected Vector3 snapTurnAngle;
+    private PlayerMovement playerMovement;
     [HideInInspector] public bool seeTable;
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else 
-            Destroy(gameObject);
-    }
+    protected SoundReader sound;
+
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         rightHandIsTriggerRelease = true;
         leftHandIsTriggerRelease = true;
@@ -93,10 +84,12 @@ public class InputManager : MonoBehaviour
 
         OnHapticImpulseLeft.AddListener(LeftHapticListener);
         OnHapticImpulseRight.AddListener(RightHapticListener);
+        sound = GetComponent<SoundReader>();
+        SoundManager.instance.AddInputManager(this);
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         InputHelpers.IsPressed(rightHand.inputDevice, InputHelpers.Button.PrimaryAxis2DRight, out snapTurnRight);
         InputHelpers.IsPressed(rightHand.inputDevice, InputHelpers.Button.PrimaryAxis2DLeft, out snapTurnLeft);
@@ -164,11 +157,11 @@ public class InputManager : MonoBehaviour
         #endregion
     }
     #region TriggerListener
-   
+
     /// <summary>
     /// Call when the right trigger is pressed once
     /// </summary>
-    private void OnRightTriggerListener(bool seeTable)
+    protected virtual void OnRightTriggerListener(bool seeTable)
     {
         rightHandIsTriggerRelease = false;
         if (!leftHandIsTriggerRelease)
@@ -179,7 +172,7 @@ public class InputManager : MonoBehaviour
     /// <summary>
     /// call when the left trigger is pressed once
     /// </summary>
-    private void OnLeftTriggerListener(bool seeTable)
+    protected virtual void OnLeftTriggerListener(bool seeTable)
     {
         leftHandIsTriggerRelease = false;
         if (!rightHandIsTriggerRelease)
@@ -188,7 +181,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    IEnumerator WaitTonInvokeBoth(bool seeTable)
+    protected virtual IEnumerator WaitTonInvokeBoth(bool seeTable)
     {
         yield return new WaitForEndOfFrame();
         OnBothTrigger.Invoke(seeTable);
@@ -196,75 +189,80 @@ public class InputManager : MonoBehaviour
     /// <summary>
     /// call when both trigger are pressed
     /// </summary>
-    private void OnBothTriggerListener(bool seeTable)
+    protected virtual void OnBothTriggerListener(bool seeTable)
     {
         canMove = true;
+        sound.clipName = "MoveAroundLoop";
+        sound.Play();
     }
 
     /// <summary>
     /// Call when the right trigger is pressed once
     /// </summary>
-    private void OnRightTriggerReleaseListener()
+    protected virtual void OnRightTriggerReleaseListener()
     {
         rightHandIsTriggerRelease = true;
         canMove = false;
+        sound.StopSound();
     }
     /// <summary>
     /// Call when the right trigger is relase once
     /// </summary>
-    private void OnLeftTriggerReleaseListener()
+    protected virtual void OnLeftTriggerReleaseListener()
     {
         leftHandIsTriggerRelease = true;
         canMove = false;
+        sound.StopSound();
+
     }
     #endregion
     #region GrabListeners
-    private void OnLeftHandGrabListener()
+    protected virtual void OnLeftHandGrabListener()
     {
         leftHandIsGrabRelease = false;
     }
-    private void OnRightHandGrabListener()
+    protected virtual void OnRightHandGrabListener()
     {
         rightHandIsGrabRelease = false;
     }
-    private void OnLeftHandGrabReleaseListener()
+    protected virtual void OnLeftHandGrabReleaseListener()
     {
         leftHandIsGrabRelease = true;
     }
-    private void OnRightHandGrabReleaseListener()
+    protected virtual void OnRightHandGrabReleaseListener()
     {
         rightHandIsGrabRelease = false;
     }
     #endregion
     #region SnapeTurnListener
-    private void OnSnapTurnActiveListener(Vector3 direction)
+    protected virtual void OnSnapTurnActiveListener(Vector3 direction)
     {
         snapTurnRelease = false;
     }
-    private void OnSnapTurnReleaseListener( )
+    protected virtual void OnSnapTurnReleaseListener( )
     {
         snapTurnRelease = true;
 
     }
     #endregion
-    private void LeftHapticListener(float force, float timer)
+    protected virtual void LeftHapticListener(float force, float timer)
     {
         leftHand.SendHapticImpulse(force, timer);
     }
-    private void RightHapticListener(float force, float timer)
+    protected virtual void RightHapticListener(float force, float timer)
     {
         rightHand.SendHapticImpulse(force, timer);
     }
-    public void OnActiveSound()
+    public virtual void OnActiveSound()
     {
         isActiveSound = !isActiveSound;
         ActiveSound.Invoke(isActiveSound);
     }
-    public void Sound()
+    public virtual void Sound()
     {
         SoundManager.instance.ActiveSound(!SoundManager.instance.mute);
     }
-    public void SpawnInvoke()
+    public virtual void SpawnInvoke()
     {
         OnSpawn.Invoke();
     }

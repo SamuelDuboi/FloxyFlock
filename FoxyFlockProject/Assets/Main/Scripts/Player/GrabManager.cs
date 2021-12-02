@@ -3,28 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.XR.Interaction.Toolkit;
-public class GrabManager : MonoBehaviour
+using Mirror;
+public class GrabManager : NetworkBehaviour
 {
     public List<Modifier> modifiers;
     public List<GrabablePhysicsHandler> grabableObjects;
     public List<Batch> batches;
     public PhysicMaterial[] basicMats = new PhysicMaterial[2];
     public Representation[] representations;
-    private List<pool> mainPool;
+    protected List<pool> mainPool;
     private bool isGrabLeft;
     private bool isGrabRight;
     private bool isFirstBacthPassed;
     private int currentPool;
     public PlayGround playGround;
+    public InputManager inputManager;
+
 #if UNITY_EDITOR
     public bool modifierFoldout;
     public List<ModifierAction> actions;
     [SerializeField] public List<int> numbersPerModifer;
-     public GameObject[]allflocks;
+    public GameObject[] allflocks;
 #endif
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
+        inputManager = GetComponentInParent<InputManager>();
         for (int i = 0; i < grabableObjects.Count; i++)
         {
             Modifier _modifer = modifiers[UnityEngine.Random.Range(0, modifiers.Count)];
@@ -32,7 +36,7 @@ public class GrabManager : MonoBehaviour
             var _object = GetComponent(type);
             grabableObjects[i].ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
         }
-        InputManager.instance.OnSpawn.AddListener(SpawnBacth);
+        inputManager.OnSpawn.AddListener(SpawnBacth);
         for (int i = 0; i < modifiers.Count; i++)
         {
             Type type = modifiers[i].actions.GetType();
@@ -43,16 +47,16 @@ public class GrabManager : MonoBehaviour
             }
         }
         InitPool();
-        InputManager.instance.OnGrabbingLeft.AddListener(OnGrabLeft);
-        InputManager.instance.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
-        InputManager.instance.OnGrabbingRight.AddListener(OnGrabRight);
-        InputManager.instance.OnGrabbingReleaseRight.AddListener(OnRealeseRight);
-       
+        inputManager.OnGrabbingLeft.AddListener(OnGrabLeft);
+        inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
+        inputManager.OnGrabbingRight.AddListener(OnGrabRight);
+        inputManager.OnGrabbingReleaseRight.AddListener(OnRealeseRight);
+
     }
-    private void InitPool()
+   public virtual void InitPool()
     {
         mainPool = new List<pool>();
-        ScenesManager.instance.numberOfFlocksInScene=0;
+        ScenesManager.instance.numberOfFlocksInScene = 0;
         for (int i = 0; i < batches.Count; i++)
         {
             mainPool.Add(new pool());
@@ -60,65 +64,102 @@ public class GrabManager : MonoBehaviour
             mainPool[i].isSelected = new List<bool>();
             for (int x = 0; x < batches[i].pieces.Count; x++)
             {
-                GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300+x*20+i*5, 300 + x * 20 + i * 5, 300 + x * 20 + i * 5), Quaternion.identity);
+                GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + x * 20 + i * 5, 300 + x * 20 + i * 5, 300 + x * 20 + i * 5), Quaternion.identity);
                 Modifier _modifer = modifiers[UnityEngine.Random.Range(0, modifiers.Count)];
                 Type type = _modifer.actions.GetType();
                 var _object = GetComponent(type);
                 flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
                 flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
 
-                flock.GetComponent<Rigidbody>().useGravity= false;
+                flock.GetComponent<Rigidbody>().useGravity = false;
                 mainPool[i].floxes.Add(flock);
                 mainPool[i].isSelected.Add(false);
                 ScenesManager.instance.numberOfFlocksInScene++;
             }
         }
     }
+
+ 
     public void SpawnBacth()
     {
+        int previousPool = currentPool;
+
         if (isFirstBacthPassed)
         {
-            if (!mainPool[currentPool].isEmpty )
-            return;
+            if (!mainPool[currentPool].isEmpty)
+            {
+                Debug.LogError("There are still flock on the dispenser");
+                return;
+            }
 
         }
         else
         {
+            previousPool = 5000;
             isFirstBacthPassed = true;
+        }
+        for (int i = 0; i < mainPool[currentPool].floxes.Count; i++)
+        {
+            if (mainPool[currentPool].floxes[i].GetComponent<Rigidbody>().velocity.magnitude > 0.1f)
+            {
+                Debug.LogError("Your floxes are still moving");
+                return;
+            }
+            if (mainPool[currentPool].floxes[i].GetComponent<GrabbableObject>().isGrab)
+            {
+                Debug.Log("grabbed");
+                return;
+            }
         }
 
         int totalWeight = 0;
         for (int i = 0; i < batches.Count; i++)
         {
+            if (batches[i].isEmpty)
+                continue;
             totalWeight += batches[i].weight;
 
         }
-        int numberOfRound = 0;
-       //no one need to read that
-        StartLoop:
+    //  int numberOfRound = 0;
+    //no one need to read that
+    StartLoop:
         int random = UnityEngine.Random.Range(0, totalWeight);
-        int currentWeight=0;
-        numberOfRound++;
-        if (numberOfRound > batches.Count)
-            return;
-            for (int i = 0; i < batches.Count; i++)
+        int currentWeight = 0;
+        /* numberOfRound++;
+         if (numberOfRound > batches.Count)
+             return;*/
+        for (int i = 0; i < batches.Count; i++)
+        {
+            if (batches[i].isEmpty)
+                continue;
+            currentWeight += batches[i].weight;
+            if (currentWeight > random)
             {
-                currentWeight += batches[i].weight;
-                if (currentWeight > random)
+                if (batches[i].isEmpty)
                 {
-                    if (batches[i].isEmpty)
-                    {
-                        goto StartLoop;
-                    }
-                    currentPool = i;
-                    break;
+                    goto StartLoop;
                 }
+                currentPool = i;
+                break;
+            }
+        }
+        if(currentWeight==0)
+        {
+            inputManager.OnSpawn.RemoveListener(SpawnBacth);
+            return;
+        }
+        if (previousPool < 5000)
+            for (int i = 0; i < mainPool[previousPool].floxes.Count; i++)
+            {
+                Destroy(mainPool[previousPool].floxes[i].GetComponent<GrabbableObject>());
+                Destroy(mainPool[previousPool].floxes[i].GetComponent<GrabablePhysicsHandler>());
+                Destroy(mainPool[previousPool].floxes[i].GetComponent<Rigidbody>());
             }
         for (int i = 0; i < representations.Length; i++)
         {
             representations[i].gameObject.SetActive(false);
         }
-        
+
         for (int i = 0; i < mainPool[currentPool].floxes.Count; i++)
         {
             if (mainPool[currentPool].isSelected[i])
@@ -128,17 +169,7 @@ public class GrabManager : MonoBehaviour
             representations[i].manager = this;
             representations[i].image.texture = mainPool[currentPool].floxes[i].GetComponent<TextureForDispenser>().texture;
         }
-        /*for (int i = 0; i < numberPerBatch.Count; i++)
-        {
-            for (int x = 0; x < numberPerBatch[i]; x++)
-            {
-                GameObject grabbable = Instantiate(grabableObjectsToSpawn[i], grabableObjectsToSpawn[i].transform.position, Quaternion.identity);
-                Modifier _modifer =  modifiers[UnityEngine.Random.Range(0, modifiers.Count)];
-                Type type = _modifer.actions.GetType();
-                var _object = GetComponent(type);
-                grabbable.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(modifiers[UnityEngine.Random.Range(0, modifiers.Count)], _object as ModifierAction, basicMats);
-            }
-        }*/
+
     }
     public void LockBatche(GameObject gameObject)
     {
@@ -152,7 +183,7 @@ public class GrabManager : MonoBehaviour
             return;
         var grabable = mainPool[currentPool].floxes[index].GetComponent<GrabablePhysicsHandler>();
         grabable.enabled = true;
-    
+
         XRBaseInteractable baseInteractable = mainPool[currentPool].floxes[index].GetComponent<GrabbableObject>();
         mainPool[currentPool].floxes[index].transform.position = baseInteractor.transform.position;
         StartCoroutine(WaiToSelect(baseInteractable, baseInteractor, index, grabable));
@@ -167,7 +198,7 @@ public class GrabManager : MonoBehaviour
         batches[currentPool].isEmpty = true;
         mainPool[currentPool].isEmpty = true;
     }
-    IEnumerator WaiToSelect(XRBaseInteractable baseInteractable,XRBaseInteractor baseInteractor, int index, GrabablePhysicsHandler grabable)
+    IEnumerator WaiToSelect(XRBaseInteractable baseInteractable, XRBaseInteractor baseInteractor, int index, GrabablePhysicsHandler grabable)
     {
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();
@@ -202,24 +233,24 @@ public class GrabManager : MonoBehaviour
         }
         return false;
     }
-    private void OnGrabLeft()
+    public virtual void OnGrabLeft()
     {
         isGrabLeft = true;
     }
-    private void OnRealeseLeft()
+    public virtual void OnRealeseLeft()
     {
         isGrabLeft = false;
     }
-    private void OnGrabRight() 
-    { 
+    public virtual void OnGrabRight()
+    {
         isGrabRight = true;
     }
-    private void OnRealeseRight()
+    public virtual void OnRealeseRight()
     {
         isGrabRight = false;
     }
 
-    private void RespawnPiece(GameObject _object, Vector3 initPos,bool isGrab)
+    private void RespawnPiece(GameObject _object, Vector3 initPos, bool isGrab)
     {
         if (!isGrab)
         {
@@ -227,11 +258,11 @@ public class GrabManager : MonoBehaviour
             {
                 for (int i = 0; i < mainPool.Count; i++)
                 {
-                    if(i!= currentPool)
+                    if (i != currentPool)
                     {
                         for (int x = 0; x < mainPool[i].floxes.Count; x++)
                         {
-                            if(mainPool[i].floxes[x]== _object)
+                            if (mainPool[i].floxes[x] == _object)
                             {
                                 mainPool[i].isSelected[x] = false;
                                 batches[i].isEmpty = false;
@@ -243,19 +274,19 @@ public class GrabManager : MonoBehaviour
                             }
 
                             //find a way to add recreat a bacth with only one piece and nee to add this piece with others
-                           // if(mainPool)
+                            // if(mainPool)
                         }
                     }
                 }
             }
         }
     }
-
+    
 }
 
-class pool
+public class pool
 {
-    public List<GameObject> floxes ;
+    public List<GameObject> floxes;
     public List<bool> isSelected;
     public bool isEmpty;
 }

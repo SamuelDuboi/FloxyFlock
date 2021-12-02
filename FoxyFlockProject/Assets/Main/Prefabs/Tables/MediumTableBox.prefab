@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 3194102730985503203}
   m_Layer: 0
   m_Name: MediumTableBox
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1870,10 +1870,10 @@ GameObject:
   - component: {fileID: 679170357535989878}
   - component: {fileID: 5886370480826952630}
   - component: {fileID: 4045691506671157855}
-  - component: {fileID: 5773784789302337413}
+  - component: {fileID: 2850305219639995579}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2184,8 +2184,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4886264221006893381}
   m_Mesh: {fileID: 0}
---- !u!64 &5773784789302337413
-MeshCollider:
+--- !u!65 &2850305219639995579
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2194,7 +2194,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.19499996, y: 0.17999995, z: 0.21500003}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -20,7 +20,6 @@ public class PlayerMovement : MonoBehaviour
     private float yPower;
     private float xPower;
     private float zPower;
-
     public Transform tempLeftHand;
     public Transform tempRighttHand;
 
@@ -47,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     {
         tempLeftHand.position = inputManager.leftHand.transform.position;
         tempRighttHand.position = inputManager.leftHand.transform.position;
+        
         initMidle = Vector3.Lerp(tempLeftHand.localPosition, tempRighttHand.localPosition, 0.5f);
     }
     public bool SeeTable()

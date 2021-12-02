@@ -3082,7 +3082,7 @@ GameObject:
   - component: {fileID: 1311726573}
   m_Layer: 0
   m_Name: Table
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4875,8 +4875,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Rig
       objectReference: {fileID: 0}
+    - target: {fileID: 7224081282907466633, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
+      propertyPath: onPressed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1972585046517440328}
+    - target: {fileID: 7224081282907466633, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
+      propertyPath: onPressed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SpawnInvoke
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
+--- !u!114 &1972585046517440328 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1972585046942177089, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
+  m_PrefabInstance: {fileID: 1972585046517440327}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704f6ad79f7ced44dbcfdbedb8218ac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &6351384783017739411
 MeshFilter:
   m_ObjectHideFlags: 0

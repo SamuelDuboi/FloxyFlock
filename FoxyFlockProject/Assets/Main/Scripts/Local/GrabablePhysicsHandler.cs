@@ -32,7 +32,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
     public float timerToExit;
     private ModifierAction[] actions = new ModifierAction[2];
     MaterialPropertyBlock propBlock;
-
+    public InputManager inputManager;
     public IEnumerator Start()
     {
 

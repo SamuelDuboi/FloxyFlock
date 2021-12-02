@@ -4,6 +4,7 @@ public class HandController : XRController
 {
     public Collider spherCollider;
     public HandPresence controllerPresence;
+    public InputManager inputManager;
     protected override void UpdateController()
     {
         base.UpdateController();
@@ -14,13 +15,13 @@ public class HandController : XRController
     {
         if(controllerNode == UnityEngine.XR.XRNode.LeftHand)
         {
-            InputManager.instance.OnGrabbingLeft.AddListener(Grab);
-            InputManager.instance.OnGrabbingReleaseLeft.AddListener(GrabRelease);
+            inputManager.OnGrabbingLeft.AddListener(Grab);
+            inputManager.OnGrabbingReleaseLeft.AddListener(GrabRelease);
         }
         else if (controllerNode == UnityEngine.XR.XRNode.RightHand)
         {
-            InputManager.instance.OnGrabbingRight.AddListener(Grab);
-            InputManager.instance.OnGrabbingReleaseRight.AddListener(GrabRelease);
+            inputManager.OnGrabbingRight.AddListener(Grab);
+            inputManager.OnGrabbingReleaseRight.AddListener(GrabRelease);
         }
     }
     private void Grab()

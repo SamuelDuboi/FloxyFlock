@@ -5,9 +5,10 @@ using UnityEngine;
 public class SnapTurn : MonoBehaviour
 {
     public Transform m_transform;
+    public InputManager inputManager;
     private void Start()
     {
-        InputManager.instance.OnSnapTurn.AddListener(Turn);
+        inputManager.OnSnapTurn.AddListener(Turn);
     }
 
     void Turn(Vector3 direction)

@@ -8,18 +8,19 @@ public class HandSound : MonoBehaviour
     public SoundReader sound;
     public bool isLeft;
     private bool startActivated;
+    public InputManager inputManager;
     public void Start()
     {
         sound = GetComponent<SoundReader>();
         if (isLeft)
         {
-            InputManager.instance.OnLeftTrigger.AddListener(HandStart);
-            InputManager.instance.OnLeftTriggerRelease.AddListener(HandStop);
+            inputManager.OnLeftTrigger.AddListener(HandStart);
+            inputManager.OnLeftTriggerRelease.AddListener(HandStop);
         }
         else
         {
-            InputManager.instance.OnRightTrigger.AddListener(HandStart);
-            InputManager.instance.OnRightTriggerRelease.AddListener(HandStop);
+            inputManager.OnRightTrigger.AddListener(HandStart);
+            inputManager.OnRightTriggerRelease.AddListener(HandStop);
         }
     }
     private void HandStart(bool seeTable)
