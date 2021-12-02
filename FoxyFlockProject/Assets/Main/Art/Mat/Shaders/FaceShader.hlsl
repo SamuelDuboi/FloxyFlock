@@ -45,7 +45,7 @@ float Bezier(in float2 pos, in float2 A, in float2 B, in float2 C)
 
 void Face_float (float2 UV, float2 offsetUV, float4 outlineColor, float4 irisColor, float4 eyesColor, 
 	float eyesDistance, float eyesSize, float eyesShape, float irisPositionX, float irisPositionY, float irisSize, float irisShape, float bossEyed, 
-	float outlineSize, float mouthWidth, float mouthHeight, float mouthThickness, float smile, 
+	float outlineSize, bool mouthOpen, float mouthSize, float mouthWidth, float mouthHeight, float mouthThickness, float smile, 
 	float topEyelid, float bottomEyelid, float rings, float straightEyelid,
 	out float alpha, out float4 Out)
 {
@@ -65,16 +65,19 @@ void Face_float (float2 UV, float2 offsetUV, float4 outlineColor, float4 irisCol
 
 	float eyes = step(distance(float2(eyesDistance, 0.5), eyeUV), eyesSize);
 
-	eyes = straightEyelid ? eyes * step(eyeUV.y, 1.0- topEyelid) * step(bottomEyelid, eyeUV.y) : eyes*step(eyesSize*2.0, distance(float2(eyesDistance, 0.5 + topEyelid),eyeUV))*step(eyesSize * 2.0, distance(float2(eyesDistance, 0.5 - bottomEyelid), eyeUV));
+	eyes = straightEyelid ? eyes * step(eyeUV.y, 1.0- topEyelid) * step(bottomEyelid, eyeUV.y) 
+		: eyes*step(eyesSize*2.0, distance(float2(eyesDistance, 0.5 + topEyelid),eyeUV))*step(eyesSize * 2.0, distance(float2(eyesDistance, 0.5 - bottomEyelid), eyeUV));
 
-	float iris = step(distance(float2(bossEyed > 0 ? eyesDistance : (UV.x > 0.5 ? eyesDistance : 1.0 - eyesDistance), 0.5) + float2(irisPositionX, irisPositionY) * eyesSize, irisUV), eyesSize * irisSize);
+	float iris = step(distance(float2(bossEyed > 0 ? eyesDistance 
+		: (UV.x > 0.5 ? eyesDistance : 1.0 - eyesDistance), 0.5) + float2(irisPositionX, irisPositionY) * eyesSize, irisUV), eyesSize * irisSize);
 
 	float outlineEyes = rings ? step(distance(float2(eyesDistance, 0.5), eyeUV), eyesSize + outlineSize)
 		: straightEyelid ? step(distance(float2(eyesDistance, 0.5), eyeUV), eyesSize + outlineSize) * step(eyeUV.y, 1.0 - topEyelid + outlineSize) * step(bottomEyelid - outlineSize, eyeUV.y)
 			: step(distance(float2(eyesDistance, 0.5), eyeUV), eyesSize + outlineSize) * step(eyesSize*2.0-outlineSize, distance(float2(eyesDistance, 0.5 + topEyelid), eyeUV)) * step(eyesSize * 2.0-outlineSize, distance(float2(eyesDistance, 0.5 - bottomEyelid), eyeUV));
 
-	float mouth = smile ? step(Bezier(UV, float2(0.5 - mouthWidth, mouthHeight), float2(0.5, mouthHeight + smile), float2(0.5 + mouthWidth, mouthHeight)), mouthThickness) 
-		: step(Segment(UV, float2(0.5 - mouthWidth, mouthHeight), float2(0.5 + mouthWidth, mouthHeight)), mouthThickness);
+	float mouth = mouthOpen ? step(distance(float2(mouthWidth, mouthHeight), mouthUV), mouthSize)
+		: smile ? step(Bezier(UV, float2(0.5 - mouthWidth, mouthHeight), float2(0.5, mouthHeight + smile), float2(0.5 + mouthWidth, mouthHeight)), mouthThickness)
+			: step(Segment(UV, float2(0.5 - mouthWidth, mouthHeight), float2(0.5 + mouthWidth, mouthHeight)), mouthThickness);
 
 	alpha = outlineEyes + mouth;
 
