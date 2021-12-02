@@ -27,6 +27,8 @@ public class PlayerMovementMulti : NetworkBehaviour
     public Transform tempRighttHand;
     public GameObject grabManagerPrefab;
     [HideInInspector] public GameObject grabManager;
+    [HideInInspector] public List<Batch>batches;
+    private GameObject tempFlock;
     // Start is called before the first frame update
     void Start()
     {
@@ -242,23 +244,29 @@ public class PlayerMovementMulti : NetworkBehaviour
         return new Vector2(a.x, a.z);
     }
 
-    public void InitBacth(GameObject authority, int i, int x, List<Batch> batches, PhysicMaterial[] basicMats, List<pool> mainPool)
+    public void InitBacth(GameObject authority, int i, int x, List<Batch> _batches, Modifier _modifier, Component _object, PhysicMaterial[] basicMats, List<pool> _mainPool1,  out List<pool> _mainPool)
     {
-        CmdSpawnPiece(authority, i, x, batches, basicMats, mainPool);
-    }
-
-    [Command]
-    private void CmdSpawnPiece(GameObject authority, int i, int x, List<Batch> batches, PhysicMaterial[] basicMats, List<pool> mainPool)
-    {
+        batches = _batches;
         GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + x * 20 + i * 5, 300 + x * 20 + i * 5, 300 + x * 20 + i * 5), Quaternion.identity);
-        //flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(modifier, _object as ModifierAction, basicMats);
+
+        flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifier, _object as ModifierAction, basicMats);
         flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
         flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
 
         flock.GetComponent<Rigidbody>().useGravity = false;
-        mainPool[i].floxes.Add(flock);
-        mainPool[i].isSelected.Add(false);
+        _mainPool1[i].floxes.Add(flock);
+        _mainPool1[i].isSelected.Add(false);
         ScenesManager.instance.numberOfFlocksInScene++;
-        NetworkServer.Spawn(flock, authority);
+        _mainPool = _mainPool1;
+        tempFlock = flock;
+        CmdSpawnPiece(authority);
+        
+    }
+
+    [Command]
+    private void CmdSpawnPiece(GameObject authority)
+    {
+        
+        NetworkServer.Spawn(tempFlock, authority);
     }
 }

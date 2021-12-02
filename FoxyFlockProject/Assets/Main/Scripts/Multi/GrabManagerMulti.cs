@@ -17,15 +17,7 @@ public class GrabManagerMulti : GrabManager
             var _object = GetComponent(type);
             grabableObjects[i].ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
         }
-        for (int i = 0; i < modifiers.Count; i++)
-        {
-            Type type = modifiers[i].actions.GetType();
-            var _object = GetComponent(type);
-            if (_object)
-            {
-                Destroy(_object);
-            }
-        }
+        
 
         inputManager.OnGrabbingLeft.AddListener(OnGrabLeft);
         inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
@@ -44,11 +36,23 @@ public class GrabManagerMulti : GrabManager
             mainPool[i].isSelected = new List<bool>();
             for (int x = 0; x < batches[i].pieces.Count; x++)
             {
-                player.InitBacth(authority, i, x, batches, basicMats, mainPool);
+                Modifier _modifier = modifiers[UnityEngine.Random.Range(0, modifiers.Count)];
+                Type type = _modifier.actions.GetType();
+                var _object = GetComponent(type);
+                player.InitBacth(authority, i, x, batches, _modifier, _object,basicMats,mainPool, out mainPool);
             }
 
         }
-            inputManager.OnSpawn.AddListener(SpawnBacth);
+        for (int i = 0; i < modifiers.Count; i++)
+        {
+            Type type = modifiers[i].actions.GetType();
+            var _object = GetComponent(type);
+            if (_object)
+            {
+                Destroy(_object);
+            }
+        }
+        inputManager.OnSpawn.AddListener(SpawnBacth);
     }
     
 

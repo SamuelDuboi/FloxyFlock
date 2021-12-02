@@ -38,6 +38,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
+        meshRenderer = GetComponent<MeshRenderer>();
         initialMat = meshRenderer.material;
 
         //overrid mat without creat new instance or modify it
@@ -46,7 +47,6 @@ public class GrabablePhysicsHandler : MonoBehaviour
         
         colliders = m_grabbable.colliders;
         initPos = transform.position;
-        meshRenderer = GetComponent<MeshRenderer>();
         InvokeOnStart();
     }
 
