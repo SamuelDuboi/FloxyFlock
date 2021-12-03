@@ -59,14 +59,14 @@ public class PlayerMovementMulti : NetworkBehaviour
         //CmdSpawnManager();
     }
     [Command]
-    public void CmdSpawnManager()
+    public void CmdSpawnManager(GameObject parent)
     {
         grabManager = Instantiate(grabManagerPrefab, grabManagerPrefab.transform.position,grabManagerPrefab.transform.rotation);
         grabManager.GetComponent<GrabManagerMulti>().inputManager = inputManager;
         grabManager.GetComponent<GrabManagerMulti>().playGround = tableTransform.GetComponent<PlayGround>();
-        grabManager.transform.SetParent(transform);
+        grabManager.transform.SetParent(parent.transform);
         grabManager.transform.localPosition = grabManagerPrefab.transform.position;
-        NetworkServer.Spawn(grabManager, gameObject);
+        NetworkServer.Spawn(grabManager, parent);
     }
 
     private void InitMovement(bool seeTable = false)
@@ -228,7 +228,6 @@ public class PlayerMovementMulti : NetworkBehaviour
             return;
 
         transform.position += Vector3.up * (deltaPose.y) * yPower;
-
     }
     private void MoveUp(float offset)
     {
@@ -243,30 +242,56 @@ public class PlayerMovementMulti : NetworkBehaviour
     {
         return new Vector2(a.x, a.z);
     }
-
+    Modifier tempModifier;
+    Component tempComponent;
+    PhysicMaterial[] tempbasicMats;
     public void InitBacth(GameObject authority, int i, int x, List<Batch> _batches, Modifier _modifier, Component _object, PhysicMaterial[] basicMats, List<pool> _mainPool1,  out List<pool> _mainPool)
     {
         batches = _batches;
-        GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + x * 20 + i * 5, 300 + x * 20 + i * 5, 300 + x * 20 + i * 5), Quaternion.identity);
-
+        int rand = UnityEngine.Random.Range(0, 100);
+        int rand1 = UnityEngine.Random.Range(0, 100);
+        int rand2 = UnityEngine.Random.Range(0, 100);
+        GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + (x+1) * 20 * rand + i * 5*rand, 300 + (x+1) * 20 * rand + i * 5*rand1, 300 + (x+1) * 20 * rand + i * 5*rand2), Quaternion.identity);
+        tempModifier = _modifier;
+        tempComponent = _object;
+        tempbasicMats = basicMats;
         flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifier, _object as ModifierAction, basicMats);
-        flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
-        flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
 
-        flock.GetComponent<Rigidbody>().useGravity = false;
+        flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
+        flock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
+
         _mainPool1[i].floxes.Add(flock);
         _mainPool1[i].isSelected.Add(false);
         ScenesManager.instance.numberOfFlocksInScene++;
         _mainPool = _mainPool1;
         tempFlock = flock;
-        CmdSpawnPiece(authority);
+        CmdSpawnPiece(authority,_mainPool1,tempComponent, tempbasicMats);
         
     }
 
     [Command]
-    private void CmdSpawnPiece(GameObject authority)
+    private void CmdSpawnPiece(GameObject authority, List<pool> mainPool, Component _tempComponent, PhysicMaterial[] _tempbasicMats)
     {
-        
+        tempFlock.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
+        tempFlock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
+        //tempFlock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(tempModifier, tempComponent as ModifierAction, tempbasicMats);
+        tempComponent = _tempComponent;
+        tempbasicMats = _tempbasicMats;
+        tempFlock.GetComponent<GrabablePhysicsHandler>().enabled = false;
         NetworkServer.Spawn(tempFlock, authority);
+        RpcSyncUnits(tempFlock,mainPool,authority,tempComponent,tempbasicMats);
+    }
+
+    [ClientRpc]
+    void RpcSyncUnits(GameObject x, List<pool> mainPool, GameObject authority,Component _tempComponent,PhysicMaterial[] _tempbasicMats)
+    {
+        tempFlock = x;
+        tempFlock.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
+        tempFlock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
+        tempFlock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
+        tempFlock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_tempComponent as ModifierAction, _tempbasicMats);
+        tempFlock.GetComponent<GrabablePhysicsHandler>().enabled = false;
+        authority.GetComponentInChildren<GrabManagerMulti>().mainPool = mainPool;
+        authority.GetComponentInChildren<GrabManagerMulti>().numberOfPool = mainPool.Count;
     }
 }

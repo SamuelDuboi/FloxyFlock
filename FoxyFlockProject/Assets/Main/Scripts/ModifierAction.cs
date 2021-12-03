@@ -130,6 +130,8 @@ public class ModifierAction : MonoBehaviour
         isSlowingDown = true;
         timerSlow = 0;
         timerToSlowInStasis = _object.GetComponent<GrabablePhysicsHandler>().timeToSlow;
+        if (!inputManager)
+            inputManager = _object.GetComponent<GrabablePhysicsHandler>().inputManager;
         inputManager = _object.GetComponent<GrabablePhysicsHandler>().inputManager;
         slowForce = _object.GetComponent<GrabablePhysicsHandler>().slowForce;
         if (_object.transform.position.x > 200)

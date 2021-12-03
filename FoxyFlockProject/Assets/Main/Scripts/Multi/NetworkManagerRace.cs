@@ -8,7 +8,6 @@ public class NetworkManagerRace : NetworkManager
     public Transform firstPlayer;
     public Transform secondPlayerTransform;
 
-
     public GameObject[] startSpawn;
     private PlayerMovementMulti playerController;
     private GrabManagerMulti[] grabManagers;
@@ -33,6 +32,7 @@ public class NetworkManagerRace : NetworkManager
         int index = 0;
         Transform start = numPlayers == 0 ? firstPlayer : secondPlayerTransform;
         GameObject player = Instantiate(playerPrefab, start.position, start.rotation);
+      
         if (numberOfPlayer == 0)
         {
             playerController = player.GetComponent<PlayerMovementMulti>();
@@ -41,6 +41,7 @@ public class NetworkManagerRace : NetworkManager
         {
             index = 1;
         }
+        player.name = "player " + index;
         numberOfPlayer++;
         // player.GetComponent<ControllerKeyBoard>().playerId = numberOfPlayer;
         NetworkServer.AddPlayerForConnection(conn, player);
@@ -49,11 +50,11 @@ public class NetworkManagerRace : NetworkManager
     IEnumerator WaitToSpawn(NetworkConnection conn, GameObject player, int index)
     {
         yield return new WaitForSeconds(1f);
-         playerController.CmdSpawnManager();
+         //playerController.CmdSpawnManager(player);
         yield return new WaitForSeconds(1f);
         if (grabManagers == null)
             grabManagers = new GrabManagerMulti[2];
-        grabManagers[numberOfPlayer-1] = player.GetComponent<PlayerMovementMulti>().grabManager.GetComponent<GrabManagerMulti>();
+        grabManagers[numberOfPlayer - 1] = player.GetComponentInChildren<GrabManagerMulti>();
 
         grabManagers[index].InitPool(player,playerController);
     }

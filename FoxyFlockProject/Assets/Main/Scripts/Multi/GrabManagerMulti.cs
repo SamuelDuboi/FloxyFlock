@@ -6,10 +6,11 @@ using Mirror;
 
 public class GrabManagerMulti : GrabManager
 {
+    public int numberOfPool;
+
     // Start is called before the first frame update
     public override void Start()
     {
-        inputManager = GetComponentInParent<InputManager>();
        for (int i = 0; i < grabableObjects.Count; i++)
         {
             Modifier _modifer = modifiers[UnityEngine.Random.Range(0, modifiers.Count)];
@@ -17,8 +18,10 @@ public class GrabManagerMulti : GrabManager
             var _object = GetComponent(type);
             grabableObjects[i].ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
         }
-        
 
+        inputManager = GetComponentInParent<InputManager>();
+        inputManager.OnSpawn.AddListener(SpawnBacth);
+        playGround = inputManager.GetComponent<PlayerMovementMulti>().tableTransform.GetComponent<PlayGround>();
         inputManager.OnGrabbingLeft.AddListener(OnGrabLeft);
         inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
         inputManager.OnGrabbingRight.AddListener(OnGrabRight);
@@ -40,9 +43,12 @@ public class GrabManagerMulti : GrabManager
                 Type type = _modifier.actions.GetType();
                 var _object = GetComponent(type);
                 player.InitBacth(authority, i, x, batches, _modifier, _object,basicMats,mainPool, out mainPool);
+                Debug.Log(mainPool);
+                Debug.Log(mainPool.Count);
             }
 
         }
+        numberOfPool = 1;
         for (int i = 0; i < modifiers.Count; i++)
         {
             Type type = modifiers[i].actions.GetType();
@@ -53,6 +59,8 @@ public class GrabManagerMulti : GrabManager
             }
         }
         inputManager.OnSpawn.AddListener(SpawnBacth);
+        Debug.Log(mainPool);
+        Debug.Log(mainPool.Count);
     }
     
 

@@ -364,6 +364,7 @@ GameObject:
   - component: {fileID: 242778693032338398}
   - component: {fileID: -2282848493009374749}
   - component: {fileID: -5358314862034517835}
+  - component: {fileID: -2289989997524008654}
   m_Layer: 6
   m_Name: Flock_Jcvf01
   m_TagString: Untagged
@@ -446,11 +447,11 @@ Rigidbody:
   m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
 --- !u!114 &8270085541661880438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -644,6 +645,7 @@ MonoBehaviour:
   isOnStasisOnce: 0
   timerToExit: 0
   inputManager: {fileID: 0}
+  initialModifier: {fileID: 11400000, guid: 4699a5b6ae4b6d84b950885f34b07e25, type: 2}
 --- !u!114 &2133001481415139540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -802,7 +804,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 0
+  clientAuthority: 1
   sendInterval: 0.05
   syncPosition: 1
   syncRotation: 1
@@ -817,3 +819,25 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &-2289989997524008654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7455921705368196685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83392ae5c1b731446909f252fd494ae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 1
+  syncInterval: 0.1
+  target: {fileID: 8772928365314318003}
+  clientAuthority: 1
+  syncVelocity: 1
+  clearVelocity: 0
+  velocitySensitivity: 0.1
+  syncAngularVelocity: 1
+  clearAngularVelocity: 0
+  angularVelocitySensitivity: 0.1

@@ -4,14 +4,14 @@ using UnityEngine;
 using System;
 using UnityEngine.XR.Interaction.Toolkit;
 using Mirror;
-public class GrabManager : NetworkBehaviour
+public class GrabManager : MonoBehaviour
 {
     public List<Modifier> modifiers;
     public List<GrabablePhysicsHandler> grabableObjects;
     public List<Batch> batches;
     public PhysicMaterial[] basicMats = new PhysicMaterial[2];
     public Representation[] representations;
-    protected List<pool> mainPool;
+    public List<pool> mainPool;
     private bool isGrabLeft;
     private bool isGrabRight;
     private bool isFirstBacthPassed;
@@ -167,6 +167,7 @@ public class GrabManager : NetworkBehaviour
             representations[i].gameObject.SetActive(true);
             representations[i].index = i;
             representations[i].manager = this;
+            Debug.Log(mainPool[currentPool].floxes[i] + " "+i + " "+mainPool[currentPool]+ currentPool.ToString());
             representations[i].image.texture = mainPool[currentPool].floxes[i].GetComponent<TextureForDispenser>().texture;
         }
 
