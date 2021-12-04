@@ -11,6 +11,8 @@ public class GameModeSolo : MonoBehaviour
     public HandsPlayground hands;
     public List<GameObject> Tables;
     public Transform tableTransform;
+    public int number;
+    public PlayerMovementMulti playerMovement;
 
     public string tip;
     //public List<Batches> batches;

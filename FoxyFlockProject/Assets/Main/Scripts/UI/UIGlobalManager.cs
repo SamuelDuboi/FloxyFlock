@@ -11,8 +11,8 @@ public class UIGlobalManager : MonoBehaviour
     public List<TextMeshProUGUI> gameModeNames = new List<TextMeshProUGUI>();
     public List<TextMeshProUGUI> gameModeRules = new List<TextMeshProUGUI>();
     public List<TextMeshProUGUI> flockNumbers = new List<TextMeshProUGUI>();
-    public List<Image> Player1Images = new List<Image>();
-    public List<Image> Player2Image = new List<Image>();
+    public List<Image> player1Images = new List<Image>();
+    public List<Image> player2Images = new List<Image>();
     public List<GameObject> winPlayer1 = new List<GameObject>();
     public List<GameObject> winPlayer2 = new List<GameObject>();
     public List<GameObject> losePlayer1 = new List<GameObject>();
@@ -109,24 +109,24 @@ public class UIGlobalManager : MonoBehaviour
     {
         if(index == 1)
         {
-            for (int i = 0; i < Player1Images.Count; i++)
+            for (int i = 0; i < player1Images.Count; i++)
             {
-                Player1Images[i].sprite = sprite;
+                player1Images[i].sprite = sprite;
             }
         }
         else
         {
-            if (Player2Image == null)
+            if (player2Images == null)
                 return;
-            for (int i = 0; i < Player2Image.Count; i++)
+            for (int i = 0; i < player2Images.Count; i++)
             {
-                Player2Image[i].sprite = sprite;
+                player2Images[i].sprite = sprite;
             }
         }
     }
     public void Win(int indexOfWinner)
     {
-        if(indexOfWinner == 2)
+        if(indexOfWinner == 1)
         {
             for (int i = 0; i < winPlayer2.Count; i++)
             {
@@ -156,5 +156,25 @@ public class UIGlobalManager : MonoBehaviour
             }
         }
 
+    }
+
+    public void AddPlayer(int index, TextMeshProUGUI _stopwatch, TextMeshProUGUI _gameModeNames, TextMeshProUGUI _gameModeRules, TextMeshProUGUI _flockNumbers, Image _playerImages,GameObject _winPlayer, GameObject _losePlayer)
+    {
+        stopWatch.Add(_stopwatch);
+        gameModeNames.Add(_gameModeNames);
+        gameModeRules.Add(_gameModeRules);
+        flockNumbers.Add(_flockNumbers);
+        if(index == 0)
+        {
+            player1Images.Add(_playerImages);
+            winPlayer1.Add(_winPlayer);
+            losePlayer1.Add(_losePlayer);
+        }
+        else
+        {
+            player2Images.Add(_playerImages);
+            winPlayer2.Add(_winPlayer);
+            losePlayer2.Add(_losePlayer);
+        }
     }
 }

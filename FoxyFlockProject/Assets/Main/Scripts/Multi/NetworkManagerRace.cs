@@ -9,9 +9,9 @@ public class NetworkManagerRace : NetworkManager
     public Transform secondPlayerTransform;
 
     public GameObject[] startSpawn;
-    private PlayerMovementMulti playerController;
+    public PlayerMovementMulti playerController;
     private GrabManagerMulti[] grabManagers;
-
+    public GameObject player2Canvas;
     public static NetworkManagerRace instance;
     public override void Awake()
     {
@@ -40,6 +40,7 @@ public class NetworkManagerRace : NetworkManager
         else
         {
             index = 1;
+            player2Canvas.SetActive(true);
         }
         player.name = "player " + index;
         numberOfPlayer++;
@@ -55,15 +56,15 @@ public class NetworkManagerRace : NetworkManager
         if (grabManagers == null)
             grabManagers = new GrabManagerMulti[2];
         grabManagers[numberOfPlayer - 1] = player.GetComponentInChildren<GrabManagerMulti>();
-
+        playerController.CmdInitUI(index, player);
         grabManagers[index].InitPool(player,playerController);
     }
 
     public void Win(int playerId)
     {
-       /* if (playerId == 0)
-            playerController.CmdEndTurn1();
+        if (playerId == 0)
+            playerController.CmdWin1();
         else
-            playerController.CmdEndTurn();*/
+            playerController.CmdWin2();
     }
 }

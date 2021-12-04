@@ -33,9 +33,18 @@ public class PlayerMovementMulti : NetworkBehaviour
     void Start()
     {
         if (!isServer)
+        {
             tableTransform = GameObject.FindGameObjectWithTag("Table2").transform;
+            tableTransform.GetComponentInChildren<GameModeSolo>().number = 1;
+        }
         else
+        {
             tableTransform = GameObject.FindGameObjectWithTag("Table").transform;
+            tableTransform.GetComponentInChildren<GameModeSolo>().number = 0;
+        }
+        tableTransform.GetComponentInChildren<GameModeSolo>().hands = GetComponentInChildren<HandsPlayground>();
+        tableTransform.GetComponentInChildren<GameModeSolo>().hands = GetComponentInChildren<HandsPlayground>();
+        tableTransform.GetComponentInChildren<GameModeSolo>().playerMovement = this;
         tableRenderer = tableTransform.GetComponent<Renderer>();
         TableGetClamp temp = tableRenderer.GetComponent<TableGetClamp>();
         zClampMin = temp.zClampMin;
@@ -293,5 +302,44 @@ public class PlayerMovementMulti : NetworkBehaviour
         tempFlock.GetComponent<GrabablePhysicsHandler>().enabled = false;
         authority.GetComponentInChildren<GrabManagerMulti>().mainPool = mainPool;
         authority.GetComponentInChildren<GrabManagerMulti>().numberOfPool = mainPool.Count;
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdWin1()
+    {
+        RcpWin1();
+    }
+    [Command(requiresAuthority = false)]
+    public void CmdWin2()
+    {
+        RcpWin2();
+    }
+
+    [ClientRpc]
+    void RcpWin1()
+    {
+        UIGlobalManager.instance.Win(0);
+    }
+    [ClientRpc]
+    void RcpWin2()
+    {
+        UIGlobalManager.instance.Win(1);
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdInitUI(int index, GameObject player)
+    {
+        if (index > 0)
+            NetworkManagerRace.instance.player2Canvas.SetActive(true);
+        RcpInitUI(index,player);
+    }
+
+    [ClientRpc]
+    void RcpInitUI(int index, GameObject player)
+    {
+        var assigntToUi = player.GetComponentInChildren<AssignToUI>();
+        if (index > 0)
+            NetworkManagerRace.instance.player2Canvas.SetActive(true);
+        UIGlobalManager.instance.AddPlayer(index, assigntToUi.stopWatch, assigntToUi.gameModeName,assigntToUi.gameModeRule,assigntToUi.flockNumber,assigntToUi.player1Image,assigntToUi.winPlayer1,assigntToUi.losePlayer1);
     }
 }

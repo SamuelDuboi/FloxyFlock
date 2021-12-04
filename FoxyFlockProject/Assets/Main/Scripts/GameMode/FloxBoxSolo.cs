@@ -59,7 +59,7 @@ public class FloxBoxSolo : GameModeSolo
 
         if (timeInBox >= timeToWin)
         {
-            UIGlobalManager.instance.Win(1);
+            NetworkManagerRace.instance.Win(1);
 
             playerWin = true;
         }

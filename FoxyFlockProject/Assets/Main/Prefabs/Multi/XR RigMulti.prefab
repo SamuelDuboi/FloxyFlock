@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 2327215676677825885}
   m_Layer: 0
   m_Name: XR RigMulti
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1480,6 +1480,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3059216092012026241}
     m_Modifications:
+    - target: {fileID: 64561949196039523, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.41300002
+      objectReference: {fileID: 0}
+    - target: {fileID: 64561949196039523, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.5410001
+      objectReference: {fileID: 0}
+    - target: {fileID: 64561949196039523, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.66
+      objectReference: {fileID: 0}
     - target: {fileID: 64561950279782818, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -1675,6 +1687,18 @@ PrefabInstance:
     - target: {fileID: 7319081760283737090, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: onPressed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8714912745551606300, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8714912745551606300, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 8714912745551606300, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.63
       objectReference: {fileID: 0}
     - target: {fileID: 8828409454304139947, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: m_AssetId

@@ -399,7 +399,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 30.11, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1.2340001, y: 1.87}
+  m_AnchoredPosition: {x: 1.2340001, y: 1.7}
   m_SizeDelta: {x: 8, y: 8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &64561949196039526
@@ -1277,8 +1277,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 539639d90e94d1d4a821a09e026a0d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
   modifiers:
   - {fileID: 11400000, guid: 4699a5b6ae4b6d84b950885f34b07e25, type: 2}
   grabableObjects: []
@@ -1320,6 +1318,7 @@ MonoBehaviour:
   - {fileID: 3069128699973587937, guid: 96757860675b6d340a8072efac265f28, type: 3}
   - {fileID: 3700406415017159875, guid: 448e59166daea3c47b1b2ba82d3fef79, type: 3}
   - {fileID: 7752209755336706059, guid: abed5d3100954514ba4cceb7516bb8b0, type: 3}
+  numberOfPool: 0
 --- !u!1 &3299724869580970358
 GameObject:
   m_ObjectHideFlags: 0
@@ -2066,7 +2065,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5493373005500781035}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.093, y: -0.4, z: 0.318}
+  m_LocalPosition: {x: 0.45, y: -0.22, z: 0.229}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7319081760786663198}
