@@ -43,8 +43,7 @@ public class GrabManagerMulti : GrabManager
                 Type type = _modifier.actions.GetType();
                 var _object = GetComponent(type);
                 player.InitBacth(authority, i, x, batches, _modifier, _object,basicMats,mainPool, out mainPool);
-                Debug.Log(mainPool);
-                Debug.Log(mainPool.Count);
+                Debug.Log(i + " "+ x);
             }
 
         }
@@ -59,8 +58,6 @@ public class GrabManagerMulti : GrabManager
             }
         }
         inputManager.OnSpawn.AddListener(SpawnBacth);
-        Debug.Log(mainPool);
-        Debug.Log(mainPool.Count);
     }
     
 

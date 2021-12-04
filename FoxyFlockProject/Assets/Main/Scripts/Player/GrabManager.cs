@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.XR.Interaction.Toolkit;
-using Mirror;
+using Mirror.Experimental;
 public class GrabManager : MonoBehaviour
 {
     public List<Modifier> modifiers;
@@ -113,7 +113,7 @@ public class GrabManager : MonoBehaviour
         }
 
         int totalWeight = 0;
-        for (int i = 0; i < batches.Count; i++)
+        for (int i = 0; i < batches.Count-1; i++)
         {
             if (batches[i].isEmpty)
                 continue;
@@ -128,7 +128,7 @@ public class GrabManager : MonoBehaviour
         /* numberOfRound++;
          if (numberOfRound > batches.Count)
              return;*/
-        for (int i = 0; i < batches.Count; i++)
+        for (int i = 0; i < batches.Count-1; i++)
         {
             if (batches[i].isEmpty)
                 continue;
@@ -154,6 +154,9 @@ public class GrabManager : MonoBehaviour
                 Destroy(mainPool[previousPool].floxes[i].GetComponent<GrabbableObject>());
                 Destroy(mainPool[previousPool].floxes[i].GetComponent<GrabablePhysicsHandler>());
                 Destroy(mainPool[previousPool].floxes[i].GetComponent<Rigidbody>());
+                NetworkRigidbody rgb;
+                if (mainPool[previousPool].floxes[i].TryGetComponent<NetworkRigidbody>(out rgb))             
+                Destroy(rgb);
             }
         for (int i = 0; i < representations.Length; i++)
         {
@@ -167,7 +170,7 @@ public class GrabManager : MonoBehaviour
             representations[i].gameObject.SetActive(true);
             representations[i].index = i;
             representations[i].manager = this;
-            Debug.Log(mainPool[currentPool].floxes[i] + " "+i + " "+mainPool[currentPool]+ currentPool.ToString());
+            Debug.Log(mainPool[currentPool].floxes[i] + " "+i + " "+mainPool[currentPool]+" "+ currentPool.ToString());
             representations[i].image.texture = mainPool[currentPool].floxes[i].GetComponent<TextureForDispenser>().texture;
         }
 
