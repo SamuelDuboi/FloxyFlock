@@ -13,6 +13,8 @@ public class NetworkManagerRace : NetworkRoomManager
     private GrabManagerMulti[] grabManagers;
     public GameObject player2Canvas;
     public static NetworkManagerRace instance;
+    private GameObject[] players = new GameObject[2];
+    private int InitNumberOfPlayer;
     public override void Awake()
     {
         base.Awake();
@@ -22,8 +24,12 @@ public class NetworkManagerRace : NetworkRoomManager
         else
             Destroy(instance.gameObject);
     }
-
-   public override GameObject OnRoomServerCreateGamePlayer(NetworkConnection conn, GameObject roomPlayer)
+    public override void OnServerAddPlayer(NetworkConnection conn)
+    {
+        base.OnServerAddPlayer(conn);
+        InitNumberOfPlayer++;
+    }
+    public override GameObject OnRoomServerCreateGamePlayer(NetworkConnection conn, GameObject roomPlayer)
     {
         int index = 0;
         firstPlayer = GameObject.FindGameObjectWithTag("FirstPlayerPos").transform;
@@ -41,22 +47,32 @@ public class NetworkManagerRace : NetworkRoomManager
             index = 1;
         }
         player.name = "player " + index;
+        players[numberOfPlayer] = player;
         numberOfPlayer++;
         // player.GetComponent<ControllerKeyBoard>().playerId = numberOfPlayer;
-        NetworkServer.AddPlayerForConnection(conn, player);
-        StartCoroutine(WaitToSpawn(conn, player, index));
+        if(index ==InitNumberOfPlayer-1)
+        StartCoroutine(WaitToSpawn(conn, players));
         return player;
     }
-    IEnumerator WaitToSpawn(NetworkConnection conn, GameObject player, int index)
+    IEnumerator WaitToSpawn(NetworkConnection conn, GameObject[] players)
     {
         yield return new WaitForSeconds(1f);
          //playerController.CmdSpawnManager(player);
         yield return new WaitForSeconds(1f);
-        if (grabManagers == null)
-            grabManagers = new GrabManagerMulti[2];
-        grabManagers[numberOfPlayer - 1] = player.GetComponentInChildren<GrabManagerMulti>();
-        playerController.CmdInitUI(index, player);
-        grabManagers[index].InitPool(player,playerController);
+        for (int i = 0; i < InitNumberOfPlayer; i++)
+        {
+            if (grabManagers == null)
+                grabManagers = new GrabManagerMulti[2];
+            grabManagers[i] = players[i].GetComponentInChildren<GrabManagerMulti>();
+            if(InitNumberOfPlayer>1)
+            playerController.CmdInitUI(i, players[i],true);
+            else
+            {
+                playerController.CmdInitUI(i, players[i], false);
+            }
+            grabManagers[i].InitPool(players[i], playerController);
+        }
+       
     }
 
     public void Win(int playerId)

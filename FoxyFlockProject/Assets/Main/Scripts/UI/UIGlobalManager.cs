@@ -33,10 +33,10 @@ public class UIGlobalManager : MonoBehaviour
     }
     private IEnumerator Start()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         if(NetworkManagerRace.instance.numberOfPlayer == 1)
         {
-
+            NetworkManagerRace.instance.player2Canvas = canvasPlayer2;
         }
     }
     private void Update()

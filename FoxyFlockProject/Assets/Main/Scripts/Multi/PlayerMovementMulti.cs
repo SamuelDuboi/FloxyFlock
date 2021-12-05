@@ -42,7 +42,6 @@ public class PlayerMovementMulti : NetworkBehaviour
             tableTransform.GetComponentInChildren<GameModeSolo>().number = 0;
         }
         tableTransform.GetComponentInChildren<GameModeSolo>().hands = GetComponentInChildren<HandsPlayground>();
-        tableTransform.GetComponentInChildren<GameModeSolo>().hands = GetComponentInChildren<HandsPlayground>();
         tableTransform.GetComponentInChildren<GameModeSolo>().playerMovement = this;
         tableRenderer = tableTransform.GetComponent<Renderer>();
         TableGetClamp temp = tableRenderer.GetComponent<TableGetClamp>();
@@ -327,19 +326,19 @@ public class PlayerMovementMulti : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    public void CmdInitUI(int index, GameObject player)
+    public void CmdInitUI(int index, GameObject player, bool activate)
     {
-        if (index > 0)
-            NetworkManagerRace.instance.player2Canvas.SetActive(true);
-        RcpInitUI(index,player);
+        if(!activate)
+        NetworkManagerRace.instance.player2Canvas.SetActive(false);
+        RcpInitUI(index,player,activate);
     }
 
     [ClientRpc]
-    void RcpInitUI(int index, GameObject player)
+    void RcpInitUI(int index, GameObject player,bool activate)
     {
         var assigntToUi = player.GetComponentInChildren<AssignToUI>();
-        if (index > 0)
-            NetworkManagerRace.instance.player2Canvas.SetActive(true);
+        if (!activate)
+            NetworkManagerRace.instance.player2Canvas.SetActive(false);
         UIGlobalManager.instance.AddPlayer(index, assigntToUi.stopWatch, assigntToUi.gameModeName,assigntToUi.gameModeRule,assigntToUi.flockNumber,assigntToUi.player1Image,assigntToUi.winPlayer1,assigntToUi.losePlayer1);
     }
 }
