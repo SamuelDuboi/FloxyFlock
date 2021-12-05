@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Main/Scenes/Offline.unity
+    guid: 4cc87f13185cac04784eb3488250e7ee
+  - enabled: 1
     path: Assets/Main/Scenes/FloxyRaceMulti.unity
     guid: e64f30a33f5e9404eb2e599865358ece
   - enabled: 0
@@ -20,6 +23,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Main/Scenes/Menu.unity
     guid: 2f5b2f93e4bd25344a1c6bb2152d6204
+  - enabled: 1
+    path: Assets/Main/Scenes/Room.unity
+    guid: 9698168dfa9c8624d9fa885edc7efde2
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cd0b722c494e3d949b94d4e14ae750fb, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 9b0bc16b9e1dcee4c9b183a2ae8d8a23, type: 2}

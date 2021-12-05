@@ -20,6 +20,7 @@ public class UIGlobalManager : MonoBehaviour
     public bool playeTimer;
     private float timer;
     private int flockNumber;
+    public GameObject canvasPlayer2;
 
     private void Awake()
     {
@@ -29,6 +30,14 @@ public class UIGlobalManager : MonoBehaviour
             return;
         }
         instance = this;
+    }
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(2);
+        if(NetworkManagerRace.instance.numberOfPlayer == 1)
+        {
+
+        }
     }
     private void Update()
     {

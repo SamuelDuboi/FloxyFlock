@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-public class NetworkManagerRace : NetworkManager
+public class NetworkManagerRace : NetworkRoomManager
 {
-    int numberOfPlayer = 0;
+   [HideInInspector] public int numberOfPlayer = 0;
     public Transform firstPlayer;
     public Transform secondPlayerTransform;
 
@@ -22,17 +22,16 @@ public class NetworkManagerRace : NetworkManager
         else
             Destroy(instance.gameObject);
     }
-    /// <summary>
-    /// Called on the server when a client adds a new player with ClientScene.AddPlayer.
-    /// <para>The default implementation for this function creates a new player object from the playerPrefab.</para>
-    /// </summary>
-    /// <param name="conn">Connection from client.</param>
-    public override void OnServerAddPlayer(NetworkConnection conn)
+
+   public override GameObject OnRoomServerCreateGamePlayer(NetworkConnection conn, GameObject roomPlayer)
     {
         int index = 0;
-        Transform start = numPlayers == 0 ? firstPlayer : secondPlayerTransform;
+        firstPlayer = GameObject.FindGameObjectWithTag("FirstPlayerPos").transform;
+        secondPlayerTransform = GameObject.FindGameObjectWithTag("SecondPlayerPos").transform;
+
+        Transform start = numberOfPlayer == 0 ? firstPlayer : secondPlayerTransform;
         GameObject player = Instantiate(playerPrefab, start.position, start.rotation);
-      
+
         if (numberOfPlayer == 0)
         {
             playerController = player.GetComponent<PlayerMovementMulti>();
@@ -40,13 +39,13 @@ public class NetworkManagerRace : NetworkManager
         else
         {
             index = 1;
-            player2Canvas.SetActive(true);
         }
         player.name = "player " + index;
         numberOfPlayer++;
         // player.GetComponent<ControllerKeyBoard>().playerId = numberOfPlayer;
         NetworkServer.AddPlayerForConnection(conn, player);
-        StartCoroutine(WaitToSpawn(conn, player,index));
+        StartCoroutine(WaitToSpawn(conn, player, index));
+        return player;
     }
     IEnumerator WaitToSpawn(NetworkConnection conn, GameObject player, int index)
     {

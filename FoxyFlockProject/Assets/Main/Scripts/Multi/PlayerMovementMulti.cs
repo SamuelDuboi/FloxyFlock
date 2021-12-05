@@ -25,8 +25,7 @@ public class PlayerMovementMulti : NetworkBehaviour
     private float zPower;
     public Transform tempLeftHand;
     public Transform tempRighttHand;
-    public GameObject grabManagerPrefab;
-    [HideInInspector] public GameObject grabManager;
+    public GameObject grabManager;
     [HideInInspector] public List<Batch>batches;
     private GameObject tempFlock;
     // Start is called before the first frame update
@@ -65,9 +64,10 @@ public class PlayerMovementMulti : NetworkBehaviour
         yPower = characterStats.yPower;
         xPower = characterStats.xPower;
         zPower = characterStats.zPower;
+        grabManager.transform.position = vrHeadSett.position;
         //CmdSpawnManager();
     }
-    [Command]
+   /* [Command]
     public void CmdSpawnManager(GameObject parent)
     {
         grabManager = Instantiate(grabManagerPrefab, grabManagerPrefab.transform.position,grabManagerPrefab.transform.rotation);
@@ -76,7 +76,7 @@ public class PlayerMovementMulti : NetworkBehaviour
         grabManager.transform.SetParent(parent.transform);
         grabManager.transform.localPosition = grabManagerPrefab.transform.position;
         NetworkServer.Spawn(grabManager, parent);
-    }
+    }*/
 
     private void InitMovement(bool seeTable = false)
     {
