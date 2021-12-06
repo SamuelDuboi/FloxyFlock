@@ -46,7 +46,7 @@ float Bezier(in float2 pos, in float2 A, in float2 B, in float2 C)
 void Face_float(float2 UV, float2 offsetUV, float4 outlineColor, float4 irisColor, float4 eyesColor, float4 mouthColor, float4 tongueColor,
 	float eyesDistance, float eyesSize, float eyesShape, float irisPositionX, float irisPositionY, float irisSize, float irisShape, float bossEyed,
 	float outlineSize, bool mouthOpen, float mouthWidth, float mouthHeight, float mouthThickness, float smile,
-	float openMouthSize, float openMouthShapeX, float openMouthShapeY, float tongueSize, float tonguePositionX, float tonguePositionY,
+	float openMouthSize, float openMouthShapeX, float openMouthShapeY, float tongueSize, float tonguePositionY, float straightMouth, float topLips, float bottomLips, float lipsShapeX,
 	float topEyelid, float bottomEyelid, float rings, float straightEyelid,
 	out float alpha, out float4 Out)
 {
@@ -55,7 +55,7 @@ void Face_float(float2 UV, float2 offsetUV, float4 outlineColor, float4 irisColo
 	float2 irisUV = float2(lerp(frac(UV.x * 2.0), abs(UV.x * 2.0 - 1.0), bossEyed), UV.y);
 	float2 mouthUV = eyeUV;
 	float2 openMouthUV = UV;
-	float2 tongueUV = UV;
+	float2 lipsUV = UV;
 
 	eyeUV.y -= 0.5;
 	eyeUV.y *= eyesShape;
@@ -68,9 +68,14 @@ void Face_float(float2 UV, float2 offsetUV, float4 outlineColor, float4 irisColo
 	openMouthUV.x -= 0.5;
 	openMouthUV.x *= openMouthShapeX;
 	openMouthUV.x += 0.5;
-	openMouthUV.y -= 0.5;
+	/*openMouthUV.y -= 0.5;
 	openMouthUV.y *= openMouthShapeY;
-	openMouthUV.y += 0.5;
+	openMouthUV.y += 0.5;*/
+
+	lipsUV.y = openMouthUV.y;
+	lipsUV.x -= 0.5;
+	lipsUV.x *= (openMouthShapeX - lipsShapeX);
+	lipsUV.x += 0.5;
 
 	float4 col = 0.0;
 	float3 colEyes = 0.0;
@@ -88,13 +93,18 @@ void Face_float(float2 UV, float2 offsetUV, float4 outlineColor, float4 irisColo
 		: straightEyelid ? step(distance(float2(eyesDistance, 0.5), eyeUV), eyesSize + outlineSize) * step(eyeUV.y, 1.0 - topEyelid + outlineSize) * step(bottomEyelid - outlineSize, eyeUV.y)
 			: step(distance(float2(eyesDistance, 0.5), eyeUV), eyesSize + outlineSize) * step(eyesSize*2.0-outlineSize, distance(float2(eyesDistance, 0.5 + topEyelid), eyeUV)) * step(eyesSize * 2.0-outlineSize, distance(float2(eyesDistance, 0.5 - bottomEyelid), eyeUV));
 
-	float mouth = mouthOpen ? step(distance(float2(0.5, mouthHeight), openMouthUV), mouthWidth) * step(openMouthUV.y, mouthHeight)
+	float mouth = mouthOpen ? 
+		straightMouth ? step(distance(float2(0.5, mouthHeight), openMouthUV), mouthWidth) * step(openMouthUV.y, mouthHeight)
+			: step(distance(float2(0.5, mouthHeight), openMouthUV), mouthWidth) * step(mouthWidth * 2.0, distance(float2(0.5, mouthHeight + topLips), lipsUV)) * step(mouthWidth * 2.0, distance(float2(0.5, mouthHeight - bottomLips), lipsUV))
 		: smile ? step(Bezier(UV, float2(0.5 - mouthWidth, mouthHeight), float2(0.5, mouthHeight + smile), float2(0.5 + mouthWidth, mouthHeight)), mouthThickness)
 			: step(Segment(UV, float2(0.5 - mouthWidth, mouthHeight), float2(0.5 + mouthWidth, mouthHeight)), mouthThickness);
 
 	float tongue = step(distance(float2(0.5, mouthHeight - openMouthShapeY * mouthWidth) + float2(0.0, tonguePositionY) * tongueSize, openMouthUV), tongueSize);
 
-	float outlineMouth = mouthOpen ? step(distance(float2(0.5, mouthHeight), openMouthUV), mouthWidth + outlineSize) * step(openMouthUV.y, mouthHeight + outlineSize) : mouth;
+	float outlineMouth = mouthOpen ? 
+		straightMouth ? step(distance(float2(0.5, mouthHeight), openMouthUV), mouthWidth + outlineSize) * step(openMouthUV.y, mouthHeight + outlineSize) 
+			: step(distance(float2(0.5, mouthHeight), openMouthUV), mouthWidth + outlineSize) * step(mouthWidth * 2.0 - outlineSize, distance(float2(0.5, mouthHeight + topLips), lipsUV)) * step(mouthWidth * 2.0 - outlineSize, distance(float2(0.5, mouthHeight - bottomLips), lipsUV))
+		: mouth;
 
 	alpha = outlineEyes + outlineMouth;
 
