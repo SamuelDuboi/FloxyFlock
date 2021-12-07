@@ -10,13 +10,14 @@ public class GrabManagerMultiEditor : Editor
     SerializedProperty numbersPerModifer;
     SerializedProperty modifiers;
     SerializedProperty representations;
-    private GrabManager managerTarget;
+
+    private GrabManagerMulti managerTarget;
     ReorderableList rlistModifier;
     private bool doOnce;
     private string[] popUpBacthes;
     private void OnEnable()
     {
-        managerTarget = target as GrabManager;
+        managerTarget = target as GrabManagerMulti;
         grabableObjects = serializedObject.FindProperty("grabableObjects");
         batches = serializedObject.FindProperty("batches");
         numbersPerModifer = serializedObject.FindProperty("numbersPerModifer");
@@ -69,7 +70,7 @@ public class GrabManagerMultiEditor : Editor
 
             }
         }
-
+        managerTarget.fireBallPrefab = (GameObject)EditorGUILayout.ObjectField("Fire ball prefab", managerTarget.fireBallPrefab, typeof(GameObject), true);
         EditorGUILayout.PropertyField(batches);
         EditorGUILayout.PropertyField(grabableObjects);
         if (GUILayout.Button("Add all Scenes Grabable"))
@@ -88,6 +89,7 @@ public class GrabManagerMultiEditor : Editor
         EditorGUILayout.Space(10);
         EditorGUILayout.PropertyField(representations);
         serializedObject.ApplyModifiedProperties();
+        EditorUtility.SetDirty(managerTarget);
         serializedObject.Update();
     }
 

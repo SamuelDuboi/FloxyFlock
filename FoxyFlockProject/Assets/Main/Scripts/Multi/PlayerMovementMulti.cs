@@ -276,7 +276,41 @@ public class PlayerMovementMulti : NetworkBehaviour
         CmdSpawnPiece(authority,_mainPool1,tempComponent, tempbasicMats);
         
     }
+    public void InitModifier(GameObject authority, int i, ModifierBatch modifierBatch , Component _object, PhysicMaterial[] basicMats, List<pool> _mainPool1, out List<pool> _mainPool)
+    {
+        int rand = UnityEngine.Random.Range(0, 100);
+        GameObject flock = Instantiate(modifierBatch.piece, new Vector3(300 + 20 * rand , 300 +  20 * rand, 300 + 20 * rand ), Quaternion.identity);
+        tempModifier = modifierBatch.modifier;
+        tempComponent = _object;
+        tempbasicMats = basicMats;
+        flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(tempModifier, _object as ModifierAction, basicMats);
+        flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
+        flock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
 
+        _mainPool1[i].bonus = flock;
+        _mainPool = _mainPool1;
+        tempFlock = flock;
+        CmdSpawnPiece(authority, _mainPool1, tempComponent, tempbasicMats);
+       
+    }
+    public void InitFireBall(GameObject authority, GameObject _fireBall)
+    {
+        int rand = UnityEngine.Random.Range(0, 100);
+        GameObject fireBall = Instantiate(_fireBall, new Vector3(300 + 20 * rand, 300 + 20 * rand, 300 + 20 * rand), Quaternion.identity);
+        tempFlock = fireBall;
+        CmdSpawnObject(authority, tempFlock);
+    }
+    [Command]
+    private void CmdSpawnObject(GameObject authority,GameObject fireBall)
+    {
+        NetworkServer.Spawn(tempFlock, authority);
+        RpcSyncFireBall(tempFlock, authority);
+    }
+    [ClientRpc]
+    void RpcSyncFireBall(GameObject fireball, GameObject authority)
+    {
+        authority.GetComponentInChildren<GrabManager>().fireBallInstantiated = fireball;
+    }
     [Command]
     private void CmdSpawnPiece(GameObject authority, List<pool> mainPool, Component _tempComponent, PhysicMaterial[] _tempbasicMats)
     {
@@ -341,4 +375,11 @@ public class PlayerMovementMulti : NetworkBehaviour
             NetworkManagerRace.instance.player2Canvas.SetActive(false);
         UIGlobalManager.instance.AddPlayer(index, assigntToUi.stopWatch, assigntToUi.gameModeName,assigntToUi.gameModeRule,assigntToUi.flockNumber,assigntToUi.player1Image,assigntToUi.winPlayer1,assigntToUi.losePlayer1);
     }
+
+    [Command(requiresAuthority = false)]
+    public void CmdDestroyBubble(GameObject bubble)
+    {
+        NetworkServer.Destroy(bubble);
+    }
+   
 }

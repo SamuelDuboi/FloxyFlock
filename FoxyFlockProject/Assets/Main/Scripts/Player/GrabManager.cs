@@ -16,9 +16,13 @@ public class GrabManager : MonoBehaviour
     private bool isGrabRight;
     private bool isFirstBacthPassed;
     private int currentPool;
+    private List<GameObject> malusNumber;
+    private List<GameObject> bonusNumber;
     public PlayGround playGround;
     public InputManager inputManager;
+    public GameObject fireBallInstantiated;
 
+    // public Buble[] bubles;
 #if UNITY_EDITOR
     public bool modifierFoldout;
     public List<ModifierAction> actions;
@@ -170,30 +174,116 @@ public class GrabManager : MonoBehaviour
             representations[i].gameObject.SetActive(true);
             representations[i].index = i;
             representations[i].manager = this;
-            Debug.Log(mainPool[currentPool].floxes[i] + " "+i + " "+mainPool[currentPool]+" "+ currentPool.ToString());
             representations[i].image.texture = mainPool[currentPool].floxes[i].GetComponent<TextureForDispenser>().texture;
         }
 
+
+        if (malusNumber!= null && malusNumber.Count > 0)
+        {
+            AllowMalus();
+            for (int i = 0; i < malusNumber.Count; i++)
+            {
+                if (malusNumber[i] != null)
+                    NetworkManagerRace.instance.playerController.CmdDestroyBubble(malusNumber[i]);
+            }
+            malusNumber.Clear();
+        }
+        if (bonusNumber != null && bonusNumber.Count > 0)
+        {
+            AllowBonus();
+            for (int i = 0; i < bonusNumber.Count; i++)
+            {
+                if (bonusNumber[i] != null)
+                    NetworkManagerRace.instance.playerController.CmdDestroyBubble(malusNumber[i]);
+            }
+        }
+       
     }
-    public void LockBatche(GameObject gameObject)
+    
+    public void AddBubble(bool isMalus,GameObject bubble)
     {
+        if (isMalus)
+        {
+            if (malusNumber == null)
+                malusNumber = new List<GameObject>();
+            if (malusNumber.Contains(bubble))
+                return;
+            malusNumber.Add(bubble);
 
+        }
+        else
+        {
+            if (bonusNumber == null)
+                bonusNumber = new List<GameObject>();
+            if (bonusNumber.Contains(bubble))
+                return;
+            bonusNumber.Add(bubble);
+        }
     }
-
+    public void RemoveBubble(bool isMalus, GameObject bubble)
+    {
+        if (isMalus)
+        {
+            if (malusNumber.Count == 0)
+                return;
+            if(malusNumber.Contains(bubble))
+            malusNumber.Remove(bubble);
+        }
+        else
+        {
+            if (bonusNumber.Count == 0)
+                return;
+            if (bonusNumber.Contains(bubble))
+                bonusNumber.Remove(bubble);
+        }
+    }
+    private void AllowMalus()
+    {
+        if (mainPool[currentPool].isMalusUsed)
+            return;
+        representations[representations.Length - 2].gameObject.SetActive(true);
+        representations[representations.Length - 2].index = representations.Length - 2;
+        representations[representations.Length - 2].manager = this;
+        representations[representations.Length - 2].image.texture = mainPool[currentPool].bonus.GetComponent<TextureForDispenser>().texture;
+    }
+    private void AllowBonus()
+    {
+        if (mainPool[currentPool].isBonusUsed)
+            return;
+        representations[representations.Length - 1].gameObject.SetActive(true);
+        representations[representations.Length - 1].index = representations.Length - 1;
+        representations[representations.Length - 1].manager = this;
+        representations[representations.Length - 1].image.texture = fireBallInstantiated.GetComponent<TextureForDispenser>().texture;
+    }
 
     public void GetPiece(XRBaseInteractor baseInteractor, int index)
     {
-        if (!isGrabLeft && !isGrabRight)
+        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.RightHand && !isGrabRight)
             return;
+        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.LeftHand && !isGrabLeft)
+            return;
+        representations[index].gameObject.SetActive(false); 
+
+        if (index == representations.Length - 2)
+        {
+            mainPool[currentPool].isMalusUsed = true;
+            return;
+        }
+        XRBaseInteractable baseInteractable = mainPool[currentPool].floxes[index].GetComponent<GrabbableObject>();
+
         var grabable = mainPool[currentPool].floxes[index].GetComponent<GrabablePhysicsHandler>();
         grabable.enabled = true;
 
-        XRBaseInteractable baseInteractable = mainPool[currentPool].floxes[index].GetComponent<GrabbableObject>();
-        mainPool[currentPool].floxes[index].transform.position = baseInteractor.transform.position;
         StartCoroutine(WaiToSelect(baseInteractable, baseInteractor, index, grabable));
-        representations[index].gameObject.SetActive(false);
-        mainPool[currentPool].isSelected[index] = true;
         grabable.OnHitGround.AddListener(RespawnPiece);
+        if (index == representations.Length - 1)
+        {
+            mainPool[currentPool].isBonusUsed = true;
+            return;
+        }
+
+        mainPool[currentPool].floxes[index].transform.position = baseInteractor.transform.position;
+        mainPool[currentPool].isSelected[index] = true;
         for (int i = 0; i < mainPool[currentPool].isSelected.Count; i++)
         {
             if (!mainPool[currentPool].isSelected[i])
@@ -234,6 +324,22 @@ public class GrabManager : MonoBehaviour
                 coll.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
                 return true;
             }
+        }
+        if(mainPool[currentPool].bonus == coll.gameObject && !coll.isGrab)
+        {
+            representations[representations.Length - 1].gameObject.SetActive(true);
+            representations[representations.Length - 1].index = representations.Length - 1;
+            representations[representations.Length - 1].manager = this;
+            representations[representations.Length - 1].image.texture = mainPool[currentPool].bonus.GetComponent<TextureForDispenser>().texture;
+            return true;
+        }
+        if (fireBallInstantiated == coll.gameObject && !coll.isGrab)
+        {
+            representations[representations.Length - 2].gameObject.SetActive(true);
+            representations[representations.Length - 2].index = representations.Length - 1;
+            representations[representations.Length - 2].manager = this;
+            representations[representations.Length - 2].image.texture = fireBallInstantiated.GetComponent<TextureForDispenser>().texture;
+            return true;
         }
         return false;
     }
@@ -292,5 +398,8 @@ public class pool
 {
     public List<GameObject> floxes;
     public List<bool> isSelected;
+    public GameObject bonus;
     public bool isEmpty;
+    public bool isBonusUsed;
+    public bool isMalusUsed;
 }

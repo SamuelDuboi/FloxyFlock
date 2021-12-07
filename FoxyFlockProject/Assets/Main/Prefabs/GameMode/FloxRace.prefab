@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8560942896136550419}
   - component: {fileID: 5031439935068969079}
   - component: {fileID: 7532663957907401508}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FloxRace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,6 +54,7 @@ MonoBehaviour:
   - {fileID: 0}
   tableTransform: {fileID: 0}
   number: 0
+  playerMovement: {fileID: 0}
   tip: 
   limitHeight: 0.5
   timeToWin: 3
