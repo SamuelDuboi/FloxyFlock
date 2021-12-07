@@ -4779,6 +4779,7 @@ GameObject:
   - component: {fileID: 1972585046446683015}
   - component: {fileID: 1972585046446683014}
   - component: {fileID: 1972585046446683013}
+  - component: {fileID: 1972585046446683011}
   m_Layer: 11
   m_Name: LeftHand Controller
   m_TagString: Untagged
@@ -4786,6 +4787,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1972585046446683011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972585046446683010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c6d6f011ef1b644cb7b86373a4bcd96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heatMaxValue: 100
+  burningSpeed: 10
+  coolingSpeed: 10
+  wiggleCoolingScale: 2
 --- !u!54 &1972585046446683013
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5422,6 +5439,7 @@ GameObject:
   - component: {fileID: 1972585047801034116}
   - component: {fileID: 1972585047801034139}
   - component: {fileID: 1972585047801034138}
+  - component: {fileID: 1972585047801034120}
   m_Layer: 11
   m_Name: RightHand Controller
   m_TagString: Untagged
@@ -5429,6 +5447,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1972585047801034120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972585047801034119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c6d6f011ef1b644cb7b86373a4bcd96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heatMaxValue: 100
+  burningSpeed: 10
+  coolingSpeed: 10
+  wiggleCoolingScale: 2
 --- !u!54 &1972585047801034138
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5827,7 +5861,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: -0.5, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: -0.25, z: 0}
+  m_ConnectedAnchor: {x: -0.040740486, y: 0.8234414, z: 1.4802244}
   m_UseSpring: 1
   m_Spring:
     spring: 50
