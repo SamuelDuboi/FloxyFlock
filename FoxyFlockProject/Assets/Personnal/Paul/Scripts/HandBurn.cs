@@ -18,7 +18,10 @@ public class HandBurn : MonoBehaviour
     [SerializeField] private float wiggleCoolingScale = 2f;
 
     private float heatCurrentValue = 0f;
-    private MeshRenderer handRenderer;
+    [HideInInspector] public float heatPourcentage = 0f;
+    private Transform lastFrameTransform;
+
+    private SkinnedMeshRenderer handRenderer;
     private XRDirectInteractor interactor;
 
     private HeatState heatState =  HeatState.cool;
@@ -26,10 +29,13 @@ public class HandBurn : MonoBehaviour
     private void Start()
     {
         interactor = this.GetComponent<XRDirectInteractor>();
+        handRenderer = this.GetComponentInChildren<SkinnedMeshRenderer>();
     }
 
     private void Update()
     {
+        heatPourcentage = heatCurrentValue / heatMaxValue; //TODO : Use this for material strengh
+
         CoolEvent();
     }
 
@@ -55,7 +61,7 @@ public class HandBurn : MonoBehaviour
         {
             if (heatCurrentValue > 0)
             {
-                heatCurrentValue -= coolingSpeed;
+                heatCurrentValue -= coolingSpeed + (coolingSpeed * wiggleStrengh());
                 
                 if (heatCurrentValue <= 0)
                 {
@@ -64,9 +70,23 @@ public class HandBurn : MonoBehaviour
 
                     heatState = HeatState.cool;
                 }
-            }
-                
+            }  
         }
+    }
+
+    private float wiggleStrengh()
+    {
+        Vector3 lastFramePosition = lastFrameTransform.position;
+        Quaternion lastFrameRotation = lastFrameTransform.rotation;
+
+        float distanceCheck = Vector3.Distance(transform.position, lastFramePosition);
+        float rotationCheck = Mathf.Abs(Quaternion.Angle(transform.rotation, lastFrameRotation)); //I don't know if quaternion.angle can be negative so i take the absolute as a security
+
+        float wiggle = (distanceCheck + rotationCheck) * wiggleCoolingScale;
+
+        lastFrameTransform = this.transform;
+
+        return wiggle;
     }
 }
 
