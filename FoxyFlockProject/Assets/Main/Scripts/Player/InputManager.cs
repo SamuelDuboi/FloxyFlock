@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
 
 
     protected Vector3 snapTurnAngle;
-    private PlayerMovement playerMovement;
+    public PlayerMovement playerMovement;
     [HideInInspector] public bool seeTable;
     protected SoundReader sound;
 

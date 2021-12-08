@@ -29,7 +29,8 @@ public class GrabManagerMulti : GrabManager
     }
     public virtual void InitPool(GameObject authority, PlayerMovementMulti player)
     {
-       
+        if (ScenesManager.instance.IsLobbyScene() || ScenesManager.instance.IsMenuScene())
+            return;
         mainPool = new List<pool>();
         ScenesManager.instance.numberOfFlocksInScene = 0;
         for (int i = 0; i < batches.Count; i++)
@@ -43,7 +44,6 @@ public class GrabManagerMulti : GrabManager
                 Type type = _modifier.actions.GetType();
                 var _object = GetComponent(type);
                 player.InitBacth(authority, i, x, batches, _modifier, _object,basicMats,mainPool, out mainPool);
-                Debug.Log(i + " "+ x);
             }
             Modifier _modifierPiece = batches[i].positiveModifier.modifier;
             Type typePiece = _modifierPiece.actions.GetType();

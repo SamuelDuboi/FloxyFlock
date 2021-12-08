@@ -74,6 +74,7 @@ public class GrabManager : MonoBehaviour
                 var _object = GetComponent(type);
                 flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
                 flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
+                flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
 
                 flock.GetComponent<Rigidbody>().useGravity = false;
                 mainPool[i].floxes.Add(flock);

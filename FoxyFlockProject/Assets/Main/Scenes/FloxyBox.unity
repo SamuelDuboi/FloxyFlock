@@ -1930,6 +1930,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sound: {fileID: 595445946}
   isLeft: 0
+  inputManager: {fileID: 1972585047110934946}
 --- !u!1 &604157351
 GameObject:
   m_ObjectHideFlags: 0
@@ -2029,6 +2030,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mute: 0
   soundList: {fileID: 11400000, guid: f75055c035f5a334d8871377a0f4e2c5, type: 2}
+  inputManagers: []
 --- !u!4 &649407310
 Transform:
   m_ObjectHideFlags: 0
@@ -2134,7 +2136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 201855b166b95de4d813cd4151420b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuScene: 03000000
+  menuScene: 
   lobbyScene: 
   numberOfFlocksInScene: 0
 --- !u!4 &689498196
@@ -2568,6 +2570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sound: {fileID: 850333870}
   isLeft: 1
+  inputManager: {fileID: 1972585047110934946}
 --- !u!82 &850333869
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3562,10 +3565,8 @@ MonoBehaviour:
   flockNumbers:
   - {fileID: 1248851658}
   - {fileID: 1241393023}
-  Player1Images:
-  - {fileID: 1547422760}
-  Player2Image:
-  - {fileID: 813214723}
+  player1Images: []
+  player2Images: []
   winPlayer1:
   - {fileID: 1288855794}
   winPlayer2:
@@ -3575,6 +3576,7 @@ MonoBehaviour:
   losePlayer2:
   - {fileID: 1706565841}
   playeTimer: 0
+  canvasPlayer2: {fileID: 0}
 --- !u!1 &1152576461
 GameObject:
   m_ObjectHideFlags: 0
@@ -6649,6 +6651,7 @@ MonoBehaviour:
   m_PoseProvider: {fileID: 0}
   spherCollider: {fileID: 1972585046383731049}
   controllerPresence: {fileID: 0}
+  inputManager: {fileID: 1972585047110934946}
 --- !u!114 &1972585046843465892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7121,6 +7124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_transform: {fileID: 549874145891945809}
+  inputManager: {fileID: 1972585047110934946}
 --- !u!114 &1972585047110934959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7133,8 +7137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be00ab524e6e0dc48aaea8633ce89957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseInteractor: {fileID: 1972585047729760107}
-  baseInteractable: {fileID: 0}
 --- !u!1 &1972585047729760104
 GameObject:
   m_ObjectHideFlags: 0
@@ -7205,6 +7207,7 @@ MonoBehaviour:
   m_PoseProvider: {fileID: 0}
   spherCollider: {fileID: 1972585047729760116}
   controllerPresence: {fileID: 0}
+  inputManager: {fileID: 1972585047110934946}
 --- !u!114 &1972585047729760107
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -34,6 +34,10 @@ public class UIGlobalManager : MonoBehaviour
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(1);
+        if (!NetworkManagerRace.instance)
+        {
+            yield break;
+        }
         if(NetworkManagerRace.instance.numberOfPlayer == 1)
         {
             NetworkManagerRace.instance.player2Canvas = canvasPlayer2;
