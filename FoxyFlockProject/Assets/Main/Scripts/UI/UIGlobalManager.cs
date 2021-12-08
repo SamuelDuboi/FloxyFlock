@@ -21,7 +21,7 @@ public class UIGlobalManager : MonoBehaviour
     private float timer;
     private int flockNumber;
     public GameObject canvasPlayer2;
-
+    public Sprite[] sprites;
     private void Awake()
     {
         if (instance)
@@ -118,13 +118,13 @@ public class UIGlobalManager : MonoBehaviour
 
         }
     }
-    public void PlayerImage(int index, Sprite sprite)
+    public void PlayerImage(int index, int indexOfSprite)
     {
-        if(index == 1)
+        if(index == 0)
         {
             for (int i = 0; i < player1Images.Count; i++)
             {
-                player1Images[i].sprite = sprite;
+                player1Images[i].sprite = sprites[indexOfSprite];
             }
         }
         else
@@ -133,7 +133,7 @@ public class UIGlobalManager : MonoBehaviour
                 return;
             for (int i = 0; i < player2Images.Count; i++)
             {
-                player2Images[i].sprite = sprite;
+                player2Images[i].sprite = sprites[indexOfSprite];
             }
         }
     }

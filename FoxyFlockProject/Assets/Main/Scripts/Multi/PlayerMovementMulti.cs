@@ -360,20 +360,21 @@ public class PlayerMovementMulti : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    public void CmdInitUI(int index, GameObject player, bool activate)
+    public void CmdInitUI(int index, GameObject player, bool activate, int indexOFSprite)
     {
         if(!activate)
         NetworkManagerRace.instance.player2Canvas.SetActive(false);
-        RcpInitUI(index,player,activate);
+        RcpInitUI(index,player,activate,indexOFSprite);
     }
 
     [ClientRpc]
-    void RcpInitUI(int index, GameObject player,bool activate)
+    void RcpInitUI(int index, GameObject player,bool activate, int indexOFSprite)
     {
         var assigntToUi = player.GetComponentInChildren<AssignToUI>();
         if (!activate)
             NetworkManagerRace.instance.player2Canvas.SetActive(false);
         UIGlobalManager.instance.AddPlayer(index, assigntToUi.stopWatch, assigntToUi.gameModeName,assigntToUi.gameModeRule,assigntToUi.flockNumber,assigntToUi.player1Image,assigntToUi.winPlayer1,assigntToUi.losePlayer1);
+        UIGlobalManager.instance.PlayerImage(index, indexOFSprite);
     }
 
     [Command(requiresAuthority = false)]

@@ -9749,7 +9749,8 @@ MonoBehaviour:
   flockNumbers:
   - {fileID: 1248851658}
   - {fileID: 1241393023}
-  player1Images: []
+  player1Images:
+  - {fileID: 1547422760}
   player2Images:
   - {fileID: 813214723}
   winPlayer1:
@@ -9762,6 +9763,14 @@ MonoBehaviour:
   - {fileID: 1706565841}
   playeTimer: 0
   canvasPlayer2: {fileID: 1419459933}
+  sprites:
+  - {fileID: 21300000, guid: 5d6bb838aa42a244da53180dfbbdebd5, type: 3}
+  - {fileID: 21300000, guid: b633f86adef79cf4c90a3b58a8a20d8f, type: 3}
+  - {fileID: 21300000, guid: 7c19e2ad31fd1344ba99002331e5c086, type: 3}
+  - {fileID: 21300000, guid: b541d654511533e40ab517ac8f9a1ed6, type: 3}
+  - {fileID: 21300000, guid: e97b9fe92e97cc74fb06442821837aa7, type: 3}
+  - {fileID: 21300000, guid: 3848e35d7e6b2ad47af7ab7a4e8f6f76, type: 3}
+  - {fileID: 21300000, guid: 634301b8f04375c4fa6df77dfa4c7ca5, type: 3}
 --- !u!1 &1152576461
 GameObject:
   m_ObjectHideFlags: 0
