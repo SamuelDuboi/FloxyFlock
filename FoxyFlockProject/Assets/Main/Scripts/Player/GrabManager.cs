@@ -194,7 +194,7 @@ public class GrabManager : MonoBehaviour
             for (int i = 0; i < bonusNumber.Count; i++)
             {
                 if (bonusNumber[i] != null)
-                    NetworkManagerRace.instance.playerController.CmdDestroyBubble(malusNumber[i]);
+                    NetworkManagerRace.instance.playerController.CmdDestroyBubble(bonusNumber[i]);
             }
         }
        
@@ -269,6 +269,18 @@ public class GrabManager : MonoBehaviour
             mainPool[currentPool].isMalusUsed = true;
             return;
         }
+        if (index == representations.Length - 1)
+        {
+            XRBaseInteractable baseInteractableBonus = mainPool[currentPool].bonus.GetComponent<GrabbableObject>();
+            mainPool[currentPool].isBonusUsed = true;
+            var grabableBonus = mainPool[currentPool].bonus.GetComponent<GrabablePhysicsHandler>();
+            grabableBonus.enabled = true;
+
+            StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, index, grabableBonus));
+            grabableBonus.OnHitGround.AddListener(RespawnPiece);
+            mainPool[currentPool].bonus.transform.position = baseInteractor.transform.position;
+            return;
+        }
         XRBaseInteractable baseInteractable = mainPool[currentPool].floxes[index].GetComponent<GrabbableObject>();
 
         var grabable = mainPool[currentPool].floxes[index].GetComponent<GrabablePhysicsHandler>();
@@ -276,11 +288,7 @@ public class GrabManager : MonoBehaviour
 
         StartCoroutine(WaiToSelect(baseInteractable, baseInteractor, index, grabable));
         grabable.OnHitGround.AddListener(RespawnPiece);
-        if (index == representations.Length - 1)
-        {
-            mainPool[currentPool].isBonusUsed = true;
-            return;
-        }
+       
 
         mainPool[currentPool].floxes[index].transform.position = baseInteractor.transform.position;
         mainPool[currentPool].isSelected[index] = true;
