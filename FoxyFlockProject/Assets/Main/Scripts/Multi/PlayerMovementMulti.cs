@@ -43,6 +43,7 @@ public class PlayerMovementMulti : NetworkBehaviour
         }
         tableTransform.GetComponentInChildren<GameModeSolo>().hands = GetComponentInChildren<HandsPlayground>();
         tableTransform.GetComponentInChildren<GameModeSolo>().playerMovement = this;
+        tableTransform.GetComponentInChildren<FireballManager>().rig = transform;
         tableRenderer = tableTransform.GetComponent<Renderer>();
         TableGetClamp temp = tableRenderer.GetComponent<TableGetClamp>();
         zClampMin = temp.zClampMin;

@@ -8,7 +8,7 @@ public class FireballManager : MonoBehaviour
     [SerializeField] private GameObject outFireball = null;
     [SerializeField] private GameObject inFireball = null;
     [SerializeField] private Transform tableCenter = null;
-    [SerializeField] private Transform rig = null;
+    [SerializeField] public Transform rig = null;
 
     [SerializeField] private float exitDistance = 1f;
     [SerializeField] private float enterDistance = 1f;
