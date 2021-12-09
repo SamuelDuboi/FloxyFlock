@@ -365,6 +365,7 @@ GameObject:
   - component: {fileID: -5642343373413378113}
   - component: {fileID: -6826155617968421675}
   - component: {fileID: -9172004400804475041}
+  - component: {fileID: 4319459061004301199}
   m_Layer: 6
   m_Name: Flock_Hehe01
   m_TagString: Untagged
@@ -841,3 +842,19 @@ MonoBehaviour:
   syncAngularVelocity: 1
   clearAngularVelocity: 0
   angularVelocitySensitivity: 0.1
+--- !u!114 &4319459061004301199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8274945382952786794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2acd5bfb0fb47a04d94f68d9f3274edd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  burnClipName: laser
+  deathDuration: 2
+  deathMaterial: {fileID: 0}
+  soundReader: {fileID: -1479980008408552161}

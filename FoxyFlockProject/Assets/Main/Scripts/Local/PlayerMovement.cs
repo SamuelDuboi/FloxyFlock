@@ -69,7 +69,8 @@ public class PlayerMovement : MonoBehaviour
     {
         //check if table is on screen
         SeeTable();
-
+        if (!tableRenderer)
+            return;
         tempLeftHand.position = inputManager.leftHand.transform.position;
         tempRighttHand.position = inputManager.leftHand.transform.position;
         movementMidle = Vector3.Lerp(tempRighttHand.localPosition  , tempLeftHand.localPosition, 0.5f);

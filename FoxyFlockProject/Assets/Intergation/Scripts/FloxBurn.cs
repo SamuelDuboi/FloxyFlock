@@ -8,7 +8,7 @@ public class FloxBurn : MonoBehaviour
     [SerializeField] private float deathDuration = 2f;
     [SerializeField] private Material deathMaterial;
 
-    private SoundReader soundReader;
+    public SoundReader soundReader;
 
     private void Start()
     {

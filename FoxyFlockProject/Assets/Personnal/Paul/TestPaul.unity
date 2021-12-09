@@ -204,13 +204,14 @@ MonoBehaviour:
   burnClipName: Laser
   deathDuration: 2
   deathMaterial: {fileID: 0}
+  soundReader: {fileID: 0}
 --- !u!43 &187201419
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh22860
+  m_Name: pb_Mesh63620
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -923,6 +924,7 @@ MonoBehaviour:
   burnClipName: Laser
   deathDuration: 2
   deathMaterial: {fileID: 0}
+  soundReader: {fileID: 0}
 --- !u!1001 &351085322
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1183,6 +1185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mute: 0
   soundList: {fileID: 11400000, guid: f75055c035f5a334d8871377a0f4e2c5, type: 2}
+  inputManagers: []
 --- !u!4 &599539926
 Transform:
   m_ObjectHideFlags: 0
@@ -1406,6 +1409,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 547975940, guid: 7cd4fb575f0277346b659ae319a4b775, type: 3}
+      propertyPath: sceneId
+      value: 450259604
+      objectReference: {fileID: 0}
     - target: {fileID: 9214305646552678340, guid: 7cd4fb575f0277346b659ae319a4b775, type: 3}
       propertyPath: hands
       value: 
@@ -1627,6 +1634,7 @@ MonoBehaviour:
   burnClipName: Laser
   deathDuration: 2
   deathMaterial: {fileID: 0}
+  soundReader: {fileID: 0}
 --- !u!1001 &1283532885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1773,6 +1781,7 @@ MonoBehaviour:
   forwardClamp: 0
   isMin: 0
   sphere: {fileID: 0}
+  zone: {fileID: 0}
 --- !u!1 &1338424009
 GameObject:
   m_ObjectHideFlags: 0
@@ -1821,6 +1830,7 @@ MonoBehaviour:
   forwardClamp: 1
   isMin: 0
   sphere: {fileID: 0}
+  zone: {fileID: 0}
 --- !u!1 &1342453135 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7800655476944079807, guid: a7ce92df93e521f4e981fd979726be0d, type: 3}
@@ -1917,6 +1927,7 @@ MonoBehaviour:
   burnClipName: Laser
   deathDuration: 2
   deathMaterial: {fileID: 0}
+  soundReader: {fileID: 0}
 --- !u!1 &1450641217 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5191685301571692960, guid: 156febf843691c44992cafb366dabc8d, type: 3}
@@ -1937,6 +1948,7 @@ MonoBehaviour:
   burnClipName: Laser
   deathDuration: 2
   deathMaterial: {fileID: 0}
+  soundReader: {fileID: 0}
 --- !u!1 &1488933205
 GameObject:
   m_ObjectHideFlags: 0
@@ -1985,6 +1997,7 @@ MonoBehaviour:
   forwardClamp: 0
   isMin: 0
   sphere: {fileID: 0}
+  zone: {fileID: 0}
 --- !u!1 &1502092492
 GameObject:
   m_ObjectHideFlags: 0
@@ -2303,6 +2316,7 @@ MonoBehaviour:
   burnClipName: Laser
   deathDuration: 2
   deathMaterial: {fileID: 0}
+  soundReader: {fileID: 0}
 --- !u!1 &1774207491
 GameObject:
   m_ObjectHideFlags: 0
@@ -2391,6 +2405,7 @@ MonoBehaviour:
   burnClipName: Laser
   deathDuration: 2
   deathMaterial: {fileID: 0}
+  soundReader: {fileID: 0}
 --- !u!1 &1835759143
 GameObject:
   m_ObjectHideFlags: 0
@@ -2916,6 +2931,7 @@ MonoBehaviour:
   forwardClamp: 1
   isMin: 0
   sphere: {fileID: 0}
+  zone: {fileID: 0}
 --- !u!1 &2040571485
 GameObject:
   m_ObjectHideFlags: 0
@@ -3093,6 +3109,7 @@ MonoBehaviour:
   m_PoseProvider: {fileID: 0}
   spherCollider: {fileID: 1972585046446683014}
   controllerPresence: {fileID: 0}
+  inputManager: {fileID: 0}
 --- !u!4 &1972585046446683009
 Transform:
   m_ObjectHideFlags: 0
@@ -3447,8 +3464,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be00ab524e6e0dc48aaea8633ce89957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseInteractor: {fileID: 1972585046446683015}
-  baseInteractable: {fileID: 0}
 --- !u!114 &1972585047039669059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3462,6 +3477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_transform: {fileID: 549874145963220926}
+  inputManager: {fileID: 0}
 --- !u!1 &1972585047039669064
 GameObject:
   m_ObjectHideFlags: 0
@@ -3754,6 +3770,7 @@ MonoBehaviour:
   m_PoseProvider: {fileID: 0}
   spherCollider: {fileID: 1972585047801034139}
   controllerPresence: {fileID: 0}
+  inputManager: {fileID: 0}
 --- !u!4 &1972585047801034118
 Transform:
   m_ObjectHideFlags: 0

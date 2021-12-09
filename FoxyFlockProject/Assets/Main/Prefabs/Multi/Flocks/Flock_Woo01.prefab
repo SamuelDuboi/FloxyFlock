@@ -323,6 +323,7 @@ GameObject:
   - component: {fileID: 1794132747986546923}
   - component: {fileID: 2653564537887369317}
   - component: {fileID: -1215791277210997927}
+  - component: {fileID: -3097298920462803334}
   m_Layer: 6
   m_Name: Flock_Woo01
   m_TagString: Untagged
@@ -801,6 +802,22 @@ MonoBehaviour:
   syncAngularVelocity: 1
   clearAngularVelocity: 0
   angularVelocitySensitivity: 0.1
+--- !u!114 &-3097298920462803334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6861033994696840683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2acd5bfb0fb47a04d94f68d9f3274edd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  burnClipName: laser
+  deathDuration: 2
+  deathMaterial: {fileID: 0}
+  soundReader: {fileID: -4454221789294313736}
 --- !u!1 &7854602573912081745
 GameObject:
   m_ObjectHideFlags: 0
