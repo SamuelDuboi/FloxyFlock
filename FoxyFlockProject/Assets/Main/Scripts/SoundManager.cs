@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance;
     [SerializeField] private SoundList soundList;
     private List<AudioSource> sources;
+    public List< InputManager> inputManagers;
     private void Awake()
     {
         if (instance == null)
@@ -21,9 +22,13 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-   private void Start()
+ 
+    public void AddInputManager(InputManager inputManager)
     {
-        InputManager.instance.ActiveSound.AddListener(ActiveSound);   
+        if (inputManagers == null)
+            inputManagers = new List<InputManager>();
+        inputManagers.Add(inputManager);
+        inputManager.ActiveSound.AddListener(ActiveSound);
     }
     public void ApplyAudioClip(string name, AudioSource audioSource)
     {
@@ -68,9 +73,9 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void ToogleSound()
+    public void ToogleSound(int index)
     {
-        InputManager.instance.OnActiveSound();
+        inputManagers[index].OnActiveSound();
     }
 
     public void ClearSound()

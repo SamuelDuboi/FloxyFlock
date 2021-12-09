@@ -20,16 +20,17 @@ public class HandPresence : MonoBehaviour
     public bool isLeft;
     private bool isMenu;
     private GameObject pointerGO;
+    public InputManager inputManager;
     private void Start()
     {
         parent = GetComponentInParent<PlayerMovement>();
-
+        inputManager = GetComponentInParent<InputManager>();
         if (!targetDevice.isValid)
         {
             TryInitialize();
         }
 
-        
+
     }
 
 
@@ -86,10 +87,10 @@ public class HandPresence : MonoBehaviour
                 pointerGO.SetActive(false);
             if (isMenu)
             {
-                InputManager.instance.OnLeftTrigger.AddListener(OnTriggerPressLeft);
-                InputManager.instance.OnRightTrigger.AddListener(OnTriggerPressRight);
+                inputManager.OnLeftTrigger.AddListener(OnTriggerPressLeft);
+                inputManager.OnRightTrigger.AddListener(OnTriggerPressRight);
             }
-            
+
         }
 
 
@@ -121,11 +122,11 @@ public class HandPresence : MonoBehaviour
                 handAnimator.SetFloat("Trigger", gripValue);
                 if (gripValue > 0.5f)
                 {
-                    
-                        if (!isLeft)
-                            InputManager.instance.OnGrabbingRight.Invoke();
-                        else
-                            InputManager.instance.OnGrabbingLeft.Invoke();                    
+
+                    if (!isLeft)
+                        inputManager.OnGrabbingRight.Invoke();
+                    else
+                        inputManager.OnGrabbingLeft.Invoke();
                     indexCollider.isTrigger = false;
                 }
                 else
@@ -143,10 +144,10 @@ public class HandPresence : MonoBehaviour
         {
             if (!isGrab)
             {
-                if(!isLeft)
-                InputManager.instance.OnGrabbingReleaseRight.Invoke();
+                if (!isLeft)
+                    inputManager.OnGrabbingReleaseRight.Invoke();
                 else
-                    InputManager.instance.OnGrabbingReleaseLeft.Invoke();
+                    inputManager.OnGrabbingReleaseLeft.Invoke();
 
             }
             handAnimator.SetFloat("Trigger", 0);

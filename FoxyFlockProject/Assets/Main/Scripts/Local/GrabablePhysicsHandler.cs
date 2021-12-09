@@ -30,14 +30,16 @@ public class GrabablePhysicsHandler : MonoBehaviour
     public bool isOnPlayground;
     public bool isOnStasisOnce;
     public float timerToExit;
-    private ModifierAction[] actions = new ModifierAction[2];
+    private ModifierAction[] actions = new ModifierAction[1];
     MaterialPropertyBlock propBlock;
-
+    public InputManager inputManager;
+    public Modifier initialModifier;
     public IEnumerator Start()
     {
 
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
+        meshRenderer = GetComponent<MeshRenderer>();
         initialMat = meshRenderer.material;
 
         //overrid mat without creat new instance or modify it
@@ -46,7 +48,6 @@ public class GrabablePhysicsHandler : MonoBehaviour
         
         colliders = m_grabbable.colliders;
         initPos = transform.position;
-        meshRenderer = GetComponent<MeshRenderer>();
         InvokeOnStart();
     }
 
@@ -157,6 +158,55 @@ public class GrabablePhysicsHandler : MonoBehaviour
             tempMat[1] = grabedMat[1];
         if (!modifier.isBasciFloat)
             ChangeMat(_modifier.material, tempMat);
+        else
+            ChangeMat(tempMat);
+
+    }
+    public void ChangeBehavior( ModifierAction action, PhysicMaterial[] grabedMat)
+    {
+
+        for (int i = 0; i < actions.Length; i++)
+        {
+            if (!actions[i])
+                continue;
+
+            OnGrabed.RemoveListener(actions[i].OnGrabed);
+            OnReleased.RemoveListener(actions[i].OnReleased);
+            OnHitSomething.RemoveListener(actions[i].OnHitSomething);
+            OnHitGround.RemoveListener(actions[i].OnHitGround);
+            OnEnterStasis.RemoveListener(actions[i].OnEnterStasis);
+            OnStart.RemoveListener(actions[i].OnStarted);
+            OnExitStasis.RemoveListener(actions[i].OnExitStasis);
+            actions[i].enabled = false;
+        }
+
+        modifier = initialModifier;
+        for (int i = 0; i < colliders.Count; i++)
+        {
+            colliders[i].material = modifier.physiqueMaterial;
+        }
+        for (int i = 0; i < actions.Length; i++)
+
+        {
+            Type type = modifier.actions.GetType();
+            actions[i] = gameObject.AddComponent(type) as ModifierAction;
+
+            OnGrabed.AddListener(actions[i].OnGrabed);
+            OnReleased.AddListener(actions[i].OnReleased);
+            OnHitSomething.AddListener(actions[i].OnHitSomething);
+            OnHitGround.AddListener(actions[i].OnHitGround);
+            OnEnterStasis.AddListener(actions[i].OnEnterStasis);
+            OnExitStasis.AddListener(actions[i].OnExitStasis);
+            OnStart.AddListener(actions[i].OnStarted);
+        }
+        PhysicMaterial[] tempMat = new PhysicMaterial[2];
+        tempMat[0] = grabedMat[0];
+        if (initialModifier.hasPhysiqueMaterial)
+            tempMat[1] = initialModifier.physiqueMaterial;
+        else
+            tempMat[1] = grabedMat[1];
+        if (!modifier.isBasciFloat)
+            ChangeMat(initialModifier.material, tempMat);
         else
             ChangeMat(tempMat);
 

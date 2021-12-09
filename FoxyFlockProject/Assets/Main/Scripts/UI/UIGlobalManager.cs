@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System;
 public class UIGlobalManager : MonoBehaviour
 {
     public static UIGlobalManager instance;
 
-    public TextMeshProUGUI[] stopWatch;
-    public TextMeshProUGUI[] gameModeNames;
-    public TextMeshProUGUI[] gameModeRules;
-    public TextMeshProUGUI[] flockNumbers;
-    public Image[] Player1Images;
-    public Image[] Player2Image;
-    public GameObject[] winPlayer1;
-    public GameObject[] winPlayer2;
-    public GameObject[] losePlayer1;
-    public GameObject[] losePlayer2;
+    public List< TextMeshProUGUI> stopWatch = new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> gameModeNames = new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> gameModeRules = new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> flockNumbers = new List<TextMeshProUGUI>();
+    public List<Image> player1Images = new List<Image>();
+    public List<Image> player2Images = new List<Image>();
+    public List<GameObject> winPlayer1 = new List<GameObject>();
+    public List<GameObject> winPlayer2 = new List<GameObject>();
+    public List<GameObject> losePlayer1 = new List<GameObject>();
+    public List<GameObject> losePlayer2 = new List<GameObject>();
     public bool playeTimer;
     private float timer;
     private int flockNumber;
-
+    public GameObject canvasPlayer2;
+    public Sprite[] sprites;
     private void Awake()
     {
         if (instance)
@@ -31,12 +31,24 @@ public class UIGlobalManager : MonoBehaviour
         }
         instance = this;
     }
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(1);
+        if (!NetworkManagerRace.instance)
+        {
+            yield break;
+        }
+        if(NetworkManagerRace.instance.numberOfPlayer == 1)
+        {
+            NetworkManagerRace.instance.player2Canvas = canvasPlayer2;
+        }
+    }
     private void Update()
     {
         if (playeTimer)
         {
             timer += Time.deltaTime;
-            for (int i = 0; i < stopWatch.Length; i++)
+            for (int i = 0; i < stopWatch.Count; i++)
             {
                 stopWatch[i].text =ConvertToHourMinSec(timer);
             }
@@ -65,11 +77,11 @@ public class UIGlobalManager : MonoBehaviour
     }
     public void SetGameMode(string name, string rule)
     {
-        for (int i = 0; i < gameModeNames.Length; i++)
+        for (int i = 0; i < gameModeNames.Count; i++)
         {
             gameModeNames[i].text = name;
         }
-        for (int i = 0; i < gameModeRules.Length; i++)
+        for (int i = 0; i < gameModeRules.Count; i++)
         {
             gameModeRules[i].text = rule;
         }
@@ -77,7 +89,7 @@ public class UIGlobalManager : MonoBehaviour
     public void SetRulesMode(string rule)
     {
         
-        for (int i = 0; i < gameModeRules.Length; i++)
+        for (int i = 0; i < gameModeRules.Count; i++)
         {
             gameModeRules[i].text = rule;
         }
@@ -85,7 +97,7 @@ public class UIGlobalManager : MonoBehaviour
     public void ChangeFlockNumner(int add)
     {
         flockNumber += add;
-        for (int i = 0; i < flockNumbers.Length; i++)
+        for (int i = 0; i < flockNumbers.Count; i++)
         {
             if (flockNumber > 1)
                 flockNumbers[i].text = "Floxes :" + flockNumber.ToString();
@@ -97,7 +109,7 @@ public class UIGlobalManager : MonoBehaviour
     public void ResetFlockNumber()
     {
         flockNumber = 0;
-        for (int i = 0; i < flockNumbers.Length; i++)
+        for (int i = 0; i < flockNumbers.Count; i++)
         {
             if (flockNumber > 1)
                 flockNumbers[i].text = "Floxes :" + flockNumber.ToString();
@@ -106,56 +118,76 @@ public class UIGlobalManager : MonoBehaviour
 
         }
     }
-    public void PlayerImage(int index, Sprite sprite)
+    public void PlayerImage(int index, int indexOfSprite)
     {
-        if(index == 1)
+        if(index == 0)
         {
-            for (int i = 0; i < Player1Images.Length; i++)
+            for (int i = 0; i < player1Images.Count; i++)
             {
-                Player1Images[i].sprite = sprite;
+                player1Images[i].sprite = sprites[indexOfSprite];
             }
         }
         else
         {
-            if (Player2Image == null)
+            if (player2Images == null)
                 return;
-            for (int i = 0; i < Player2Image.Length; i++)
+            for (int i = 0; i < player2Images.Count; i++)
             {
-                Player2Image[i].sprite = sprite;
+                player2Images[i].sprite = sprites[indexOfSprite];
             }
         }
     }
     public void Win(int indexOfWinner)
     {
-        if(indexOfWinner == 2)
+        if(indexOfWinner == 1)
         {
-            for (int i = 0; i < winPlayer2.Length; i++)
+            for (int i = 0; i < winPlayer2.Count; i++)
             {
                 winPlayer2[i].SetActive(true);
             }
-            for (int i = 0; i < losePlayer1.Length; i++)
+            for (int i = 0; i < losePlayer1.Count; i++)
             {
                 losePlayer1[i].SetActive(true);
             }
         }
-        else if(winPlayer2 != null && winPlayer2.Length > 0)
+        else if(winPlayer2 != null && winPlayer2.Count > 0)
         {
-            for (int i = 0; i < winPlayer1.Length; i++)
+            for (int i = 0; i < winPlayer1.Count; i++)
             {
                 winPlayer1[i].SetActive(true);
             }
-            for (int i = 0; i < losePlayer2.Length; i++)
+            for (int i = 0; i < losePlayer2.Count; i++)
             {
                 losePlayer2[i].SetActive(true);
             }
         }
         else
         {
-            for (int i = 0; i < winPlayer1.Length; i++)
+            for (int i = 0; i < winPlayer1.Count; i++)
             {
                 winPlayer1[i].SetActive(true);
             }
         }
 
+    }
+
+    public void AddPlayer(int index, TextMeshProUGUI _stopwatch, TextMeshProUGUI _gameModeNames, TextMeshProUGUI _gameModeRules, TextMeshProUGUI _flockNumbers, Image _playerImages,GameObject _winPlayer, GameObject _losePlayer)
+    {
+        stopWatch.Add(_stopwatch);
+        gameModeNames.Add(_gameModeNames);
+        gameModeRules.Add(_gameModeRules);
+        flockNumbers.Add(_flockNumbers);
+        if(index == 0)
+        {
+            player1Images.Add(_playerImages);
+            winPlayer1.Add(_winPlayer);
+            losePlayer1.Add(_losePlayer);
+        }
+        else
+        {
+            player2Images.Add(_playerImages);
+            winPlayer2.Add(_winPlayer);
+            losePlayer2.Add(_losePlayer);
+        }
     }
 }

@@ -11,6 +11,8 @@ public class VFXMoveAround : MonoBehaviour
     private int Size;
     private float currentsize;
     GameObject rightHand;
+    public InputManager inputManager;
+
     public void OnTriggerPressListener(bool seeTable)
     {
         if (seeTable)
@@ -47,14 +49,16 @@ public class VFXMoveAround : MonoBehaviour
     {
         if (!rightHand)
         {
-            if (InputManager.instance.rightHand.model.gameObject)
+            if (!inputManager)
+                inputManager = GetComponentInParent<InputManager>();
+            if (inputManager.rightHand.model.gameObject)
             {
-                rightHand = InputManager.instance.rightHand.model.gameObject;
-                InputManager.instance.OnLeftTrigger.AddListener(OnTriggerPressListener);
-                InputManager.instance.OnRightTrigger.AddListener(OnTriggerPressListener);
-                InputManager.instance.OnBothTrigger.AddListener(OnBothTriggerPressListener);
-                InputManager.instance.OnRightTriggerRelease.AddListener(OnTriggerPressReleaseListener);
-                InputManager.instance.OnLeftTriggerRelease.AddListener(OnTriggerPressReleaseListener);
+                rightHand = inputManager.rightHand.model.gameObject;
+                inputManager.OnLeftTrigger.AddListener(OnTriggerPressListener);
+                inputManager.OnRightTrigger.AddListener(OnTriggerPressListener);
+                inputManager.OnBothTrigger.AddListener(OnBothTriggerPressListener);
+                inputManager.OnRightTriggerRelease.AddListener(OnTriggerPressReleaseListener);
+                inputManager.OnLeftTriggerRelease.AddListener(OnTriggerPressReleaseListener);
                 child.transform.SetParent(rightHand.transform);
             }
         }

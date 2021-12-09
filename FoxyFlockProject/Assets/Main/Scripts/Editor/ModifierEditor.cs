@@ -8,7 +8,6 @@ public class ModifierEditor : Editor
     private SerializedProperty hasPhysiqueMaterial;
     private SerializedProperty physiqueMaterial;
     private SerializedProperty mats;
-    private SerializedProperty actions;
 
 
     private void OnEnable()
@@ -17,7 +16,6 @@ public class ModifierEditor : Editor
         hasPhysiqueMaterial = serializedObject.FindProperty("hasPhysiqueMaterial");
         physiqueMaterial = serializedObject.FindProperty("physiqueMaterial");
         mats = serializedObject.FindProperty("material");
-        actions = serializedObject.FindProperty("actions");
     }
 
     public override void OnInspectorGUI()

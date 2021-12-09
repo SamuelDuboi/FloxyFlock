@@ -33,6 +33,8 @@ public class SoundReader : MonoBehaviour
                 doOnce = false;
                 return;
             }
+            if(!source)
+            source = GetComponent<AudioSource>();
             SoundManager.instance.ApplyAudioClip(clipName, source);
             source.Play();
         }
@@ -41,6 +43,8 @@ public class SoundReader : MonoBehaviour
     {
         if (!cantPLay)
         {
+            if (!source)
+                source = GetComponent<AudioSource>();
             SoundManager.instance.ApplyAudioClip(secondClipName, source);
             source.Play();
         }
@@ -49,6 +53,8 @@ public class SoundReader : MonoBehaviour
     {
         if (!cantPLay)
         {
+            if (!source)
+                source = GetComponent<AudioSource>();
             SoundManager.instance.ApplyAudioClip(ThirdClipName, source);
             source.Play();
         }
@@ -57,6 +63,8 @@ public class SoundReader : MonoBehaviour
     {
         if (!cantPLay)
         {
+            if (!source)
+                source = GetComponent<AudioSource>();
             SoundManager.instance.ApplyAudioClip(ForthClipName, source);
             source.Play();
         }

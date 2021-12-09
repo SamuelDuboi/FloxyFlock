@@ -10,7 +10,7 @@ public class PhysicsButton : MonoBehaviour
     [SerializeField] private bool isRotation = false;
 
     private bool _isPressed;
-
+    private InputManager inputManager;
     private Vector3 startPos;
     private Quaternion startRotation;
 
@@ -25,7 +25,8 @@ public class PhysicsButton : MonoBehaviour
             startPos = transform.localPosition;
         else
             startRotation = transform.localRotation;
-
+        inputManager = GetComponentInParent<InputManager>();
+        onPressed.AddListener(inputManager.SpawnInvoke);
         joint = GetComponent<ConfigurableJoint>();
         rb = GetComponent<Rigidbody>();
     }

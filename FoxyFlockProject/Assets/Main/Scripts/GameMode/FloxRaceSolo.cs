@@ -7,9 +7,7 @@ public class FloxRaceSolo : GameModeSolo
     public float limitHeight;
     private float limitDiameter;
     public float timeToWin;
-
     private float timeAboveHeight;
-
     public Limits winLimit;
     [HideInInspector] public Vector3 p;
     void Start()
@@ -29,8 +27,6 @@ public class FloxRaceSolo : GameModeSolo
         if (winLimit.triggered && hands.inPlayground == false)
         {
             tip = "can win";
-            UIGlobalManager.instance.Win(1);
-            
             winLimit.GetComponent<MeshRenderer>().material = winLimit.winMat;
             timeAboveHeight += Time.deltaTime;
         } else if (winLimit.triggered && hands.inPlayground == true)
@@ -49,7 +45,11 @@ public class FloxRaceSolo : GameModeSolo
         }
         if (timeAboveHeight >= timeToWin)
         {
-            playerWin = true;
+            if (number == 0)
+                playerMovement.CmdWin1();
+            else
+                playerMovement.CmdWin2();
+            Destroy(this);
         }
     }
 }

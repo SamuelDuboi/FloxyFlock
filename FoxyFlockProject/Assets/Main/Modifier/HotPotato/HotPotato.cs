@@ -8,10 +8,10 @@ public class HotPotato : ModifierAction
    
     private MeshRenderer mesh;
     public Material[] mats;
-    private int stateIndex;
-    public string clipName;
+
     private bool isCooling;
     public float cooldDown;
+    private int stateIndex;
 
     private void Update()
     {
@@ -55,8 +55,7 @@ public class HotPotato : ModifierAction
     public override void OnStarted(GameObject _object)
     {
         base.OnStarted(_object);
-       sound= _object.AddComponent<SoundReader>();
-        sound.clipName = clipName;
+       
     }
     public override void OnEnterStasis(GameObject _object, bool isGrab, Rigidbody rgb)
     {
