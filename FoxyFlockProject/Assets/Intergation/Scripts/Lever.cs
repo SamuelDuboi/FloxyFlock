@@ -3,36 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PhysicsButton : MonoBehaviour
+public class Lever : MonoBehaviour
 {
     [SerializeField] private float detectionThreshold = 0.1f;
     [SerializeField] private float deadzone = 0.025f;
-    [SerializeField] private bool isRotation = false;
 
     private bool _isPressed;
+    private Vector3 startRotation;
 
-    private Vector3 startPos;
-    private Quaternion startRotation;
-
-    private ConfigurableJoint joint;
+    private HingeJoint joint;
     private Rigidbody rb;
 
     public UnityEvent onPressed, onReleased;
 
     private void Start()
     {
-        if (!isRotation)
-            startPos = transform.localPosition;
-        else
-            startRotation = transform.localRotation;
+        startRotation = transform.localEulerAngles;
 
-        joint = GetComponent<ConfigurableJoint>();
+        joint = GetComponent<HingeJoint>();
         rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        if (!_isPressed && GetValue() + detectionThreshold >= 1) 
+        if (!_isPressed && GetValue() + detectionThreshold >= 1)
             Pressed();
         if (_isPressed && GetValue() - detectionThreshold <= 0)
             Released();
@@ -40,16 +34,7 @@ public class PhysicsButton : MonoBehaviour
 
     private float GetValue()
     {
-        var value = 0f;
-
-        if (!isRotation)
-        {
-            value = Vector3.Distance(startPos, transform.localPosition) / joint.linearLimit.limit;
-        }
-        else
-        {
-            value = Quaternion.Angle(startRotation, transform.localRotation) / Mathf.Abs(joint.lowAngularXLimit.limit);
-        }
+        var value = transform.localEulerAngles.x / Mathf.Abs(joint.limits.max);
 
         if (Mathf.Abs(value) < deadzone)
             value = 0;
@@ -60,14 +45,16 @@ public class PhysicsButton : MonoBehaviour
     private void Pressed()
     {
         _isPressed = true;
-        StartCoroutine(MakeKinematic());
+        //StartCoroutine(MakeKinematic());
         onPressed.Invoke();
+        Debug.Log(this + " isPressed");
     }
 
     private void Released()
     {
         _isPressed = false;
         onReleased.Invoke();
+        Debug.Log(this + " isReleased");
     }
 
     private IEnumerator MakeKinematic()

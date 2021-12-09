@@ -6,6 +6,7 @@ public class FloxBurn : MonoBehaviour
 {
     [SerializeField] private string burnClipName = "";
     [SerializeField] private float deathDuration = 2f;
+    [SerializeField] private Material deathMaterial;
 
     private SoundReader soundReader;
 

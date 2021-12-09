@@ -46,10 +46,12 @@ MonoBehaviour:
   outFireball: {fileID: 5786458945156589222, guid: 842d7540e247fb04c810536c9642f517, type: 3}
   inFireball: {fileID: 6014082983983481214, guid: e52973d3546aa0549b5404c2e7192e94, type: 3}
   tableCenter: {fileID: 0}
+  rig: {fileID: 0}
   exitDistance: 1
-  frontRightLimitAngle: 0
-  backRightLimitAngle: 0
-  frontLeftLimitAngle: 0
-  backleftLimitAngle: 0
-  upLimitAngle: 0
-  downLimitAngle: 0
+  enterDistance: 1
+  frontLimitAngle: 45
+  backLimitAngle: 135
+  upLimitAngle: 50
+  downLimitAngle: 70
+  fireballSpeed: 1
+  explosionRadius: 0.5

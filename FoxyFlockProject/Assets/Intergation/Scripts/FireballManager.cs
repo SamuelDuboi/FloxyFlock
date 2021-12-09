@@ -36,7 +36,7 @@ public class FireballManager : MonoBehaviour
     private void Update()
     {
         FindExitAngle();
-        CheckForHandCollision();
+        CheckForCollision();
     }
 
     private void Initialize()
@@ -65,30 +65,41 @@ public class FireballManager : MonoBehaviour
 
                 if (exitAngleYZ >= downLimitAngle)
                 {
-                    exitIndex = 5;
+                    exitIndex = 5; 
+                    _inFireball.SetActive(false); //TODO : Set inFireball back into the pooler (parent + position)
+                    Debug.Log("Exit : Down");
                 }
-                else if (exitAngleYZ <= upLimitAngle)
+                else if (exitAngleYZ <= -upLimitAngle)
                 {
                     exitIndex = 4;
+                    Debug.Log("Exit : Up");
                 }
                 else if ((-frontLimitAngle <= exitAngleXZ) && (exitAngleXZ <= frontLimitAngle))
                 {
                     exitIndex = 0;
+                    Debug.Log("Exit : Front");
                 }
                 else if ((frontLimitAngle < exitAngleXZ) && (exitAngleXZ < backLimitAngle))
                 {
                     exitIndex = 1;
+                    Debug.Log("Exit : Right");
                 }
                 else if ((-frontLimitAngle > exitAngleXZ) && (exitAngleXZ > -backLimitAngle))
                 {
                     exitIndex = 3;
+                    Debug.Log("Exit : Left");
                 }
                 else if ((exitAngleXZ >= backLimitAngle) || (exitAngleXZ <= -backLimitAngle))
                 {
                     exitIndex = 2;
+                    Debug.Log("Exit : Back");
                 }
 
-                ExitEvent();
+                if (exitIndex != 5)
+                {
+                    ExitEvent();
+                }
+                
             }
         }
     }
@@ -98,7 +109,10 @@ public class FireballManager : MonoBehaviour
         //TODO : Set outFireball back into the pooler (parent + position)
         _outFireball.SetActive(false);
 
-        EnterEvent(exitIndex); //TODO : Instead, send a signal to server to trigger the other player enter event.
+        if (exitIndex != 5)
+        {
+            EnterEvent(exitIndex); //TODO : Instead, send a signal to server to trigger the other player enter event.
+        }
     }
 
     private void EnterEvent(int _exitIndex)
@@ -134,7 +148,7 @@ public class FireballManager : MonoBehaviour
         _inFireball.GetComponent<Rigidbody>().velocity = FireballTableVector * fireballSpeed;
     }
 
-    private void CheckForHandCollision()
+    private void CheckForCollision()
     {
         if (_inFireball.activeSelf)
         {
@@ -142,9 +156,11 @@ public class FireballManager : MonoBehaviour
 
             foreach (Collider collider in fireballCollisions)
             {
-                if (collider.gameObject.layer == 11) //Hand layer index
+                if (collider.gameObject.layer == 11 || collider.tag == "Piece") //Hand layer index
+                {
                     Explosion();
-                break;
+                    break;
+                }
             }
         }
     }
@@ -159,7 +175,7 @@ public class FireballManager : MonoBehaviour
         //Go through each collidesr and add the corresponding flox to a list
         foreach (Collider collider in explosionHits)
         {
-            if (collider.tag == "piece")
+            if (collider.tag == "Piece")
             {
                 GameObject _flox = collider.transform.parent.parent.gameObject;
 
