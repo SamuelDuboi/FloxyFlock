@@ -61,15 +61,15 @@ public class FireballManager : MonoBehaviour
                 Vector3 fireballRigVector = _outFireball.transform.position - rig.position;
 
                 exitAngleXZ = Vector3.SignedAngle(rig.transform.forward, new Vector3(fireballRigVector.x, 0f, fireballRigVector.z), Vector3.up);
-                exitAngleYZ = Vector3.SignedAngle(rig.transform.forward, new Vector3(0f, fireballRigVector.y, fireballRigVector.z), Vector3.right);
+                exitAngleYZ = Vector3.SignedAngle(rig.transform.forward, new Vector3(0f, fireballRigVector.y, fireballRigVector.z), Vector3.left);
 
-                if (exitAngleYZ >= downLimitAngle)
+                if ((downLimitAngle <= exitAngleYZ) && (exitAngleYZ <= 180 - downLimitAngle))
                 {
                     exitIndex = 5; 
-                    _inFireball.SetActive(false); //TODO : Set inFireball back into the pooler (parent + position)
+                    _outFireball.SetActive(false); //TODO : Set inFireball back into the pooler (parent + position)
                     Debug.Log("Exit : Down");
                 }
-                else if (exitAngleYZ <= -upLimitAngle)
+                else if ((-upLimitAngle >= exitAngleYZ) && (exitAngleYZ >= -180 + upLimitAngle))
                 {
                     exitIndex = 4;
                     Debug.Log("Exit : Up");
@@ -130,10 +130,10 @@ public class FireballManager : MonoBehaviour
                 _inFireball.transform.position = targetPosition + (Vector3.right * enterDistance);
                 break;
             case 2:
-                _inFireball.transform.position = targetPosition + (Vector3.left * enterDistance);
+                _inFireball.transform.position = targetPosition + (Vector3.back * enterDistance);
                 break;
             case 3:
-                _inFireball.transform.position = targetPosition + (Vector3.back * enterDistance);
+                _inFireball.transform.position = targetPosition + (Vector3.left * enterDistance);
                 break;
             case 4:
                 _inFireball.transform.position = targetPosition + (Vector3.up * enterDistance);
@@ -152,12 +152,13 @@ public class FireballManager : MonoBehaviour
     {
         if (_inFireball.activeSelf)
         {
-            Collider[] fireballCollisions = Physics.OverlapSphere(_inFireball.transform.position, fireballCollider.radius);
+            Collider[] fireballCollisions = Physics.OverlapSphere(_inFireball.transform.position, fireballCollider.radius * _inFireball.transform.localScale.x); //TODO : Remove reference to local scale once we have the right fireball mesh (not a scaled one).
 
             foreach (Collider collider in fireballCollisions)
             {
                 if (collider.gameObject.layer == 11 || collider.tag == "Piece") //Hand layer index
                 {
+                    print("Fireball collided with : " + collider);
                     Explosion();
                     break;
                 }
