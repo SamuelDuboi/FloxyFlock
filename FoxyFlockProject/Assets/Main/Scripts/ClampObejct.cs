@@ -7,6 +7,7 @@ public class ClampObejct : MonoBehaviour
     public bool forwardClamp;
     public bool isMin;
     public CapsuleCollider sphere;
+    public Transform zone;
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
@@ -20,6 +21,7 @@ public class ClampObejct : MonoBehaviour
                 if (isMin)
                 {
                     sphere.radius = distance;
+                    zone.transform.localScale = Vector3.one*distance;
                 }
             }
             if (UpDownClamp)

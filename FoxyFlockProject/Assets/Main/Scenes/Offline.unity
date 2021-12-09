@@ -580,11 +580,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8486065867072294735, guid: 7c416739003a4b441aa3524825b198e4, type: 3}
       propertyPath: menuScene.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8486065867072294735, guid: 7c416739003a4b441aa3524825b198e4, type: 3}
       propertyPath: lobbyScene.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8486065867072294735, guid: 7c416739003a4b441aa3524825b198e4, type: 3}
+      propertyPath: menuScene.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8486065867072294735, guid: 7c416739003a4b441aa3524825b198e4, type: 3}
+      propertyPath: menuScene.Array.data[2]
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c416739003a4b441aa3524825b198e4, type: 3}

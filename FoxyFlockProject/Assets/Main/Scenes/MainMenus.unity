@@ -1395,6 +1395,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 408264040}
   m_CullTransparentMesh: 1
+--- !u!1 &411067349
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 411067351}
+  - component: {fileID: 411067350}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &411067350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411067349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bc90ee152397bd4484baf90d3d3f233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mute: 1
+  soundList: {fileID: 11400000, guid: f75055c035f5a334d8871377a0f4e2c5, type: 2}
+  inputManagers: []
+--- !u!4 &411067351
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411067349}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &433659955
 GameObject:
   m_ObjectHideFlags: 0
@@ -1926,16 +1972,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1126206631}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 723464817}
+        m_TargetAssemblyTypeName: ScenesManager, Assembly-CSharp
+        m_MethodName: LunchScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: FloxyRace
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &571462624
@@ -2225,7 +2271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 201855b166b95de4d813cd4151420b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuScene: 0100000004000000
+  menuScene: 010000000000000002000000
   lobbyScene: 
   numberOfFlocksInScene: 0
 --- !u!4 &723464818
@@ -2503,7 +2549,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh22934
+  m_Name: pb_Mesh38136
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4342,8 +4388,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126206631}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 5.2394714}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 1.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2146758906}
@@ -4353,10 +4399,10 @@ RectTransform:
   - {fileID: 974698935}
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.97790277, y: 1.710395}
+  m_AnchoredPosition: {x: -0.98, y: 3.6}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1126206637
@@ -4773,6 +4819,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1165723851}
   m_CullTransparentMesh: 1
+--- !u!114 &1265385504 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1972585046942177088, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
+  m_PrefabInstance: {fileID: 1267336388}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4794d705f1a90cf4bb7585fdee4166c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1267336388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4780,6 +4837,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1972585046336503022, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1972585046477117323, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
       propertyPath: m_InteractionManager
       value: 
@@ -4808,6 +4869,10 @@ PrefabInstance:
       propertyPath: tableTransform
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1972585046942177089, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1265385504}
     - target: {fileID: 1972585046942177090, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -7119,16 +7184,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1126206631}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 723464817}
+        m_TargetAssemblyTypeName: ScenesManager, Assembly-CSharp
+        m_MethodName: LunchScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Offline
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2051365878

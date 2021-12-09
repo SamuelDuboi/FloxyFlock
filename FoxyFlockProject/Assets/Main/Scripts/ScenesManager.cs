@@ -1,6 +1,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using NaughtyAttributes;
+using UnityEngine.XR.Interaction.Toolkit;
 public class ScenesManager : MonoBehaviour
 {
     [Scene]
@@ -37,5 +38,13 @@ public class ScenesManager : MonoBehaviour
 
         }
         return false;
+    }
+    public void LunchScene(string sceneToLunch)
+    {
+        SceneManager.LoadScene(sceneToLunch);
+    }
+    public void LunchScene(int sceneToLunch)
+    {
+        SceneManager.LoadScene(sceneToLunch);
     }
 }
