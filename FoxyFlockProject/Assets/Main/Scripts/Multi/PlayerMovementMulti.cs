@@ -28,6 +28,7 @@ public class PlayerMovementMulti : NetworkBehaviour
     public GameObject grabManager;
     [HideInInspector] public List<Batch>batches;
     private GameObject tempFlock;
+    private GameObject tempFlock2;
     // Start is called before the first frame update
     void Start()
     {
@@ -294,23 +295,46 @@ public class PlayerMovementMulti : NetworkBehaviour
         CmdSpawnPiece(authority, _mainPool1, tempComponent, tempbasicMats);
        
     }
-    public void InitFireBall(GameObject authority, GameObject _fireBall)
+    public void InitFireBall(GameObject authority, GameObject _fireBall, GameObject outFireBall)
     {
         int rand = UnityEngine.Random.Range(0, 100);
         GameObject fireBall = Instantiate(_fireBall, new Vector3(300 + 20 * rand, 300 + 20 * rand, 300 + 20 * rand), Quaternion.identity);
         tempFlock = fireBall;
-        CmdSpawnObject(authority, tempFlock);
+        CmdSpawnObject(authority, tempFlock,0);
+        GameObject fireBall2 = Instantiate(outFireBall, new Vector3(300 + 20 * rand, 300 + 20 * rand, 300 + 20 * rand), Quaternion.identity);
+        tempFlock2 = fireBall2;
+        CmdSpawnObject(authority, tempFlock2, 1);
     }
     [Command]
-    private void CmdSpawnObject(GameObject authority,GameObject fireBall)
+    private void CmdSpawnObject(GameObject authority,GameObject fireBall, int i)
     {
-        NetworkServer.Spawn(tempFlock, authority);
-        RpcSyncFireBall(tempFlock, authority);
+        if (i == 0)
+        {
+            NetworkServer.Spawn(tempFlock, authority);
+            RpcSyncFireBall(tempFlock, authority,i);
+        }
+        else
+        {
+            NetworkServer.Spawn(tempFlock2, authority);
+            RpcSyncFireBall(tempFlock2, authority, i);
+        }
     }
     [ClientRpc]
-    void RpcSyncFireBall(GameObject fireball, GameObject authority)
+    void RpcSyncFireBall(GameObject fireBall, GameObject authority, int i)
     {
-        authority.GetComponentInChildren<GrabManager>().fireBallInstantiated = fireball;
+        authority.GetComponentInChildren<GrabManager>().fireBallInstantiated = fireBall;
+        if (i == 0)
+        {
+            authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().inFireball = fireBall;
+            tempFlock.GetComponent<Rigidbody>().useGravity = false;
+            tempFlock.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+        else
+        {
+            authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().outFireball = fireBall;
+            authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().Initialize( );
+        }
+
     }
     [Command]
     private void CmdSpawnPiece(GameObject authority, List<pool> mainPool, Component _tempComponent, PhysicMaterial[] _tempbasicMats)

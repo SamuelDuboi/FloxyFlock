@@ -15,6 +15,7 @@ public class NetworkManagerRace : NetworkRoomManager
     public GameObject player2Canvas;
     public static NetworkManagerRace instance;
     private GameObject[] players = new GameObject[2];
+    private List<GameObject> roomPlayers = new List<GameObject>();
     private int InitNumberOfPlayer;
     private int number;
 
@@ -48,7 +49,8 @@ public class NetworkManagerRace : NetworkRoomManager
                 newRoomGameObject.GetComponentInChildren<RoomPlayer>().number = number;
                 number++;
             }
-
+            roomPlayers.Add(  newRoomGameObject);
+            
             NetworkServer.AddPlayerForConnection(conn, newRoomGameObject);
         }
         else
@@ -58,9 +60,13 @@ public class NetworkManagerRace : NetworkRoomManager
     public override GameObject OnRoomServerCreateGamePlayer(NetworkConnection conn, GameObject roomPlayer)
     {
         int index = 0;
+        
         firstPlayer = GameObject.FindGameObjectWithTag("FirstPlayerPos").transform;
         secondPlayerTransform = GameObject.FindGameObjectWithTag("SecondPlayerPos").transform;
-
+        foreach (var item in roomPlayers)
+        {
+            item.SetActive(false);
+        }
         Transform start = numberOfPlayer == 0 ? firstPlayer : secondPlayerTransform;
         GameObject player = Instantiate(playerPrefab, start.position, start.rotation);
 

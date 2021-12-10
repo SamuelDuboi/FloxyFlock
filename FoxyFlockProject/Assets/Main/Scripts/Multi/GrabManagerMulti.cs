@@ -8,6 +8,7 @@ public class GrabManagerMulti : GrabManager
 {
     public int numberOfPool;
  [SerializeField]   public GameObject fireBallPrefab;
+ [SerializeField]   public GameObject fireBallPrefabOut;
     // Start is called before the first frame update
     public override void Start()
     {
@@ -50,7 +51,7 @@ public class GrabManagerMulti : GrabManager
             var _objectPiece = GetComponent(typePiece);
             player.InitModifier(authority, i, batches[i].positiveModifier, _objectPiece, basicMats, mainPool, out mainPool);
         }
-        player.InitFireBall(authority, fireBallPrefab);
+        player.InitFireBall(authority, fireBallPrefab, fireBallPrefabOut);
         numberOfPool = 1;
         for (int i = 0; i < modifiers.Count; i++)
         {

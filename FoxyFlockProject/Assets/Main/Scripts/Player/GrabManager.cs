@@ -245,7 +245,7 @@ public class GrabManager : MonoBehaviour
         representations[representations.Length - 2].gameObject.SetActive(true);
         representations[representations.Length - 2].index = representations.Length - 2;
         representations[representations.Length - 2].manager = this;
-        representations[representations.Length - 2].image.texture = mainPool[currentPool].bonus.GetComponent<TextureForDispenser>().texture;
+        representations[representations.Length - 2].image.texture = fireBallInstantiated.GetComponent<TextureForDispenser>().texture;
     }
     private void AllowBonus()
     {
@@ -254,7 +254,7 @@ public class GrabManager : MonoBehaviour
         representations[representations.Length - 1].gameObject.SetActive(true);
         representations[representations.Length - 1].index = representations.Length - 1;
         representations[representations.Length - 1].manager = this;
-        representations[representations.Length - 1].image.texture = fireBallInstantiated.GetComponent<TextureForDispenser>().texture;
+        representations[representations.Length - 1].image.texture = mainPool[currentPool].bonus.GetComponent<TextureForDispenser>().texture;
     }
 
     public void GetPiece(XRBaseInteractor baseInteractor, int index)
@@ -268,6 +268,13 @@ public class GrabManager : MonoBehaviour
         if (index == representations.Length - 2)
         {
             mainPool[currentPool].isMalusUsed = true;
+            fireBallInstantiated.SetActive(true);
+            XRBaseInteractable baseInteractableBonus = fireBallInstantiated.GetComponent<GrabbableObject>();
+            var grabableBonus = fireBallInstantiated.GetComponent<GrabablePhysicsHandler>();
+
+            StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, index, grabableBonus));
+            grabableBonus.OnHitGround.AddListener(RespawnPiece);
+            fireBallInstantiated.transform.position = baseInteractor.transform.position;
             return;
         }
         if (index == representations.Length - 1)

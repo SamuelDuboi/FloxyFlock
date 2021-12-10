@@ -396,10 +396,10 @@ using System.Collections;
                 // call SceneLoadedForPlayer on any players that become ready while we were loading the scene.
                 foreach (PendingPlayer pending in pendingPlayers)
                     SceneLoadedForPlayer(pending.conn, pending.roomPlayer);
-
-                pendingPlayers.Clear();
+                
+                 pendingPlayers.Clear();
             }
-
+            
             OnRoomServerSceneChanged(sceneName);
         }
 

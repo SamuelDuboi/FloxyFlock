@@ -71,6 +71,7 @@ public class GrabManagerMultiEditor : Editor
             }
         }
         managerTarget.fireBallPrefab = (GameObject)EditorGUILayout.ObjectField("Fire ball prefab", managerTarget.fireBallPrefab, typeof(GameObject), true);
+        managerTarget.fireBallPrefabOut = (GameObject)EditorGUILayout.ObjectField("Fire ball prefab out", managerTarget.fireBallPrefabOut, typeof(GameObject), true);
         EditorGUILayout.PropertyField(batches);
         EditorGUILayout.PropertyField(grabableObjects);
         if (GUILayout.Button("Add all Scenes Grabable"))
