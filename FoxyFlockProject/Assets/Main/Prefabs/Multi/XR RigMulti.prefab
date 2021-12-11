@@ -1592,6 +1592,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7539646930168180472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5914146490334888577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1901fbc8b9fe38d4eaf79b8e7ef01706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerToSlowInStasis: 1
+  slowForce: 1.2
+  vibrationForce: 0.5
+  vibrationTime: 0.2
+  grab: 
+  collisionTable: 
+  inputManager: {fileID: 0}
+  timeBeforeAutoRelease: 0
+  collisionClipName: 
+  idleClipName: 
 --- !u!1001 &5233410313731533284
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1689,8 +1711,12 @@ PrefabInstance:
       objectReference: {fileID: 5786458945156589222, guid: 842d7540e247fb04c810536c9642f517, type: 3}
     - target: {fileID: 2411069798146911233, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: batches.Array.size
-      value: 13
+      value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2411069798146911233, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
+      propertyPath: modifiers.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
     - target: {fileID: 2411069798146911233, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: batches.Array.data[4].weight
       value: 5

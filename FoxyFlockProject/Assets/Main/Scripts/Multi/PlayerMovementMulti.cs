@@ -255,6 +255,7 @@ public class PlayerMovementMulti : NetworkBehaviour
     }
     Modifier tempModifier;
     Component tempComponent;
+    private Type _tempComponent;
     PhysicMaterial[] tempbasicMats;
     public void InitBacth(GameObject authority, int i, int x, List<Batch> _batches, Modifier _modifier, Component _object, PhysicMaterial[] basicMats, List<pool> _mainPool1,  out List<pool> _mainPool)
     {
@@ -264,7 +265,6 @@ public class PlayerMovementMulti : NetworkBehaviour
         int rand2 = UnityEngine.Random.Range(0, 100);
         GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + (x+1) * 20 * rand + i * 5*rand, 300 + (x+1) * 20 * rand + i * 5*rand1, 300 + (x+1) * 20 * rand + i * 5*rand2), Quaternion.identity);
         tempModifier = _modifier;
-        tempComponent = _object;
         tempbasicMats = basicMats;
         flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifier, _object as ModifierAction, basicMats);
 
@@ -276,15 +276,46 @@ public class PlayerMovementMulti : NetworkBehaviour
         ScenesManager.instance.numberOfFlocksInScene++;
         _mainPool = _mainPool1;
         tempFlock = flock;
-        CmdSpawnPiece(authority,_mainPool1,tempComponent, tempbasicMats);
+        int index = 0;
+        bool hasFounded = false;
+        for (int w = 0; w < components.Count; w++)
+        {
+            if (components[w].GetType() == _object.GetType())
+            {
+                index = w;
+                hasFounded = true;
+            }
+        }
+        if (!hasFounded)
+        {
+            components.Add(_object);
+            index = components.Count - 1;
+        }
+        CmdSpawnPiece(authority,_mainPool1, _object.GetType().ToString(), tempbasicMats,index);
         
     }
+    private List<Component> components = new List<Component>();
     public void InitModifier(GameObject authority, int i, ModifierBatch modifierBatch , Component _object, PhysicMaterial[] basicMats, List<pool> _mainPool1, out List<pool> _mainPool)
     {
         int rand = UnityEngine.Random.Range(0, 100);
         GameObject flock = Instantiate(modifierBatch.piece, new Vector3(300 + 20 * rand , 300 +  20 * rand, 300 + 20 * rand ), Quaternion.identity);
         tempModifier = modifierBatch.modifier;
-        tempComponent = _object;
+        int index = 0;
+        bool hasFounded = false;
+        for (int w = 0;w < components.Count; w++)
+        {
+            if (components[w].GetType() == _object.GetType())
+            {
+                 index = w;
+                hasFounded = true;
+            }
+        }
+        if(!hasFounded)
+        {
+            components.Add(_object);
+            index = components.Count -1;
+        }
+        _tempComponent = _object.GetType();
         tempbasicMats = basicMats;
         flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(tempModifier, _object as ModifierAction, basicMats);
         flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
@@ -293,7 +324,7 @@ public class PlayerMovementMulti : NetworkBehaviour
         _mainPool1[i].bonus = flock;
         _mainPool = _mainPool1;
         tempFlock = flock;
-        CmdSpawnPiece(authority, _mainPool1, tempComponent, tempbasicMats);
+        CmdSpawnPiece(authority, _mainPool1, _tempComponent.ToString(), tempbasicMats, index);
        
     }
     public void InitFireBall(GameObject authority, GameObject _fireBall, GameObject outFireBall)
@@ -346,26 +377,36 @@ public class PlayerMovementMulti : NetworkBehaviour
 
     }
     [Command]
-    private void CmdSpawnPiece(GameObject authority, List<pool> mainPool, Component _tempComponent, PhysicMaterial[] _tempbasicMats)
+    private void CmdSpawnPiece(GameObject authority, List<pool> mainPool, string _tempComponent, PhysicMaterial[] _tempbasicMats, int index)
     {
         tempFlock.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
         tempFlock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
         //tempFlock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(tempModifier, tempComponent as ModifierAction, tempbasicMats);
-        tempComponent = _tempComponent;
-        tempbasicMats = _tempbasicMats;
         tempFlock.GetComponent<GrabablePhysicsHandler>().enabled = false;
         NetworkServer.Spawn(tempFlock, authority);
-        RpcSyncUnits(tempFlock,mainPool,authority,tempComponent,tempbasicMats);
+        RpcSyncUnits(tempFlock,mainPool,authority, _tempComponent, tempbasicMats,  index);
     }
 
     [ClientRpc]
-    void RpcSyncUnits(GameObject x, List<pool> mainPool, GameObject authority,Component _tempComponent,PhysicMaterial[] _tempbasicMats)
+    void RpcSyncUnits(GameObject x, List<pool> mainPool, GameObject authority,string _tempComponent,PhysicMaterial[] _tempbasicMats, int index)
     {
+        bool hasFounded = false;
+        for (int w = 0; w < components.Count; w++)
+        {
+            if (components[w].GetType() == _tempComponent.GetType())
+            {
+                hasFounded = true;
+            }
+        }
+        if (!hasFounded)
+        {
+            components.Add(grabManager.GetComponent( _tempComponent));
+        }
         tempFlock = x;
         tempFlock.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
         tempFlock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
         tempFlock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
-        tempFlock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_tempComponent as ModifierAction, _tempbasicMats);
+        tempFlock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(components[index] as ModifierAction, _tempbasicMats);
         tempFlock.GetComponent<GrabablePhysicsHandler>().enabled = false;
         authority.GetComponentInChildren<GrabManagerMulti>().mainPool = mainPool;
         authority.GetComponentInChildren<GrabManagerMulti>().numberOfPool = mainPool.Count;

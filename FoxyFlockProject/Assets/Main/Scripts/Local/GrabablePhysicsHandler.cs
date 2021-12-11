@@ -169,7 +169,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
         {
             if (!actions[i])
                 continue;
-
+            Destroy(gameObject.GetComponent(actions[i].GetType()));
             OnGrabed.RemoveListener(actions[i].OnGrabed);
             OnReleased.RemoveListener(actions[i].OnReleased);
             OnHitSomething.RemoveListener(actions[i].OnHitSomething);
@@ -188,8 +188,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
         for (int i = 0; i < actions.Length; i++)
 
         {
-            Type type = modifier.actions.GetType();
-            actions[i] = gameObject.AddComponent(type) as ModifierAction;
+            actions[i] = gameObject.AddComponent(action.GetType()) as ModifierAction;
 
             OnGrabed.AddListener(actions[i].OnGrabed);
             OnReleased.AddListener(actions[i].OnReleased);

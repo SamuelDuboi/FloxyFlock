@@ -15,8 +15,7 @@ public class HotPotatoV2 : ModifierAction
     public override void OnStarted(GameObject _object)
     {
         base.OnStarted(_object);
-        sound= _object.AddComponent<SoundReader>();
-        sound.clipName = collisionClipName;
+       // sound.clipName = collisionClipName;
     }
     public override void OnEnterStasis(GameObject _object, bool isGrab, Rigidbody rgb)
     {

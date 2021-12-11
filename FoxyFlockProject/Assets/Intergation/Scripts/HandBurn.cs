@@ -43,8 +43,8 @@ public class HandBurn : MonoBehaviour
     {
         heatState = HeatState.burning;
 
-        heatCurrentValue += burningSpeed;
-
+        heatCurrentValue += Time.deltaTime* burningSpeed;
+        lastFrameTransform = this.transform;
         if (heatCurrentValue >= heatMaxValue)
         {
             heatCurrentValue = heatMaxValue;
@@ -61,7 +61,7 @@ public class HandBurn : MonoBehaviour
         {
             if (heatCurrentValue > 0)
             {
-                heatCurrentValue -= coolingSpeed + (coolingSpeed * wiggleStrengh());
+                heatCurrentValue -= Time.deltaTime*( coolingSpeed + (coolingSpeed * wiggleStrengh()));
                 
                 if (heatCurrentValue <= 0)
                 {

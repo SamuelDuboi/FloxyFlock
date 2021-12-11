@@ -1099,6 +1099,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1924033292305017703}
+  - component: {fileID: -5965495167496803107}
   - component: {fileID: 1924033292305017696}
   - component: {fileID: 9089873039897009672}
   - component: {fileID: 64561950279782818}
@@ -1128,6 +1129,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-5965495167496803107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924033292305017701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1901fbc8b9fe38d4eaf79b8e7ef01706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerToSlowInStasis: 1
+  slowForce: 1.2
+  vibrationForce: 0.5
+  vibrationTime: 0.2
+  grab: 
+  collisionTable: 
+  inputManager: {fileID: 0}
+  timeBeforeAutoRelease: 3
+  collisionClipName: 
+  idleClipName: 
 --- !u!114 &1924033292305017696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1256,93 +1279,9 @@ MonoBehaviour:
       piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
       modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
     isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
   basicMats:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 13400000, guid: f49b989612fc3e34f8e1d4904afb1022, type: 2}
+  - {fileID: 13400000, guid: 4acd54990333fcb46b8b0151a5e05fd2, type: 2}
   representations:
   - {fileID: 64561948750513353}
   - {fileID: 64561950227593004}
