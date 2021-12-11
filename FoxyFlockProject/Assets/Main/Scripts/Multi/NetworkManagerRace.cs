@@ -14,7 +14,7 @@ public class NetworkManagerRace : NetworkRoomManager
     private GrabManagerMulti[] grabManagers;
     public GameObject player2Canvas;
     public static NetworkManagerRace instance;
-    private GameObject[] players = new GameObject[2];
+   [HideInInspector] public GameObject[] players = new GameObject[2];
     private List<GameObject> roomPlayers = new List<GameObject>();
     private int InitNumberOfPlayer;
     private int number;

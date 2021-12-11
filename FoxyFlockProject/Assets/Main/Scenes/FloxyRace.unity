@@ -455,6 +455,7 @@ MonoBehaviour:
   forwardClamp: 0
   isMin: 0
   sphere: {fileID: 0}
+  zone: {fileID: 0}
 --- !u!4 &112875838
 Transform:
   m_ObjectHideFlags: 0
@@ -819,6 +820,7 @@ MonoBehaviour:
   forwardClamp: 0
   isMin: 0
   sphere: {fileID: 0}
+  zone: {fileID: 0}
 --- !u!4 &153835243
 Transform:
   m_ObjectHideFlags: 0
@@ -840,6 +842,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 547975940, guid: 7cd4fb575f0277346b659ae319a4b775, type: 3}
+      propertyPath: sceneId
+      value: 628665004
+      objectReference: {fileID: 0}
     - target: {fileID: 9214305646552678340, guid: 7cd4fb575f0277346b659ae319a4b775, type: 3}
       propertyPath: hands
       value: 
@@ -4971,10 +4977,8 @@ MonoBehaviour:
   flockNumbers:
   - {fileID: 1248851658}
   - {fileID: 1241393023}
-  Player1Images:
-  - {fileID: 1547422760}
-  Player2Image:
-  - {fileID: 813214723}
+  player1Images: []
+  player2Images: []
   winPlayer1:
   - {fileID: 1288855794}
   winPlayer2:
@@ -4984,6 +4988,8 @@ MonoBehaviour:
   losePlayer2:
   - {fileID: 1706565841}
   playeTimer: 0
+  canvasPlayer2: {fileID: 0}
+  sprites: []
 --- !u!1 &1152576461
 GameObject:
   m_ObjectHideFlags: 0
@@ -5394,6 +5400,7 @@ MonoBehaviour:
   forwardClamp: 1
   isMin: 1
   sphere: {fileID: 604157352}
+  zone: {fileID: 0}
 --- !u!4 &1280803067
 Transform:
   m_ObjectHideFlags: 0
@@ -6307,6 +6314,7 @@ MonoBehaviour:
   forwardClamp: 1
   isMin: 0
   sphere: {fileID: 0}
+  zone: {fileID: 0}
 --- !u!4 &1387273588
 Transform:
   m_ObjectHideFlags: 0
@@ -8990,6 +8998,7 @@ MonoBehaviour:
   ActiveSound:
     m_PersistentCalls:
       m_Calls: []
+  playerMovement: {fileID: 0}
   seeTable: 0
 --- !u!82 &1972585046937457024
 AudioSource:

@@ -25,9 +25,13 @@ public class FireballManager : MonoBehaviour
     private float exitAngleXZ;
     private float exitAngleYZ;
     private int exitIndex = 0;
+    [SerializeField] private int otherPlayerIndex;
+    [HideInInspector] public bool canAct;
 
     private void Update()
     {
+        if (!canAct)
+            return;
         if (outFireball == null || rig == null||fireballCollider == null)
             return;
         FindExitAngle();
@@ -87,25 +91,21 @@ public class FireballManager : MonoBehaviour
 
                 if (exitIndex != 5)
                 {
-                    ExitEvent();
+                    outFireball.SetActive(false);
+
+                    NetworkManagerRace.instance.playerController.CmdSpawnInFireBall(NetworkManagerRace.instance.players[otherPlayerIndex], exitIndex);
                 }
                 
             }
         }
     }
 
-    private void ExitEvent()
+  /*  private void ExitEvent()
     {
-        //TODO : Set outFireball back into the pooler (parent + position)
-        outFireball.SetActive(false);
-
-        if (exitIndex != 5)
-        {
             EnterEvent(exitIndex); //TODO : Instead, send a signal to server to trigger the other player enter event.
-        }
-    }
+    }*/
 
-    private void EnterEvent(int exitIndex)
+    public void EnterEvent(int exitIndex)
     {
         inFireball.SetActive(true);
 

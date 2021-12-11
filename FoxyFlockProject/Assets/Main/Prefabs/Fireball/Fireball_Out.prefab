@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: -8692710277319411941}
   - component: {fileID: -6356032839539573017}
   - component: {fileID: -6371990990148881428}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Fireball_Out
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -450,6 +450,10 @@ PrefabInstance:
     - target: {fileID: 2491218657995464471, guid: 790692595fd747247a7c7c33ddc79435, type: 3}
       propertyPath: m_Name
       value: Fire_Particle
+      objectReference: {fileID: 0}
+    - target: {fileID: 2491218657995464471, guid: 790692595fd747247a7c7c33ddc79435, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 790692595fd747247a7c7c33ddc79435, type: 3}

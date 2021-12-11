@@ -275,8 +275,8 @@ public class GrabManager : MonoBehaviour
 
             StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, grabableBonus));
             fireBallInstantiated.transform.position = baseInteractor.transform.position;
-            playGround.GetComponentInChildren<FireballManager>().enabled = true;
-            grabableBonus.OnHitGround.AddListener(RespawnPiece);
+            playGround.GetComponentInChildren<FireballManager>().canAct = true;
+            grabableBonus.OnHitGround.AddListener(RespawnFireball);
             return;
         }
         if (index == representations.Length - 1)
@@ -409,7 +409,25 @@ public class GrabManager : MonoBehaviour
             }
         }
     }
-    
+    private void RespawnFireball(GameObject _object, Vector3 initPos, bool isGrab)
+    {
+        if (!isGrab)
+        {
+
+            _object.GetComponent<Rigidbody>().useGravity = false;
+            _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            _object.transform.rotation = Quaternion.identity;
+            _object.transform.position = new Vector3(300 + 5 * 5, 300 + 5 * 5, 300);
+            var grabableBonus = fireBallInstantiated.GetComponent<GrabablePhysicsHandler>();
+            grabableBonus.OnHitGround.RemoveListener(RespawnFireball);
+            grabableBonus.enabled = false;
+            mainPool[currentPool].isMalusUsed = false;
+            playGround.GetComponentInChildren<FireballManager>().canAct = false;
+            AllowMalus();
+
+        }
+    }
+
 }
 
 public class pool

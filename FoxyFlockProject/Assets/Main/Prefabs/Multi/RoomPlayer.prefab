@@ -1401,6 +1401,7 @@ GameObject:
   - component: {fileID: 3001822156511736064}
   - component: {fileID: 7353132544488358178}
   - component: {fileID: 4955826382021087884}
+  - component: {fileID: 755131094008504097}
   m_Layer: 0
   m_Name: RoomPlayer
   m_TagString: Untagged
@@ -1718,6 +1719,40 @@ MonoBehaviour:
   showRoomGUI: 1
   readyToBegin: 0
   index: 0
+--- !u!114 &755131094008504097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972585046942177092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 700f57a0bf356374c9e848fc219910d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  componentToDisable:
+  - {fileID: 1972585046942177091}
+  - {fileID: 1972585046942177089}
+  - {fileID: 1972585046942177088}
+  - {fileID: 1972585046942177103}
+  - {fileID: 3001822156511736064}
+  - {fileID: 5851740290584689345}
+  - {fileID: 2628839662548032848}
+  - {fileID: 1972585046672742329}
+  - {fileID: 1972585046672742330}
+  - {fileID: 1972585046672741959}
+  - {fileID: 1927379299989886326}
+  - {fileID: 8742633440014658548}
+  - {fileID: 1972585047833366921}
+  - {fileID: 1972585047833366920}
+  - {fileID: 688586330}
+  - {fileID: 688586329}
+  - {fileID: 688586328}
+  - {fileID: 6428927400012745907}
+  - {fileID: 6517282707620395250}
 --- !u!1 &1972585047074453697
 GameObject:
   m_ObjectHideFlags: 0
@@ -2501,7 +2536,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3848e35d7e6b2ad47af7ab7a4e8f6f76, type: 3}
   - {fileID: 21300000, guid: 634301b8f04375c4fa6df77dfa4c7ca5, type: 3}
   avatartImage: {fileID: 6517282707397041670}
-  Index: 0
+  number: 0
   networkRoom: {fileID: 4955826382021087884}
   readyButton: {fileID: 6517282707991465552}
 --- !u!1 &6517282707667625798

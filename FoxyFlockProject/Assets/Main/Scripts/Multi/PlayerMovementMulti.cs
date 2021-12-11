@@ -45,7 +45,7 @@ public class PlayerMovementMulti : NetworkBehaviour
         tableTransform.GetComponentInChildren<GameModeSolo>().hands = GetComponentInChildren<HandsPlayground>();
         tableTransform.GetComponentInChildren<GameModeSolo>().playerMovement = this;
         tableTransform.GetComponentInChildren<FireballManager>().rig = transform;
-        tableTransform.GetComponentInChildren<FireballManager>().enabled = false;
+        tableTransform.GetComponentInChildren<FireballManager>().canAct= false;
         tableRenderer = tableTransform.GetComponent<Renderer>();
         TableGetClamp temp = tableRenderer.GetComponent<TableGetClamp>();
         zClampMin = temp.zClampMin;
@@ -331,15 +331,15 @@ public class PlayerMovementMulti : NetworkBehaviour
         if (i == 0)
         {
             authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().inFireball = fireBall;
-            tempFlock.GetComponent<Rigidbody>().useGravity = false;
-            tempFlock.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            fireBall.GetComponent<Rigidbody>().useGravity = false;
+            fireBall.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
         else
         {
-            tempFlock2.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
-            tempFlock2.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
-            tempFlock2.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
-            tempFlock.GetComponent<GrabablePhysicsHandler>().enabled = false;
+            fireBall.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
+            fireBall.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
+            fireBall.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
+            fireBall.GetComponent<GrabablePhysicsHandler>().enabled = false;
             authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().outFireball = fireBall;
             authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().Initialize( );
         }
@@ -415,6 +415,19 @@ public class PlayerMovementMulti : NetworkBehaviour
     public void CmdDestroyBubble(GameObject bubble)
     {
         NetworkServer.Destroy(bubble);
+    }
+    [Command]
+    public void CmdSpawnInFireBall(GameObject target, int exitIndex )
+    {
+        NetworkIdentity opponentIdentity = target.GetComponent<NetworkIdentity>();
+        TargetGetFireBall(opponentIdentity.connectionToClient, exitIndex);
+    }
+
+    
+    [TargetRpc]
+    private void TargetGetFireBall(NetworkConnection target, int exitIndex)
+    {
+        tableTransform.GetComponentInChildren<FireballManager>().EnterEvent(exitIndex);
     }
    
 }
