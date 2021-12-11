@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private float zPower;
     public Transform tempLeftHand;
     public Transform tempRighttHand;
-
+    private bool isntLobby;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
         {
             inputManager.OnCanMove.AddListener(Movement);
             inputManager.OnBothTrigger.AddListener(InitMovement);
+            isntLobby = true;
         }
         characterStats = inputManager.characterStats;
         forwardOffset = new Vector3(0, characterStats.forwardYOffset, characterStats.forwardZOffset);
@@ -51,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
     }
     public bool SeeTable()
     {
+        if (!isntLobby)
+            return false;
         Vector3 pointOnScreen = vrHeadSett.GetComponent<Camera>().WorldToScreenPoint(tableRenderer.bounds.center);
         if ((pointOnScreen.x < 0) || (pointOnScreen.x > Screen.width) ||
             (pointOnScreen.y < 0) || (pointOnScreen.y > Screen.height))
