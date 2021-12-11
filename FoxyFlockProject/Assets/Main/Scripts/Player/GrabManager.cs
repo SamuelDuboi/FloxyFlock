@@ -268,13 +268,15 @@ public class GrabManager : MonoBehaviour
         if (index == representations.Length - 2)
         {
             mainPool[currentPool].isMalusUsed = true;
-            fireBallInstantiated.SetActive(true);
             XRBaseInteractable baseInteractableBonus = fireBallInstantiated.GetComponent<GrabbableObject>();
-            var grabableBonus = fireBallInstantiated.GetComponent<GrabablePhysicsHandler>();
 
-            StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, index, grabableBonus));
-            grabableBonus.OnHitGround.AddListener(RespawnPiece);
+            var grabableBonus = fireBallInstantiated.GetComponent<GrabablePhysicsHandler>();
+            grabableBonus.enabled = true;
+
+            StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, grabableBonus));
             fireBallInstantiated.transform.position = baseInteractor.transform.position;
+            playGround.GetComponentInChildren<FireballManager>().enabled = true;
+            grabableBonus.OnHitGround.AddListener(RespawnPiece);
             return;
         }
         if (index == representations.Length - 1)
@@ -284,7 +286,7 @@ public class GrabManager : MonoBehaviour
             var grabableBonus = mainPool[currentPool].bonus.GetComponent<GrabablePhysicsHandler>();
             grabableBonus.enabled = true;
 
-            StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, index, grabableBonus));
+            StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, grabableBonus));
             grabableBonus.OnHitGround.AddListener(RespawnPiece);
             mainPool[currentPool].bonus.transform.position = baseInteractor.transform.position;
             return;
@@ -294,7 +296,7 @@ public class GrabManager : MonoBehaviour
         var grabable = mainPool[currentPool].floxes[index].GetComponent<GrabablePhysicsHandler>();
         grabable.enabled = true;
 
-        StartCoroutine(WaiToSelect(baseInteractable, baseInteractor, index, grabable));
+        StartCoroutine(WaiToSelect(baseInteractable, baseInteractor, grabable));
         grabable.OnHitGround.AddListener(RespawnPiece);
        
 
@@ -308,7 +310,7 @@ public class GrabManager : MonoBehaviour
         batches[currentPool].isEmpty = true;
         mainPool[currentPool].isEmpty = true;
     }
-    IEnumerator WaiToSelect(XRBaseInteractable baseInteractable, XRBaseInteractor baseInteractor, int index, GrabablePhysicsHandler grabable)
+    IEnumerator WaiToSelect(XRBaseInteractable baseInteractable, XRBaseInteractor baseInteractor, GrabablePhysicsHandler grabable)
     {
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();

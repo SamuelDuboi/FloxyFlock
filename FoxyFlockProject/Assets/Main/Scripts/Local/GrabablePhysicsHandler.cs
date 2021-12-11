@@ -246,6 +246,8 @@ public class GrabablePhysicsHandler : MonoBehaviour
 
     private void ChangePhysicMatsOnSelect()
     {
+        if (physicMaterials == null || physicMaterials[0] == null)
+            return;
         for (int i = 0; i < colliders.Count; i++)
         {
             colliders[i].material = physicMaterials[0];
@@ -253,6 +255,8 @@ public class GrabablePhysicsHandler : MonoBehaviour
     }
     private void ChangePhysicMatsOnDeSelect()
     {
+        if (physicMaterials == null || physicMaterials[0] == null)
+            return;
         for (int i = 0; i < colliders.Count; i++)
         {
             colliders[i].material = physicMaterials[1];

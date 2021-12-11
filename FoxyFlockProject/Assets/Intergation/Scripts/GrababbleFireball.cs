@@ -7,9 +7,9 @@ public class GrababbleFireball : GrabbableObject
 {
     protected override void OnSelectEntering(XRBaseInteractor interactor)
     {
-
-        currentInteractor = interactor;
-        isGrab = true;
+        base.OnSelectEntering(interactor);
+      //  currentInteractor = interactor;
+      //  isGrab = true;
         //if (OnSelect != null)
         //    OnSelect.Invoke();
     }

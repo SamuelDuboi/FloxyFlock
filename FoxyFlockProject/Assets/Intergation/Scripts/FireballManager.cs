@@ -37,8 +37,7 @@ public class FireballManager : MonoBehaviour
     public void Initialize()
     {
         fireballCollider = inFireball.GetComponent<SphereCollider>();
-        outFireball.SetActive(false);
-        inFireball.SetActive(false);
+        
     }
 
     private void FindExitAngle()

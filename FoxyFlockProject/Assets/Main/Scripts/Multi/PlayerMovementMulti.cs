@@ -45,6 +45,7 @@ public class PlayerMovementMulti : NetworkBehaviour
         tableTransform.GetComponentInChildren<GameModeSolo>().hands = GetComponentInChildren<HandsPlayground>();
         tableTransform.GetComponentInChildren<GameModeSolo>().playerMovement = this;
         tableTransform.GetComponentInChildren<FireballManager>().rig = transform;
+        tableTransform.GetComponentInChildren<FireballManager>().enabled = false;
         tableRenderer = tableTransform.GetComponent<Renderer>();
         TableGetClamp temp = tableRenderer.GetComponent<TableGetClamp>();
         zClampMin = temp.zClampMin;
@@ -315,6 +316,10 @@ public class PlayerMovementMulti : NetworkBehaviour
         }
         else
         {
+            tempFlock2.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
+            tempFlock2.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
+            //tempFlock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(tempModifier, tempComponent as ModifierAction, tempbasicMats);
+            tempFlock2.GetComponent<GrabablePhysicsHandler>().enabled = false;
             NetworkServer.Spawn(tempFlock2, authority);
             RpcSyncFireBall(tempFlock2, authority, i);
         }
@@ -331,6 +336,10 @@ public class PlayerMovementMulti : NetworkBehaviour
         }
         else
         {
+            tempFlock2.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
+            tempFlock2.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
+            tempFlock2.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
+            tempFlock.GetComponent<GrabablePhysicsHandler>().enabled = false;
             authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().outFireball = fireBall;
             authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().Initialize( );
         }

@@ -119,9 +119,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modifier: {fileID: 0}
-  m_rgb: {fileID: 0}
-  colliders: []
-  m_grabbable: {fileID: 0}
+  m_rgb: {fileID: 5786458945156589220}
+  colliders:
+  - {fileID: 4464546220560892298}
+  m_grabbable: {fileID: 1059488811}
   OnGrabed:
     m_PersistentCalls:
       m_Calls: []
@@ -163,7 +164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 4464546220560892298}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295

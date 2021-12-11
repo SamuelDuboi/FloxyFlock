@@ -8434,6 +8434,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 3948475500
       objectReference: {fileID: 0}
+    - target: {fileID: 512951843046324273, guid: 113ba0c55595639459c49b2260b75b12, type: 3}
+      propertyPath: isMalus
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 113ba0c55595639459c49b2260b75b12, type: 3}
 --- !u!1 &966517251
@@ -11345,7 +11349,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 39f6b325c921e2147adaa648da374c22, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 89262d7691d8e874287d011605899dbb, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
