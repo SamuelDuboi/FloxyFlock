@@ -11,11 +11,14 @@ public class Bubble : MonoBehaviour
     public  bool isMalus;
     [HideInInspector] public GrabManager grabManager;
     bool hasFlocks;
+    public SoundReader sound;
     private void Start()
     {
         radius = spherCollider.radius *m_transform.lossyScale.x;
         
         spherCollider.enabled = false;
+        int rand = Random.Range(1, 5);
+        sound.clipName = "OrbPop" + rand.ToString();
     }
     private void Update()
     {

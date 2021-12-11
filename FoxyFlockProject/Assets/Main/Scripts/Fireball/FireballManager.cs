@@ -160,7 +160,7 @@ public class FireballManager : MonoBehaviour
     {
         Collider[] explosionHits = Physics.OverlapSphere(inFireball.transform.position, explosionRadius);
         List<GameObject> floxesHit = new List<GameObject>();
-
+        inFireball.GetComponent<SoundReader>().Play();
         inFireball.SetActive(false); //TODO : Set inFireball back into the pooler (parent + position)
 
         //Go through each collidesr and add the corresponding flox to a list

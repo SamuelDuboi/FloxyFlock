@@ -21,7 +21,7 @@ public class GrabManager : MonoBehaviour
     public PlayGround playGround;
     public InputManager inputManager;
     public GameObject fireBallInstantiated;
-
+     protected SoundReader sound;
     // public Buble[] bubles;
 #if UNITY_EDITOR
     public bool modifierFoldout;
@@ -32,6 +32,7 @@ public class GrabManager : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
+        sound = GetComponent<SoundReader>();
         inputManager = GetComponentInParent<InputManager>();
         for (int i = 0; i < grabableObjects.Count; i++)
         {
@@ -93,6 +94,9 @@ public class GrabManager : MonoBehaviour
         {
             if (!mainPool[currentPool].isEmpty)
             {
+                int randomSound = UnityEngine.Random.Range(1, 3);
+                sound.clipName = "FloxMachinBad" + randomSound.ToString();
+                sound.Play();
                 Debug.LogError("There are still flock on the dispenser");
                 return;
             }
@@ -107,11 +111,17 @@ public class GrabManager : MonoBehaviour
         {
             if (mainPool[currentPool].floxes[i].GetComponent<Rigidbody>().velocity.magnitude > 0.1f)
             {
+                int randomSound = UnityEngine.Random.Range(1, 3);
+                sound.clipName = "FloxMachinBad" + randomSound.ToString();
+                sound.Play();
                 Debug.LogError("Your floxes are still moving");
                 return;
             }
             if (mainPool[currentPool].floxes[i].GetComponent<GrabbableObject>().isGrab)
             {
+                int randomSound = UnityEngine.Random.Range(1, 3);
+                sound.clipName = "FloxMachinBad" + randomSound.ToString();
+                sound.Play();
                 Debug.Log("grabbed");
                 return;
             }
@@ -150,7 +160,8 @@ public class GrabManager : MonoBehaviour
         }
         if(currentWeight==0)
         {
-            inputManager.OnSpawn.RemoveListener(SpawnBacth);
+            sound.PlaySeconde();
+            //inputManager.OnSpawn.RemoveListener(SpawnBacth);
             return;
         }
         if (previousPool < 5000)
@@ -185,7 +196,9 @@ public class GrabManager : MonoBehaviour
             for (int i = 0; i < malusNumber.Count; i++)
             {
                 if (malusNumber[i] != null)
-                    NetworkManagerRace.instance.playerController.CmdDestroyBubble(malusNumber[i]);
+                {
+                    StartCoroutine(WaiToDestroyBuble(i, true));
+                }
             }
             malusNumber.Clear();
         }
@@ -195,12 +208,28 @@ public class GrabManager : MonoBehaviour
             for (int i = 0; i < bonusNumber.Count; i++)
             {
                 if (bonusNumber[i] != null)
-                    NetworkManagerRace.instance.playerController.CmdDestroyBubble(bonusNumber[i]);
+                    StartCoroutine(WaiToDestroyBuble(i, false));
             }
         }
-       
+        int randomSound3 = UnityEngine.Random.Range(1, 2);
+        sound.ThirdClipName = "FloxMachinGood" + randomSound3.ToString();
+        sound.PlayThird();
     }
     
+    IEnumerator WaiToDestroyBuble(int index, bool isBad)
+    {
+        if(isBad)
+        malusNumber[index].GetComponent<SoundReader>().Play();
+        else
+            bonusNumber[index].GetComponent<SoundReader>().Play();
+
+        yield return new WaitForSeconds(1.5f);
+
+        if (isBad)
+            NetworkManagerRace.instance.playerController.CmdDestroyBubble(malusNumber[index]);
+        else
+            NetworkManagerRace.instance.playerController.CmdDestroyBubble(bonusNumber[index]);
+    }
     public void AddBubble(bool isMalus,GameObject bubble)
     {
         if (isMalus)

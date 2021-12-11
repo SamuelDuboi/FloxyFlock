@@ -9,9 +9,11 @@ public class GrabManagerMulti : GrabManager
     public int numberOfPool;
  [SerializeField]   public GameObject fireBallPrefab;
  [SerializeField]   public GameObject fireBallPrefabOut;
+
     // Start is called before the first frame update
     public override void Start()
     {
+        sound = GetComponent<SoundReader>();
        for (int i = 0; i < grabableObjects.Count; i++)
         {
             Modifier _modifer = modifiers[UnityEngine.Random.Range(0, modifiers.Count)];
