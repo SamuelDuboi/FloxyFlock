@@ -362,6 +362,7 @@ GameObject:
   - component: {fileID: 2118531726317480591}
   - component: {fileID: 1904604802663810676}
   - component: {fileID: -1479980008408552161}
+  - component: {fileID: 592354505847921003}
   m_Layer: 6
   m_Name: Flock_Hehe01
   m_TagString: Untagged
@@ -641,6 +642,8 @@ MonoBehaviour:
   isOnPlayground: 0
   isOnStasisOnce: 0
   timerToExit: 0
+  inputManager: {fileID: 0}
+  initialModifier: {fileID: 0}
 --- !u!114 &2118531726317480591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -768,3 +771,22 @@ MonoBehaviour:
   ForthClipName: 
   applyAudioOnStart: 0
   doOnce: 0
+--- !u!114 &592354505847921003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8274945382952786794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279543d55cf75f5479512f384eccbd49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMaterial: {fileID: 2100000, guid: eef01bd43ab0c884a87999c582f3f907, type: 2}
+  flox: {fileID: 7626422156612041407}
+  dissolveState: 0
+  dissolveTime: 1
+  isDissolving: 0
+  tempTime: 0
+  grabable: {fileID: 4497491642748258773}
