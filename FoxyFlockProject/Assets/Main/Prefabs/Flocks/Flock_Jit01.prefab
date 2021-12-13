@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 3016414992456519400}
   - component: {fileID: 3142668824451181960}
   - component: {fileID: 2847168166766851832}
+  - component: {fileID: 1528275294065715360}
   m_Layer: 6
   m_Name: Flock_Jit01
   m_TagString: Untagged
@@ -417,6 +418,8 @@ MonoBehaviour:
   isOnPlayground: 0
   isOnStasisOnce: 0
   timerToExit: 0
+  inputManager: {fileID: 0}
+  initialModifier: {fileID: 0}
 --- !u!114 &3016414992456519400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,6 +547,25 @@ MonoBehaviour:
   ForthClipName: 
   applyAudioOnStart: 0
   doOnce: 0
+--- !u!114 &1528275294065715360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5191685301571692960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279543d55cf75f5479512f384eccbd49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMaterial: {fileID: 2100000, guid: 62309bf7d5813d44584466cae0d4576b, type: 2}
+  flox: {fileID: 5984279184676194421}
+  dissolveState: 0
+  dissolveTime: 1
+  isDissolving: 0
+  tempTime: 0
+  grabable: {fileID: 8070194755144034207}
 --- !u!1 &7439024318472477456
 GameObject:
   m_ObjectHideFlags: 0

@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: -4113844584321132887}
   - component: {fileID: 7226509140674969591}
   - component: {fileID: -318872905476620784}
+  - component: {fileID: 7170730315736735085}
   m_Layer: 6
   m_Name: Flock_Beanie01
   m_TagString: Untagged
@@ -474,6 +475,8 @@ MonoBehaviour:
   isOnPlayground: 0
   isOnStasisOnce: 0
   timerToExit: 0
+  inputManager: {fileID: 0}
+  initialModifier: {fileID: 0}
 --- !u!114 &-4113844584321132887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -601,6 +604,25 @@ MonoBehaviour:
   ForthClipName: 
   applyAudioOnStart: 0
   doOnce: 0
+--- !u!114 &7170730315736735085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3700406415017159875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279543d55cf75f5479512f384eccbd49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMaterial: {fileID: 2100000, guid: eb5a104b09be4864cb86f87a7d0408ee, type: 2}
+  flox: {fileID: 2907777759436803350}
+  dissolveState: 0
+  dissolveTime: 1
+  isDissolving: 0
+  tempTime: 0
+  grabable: {fileID: -62025612058384938}
 --- !u!1 &5919269660546504398
 GameObject:
   m_ObjectHideFlags: 0

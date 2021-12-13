@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 4578151830158261572}
   - component: {fileID: -4694115303682578595}
   - component: {fileID: -4454221789294313736}
+  - component: {fileID: 2995284451584579155}
   m_Layer: 6
   m_Name: Flock_Woo01
   m_TagString: Untagged
@@ -601,6 +602,8 @@ MonoBehaviour:
   isOnPlayground: 0
   isOnStasisOnce: 0
   timerToExit: 0
+  inputManager: {fileID: 0}
+  initialModifier: {fileID: 0}
 --- !u!114 &4578151830158261572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -728,6 +731,25 @@ MonoBehaviour:
   ForthClipName: 
   applyAudioOnStart: 0
   doOnce: 0
+--- !u!114 &2995284451584579155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6861033994696840683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279543d55cf75f5479512f384eccbd49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMaterial: {fileID: 2100000, guid: 1cd20da9089c8044d90b516d2301613d, type: 2}
+  flox: {fileID: 4915598046754468926}
+  dissolveState: 3.54
+  dissolveTime: 1
+  isDissolving: 0
+  tempTime: 0
+  grabable: {fileID: 5405273097183659040}
 --- !u!1 &7854602573912081745
 GameObject:
   m_ObjectHideFlags: 0
