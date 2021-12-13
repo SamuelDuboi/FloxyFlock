@@ -55,7 +55,7 @@ public class FireballManager : MonoBehaviour
                 Vector3 fireballRigVector = outFireball.transform.position - rig.position;
 
                 exitAngleXZ = Vector3.SignedAngle(rig.transform.forward, new Vector3(fireballRigVector.x, 0f, fireballRigVector.z), Vector3.up);
-                exitAngleYZ = Vector3.SignedAngle(rig.transform.forward, new Vector3(0f, fireballRigVector.y, fireballRigVector.z), Vector3.left);
+                exitAngleYZ = Vector3.SignedAngle(rig.transform.forward, new Vector3(0f, fireballRigVector.y, fireballRigVector.z), Vector3.right);
 
                 if ((downLimitAngle <= exitAngleYZ) && (exitAngleYZ <= 180 - downLimitAngle))
                 {
@@ -134,7 +134,7 @@ public class FireballManager : MonoBehaviour
         }
 
         Vector3 FireballTableVector = targetPosition - inFireball.transform.position;
-
+        canAct = true;
         inFireball.GetComponent<Rigidbody>().velocity = FireballTableVector * fireballSpeed;
     }
 
@@ -181,5 +181,6 @@ public class FireballManager : MonoBehaviour
         {
             flox.GetComponent<FloxBurn>().BurnEvent();
         }
+        canAct = false;
     }
 }

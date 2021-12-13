@@ -31,40 +31,9 @@ public class NetworkManagerRace : NetworkRoomManager
     public override void OnServerChangeScene(string newSceneName)
     {
         base.OnServerChangeScene(newSceneName);
-        if (newSceneName == "FloxyRaceMulti" && numberOfPlayer > 0)
+       if (newSceneName == "Assets/Main/Scenes/FloxyRaceMulti.unity" && numberOfPlayer > 0)
         {
-            int index = 0;
-
             numberOfPlayer = 0;
-            for (int i = 0; i < 2; i++)
-            {
-
-
-                firstPlayer = GameObject.FindGameObjectWithTag("FirstPlayerPos").transform;
-                secondPlayerTransform = GameObject.FindGameObjectWithTag("SecondPlayerPos").transform;
-                foreach (var item in roomPlayers)
-                {
-                    Destroy(item);
-                }
-                roomPlayers.Clear();
-                Transform start = numberOfPlayer == 0 ? firstPlayer : secondPlayerTransform;
-                GameObject player = Instantiate(playerPrefab, start.position, start.rotation);
-
-                if (numberOfPlayer == 0)
-                {
-                    playerController = player.GetComponent<PlayerMovementMulti>();
-                }
-                else
-                {
-                    index = 1;
-                }
-                player.name = "player " + index;
-                players[numberOfPlayer] = player;
-                numberOfPlayer++;
-                // player.GetComponent<ControllerKeyBoard>().playerId = numberOfPlayer;
-                if (index == InitNumberOfPlayer - 1)
-                    StartCoroutine(WaitToSpawn(conns[index], players));
-            }
         }
     }
     public override void OnServerAddPlayer(NetworkConnection conn)
@@ -93,6 +62,7 @@ public class NetworkManagerRace : NetworkRoomManager
             roomPlayers.Add(  newRoomGameObject);
             
             NetworkServer.AddPlayerForConnection(conn, newRoomGameObject);
+            
         }
         else
             OnRoomServerAddPlayer(conn);
@@ -101,14 +71,10 @@ public class NetworkManagerRace : NetworkRoomManager
     public override GameObject OnRoomServerCreateGamePlayer(NetworkConnection conn, GameObject roomPlayer)
     {
         int index = 0;
-        
+        clientIndex = 0;
         firstPlayer = GameObject.FindGameObjectWithTag("FirstPlayerPos").transform;
         secondPlayerTransform = GameObject.FindGameObjectWithTag("SecondPlayerPos").transform;
-        foreach (var item in roomPlayers)
-        {
-            Destroy(item);
-        }
-        roomPlayers.Clear();
+     
         Transform start = numberOfPlayer == 0 ? firstPlayer : secondPlayerTransform;
         GameObject player = Instantiate(playerPrefab, start.position, start.rotation);
 
@@ -126,6 +92,7 @@ public class NetworkManagerRace : NetworkRoomManager
         // player.GetComponent<ControllerKeyBoard>().playerId = numberOfPlayer;
         if(index ==InitNumberOfPlayer-1)
         StartCoroutine(WaitToSpawn(conn, players));
+      
         return player;
     }
     IEnumerator WaitToSpawn(NetworkConnection conn, GameObject[] players)
@@ -133,6 +100,12 @@ public class NetworkManagerRace : NetworkRoomManager
         yield return new WaitForSeconds(1f);
          //playerController.CmdSpawnManager(player);
         yield return new WaitForSeconds(1f);
+        foreach (var item in roomPlayers)
+        {
+            Destroy(item);
+        }
+        roomPlayers.Clear();
+
         for (int i = 0; i < InitNumberOfPlayer; i++)
         {
             if (grabManagers == null)
@@ -145,8 +118,11 @@ public class NetworkManagerRace : NetworkRoomManager
                 playerController.CmdInitUI(i, players[i], false, avatarsSprite[i]);
             }
             grabManagers[i].InitPool(players[i], playerController);
+            if (i == InitNumberOfPlayer)
+                InitNumberOfPlayer = 0;
         }
-       
+
+        
     }
 
     public void Win(int playerId)

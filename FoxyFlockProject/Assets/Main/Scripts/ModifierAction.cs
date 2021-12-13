@@ -77,7 +77,7 @@ public class ModifierAction : MonoBehaviour
         {
             if(collision.tag == "Table"    || collision.tag == "TableComponent" || collision.tag == "Table2")
             {
-                sound.PlayThird();
+              //  sound.PlayThird();
                 StartCoroutine(WaiToPlaySoundTable());
             }
         }

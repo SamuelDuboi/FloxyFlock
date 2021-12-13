@@ -95,7 +95,7 @@ public class GrabManager : MonoBehaviour
             if (!mainPool[currentPool].isEmpty)
             {
                 int randomSound = UnityEngine.Random.Range(1, 3);
-                sound.clipName = "FloxMachinBad" + randomSound.ToString();
+                sound.clipName = "FloxMachineBad" + randomSound.ToString();
                 sound.Play();
                 Debug.LogError("There are still flock on the dispenser");
                 return;
@@ -112,7 +112,7 @@ public class GrabManager : MonoBehaviour
             if (mainPool[currentPool].floxes[i].GetComponent<Rigidbody>().velocity.magnitude > 0.1f)
             {
                 int randomSound = UnityEngine.Random.Range(1, 3);
-                sound.clipName = "FloxMachinBad" + randomSound.ToString();
+                sound.clipName = "FloxMachineBad" + randomSound.ToString();
                 sound.Play();
                 Debug.LogError("Your floxes are still moving");
                 return;
@@ -120,9 +120,17 @@ public class GrabManager : MonoBehaviour
             if (mainPool[currentPool].floxes[i].GetComponent<GrabbableObject>().isGrab)
             {
                 int randomSound = UnityEngine.Random.Range(1, 3);
-                sound.clipName = "FloxMachinBad" + randomSound.ToString();
+                sound.clipName = "FloxMachineBad" + randomSound.ToString();
                 sound.Play();
                 Debug.Log("grabbed");
+                return;
+            }
+            if (mainPool[currentPool].floxes[i].GetComponent<GrabablePhysicsHandler>().enabled && !mainPool[currentPool].floxes[i].GetComponent<GrabablePhysicsHandler>().isOnPlayground)
+            {
+                int randomSound = UnityEngine.Random.Range(1, 3);
+                sound.clipName = "FloxMachineBad" + randomSound.ToString();
+                sound.Play();
+                Debug.Log("Flock in stasis");
                 return;
             }
         }
@@ -200,7 +208,7 @@ public class GrabManager : MonoBehaviour
                     StartCoroutine(WaiToDestroyBuble(i, true));
                 }
             }
-            malusNumber.Clear();
+            
         }
         if (bonusNumber != null && bonusNumber.Count > 0)
         {
@@ -210,12 +218,17 @@ public class GrabManager : MonoBehaviour
                 if (bonusNumber[i] != null)
                     StartCoroutine(WaiToDestroyBuble(i, false));
             }
+            StartCoroutine(DestroyBubble());
         }
         int randomSound3 = UnityEngine.Random.Range(1, 2);
-        sound.ThirdClipName = "FloxMachinGood" + randomSound3.ToString();
+        sound.ThirdClipName = "FloxMachineGood" + randomSound3.ToString();
         sound.PlayThird();
     }
-    
+    IEnumerator DestroyBubble()
+    {
+        yield return new WaitForSeconds(1.6f);
+        malusNumber.Clear();
+    }
     IEnumerator WaiToDestroyBuble(int index, bool isBad)
     {
         if(isBad)
@@ -302,9 +315,9 @@ public class GrabManager : MonoBehaviour
             var grabableBonus = fireBallInstantiated.GetComponent<GrabablePhysicsHandler>();
             grabableBonus.enabled = true;
 
-            StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, grabableBonus));
+            StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, grabableBonus,true));
             fireBallInstantiated.transform.position = baseInteractor.transform.position;
-            playGround.GetComponentInChildren<FireballManager>().canAct = true;
+
             grabableBonus.OnHitGround.AddListener(RespawnFireball);
             return;
         }
@@ -315,7 +328,7 @@ public class GrabManager : MonoBehaviour
             var grabableBonus = mainPool[currentPool].bonus.GetComponent<GrabablePhysicsHandler>();
             grabableBonus.enabled = true;
 
-            StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, grabableBonus));
+            StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, grabableBonus,false));
             grabableBonus.OnHitGround.AddListener(RespawnPiece);
             mainPool[currentPool].bonus.transform.position = baseInteractor.transform.position;
             return;
@@ -325,7 +338,7 @@ public class GrabManager : MonoBehaviour
         var grabable = mainPool[currentPool].floxes[index].GetComponent<GrabablePhysicsHandler>();
         grabable.enabled = true;
 
-        StartCoroutine(WaiToSelect(baseInteractable, baseInteractor, grabable));
+        StartCoroutine(WaiToSelect(baseInteractable, baseInteractor, grabable,false));
         grabable.OnHitGround.AddListener(RespawnPiece);
        
 
@@ -339,7 +352,7 @@ public class GrabManager : MonoBehaviour
         batches[currentPool].isEmpty = true;
         mainPool[currentPool].isEmpty = true;
     }
-    IEnumerator WaiToSelect(XRBaseInteractable baseInteractable, XRBaseInteractor baseInteractor, GrabablePhysicsHandler grabable)
+    IEnumerator WaiToSelect(XRBaseInteractable baseInteractable, XRBaseInteractor baseInteractor, GrabablePhysicsHandler grabable, bool isFireBall)
     {
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();
@@ -347,6 +360,12 @@ public class GrabManager : MonoBehaviour
         grabable.timeToSlow = playGround.timeBeforFall;
         grabable.slowForce = playGround.slowForce;
         grabable.OnEnterStasis.Invoke(grabable.gameObject, true, grabable.m_rgb);
+        yield return new WaitForSeconds(5);
+        if (isFireBall)
+        {
+            playGround.GetComponentInChildren<FireballManager>().canAct = true;
+        }
+
     }
     private void OnCollisionStay(Collision collision)
     {

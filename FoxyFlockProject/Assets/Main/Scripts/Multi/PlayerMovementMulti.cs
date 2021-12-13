@@ -42,9 +42,14 @@ public class PlayerMovementMulti : NetworkBehaviour
             tableTransform = GameObject.FindGameObjectWithTag("Table").transform;
             tableTransform.GetComponentInChildren<GameModeSolo>().number = 0;
         }
-        tableTransform.GetComponentInChildren<GameModeSolo>().hands = GetComponentInChildren<HandsPlayground>();
-        tableTransform.GetComponentInChildren<GameModeSolo>().playerMovement = this;
-        tableTransform.GetComponentInChildren<FireballManager>().rig = transform;
+        if (isLocalPlayer)
+        {
+            tableTransform.GetComponentInChildren<GameModeSolo>().hands = GetComponentInChildren<HandsPlayground>();
+            tableTransform.GetComponentInChildren<FireballManager>().rig = transform;
+
+            tableTransform.GetComponentInChildren<GameModeSolo>().playerMovement = this;
+        }
+        
         tableTransform.GetComponentInChildren<FireballManager>().canAct= false;
         tableRenderer = tableTransform.GetComponent<Renderer>();
         TableGetClamp temp = tableRenderer.GetComponent<TableGetClamp>();
@@ -329,13 +334,38 @@ public class PlayerMovementMulti : NetworkBehaviour
     }
     public void InitFireBall(GameObject authority, GameObject _fireBall, GameObject outFireBall)
     {
+        
         int rand = UnityEngine.Random.Range(0, 100);
         GameObject fireBall = Instantiate(_fireBall, new Vector3(300 + 20 * rand, 300 + 20 * rand, 300 + 20 * rand), Quaternion.identity);
         tempFlock = fireBall;
-        CmdSpawnObject(authority, tempFlock,0);
+        if (authority.name== "player 0")
+        {
+            CmdSpawnObject(authority, tempFlock,0);
+            tableTransform.GetComponentInChildren<FireballManager>().inFireball = fireBall;
+            fireBall.GetComponent<Rigidbody>().useGravity = false;
+            fireBall.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+        else
+        {
+            CmdSpawnObjectSecondFireBall(authority, fireBall, 0);
+        }
         GameObject fireBall2 = Instantiate(outFireBall, new Vector3(300 + 20 * rand, 300 + 20 * rand, 300 + 20 * rand), Quaternion.identity);
         tempFlock2 = fireBall2;
-        CmdSpawnObject(authority, tempFlock2, 1);
+        if (authority.name == "player 0")
+        {
+            CmdSpawnObject(authority, tempFlock, 1);
+            fireBall2.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
+            fireBall2.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
+            fireBall2.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
+            fireBall2.GetComponent<GrabablePhysicsHandler>().enabled = false;
+            tableTransform.GetComponentInChildren<FireballManager>().outFireball = fireBall2;
+            grabManager.GetComponent<GrabManagerMulti>().fireBallInstantiated = fireBall2;
+            tableTransform.GetComponentInChildren<FireballManager>().Initialize();
+        }
+        else
+        {
+            CmdSpawnObjectSecondFireBall(authority, fireBall, 1);
+        }
     }
     [Command]
     private void CmdSpawnObject(GameObject authority,GameObject fireBall, int i)
@@ -343,7 +373,6 @@ public class PlayerMovementMulti : NetworkBehaviour
         if (i == 0)
         {
             NetworkServer.Spawn(tempFlock, authority);
-            RpcSyncFireBall(tempFlock, authority,i);
         }
         else
         {
@@ -352,11 +381,31 @@ public class PlayerMovementMulti : NetworkBehaviour
             //tempFlock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(tempModifier, tempComponent as ModifierAction, tempbasicMats);
             tempFlock2.GetComponent<GrabablePhysicsHandler>().enabled = false;
             NetworkServer.Spawn(tempFlock2, authority);
-            RpcSyncFireBall(tempFlock2, authority, i);
         }
     }
-    [ClientRpc]
-    void RpcSyncFireBall(GameObject fireBall, GameObject authority, int i)
+
+    [Command]
+    private void CmdSpawnObjectSecondFireBall(GameObject authority, GameObject fireBall, int i)
+    {
+        if (i == 0)
+        {
+            NetworkServer.Spawn(tempFlock, authority);
+            NetworkIdentity opponentIdentity = authority.GetComponent<NetworkIdentity>();
+            TargetGetFireBallSpawn(opponentIdentity.connectionToClient, tempFlock, authority, i);
+        }
+        else
+        {
+            tempFlock2.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
+            tempFlock2.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
+            //tempFlock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(tempModifier, tempComponent as ModifierAction, tempbasicMats);
+            tempFlock2.GetComponent<GrabablePhysicsHandler>().enabled = false;
+            NetworkServer.Spawn(tempFlock2, authority);
+            NetworkIdentity opponentIdentity = authority.GetComponent<NetworkIdentity>();
+            TargetGetFireBallSpawn(opponentIdentity.connectionToClient, tempFlock2, authority, i);
+        }
+    }
+    [TargetRpc]
+    private void TargetGetFireBallSpawn(NetworkConnection target,GameObject fireBall,GameObject authority , int i)
     {
         authority.GetComponentInChildren<GrabManager>().fireBallInstantiated = fireBall;
         if (i == 0)
@@ -372,8 +421,15 @@ public class PlayerMovementMulti : NetworkBehaviour
             fireBall.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
             fireBall.GetComponent<GrabablePhysicsHandler>().enabled = false;
             authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().outFireball = fireBall;
-            authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().Initialize( );
+            authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().Initialize();
+            authority.GetComponentInChildren<GrabManagerMulti>().fireBallInstantiated = fireBall;
+
         }
+       
+    }
+    void RpcSyncFireBall(GameObject fireBall, GameObject authority, int i)
+    {
+      
 
     }
     [Command]
@@ -430,7 +486,7 @@ public class PlayerMovementMulti : NetworkBehaviour
     }
     [ClientRpc]
     void RcpWin2()
-    {
+    {  
         UIGlobalManager.instance.Win(1);
     }
 

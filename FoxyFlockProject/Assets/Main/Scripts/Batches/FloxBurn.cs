@@ -24,8 +24,8 @@ public class FloxBurn : MonoBehaviour
     {
         //Activate disolve here and set disolve duration to deathTime;
 
-        if (soundReader)
-            soundReader.Play();
+       /* if (soundReader)
+            soundReader.Play();*/
 
         yield return new WaitForSeconds(deathDuration); //Change this to match disolve and burn sound time 
 
