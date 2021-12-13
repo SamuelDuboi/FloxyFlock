@@ -18,7 +18,7 @@ public class NetworkManagerRace : NetworkRoomManager
     private List<GameObject> roomPlayers = new List<GameObject>();
     private int InitNumberOfPlayer;
     private int number;
-
+    private NetworkConnection[] conns = new NetworkConnection[2];
     public override void Awake()
     {
         base.Awake();
@@ -28,11 +28,52 @@ public class NetworkManagerRace : NetworkRoomManager
         else
             Destroy(instance.gameObject);
     }
+    public override void OnServerChangeScene(string newSceneName)
+    {
+        base.OnServerChangeScene(newSceneName);
+        if (newSceneName == "FloxyRaceMulti" && numberOfPlayer > 0)
+        {
+            int index = 0;
+
+            numberOfPlayer = 0;
+            for (int i = 0; i < 2; i++)
+            {
+
+
+                firstPlayer = GameObject.FindGameObjectWithTag("FirstPlayerPos").transform;
+                secondPlayerTransform = GameObject.FindGameObjectWithTag("SecondPlayerPos").transform;
+                foreach (var item in roomPlayers)
+                {
+                    Destroy(item);
+                }
+                roomPlayers.Clear();
+                Transform start = numberOfPlayer == 0 ? firstPlayer : secondPlayerTransform;
+                GameObject player = Instantiate(playerPrefab, start.position, start.rotation);
+
+                if (numberOfPlayer == 0)
+                {
+                    playerController = player.GetComponent<PlayerMovementMulti>();
+                }
+                else
+                {
+                    index = 1;
+                }
+                player.name = "player " + index;
+                players[numberOfPlayer] = player;
+                numberOfPlayer++;
+                // player.GetComponent<ControllerKeyBoard>().playerId = numberOfPlayer;
+                if (index == InitNumberOfPlayer - 1)
+                    StartCoroutine(WaitToSpawn(conns[index], players));
+            }
+        }
+    }
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
         // increment the index before adding the player, so first player starts at 1
+        if (conns[clientIndex] == null)
+            conns[clientIndex] = conn;
         clientIndex++;
-
+        
         if (IsSceneActive(RoomScene))
         {
             if (roomSlots.Count == maxConnections)
@@ -65,8 +106,9 @@ public class NetworkManagerRace : NetworkRoomManager
         secondPlayerTransform = GameObject.FindGameObjectWithTag("SecondPlayerPos").transform;
         foreach (var item in roomPlayers)
         {
-            item.SetActive(false);
+            Destroy(item);
         }
+        roomPlayers.Clear();
         Transform start = numberOfPlayer == 0 ? firstPlayer : secondPlayerTransform;
         GameObject player = Instantiate(playerPrefab, start.position, start.rotation);
 
