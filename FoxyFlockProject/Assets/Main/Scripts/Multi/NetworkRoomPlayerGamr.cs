@@ -104,4 +104,10 @@ public class NetworkRoomPlayerGamr : NetworkRoomPlayer
     }
 
     #endregion
+
+    [Command]
+    public void CmdSetIndex(int player,int index)
+    {
+        NetworkManagerRace.instance.avatarsSprite[player] = index;
+    }
 }

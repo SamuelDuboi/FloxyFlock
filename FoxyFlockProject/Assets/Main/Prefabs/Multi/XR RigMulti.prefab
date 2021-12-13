@@ -2047,6 +2047,10 @@ PrefabInstance:
       propertyPath: m_ReflectionProbeUsage
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8278770971383973772, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
+      propertyPath: particules
+      value: 
+      objectReference: {fileID: 3298368830869480522}
     - target: {fileID: 8714912745551606300, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.4
@@ -2089,3 +2093,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 539639d90e94d1d4a821a09e026a0d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3298368830869480522 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7306780377151393198, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
+  m_PrefabInstance: {fileID: 5233410313731533284}
+  m_PrefabAsset: {fileID: 0}

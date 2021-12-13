@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: -616486437519841217}
   - component: {fileID: 4326945490840273081}
   - component: {fileID: 8365191295883368650}
+  - component: {fileID: 775459234715802209}
   m_Layer: 6
   m_Name: Flock_Jit01
   m_TagString: Piece
@@ -634,6 +635,25 @@ MonoBehaviour:
   deathDuration: 2
   deathMaterial: {fileID: 0}
   soundReader: {fileID: 2847168166766851832}
+--- !u!114 &775459234715802209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5191685301571692960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279543d55cf75f5479512f384eccbd49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMaterial: {fileID: 2100000, guid: 62309bf7d5813d44584466cae0d4576b, type: 2}
+  flox: {fileID: 5984279184676194421}
+  dissolveState: 0
+  dissolveTime: 0.5
+  isDissolving: 0
+  tempTime: 0
+  grabable: {fileID: 8070194755144034207}
 --- !u!1 &7439024318472477456
 GameObject:
   m_ObjectHideFlags: 0

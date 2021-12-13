@@ -324,6 +324,7 @@ GameObject:
   - component: {fileID: 2653564537887369317}
   - component: {fileID: -1215791277210997927}
   - component: {fileID: -3097298920462803334}
+  - component: {fileID: 4005380154798680185}
   m_Layer: 6
   m_Name: Flock_Woo01
   m_TagString: Piece
@@ -818,6 +819,25 @@ MonoBehaviour:
   deathDuration: 2
   deathMaterial: {fileID: 0}
   soundReader: {fileID: -4454221789294313736}
+--- !u!114 &4005380154798680185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6861033994696840683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279543d55cf75f5479512f384eccbd49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMaterial: {fileID: 2100000, guid: 1cd20da9089c8044d90b516d2301613d, type: 2}
+  flox: {fileID: 4915598046754468926}
+  dissolveState: 0
+  dissolveTime: 0.5
+  isDissolving: 0
+  tempTime: 0
+  grabable: {fileID: 5405273097183659040}
 --- !u!1 &7854602573912081745
 GameObject:
   m_ObjectHideFlags: 0

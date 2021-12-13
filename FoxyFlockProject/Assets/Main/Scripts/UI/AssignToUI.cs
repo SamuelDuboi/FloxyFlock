@@ -10,6 +10,6 @@ public class AssignToUI : MonoBehaviour
     public Image player1Image;
     public GameObject winPlayer1;
     public GameObject losePlayer1;
-    
+    public GameObject particules;
 
 }

@@ -197,6 +197,7 @@ GameObject:
   - component: {fileID: 8059982368860437281}
   - component: {fileID: 5710802827559990782}
   - component: {fileID: -6811749666005433812}
+  - component: {fileID: 1419295045684695702}
   m_Layer: 6
   m_Name: Flock_Beanie01
   m_TagString: Piece
@@ -691,6 +692,25 @@ MonoBehaviour:
   deathDuration: 2
   deathMaterial: {fileID: 0}
   soundReader: {fileID: -318872905476620784}
+--- !u!114 &1419295045684695702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3700406415017159875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279543d55cf75f5479512f384eccbd49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMaterial: {fileID: 2100000, guid: eb5a104b09be4864cb86f87a7d0408ee, type: 2}
+  flox: {fileID: 2907777759436803350}
+  dissolveState: 0
+  dissolveTime: 0.5
+  isDissolving: 0
+  tempTime: 0
+  grabable: {fileID: -62025612058384938}
 --- !u!1 &5919269660546504398
 GameObject:
   m_ObjectHideFlags: 0
