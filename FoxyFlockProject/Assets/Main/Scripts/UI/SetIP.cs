@@ -9,6 +9,8 @@ public class SetIP : MonoBehaviour
     public NetworkManagerRace manager;
     public void SetText(string character)
     {
+        if (textMeshProUGUI.text.Contains("local host"))
+            textMeshProUGUI.text = string.Empty;
         textMeshProUGUI.text += character;
         manager.networkAddress = textMeshProUGUI.text;
     }
