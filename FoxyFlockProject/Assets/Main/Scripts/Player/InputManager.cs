@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR;
 using UnityEngine.Events;
 using System.Collections;
 public class InputManager : MonoBehaviour
@@ -48,6 +49,8 @@ public class InputManager : MonoBehaviour
     public UnityEvent<Vector3> OnSnapTurn;
     public UnityEvent OnSnapTurnRelease;
 
+    public UnityEvent OnMenuPressed;
+
     //
     public UnityEvent<bool> ActiveSound;
     protected bool isActiveSound;
@@ -57,6 +60,8 @@ public class InputManager : MonoBehaviour
     public PlayerMovement playerMovement;
     [HideInInspector] public bool seeTable;
     protected SoundReader sound;
+    public bool isMenuPressed;
+    public bool isMenuPressing;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -155,6 +160,18 @@ public class InputManager : MonoBehaviour
             OnCanMove.Invoke();
         }
         #endregion
+
+        InputHelpers.IsPressed(leftHand.inputDevice, InputHelpers.Button.SecondaryButton, out isMenuPressed);
+        if (isMenuPressed && !isMenuPressing)
+        {
+            isMenuPressing = true;
+            Debug.Log("menusPressed");
+            OnMenuPressed.Invoke();
+        }
+        if (!isMenuPressed && isMenuPressing)
+        {
+            isMenuPressing = false;
+        }
     }
     #region TriggerListener
 

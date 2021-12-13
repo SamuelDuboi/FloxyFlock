@@ -591,11 +591,16 @@ MonoBehaviour:
   OnSnapTurnRelease:
     m_PersistentCalls:
       m_Calls: []
+  OnMenuPressed:
+    m_PersistentCalls:
+      m_Calls: []
   ActiveSound:
     m_PersistentCalls:
       m_Calls: []
   playerMovement: {fileID: 0}
   seeTable: 0
+  isMenuPressed: 0
+  isMenuPressing: 0
   playerMovementMulti: {fileID: 4754747057396679119}
 --- !u!114 &4754747057396679119
 MonoBehaviour:

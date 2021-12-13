@@ -81,6 +81,7 @@ public class NetworkManagerRace : NetworkRoomManager
         if (numberOfPlayer == 0)
         {
             playerController = player.GetComponent<PlayerMovementMulti>();
+            playerController.GetComponent<InputManager>().OnMenuPressed.AddListener(ReturnToMenu);
         }
         else
         {
@@ -95,17 +96,20 @@ public class NetworkManagerRace : NetworkRoomManager
       
         return player;
     }
+    private void ReturnToMenu()
+    {
+        ServerChangeScene(RoomScene);
+    }
     IEnumerator WaitToSpawn(NetworkConnection conn, GameObject[] players)
     {
         yield return new WaitForSeconds(1f);
          //playerController.CmdSpawnManager(player);
         yield return new WaitForSeconds(1f);
-        foreach (var item in roomPlayers)
+        foreach (var roomPlayer in roomPlayers)
         {
-            Destroy(item);
+            NetworkServer.Destroy(roomPlayer);
         }
         roomPlayers.Clear();
-
         for (int i = 0; i < InitNumberOfPlayer; i++)
         {
             if (grabManagers == null)
@@ -118,13 +122,13 @@ public class NetworkManagerRace : NetworkRoomManager
                 playerController.CmdInitUI(i, players[i], false, avatarsSprite[i]);
             }
             grabManagers[i].InitPool(players[i], playerController);
-            if (i == InitNumberOfPlayer)
+            if (i == InitNumberOfPlayer-1)
                 InitNumberOfPlayer = 0;
         }
 
         
     }
-
+  
     public void Win(int playerId)
     {
         if (playerId == 0)
