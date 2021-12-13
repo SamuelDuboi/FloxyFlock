@@ -60,8 +60,11 @@ public class GrabbableObject : XRGrabInteractable
             SavedTransform savedTransform = null;
             if (m_SavedTransforms.TryGetValue(interactor, out savedTransform))
             {
-                interactor.attachTransform.localPosition = savedTransform.OriginalPosition;
-                interactor.attachTransform.localRotation = savedTransform.OriginalRotation;
+                //interactor.attachTransform.localPosition = savedTransform.OriginalPosition;
+                //interactor.attachTransform.localRotation = savedTransform.OriginalRotation;
+
+                interactor.attachTransform.localPosition = Vector3.zero;
+                interactor.attachTransform.localRotation = Quaternion.identity;
 
                 m_SavedTransforms.Remove(interactor);
             }
