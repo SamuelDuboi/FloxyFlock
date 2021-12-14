@@ -1383,106 +1383,38 @@ MonoBehaviour:
   grabableObjects: []
   batches:
   - pieces:
+    - {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
     - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
+    - {fileID: 7752209755336706059, guid: 1ca5f59c2149308489437c0b8a53c152, type: 3}
+    weight: 10
+    positiveModifier:
+      piece: {fileID: 7455921705368196685, guid: d0994b81ade92a44fa5cb462dd5e6111, type: 3}
+      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
+    isEmpty: 0
+  - pieces:
+    - {fileID: 7752209755336706059, guid: 1ca5f59c2149308489437c0b8a53c152, type: 3}
+    - {fileID: 5191685301571692960, guid: 56e697f9b9272064fa0181851504e790, type: 3}
+    - {fileID: 6861033994696840683, guid: 54ae48e3f84a0ed498df6e496cb746fb, type: 3}
+    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
+    weight: 10
     positiveModifier:
       piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
       modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
     isEmpty: 0
   - pieces:
+    - {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
     - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
+    - {fileID: 8274945382952786794, guid: 6139c7ec78f01774ca4847805eaa8686, type: 3}
+    - {fileID: 5191685301571692960, guid: 56e697f9b9272064fa0181851504e790, type: 3}
+    - {fileID: 8274945382952786794, guid: 6139c7ec78f01774ca4847805eaa8686, type: 3}
+    weight: 1
     positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
+      piece: {fileID: 6861033994696840683, guid: 54ae48e3f84a0ed498df6e496cb746fb, type: 3}
       modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
     isEmpty: 0
   - pieces:
     - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
-    positiveModifier:
-      piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
-    isEmpty: 0
-  - pieces:
-    - {fileID: 3700406415017159875, guid: 7ab77a06d0dc5684181f777f049ebedc, type: 3}
-    weight: 5
+    weight: 0
     positiveModifier:
       piece: {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
       modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
@@ -1491,14 +1423,14 @@ MonoBehaviour:
   - {fileID: 13400000, guid: f49b989612fc3e34f8e1d4904afb1022, type: 2}
   - {fileID: 13400000, guid: 4acd54990333fcb46b8b0151a5e05fd2, type: 2}
   representations:
-  - {fileID: 64561948750513353}
-  - {fileID: 64561950227593004}
-  - {fileID: 64561950346014831}
-  - {fileID: 64561949049342116}
-  - {fileID: 64561948440139171}
-  - {fileID: 64561949315010075}
-  - {fileID: 2594020321477174029}
-  - {fileID: 1925734936708635295}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   playGround: {fileID: 0}
   inputManager: {fileID: 0}
   fireBallInstantiated: {fileID: 0}
