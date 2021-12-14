@@ -48,7 +48,6 @@ public class PlayGround : MonoBehaviour
                 hand.inPlayground = true;
                 _tempHand = hand;
                 hands = true;
-                return;
             }
 
             _temp = collidiers[i].GetComponentInParent<GrabablePhysicsHandler>();

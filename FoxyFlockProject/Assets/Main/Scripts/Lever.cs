@@ -9,7 +9,7 @@ public class Lever : MonoBehaviour
     [SerializeField] private float deadzone = 0.025f;
 
     private bool _isPressed;
-    private Vector3 startRotation;
+    private bool canPress;
 
     private HingeJoint joint;
     private Rigidbody rb;
@@ -18,7 +18,6 @@ public class Lever : MonoBehaviour
 
     private void Start()
     {
-        startRotation = transform.localEulerAngles;
 
         joint = GetComponent<HingeJoint>();
         rb = GetComponent<Rigidbody>();
@@ -34,6 +33,8 @@ public class Lever : MonoBehaviour
 
     private float GetValue()
     {
+        if (transform.localEulerAngles.x > joint.limits.max)
+            return 0.5f;
         var value = transform.localEulerAngles.x / Mathf.Abs(joint.limits.max);
 
         if (Mathf.Abs(value) < deadzone)
@@ -45,7 +46,7 @@ public class Lever : MonoBehaviour
     private void Pressed()
     {
         _isPressed = true;
-        //StartCoroutine(MakeKinematic());
+       
         onPressed.Invoke();
         Debug.Log(this + " isPressed");
     }
@@ -54,15 +55,15 @@ public class Lever : MonoBehaviour
     {
         _isPressed = false;
         onReleased.Invoke();
+        StartCoroutine(MakeKinematic());
         Debug.Log(this + " isReleased");
     }
 
     private IEnumerator MakeKinematic()
     {
         rb.isKinematic = true;
-
         yield return new WaitForSeconds(0.5f);
-
+        
         rb.isKinematic = false;
     }
 }
