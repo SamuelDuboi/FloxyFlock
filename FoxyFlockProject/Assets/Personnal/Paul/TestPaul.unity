@@ -134,10 +134,10 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.y
       value: -0.00999999
       objectReference: {fileID: 0}
-    - target: {fileID: 1941986841211585325, guid: 9d2d50e6bc754094c83f0c38f4d80968, type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 1941986841211585324, guid: 9d2d50e6bc754094c83f0c38f4d80968, type: 3}
+      propertyPath: m_Colliders.Array.data[0]
+      value: 
+      objectReference: {fileID: 1329218818}
     - target: {fileID: 2918784968056791294, guid: 9d2d50e6bc754094c83f0c38f4d80968, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -208,6 +208,7 @@ MonoBehaviour:
   burnClipName: Laser
   deathDuration: 2
   deathMaterial: {fileID: 0}
+  dissolveFlox: {fileID: 0}
   soundReader: {fileID: 0}
 --- !u!43 &187201419
 Mesh:
@@ -928,6 +929,7 @@ MonoBehaviour:
   burnClipName: Laser
   deathDuration: 2
   deathMaterial: {fileID: 0}
+  dissolveFlox: {fileID: 0}
   soundReader: {fileID: 0}
 --- !u!1001 &351085322
 PrefabInstance:
@@ -1587,6 +1589,7 @@ MonoBehaviour:
   burnClipName: Laser
   deathDuration: 2
   deathMaterial: {fileID: 0}
+  dissolveFlox: {fileID: 0}
   soundReader: {fileID: 0}
 --- !u!1001 &1283532885
 PrefabInstance:
@@ -1735,6 +1738,11 @@ MonoBehaviour:
   isMin: 0
   sphere: {fileID: 0}
   zone: {fileID: 0}
+--- !u!135 &1329218818 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 1098175381220833697, guid: 9d2d50e6bc754094c83f0c38f4d80968, type: 3}
+  m_PrefabInstance: {fileID: 108871721}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1338424009
 GameObject:
   m_ObjectHideFlags: 0
@@ -1880,6 +1888,7 @@ MonoBehaviour:
   burnClipName: Laser
   deathDuration: 2
   deathMaterial: {fileID: 0}
+  dissolveFlox: {fileID: 0}
   soundReader: {fileID: 0}
 --- !u!1 &1450641217 stripped
 GameObject:
@@ -1901,6 +1910,7 @@ MonoBehaviour:
   burnClipName: Laser
   deathDuration: 2
   deathMaterial: {fileID: 0}
+  dissolveFlox: {fileID: 0}
   soundReader: {fileID: 0}
 --- !u!1 &1488933205
 GameObject:
@@ -2269,6 +2279,7 @@ MonoBehaviour:
   burnClipName: Laser
   deathDuration: 2
   deathMaterial: {fileID: 0}
+  dissolveFlox: {fileID: 0}
   soundReader: {fileID: 0}
 --- !u!1 &1774207491
 GameObject:
@@ -2358,6 +2369,7 @@ MonoBehaviour:
   burnClipName: Laser
   deathDuration: 2
   deathMaterial: {fileID: 0}
+  dissolveFlox: {fileID: 0}
   soundReader: {fileID: 0}
 --- !u!1 &1835759143
 GameObject:
@@ -3548,11 +3560,16 @@ MonoBehaviour:
   OnSnapTurnRelease:
     m_PersistentCalls:
       m_Calls: []
+  OnMenuPressed:
+    m_PersistentCalls:
+      m_Calls: []
   ActiveSound:
     m_PersistentCalls:
       m_Calls: []
   playerMovement: {fileID: 1972585047039669068}
   seeTable: 0
+  isMenuPressed: 0
+  isMenuPressing: 0
 --- !u!4 &1972585047039669070
 Transform:
   m_ObjectHideFlags: 0
