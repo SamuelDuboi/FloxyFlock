@@ -1343,6 +1343,34 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
+                    "m_Id": "82374780b15d4e8486164234e7577545"
+                },
+                "m_SlotId": 1
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "ba7e4d5dded84fc89941b702f2a8ded8"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "82374780b15d4e8486164234e7577545"
+                },
+                "m_SlotId": 2
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "f57e0ab3da144353afa9ed75e4f058da"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
                     "m_Id": "82982b9b5de04718b5a385b67aff36a0"
                 },
                 "m_SlotId": 0
@@ -9224,13 +9252,13 @@
     },
     "m_Name": "OutlineActivation",
     "m_DefaultReferenceName": "Vector1_9515d2547b464d989967b24be3de8cd7",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "outlineActivation",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 0.0,
+    "m_Value": 1.0,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
