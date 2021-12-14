@@ -56,9 +56,9 @@ public class GrabManager : MonoBehaviour
             }
         }
         InitPool();
-        inputManager.OnLeftGrab.AddListener(OnGrabLeft);
+        inputManager.OnGrabbingLeft.AddListener(OnGrabLeft);
         inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
-        inputManager.OnRightGrab.AddListener(OnGrabRight);
+        inputManager.OnGrabbingRight.AddListener(OnGrabRight);
         inputManager.OnGrabbingReleaseRight.AddListener(OnRealeseRight);
 
     }
@@ -190,13 +190,13 @@ public class GrabManager : MonoBehaviour
         if (previousPool < 5000)
             for (int i = 0; i < mainPool[previousPool].floxes.Count; i++)
             {
-                //Set flox material to the frozen color 
+                /*//Set flox material to the frozen color 
                 //Recup Data
                 mainPool[previousPool].floxes[i].GetComponent<MeshRenderer>().GetPropertyBlock(propBlock);
                 //EditZone
                 propBlock.SetFloat("Frozen?", 1);
-                //Push Data
-                mainPool[previousPool].floxes[i].GetComponent<MeshRenderer>().SetPropertyBlock(propBlock);
+                //Push Data*/
+                mainPool[previousPool].floxes[i].GetComponent<GrabablePhysicsHandler>().OnFreeze();
 
                 Destroy(mainPool[previousPool].floxes[i].GetComponent<GrabbableObject>());
                 Destroy(mainPool[previousPool].floxes[i].GetComponent<GrabablePhysicsHandler>());

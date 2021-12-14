@@ -25,9 +25,9 @@ public class GrabManagerMulti : GrabManager
         inputManager = GetComponentInParent<InputManager>();
         inputManager.OnSpawn.AddListener(SpawnBacth);
         playGround = inputManager.GetComponent<PlayerMovementMulti>().tableTransform.GetComponent<PlayGround>();
-        inputManager.OnLeftGrab.AddListener(OnGrabLeft);
+        inputManager.OnGrabbingLeft.AddListener(OnGrabLeft);
         inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
-        inputManager.OnRightGrab.AddListener(OnGrabRight);
+        inputManager.OnGrabbingRight.AddListener(OnGrabRight);
         inputManager.OnGrabbingReleaseRight.AddListener(OnRealeseRight);
     }
     public virtual void InitPool(GameObject authority, PlayerMovementMulti player)
@@ -49,6 +49,8 @@ public class GrabManagerMulti : GrabManager
                 player.InitBacth(authority, i, x, batches, _modifier, _object,basicMats,mainPool, out mainPool);
             }
             Modifier _modifierPiece = batches[i].positiveModifier.modifier;
+            if (_modifierPiece == null)
+                continue;
             Type typePiece = _modifierPiece.actions.GetType();
             var _objectPiece = GetComponent(typePiece);
             player.InitModifier(authority, i, batches[i].positiveModifier, _objectPiece, basicMats, mainPool, out mainPool);

@@ -427,7 +427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf2e57e98712d84887d77e2789353c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 8400000, guid: 6ec8af18dd9590e4b976a3619a2e1fd4, type: 2}
+  texture: {fileID: 2800000, guid: 7077e445741c0594790710643ae1316d, type: 3}
 --- !u!82 &-9150362011053891089
 AudioSource:
   m_ObjectHideFlags: 0
@@ -625,6 +625,7 @@ MonoBehaviour:
   burnClipName: Laser
   deathDuration: 2
   deathMaterial: {fileID: 0}
+  dissolveFlox: {fileID: 0}
   soundReader: {fileID: 1153344942567290252}
 --- !u!114 &3717558907243300186
 MonoBehaviour:

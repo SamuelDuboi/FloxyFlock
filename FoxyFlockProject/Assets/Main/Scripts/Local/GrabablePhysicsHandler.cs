@@ -242,6 +242,16 @@ public class GrabablePhysicsHandler : MonoBehaviour
         //Push Data
         meshRenderer.SetPropertyBlock(propBlock);
     }
+    public void OnFreeze()
+    {
+        //Recup Data
+        meshRenderer.GetPropertyBlock(propBlock);
+        //EditZone
+        propBlock.SetFloat("Frozen?", 1);
+
+        //Push Data
+        meshRenderer.SetPropertyBlock(propBlock);
+    }
 
     private void ChangePhysicMatsOnSelect()
     {
