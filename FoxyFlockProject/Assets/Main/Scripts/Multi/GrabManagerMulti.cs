@@ -13,6 +13,7 @@ public class GrabManagerMulti : GrabManager
     // Start is called before the first frame update
     public override void Start()
     {
+        propBlock = new MaterialPropertyBlock();
         sound = GetComponent<SoundReader>();
        for (int i = 0; i < grabableObjects.Count; i++)
         {

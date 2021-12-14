@@ -23,7 +23,7 @@ public class GrabManager : MonoBehaviour
     public GameObject fireBallInstantiated;
     protected SoundReader sound;
 
-    private MaterialPropertyBlock propBlock;
+    protected MaterialPropertyBlock propBlock;
 
     // public Buble[] bubles;
 #if UNITY_EDITOR
@@ -35,6 +35,7 @@ public class GrabManager : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
+        propBlock = new MaterialPropertyBlock();
         sound = GetComponent<SoundReader>();
         inputManager = GetComponentInParent<InputManager>();
         for (int i = 0; i < grabableObjects.Count; i++)

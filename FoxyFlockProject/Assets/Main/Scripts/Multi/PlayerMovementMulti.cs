@@ -71,7 +71,7 @@ public class PlayerMovementMulti : NetworkBehaviour
         yPower = characterStats.yPower;
         xPower = characterStats.xPower;
         zPower = characterStats.zPower;
-        grabManager.transform.position = vrHeadSett.position;
+        //grabManager.transform.position = vrHeadSett.position;
         //CmdSpawnManager();
     }
    /* [Command]
