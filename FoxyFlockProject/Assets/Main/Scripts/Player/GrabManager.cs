@@ -56,10 +56,10 @@ public class GrabManager : MonoBehaviour
             }
         }
         InitPool();
-        inputManager.OnGrabInEmptyLeft.AddListener(OnGrabLeft);
-      //  inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
-        inputManager.OnGrabInEmptyRight.AddListener(OnGrabRight);
-       // inputManager.OnGrabbingReleaseRight.AddListener(OnRealeseRight);
+        inputManager.OnLeftGrab.AddListener(OnGrabLeft);
+        inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
+        inputManager.OnRightGrab.AddListener(OnGrabRight);
+        inputManager.OnGrabbingReleaseRight.AddListener(OnRealeseRight);
 
     }
    public virtual void InitPool()
@@ -73,7 +73,7 @@ public class GrabManager : MonoBehaviour
             mainPool[i].isSelected = new List<bool>();
             for (int x = 0; x < batches[i].pieces.Count; x++)
             {
-                GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + x * 20 + i * 5, 300 + x * 20 + i * 5, 300 + x * 20 + i * 5), Quaternion.identity);
+                GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + (x*5+1) * 20 *(i*5 +1), 300 + x * 20 , 300 + x ), Quaternion.identity);
                 Modifier _modifer = modifiers[UnityEngine.Random.Range(0, modifiers.Count)];
                 Type type = _modifer.actions.GetType();
                 var _object = GetComponent(type);
@@ -86,6 +86,17 @@ public class GrabManager : MonoBehaviour
                 mainPool[i].isSelected.Add(false);
                 ScenesManager.instance.numberOfFlocksInScene++;
             }
+            GameObject flock2 = Instantiate(batches[i].positiveModifier.piece, new Vector3(300 + (15 * 5 + 1) * 20 * (i * 5 + 1), 300 + 15 * 20, 300 + 15), Quaternion.identity);
+            Modifier _modifierPiece = batches[i].positiveModifier.modifier;
+            Type typePiece = _modifierPiece.actions.GetType();
+            var _objectPiece = GetComponent(typePiece);
+            flock2.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifierPiece, _objectPiece as ModifierAction, basicMats);
+            flock2.GetComponent<GrabablePhysicsHandler>().enabled = false;
+            flock2.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
+
+            flock2.GetComponent<Rigidbody>().useGravity = false;
+            mainPool[i].floxes.Add(flock2);
+            mainPool[i].isSelected.Add(false);
         }
     }
 
@@ -424,7 +435,6 @@ public class GrabManager : MonoBehaviour
     }
     public virtual void OnGrabLeft()
     {
-        if (isOnCollision)
             isGrabLeft = true;
     }
     public virtual void OnRealeseLeft()
