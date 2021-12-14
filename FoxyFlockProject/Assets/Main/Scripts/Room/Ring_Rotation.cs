@@ -16,6 +16,6 @@ public class Ring_Rotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(speed * Time.deltaTime);
+        //transform.Rotate(speed * Time.deltaTime);
     }
 }
