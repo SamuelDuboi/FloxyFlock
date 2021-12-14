@@ -16,27 +16,64 @@ public class HandBurn : MonoBehaviour
     [SerializeField] private float burningSpeed = 10f;
     [SerializeField] private float coolingSpeed = 10f;
     [SerializeField] private float wiggleCoolingScale = 2f;
+    [SerializeField] private Material handMaterial;
 
     private float heatCurrentValue = 0f;
     [HideInInspector] public float heatPourcentage = 0f;
+    private float lastFrameHeatPourcentage = 0f;
     private Transform lastFrameTransform;
 
-    private SkinnedMeshRenderer handRenderer;
     private XRDirectInteractor interactor;
+    private SkinnedMeshRenderer handRenderer;
+    private MaterialPropertyBlock propBlock;
+
 
     private HeatState heatState =  HeatState.cool;
 
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+
+        propBlock = new MaterialPropertyBlock();
+
         interactor = this.GetComponent<XRDirectInteractor>();
+
         handRenderer = this.GetComponentInChildren<SkinnedMeshRenderer>();
+        if (handRenderer != null)
+            handRenderer.material = handMaterial;
     }
 
     private void Update()
     {
-        heatPourcentage = heatCurrentValue / heatMaxValue; //TODO : Use this for material strengh
+        heatPourcentage = heatCurrentValue / heatMaxValue;
 
-        CoolEvent();
+        if (heatPourcentage != lastFrameHeatPourcentage)
+        {
+            UpdateMatBurnValue();
+            CoolEvent();
+        }
+    }
+
+    private void UpdateMatBurnValue()
+    {
+        if (handRenderer != null)
+        {
+            //Recup Data
+            handRenderer.GetPropertyBlock(propBlock);
+            //EditZone
+            propBlock.SetFloat("Burn", heatPourcentage);
+
+            //Push Data
+            handRenderer.SetPropertyBlock(propBlock);
+        }
+        else
+        {
+            handRenderer = this.GetComponentInChildren<SkinnedMeshRenderer>();
+
+            if (handRenderer != null)
+                handRenderer.material = handMaterial;
+        }
     }
 
     public void BurnEvent(GrabbableObject flockInteractable)
