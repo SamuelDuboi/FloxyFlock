@@ -48,6 +48,7 @@ public class ModifierAction : MonoBehaviour
         flockInteractable = flox.GetComponent<GrabbableObject>();
         currentInteractor = flockInteractable.currentInteractor;
         timerSlow = 0;
+        StopCoroutine(SlowCoroutine());
         isGrab = true;
         int rand = Random.Range(0, 2);
         if (rand == 0)
@@ -62,7 +63,7 @@ public class ModifierAction : MonoBehaviour
         if (!hasDoneStart)
             OnStarted(_object);
         isGrab = false;
-
+        timerSlow = 0;
         if (isOnStasis)
             StartCoroutine(SlowCoroutine());
         else 

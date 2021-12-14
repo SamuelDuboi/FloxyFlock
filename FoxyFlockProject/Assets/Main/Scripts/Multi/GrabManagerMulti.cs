@@ -25,9 +25,9 @@ public class GrabManagerMulti : GrabManager
         inputManager = GetComponentInParent<InputManager>();
         inputManager.OnSpawn.AddListener(SpawnBacth);
         playGround = inputManager.GetComponent<PlayerMovementMulti>().tableTransform.GetComponent<PlayGround>();
-        inputManager.OnGrabbingLeft.AddListener(OnGrabLeft);
+        inputManager.OnLeftGrab.AddListener(OnGrabLeft);
         inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
-        inputManager.OnGrabbingRight.AddListener(OnGrabRight);
+        inputManager.OnRightGrab.AddListener(OnGrabRight);
         inputManager.OnGrabbingReleaseRight.AddListener(OnRealeseRight);
     }
     public virtual void InitPool(GameObject authority, PlayerMovementMulti player)
