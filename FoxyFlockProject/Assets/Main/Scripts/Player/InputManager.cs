@@ -40,6 +40,8 @@ public class InputManager : MonoBehaviour
     public UnityEvent OnRightGrabRelease;
     public UnityEvent OnLeftGrabRelease;
     public UnityEvent OnGrabbingRight;
+    public UnityEvent OnGrabInEmptyRight;
+    public UnityEvent OnGrabInEmptyLeft;
     public UnityEvent OnGrabbingLeft;
     public UnityEvent OnGrabbingReleaseLeft;
     public UnityEvent OnGrabbingReleaseRight;

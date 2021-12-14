@@ -97,7 +97,7 @@ public class HandPresence : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 6)
+        if (other.gameObject.layer == 6 || other.gameObject.layer == 5)
         {
             isGrab = true;
         }
@@ -105,7 +105,7 @@ public class HandPresence : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 6)
+        if (other.gameObject.layer == 6 || other.gameObject.layer == 5)
         {
             isGrab = false;
         }
@@ -137,6 +137,10 @@ public class HandPresence : MonoBehaviour
             else
             {
                 handAnimator.SetFloat("Grip", gripValue);
+                if (!isLeft)
+                    inputManager.OnGrabInEmptyRight.Invoke();
+                else
+                    inputManager.OnGrabInEmptyLeft.Invoke();
             }
 
         }

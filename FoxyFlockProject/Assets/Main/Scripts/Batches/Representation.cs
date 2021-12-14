@@ -12,10 +12,24 @@ public class Representation : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if (!manager.isOnCollision)
+            manager.isOnCollision = true;
         manager.GetPiece(other.GetComponentInParent<XRDirectInteractor>(), index);
     }
     private void OnCollisionStay(Collision collision)
     {
+        if (!manager.isOnCollision)
+            manager.isOnCollision = true;
         manager.GetPiece(collision.gameObject.GetComponentInParent<XRDirectInteractor>(), index);
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (manager.isOnCollision)
+            manager.isOnCollision = false;
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (manager.isOnCollision)
+            manager.isOnCollision = false;
     }
 }

@@ -56,10 +56,10 @@ public class GrabManager : MonoBehaviour
             }
         }
         InitPool();
-        inputManager.OnGrabbingLeft.AddListener(OnGrabLeft);
-        inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
-        inputManager.OnGrabbingRight.AddListener(OnGrabRight);
-        inputManager.OnGrabbingReleaseRight.AddListener(OnRealeseRight);
+        inputManager.OnGrabInEmptyLeft.AddListener(OnGrabLeft);
+      //  inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
+        inputManager.OnGrabInEmptyRight.AddListener(OnGrabRight);
+       // inputManager.OnGrabbingReleaseRight.AddListener(OnRealeseRight);
 
     }
    public virtual void InitPool()
@@ -311,7 +311,7 @@ public class GrabManager : MonoBehaviour
         representations[representations.Length - 1].manager = this;
         representations[representations.Length - 1].image.texture = mainPool[currentPool].bonus.GetComponent<TextureForDispenser>().texture;
     }
-
+    public bool isOnCollision;
     public void GetPiece(XRBaseInteractor baseInteractor, int index)
     {
         if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.RightHand && !isGrabRight)
@@ -424,7 +424,8 @@ public class GrabManager : MonoBehaviour
     }
     public virtual void OnGrabLeft()
     {
-        isGrabLeft = true;
+        if (isOnCollision)
+            isGrabLeft = true;
     }
     public virtual void OnRealeseLeft()
     {
@@ -432,7 +433,7 @@ public class GrabManager : MonoBehaviour
     }
     public virtual void OnGrabRight()
     {
-        isGrabRight = true;
+         isGrabRight = true;
     }
     public virtual void OnRealeseRight()
     {
