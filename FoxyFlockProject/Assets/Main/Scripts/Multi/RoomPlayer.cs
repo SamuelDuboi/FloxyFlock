@@ -12,6 +12,7 @@ public class RoomPlayer : MonoBehaviour
     public NetworkRoomPlayerGamr networkRoom;
     private bool isReady;
     public Image readyButton;
+    public ShowUi show;
     public void LeftAvatar()
     {
         if (index == 0)
@@ -21,7 +22,8 @@ public class RoomPlayer : MonoBehaviour
             index--;
         }
         thisAvatar = avatars[index];
-        avatartImage.sprite = thisAvatar; 
+        avatartImage.sprite = thisAvatar;
+        show.CmdChangeUi(index);
     }
 
     public void RightAvatar()
