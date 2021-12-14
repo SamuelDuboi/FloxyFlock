@@ -51,7 +51,10 @@ public class DissolveFlox : MonoBehaviour
                 dissolveState = 1 - (tempTime / dissolveTime);
 
                 if (dissolveState < 0)
+                {
+                    gameObject.SetActive(false);
                     dissolveState = 0;
+                }
             }
 
         }

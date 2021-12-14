@@ -38,13 +38,14 @@ public class RoomPlayer : MonoBehaviour
 
     public void Ready()
     {
-        NetworkManagerRace.instance.avatarsSprite[number] = index;
+        NetworkManagerRace.instance.avatarsSprite[networkRoom.index] = index;
         isReady = !isReady;
         if (isReady)
             readyButton.color = Color.green;
         else
             readyButton.color = Color.white;
         networkRoom.CmdChangeReadyState(isReady);
+        networkRoom.CmdSetIndex(networkRoom.index, index);
         GetComponentInParent<InputManager>().gameObject.SetActive(false);
     }
 }

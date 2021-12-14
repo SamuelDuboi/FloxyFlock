@@ -366,6 +366,7 @@ GameObject:
   - component: {fileID: -6826155617968421675}
   - component: {fileID: -9172004400804475041}
   - component: {fileID: 4319459061004301199}
+  - component: {fileID: 5262372581974558827}
   m_Layer: 6
   m_Name: Flock_Hehe01
   m_TagString: Piece
@@ -858,3 +859,22 @@ MonoBehaviour:
   deathDuration: 2
   deathMaterial: {fileID: 0}
   soundReader: {fileID: -1479980008408552161}
+--- !u!114 &5262372581974558827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8274945382952786794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279543d55cf75f5479512f384eccbd49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMaterial: {fileID: 2100000, guid: eef01bd43ab0c884a87999c582f3f907, type: 2}
+  flox: {fileID: 7626422156612041407}
+  dissolveState: 0
+  dissolveTime: 0.5
+  isDissolving: 0
+  tempTime: 0
+  grabable: {fileID: 4497491642748258773}

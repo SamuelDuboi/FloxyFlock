@@ -171,7 +171,7 @@ public class UIGlobalManager : MonoBehaviour
 
     }
 
-    public void AddPlayer(int index, TextMeshProUGUI _stopwatch, TextMeshProUGUI _gameModeNames, TextMeshProUGUI _gameModeRules, TextMeshProUGUI _flockNumbers, Image _playerImages,GameObject _winPlayer, GameObject _losePlayer)
+    public void AddPlayer(int index, TextMeshProUGUI _stopwatch, TextMeshProUGUI _gameModeNames, TextMeshProUGUI _gameModeRules, TextMeshProUGUI _flockNumbers, Image _playerImages,GameObject _winPlayer, GameObject _losePlayer, GameObject winParticules)
     {
         stopWatch.Add(_stopwatch);
         gameModeNames.Add(_gameModeNames);
@@ -181,12 +181,14 @@ public class UIGlobalManager : MonoBehaviour
         {
             player1Images.Add(_playerImages);
             winPlayer1.Add(_winPlayer);
+            winPlayer1.Add(winParticules);
             losePlayer1.Add(_losePlayer);
         }
         else
         {
             player2Images.Add(_playerImages);
             winPlayer2.Add(_winPlayer);
+            winPlayer2.Add(winParticules);
             losePlayer2.Add(_losePlayer);
         }
     }

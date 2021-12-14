@@ -45,10 +45,18 @@ public class FloxRaceSolo : GameModeSolo
         }
         if (timeAboveHeight >= timeToWin)
         {
-            if (number == 0)
-                playerMovement.CmdWin1();
+            if (playerMovement)
+            {
+                if (number == 0)
+                    playerMovement.CmdWin1();
+                else
+                    playerMovement.CmdWin2();
+            }
             else
-                playerMovement.CmdWin2();
+            {
+                UIGlobalManager.instance.Win(0);
+            }
+           
             Destroy(this);
         }
     }

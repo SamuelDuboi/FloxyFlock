@@ -104,6 +104,18 @@ public class InputManagerMulti : InputManager
             OnCanMove.Invoke();
         }
         #endregion
+        InputHelpers.IsPressed(leftHand.inputDevice, InputHelpers.Button.MenuButton, out isMenuPressed);
+        InputHelpers.IsPressed(leftHand.inputDevice, InputHelpers.Button.SecondaryButton, out isMenuPressed);
+        if (isMenuPressed && !isMenuPressing)
+        {
+            isMenuPressing = true;
+            Debug.Log("menusPressed");
+            OnMenuPressed.Invoke();
+        }
+        if (!isMenuPressed && isMenuPressing)
+        {
+            isMenuPressing = false;
+        }
     }
     #region TriggerListener
 
