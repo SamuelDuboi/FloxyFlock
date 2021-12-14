@@ -14,7 +14,8 @@ public class SetIP : MonoBehaviour
     }
     public void RemoveText()
     {
-        textMeshProUGUI.text.Remove(textMeshProUGUI.text.Length-1);
+        if(textMeshProUGUI.text != string.Empty)
+       textMeshProUGUI.text= textMeshProUGUI.text.Remove(textMeshProUGUI.text.Length-1);
         manager.networkAddress = textMeshProUGUI.text;
 
     }
