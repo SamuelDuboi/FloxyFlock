@@ -372,7 +372,7 @@ public class GrabManager : MonoBehaviour
         grabable.timeToSlow = playGround.timeBeforFall;
         grabable.slowForce = playGround.slowForce;
         grabable.OnEnterStasis.Invoke(grabable.gameObject, true, grabable.m_rgb);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(0.5f);
         if (isFireBall)
         {
             playGround.GetComponentInChildren<FireballManager>().canAct = true;

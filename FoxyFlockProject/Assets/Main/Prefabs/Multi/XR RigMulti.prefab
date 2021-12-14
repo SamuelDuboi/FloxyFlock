@@ -1654,7 +1654,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3167346233974460400, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 0
+      value: -0.000000059604645
       objectReference: {fileID: 0}
     - target: {fileID: 3167346233974460400, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: m_ConnectedAnchor.y
@@ -1662,11 +1662,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3167346233974460400, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: 0
+      value: 0.000000022351742
+      objectReference: {fileID: 0}
+    - target: {fileID: 5101762730218809701, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.91215384
       objectReference: {fileID: 0}
     - target: {fileID: 5101762730218809701, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.44931892
+      value: 0.40984797
       objectReference: {fileID: 0}
     - target: {fileID: 5101762730218809701, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: m_LocalRotation.z
@@ -1756,7 +1760,8 @@ PrefabInstance:
       propertyPath: m_AssetId
       value: cdca537fc81e8374b88b727a0daab95c
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8828409454304139947, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
 --- !u!1 &5914146490334888577 stripped
 GameObject:
