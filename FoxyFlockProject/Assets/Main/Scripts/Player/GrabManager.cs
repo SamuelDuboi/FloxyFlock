@@ -21,7 +21,10 @@ public class GrabManager : MonoBehaviour
     public PlayGround playGround;
     public InputManager inputManager;
     public GameObject fireBallInstantiated;
-     protected SoundReader sound;
+    protected SoundReader sound;
+
+    private MaterialPropertyBlock propBlock;
+
     // public Buble[] bubles;
 #if UNITY_EDITOR
     public bool modifierFoldout;
@@ -175,9 +178,18 @@ public class GrabManager : MonoBehaviour
         if (previousPool < 5000)
             for (int i = 0; i < mainPool[previousPool].floxes.Count; i++)
             {
+                //Set flox material to the frozen color 
+                //Recup Data
+                mainPool[previousPool].floxes[i].GetComponent<MeshRenderer>().GetPropertyBlock(propBlock);
+                //EditZone
+                propBlock.SetFloat("Frozen?", 1);
+                //Push Data
+                mainPool[previousPool].floxes[i].GetComponent<MeshRenderer>().SetPropertyBlock(propBlock);
+
                 Destroy(mainPool[previousPool].floxes[i].GetComponent<GrabbableObject>());
                 Destroy(mainPool[previousPool].floxes[i].GetComponent<GrabablePhysicsHandler>());
                 Destroy(mainPool[previousPool].floxes[i].GetComponent<Rigidbody>());
+
                 NetworkRigidbody rgb;
                 if (mainPool[previousPool].floxes[i].TryGetComponent<NetworkRigidbody>(out rgb))             
                 Destroy(rgb);
