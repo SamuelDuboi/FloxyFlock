@@ -2,5 +2,5 @@ using UnityEngine;
 
 public class TextureForDispenser : MonoBehaviour
 {
-    public RenderTexture texture;
+    public Texture2D texture;
 }
