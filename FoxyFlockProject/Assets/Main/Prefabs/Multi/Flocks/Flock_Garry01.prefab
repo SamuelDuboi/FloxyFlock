@@ -513,7 +513,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 7845179391885308687}
+  - {fileID: 2292041482777203652}
+  - {fileID: 3820680138038970961}
+  - {fileID: 916002570004440868}
+  - {fileID: 8038761459344668197}
+  - {fileID: 1650572868323715091}
+  - {fileID: 3519902419026850555}
+  - {fileID: 8000195832657615234}
+  - {fileID: 1258863989284379382}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -594,8 +603,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
-  m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_AttachEaseInTime: 0
+  m_MovementType: 0
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -609,10 +618,19 @@ MonoBehaviour:
   m_SmoothRotationAmount: 5
   m_TightenRotation: 0.5
   m_ThrowOnDetach: 1
-  m_ThrowSmoothingDuration: 0.25
+  m_ThrowSmoothingDuration: 0.4
   m_ThrowSmoothingCurve:
     serializedVersion: 2
     m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
@@ -625,7 +643,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_ThrowVelocityScale: 1.5
+  m_ThrowVelocityScale: 1.15
   m_ThrowAngularVelocityScale: 1
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
@@ -886,9 +904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   burnClipName: Laser
-  deathDuration: 2
-  deathMaterial: {fileID: 0}
-  dissolveFlox: {fileID: 0}
+  dissolveFlox: {fileID: 5296095778878648441}
   soundReader: {fileID: -8269979407324070140}
 --- !u!114 &5296095778878648441
 MonoBehaviour:
@@ -904,7 +920,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floxMaterial: {fileID: 2100000, guid: 79a6a2f18c10d4e43b11c56569652cd8, type: 2}
   flox: {fileID: 8112563765251549662}
-  dissolveState: 0
+  dissolveState: 1
   dissolveTime: 0.5
   isDissolving: 0
   tempTime: 0

@@ -689,9 +689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   burnClipName: Laser
-  deathDuration: 2
-  deathMaterial: {fileID: 0}
-  dissolveFlox: {fileID: 0}
+  dissolveFlox: {fileID: 1419295045684695702}
   soundReader: {fileID: -318872905476620784}
 --- !u!114 &1419295045684695702
 MonoBehaviour:
@@ -707,7 +705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floxMaterial: {fileID: 2100000, guid: eb5a104b09be4864cb86f87a7d0408ee, type: 2}
   flox: {fileID: 2907777759436803350}
-  dissolveState: 0
+  dissolveState: 1
   dissolveTime: 0.5
   isDissolving: 0
   tempTime: 0

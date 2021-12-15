@@ -1151,11 +1151,11 @@ MonoBehaviour:
   grab: 
   collisionTable: 
   inputManager: {fileID: 0}
-  massScale: 3
-  smoothPosition: 4
-  tightenPosition: 0.1
-  smoothRotation: 4
-  tightenRotation: 0.1
+  massScale: 5
+  smoothPosition: 5
+  tightenPosition: 0.15
+  smoothRotation: 4.5
+  tightenRotation: 0.15
 --- !u!114 &4257602159681210121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1211,7 +1211,7 @@ MonoBehaviour:
     weight: 10
     positiveModifier:
       piece: {fileID: 3069128699973587937, guid: b33fc83a3466a3e40aabb143ac1a2f22, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
+      modifier: {fileID: 11400000, guid: 71ca19439e63cfd409233c0dab19ae24, type: 2}
     isEmpty: 0
   - pieces:
     - {fileID: 3069128699973587937, guid: b33fc83a3466a3e40aabb143ac1a2f22, type: 3}
@@ -1229,7 +1229,7 @@ MonoBehaviour:
     weight: 0
     positiveModifier:
       piece: {fileID: 3069128699973587937, guid: b33fc83a3466a3e40aabb143ac1a2f22, type: 3}
-      modifier: {fileID: 11400000, guid: 4c42a784c7d348f41bf6af158d867817, type: 2}
+      modifier: {fileID: 11400000, guid: 71ca19439e63cfd409233c0dab19ae24, type: 2}
     isEmpty: 0
   basicMats:
   - {fileID: 13400000, guid: f49b989612fc3e34f8e1d4904afb1022, type: 2}

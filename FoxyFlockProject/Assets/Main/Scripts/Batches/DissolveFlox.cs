@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DissolveFlox : MonoBehaviour
 {
-
     public Material floxMaterial;
     public MeshRenderer flox;
     public float dissolveState;
@@ -59,7 +58,8 @@ public class DissolveFlox : MonoBehaviour
 
         }
     }
-    public void ResetDissolve() // A AJOUTER LORSQUE LES FLOX RESET
+
+    public void ResetDissolve() // A AJOUTER LORSQUE LES FLOX RESET <- n'a pas été fait 
     {
         isDissolving = false;
         dissolveState = 1;
