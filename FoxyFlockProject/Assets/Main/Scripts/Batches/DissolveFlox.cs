@@ -22,7 +22,7 @@ public class DissolveFlox : MonoBehaviour
         propBlock = new MaterialPropertyBlock();
         flox.GetPropertyBlock(propBlock);
         initBlock = propBlock;
-        grabable.OnHitGround.AddListener(StartDissolve);
+       // grabable.OnHitGround.AddListener(StartDissolve);
         flox.SetPropertyBlock(propBlock);
     }
     void Update()

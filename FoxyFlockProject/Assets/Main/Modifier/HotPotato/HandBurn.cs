@@ -49,6 +49,7 @@ public class HandBurn : MonoBehaviour
         {
             UpdateMatBurnValue();
             CoolEvent();
+            lastFrameHeatPourcentage = heatPourcentage;
         }
     }
 

@@ -97,8 +97,7 @@ public class GrabManager : MonoBehaviour
             flock2.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
 
             flock2.GetComponent<Rigidbody>().useGravity = false;
-            mainPool[i].floxes.Add(flock2);
-            mainPool[i].isSelected.Add(false);
+            mainPool[i].bonus = flock2;
         }
     }
 
