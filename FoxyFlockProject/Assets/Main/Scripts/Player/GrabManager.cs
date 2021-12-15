@@ -86,6 +86,8 @@ public class GrabManager : MonoBehaviour
                 mainPool[i].isSelected.Add(false);
                 ScenesManager.instance.numberOfFlocksInScene++;
             }
+            if (batches[i].positiveModifier.piece == null)
+                continue;
             GameObject flock2 = Instantiate(batches[i].positiveModifier.piece, new Vector3(300 + (15 * 5 + 1) * 20 * (i * 5 + 1), 300 + 15 * 20, 300 + 15), Quaternion.identity);
             Modifier _modifierPiece = batches[i].positiveModifier.modifier;
             Type typePiece = _modifierPiece.actions.GetType();
