@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 [CustomEditor(typeof(MilestoneManager))]
+[CanEditMultipleObjects]
 public class MilestoneManagerEditor : Editor
 {
     SerializedProperty numberOfMilestones;
@@ -11,32 +12,35 @@ public class MilestoneManagerEditor : Editor
     SerializedProperty milestonesInstantiated;
     SerializedProperty _tableTransform;
     SerializedProperty distance;
+    SerializedProperty milestones;
     public void OnEnable()
     {
         numberOfMilestones = serializedObject.FindProperty("numberOfMilestones");
         milestonePrefab = serializedObject.FindProperty("milestonePrefab");
         _transform = serializedObject.FindProperty("_transform");
+        MilestoneManager _target = target as MilestoneManager;
         if(_transform.objectReferenceValue == null)
         {
-            MilestoneManager _target = target as MilestoneManager;
             _transform.objectReferenceValue = _target.transform;
         }
-
+        _target.transform.parent.GetComponent<PlayGround>().milestoneManager = _target;
 
         _tableTransform = serializedObject.FindProperty("_tableTransform");
         if (_tableTransform.objectReferenceValue == null)
         {
-            MilestoneManager _target = target as MilestoneManager;
             _tableTransform.objectReferenceValue = _target.transform.parent.GetChild(0).transform;
         }
 
         milestonesInstantiated = serializedObject.FindProperty("milestonesInstantiated");
+        milestones = serializedObject.FindProperty("milestones");
        if(numberOfMilestones.intValue == 0)
         {
-            GameObject currentMilestone = (GameObject)Instantiate(milestonePrefab.objectReferenceValue, (Transform)_transform.objectReferenceValue);
+            GameObject currentMilestone = (GameObject)PrefabUtility.InstantiatePrefab(milestonePrefab.objectReferenceValue, (Transform)_transform.objectReferenceValue);
             currentMilestone.GetComponent<Milestone>().isFinale = true;
             milestonesInstantiated.InsertArrayElementAtIndex(milestonesInstantiated.arraySize );
+            milestones.InsertArrayElementAtIndex(milestones.arraySize );
             milestonesInstantiated.GetArrayElementAtIndex(milestonesInstantiated.arraySize-1).objectReferenceValue = currentMilestone;
+            milestones.GetArrayElementAtIndex(milestones.arraySize-1).objectReferenceValue = currentMilestone.GetComponent<Milestone>();
             numberOfMilestones.intValue++;
         }
 
@@ -69,17 +73,22 @@ public class MilestoneManagerEditor : Editor
 
     private void AddMilestone()
     {
-        GameObject currentMilestone = (GameObject)Instantiate(milestonePrefab.objectReferenceValue, (Transform)_transform.objectReferenceValue);
+        GameObject currentMilestone = (GameObject)PrefabUtility.InstantiatePrefab(milestonePrefab.objectReferenceValue, (Transform)_transform.objectReferenceValue);
         distance.floatValue = Vector3.Distance(((Transform)_transform.objectReferenceValue).position, ((Transform)_tableTransform.objectReferenceValue).position);
         currentMilestone.transform.position -= Vector3.up * (distance.floatValue / (numberOfMilestones.intValue + 1)) * numberOfMilestones.intValue;
+        currentMilestone.GetComponent<MeshRenderer>().enabled= false;
         milestonesInstantiated.InsertArrayElementAtIndex(milestonesInstantiated.arraySize - 1);
+        milestones.InsertArrayElementAtIndex(milestones.arraySize - 1);
         milestonesInstantiated.GetArrayElementAtIndex(milestonesInstantiated.arraySize - 1).objectReferenceValue = currentMilestone;
+        milestones.GetArrayElementAtIndex(milestones.arraySize - 1).objectReferenceValue = currentMilestone.GetComponent<Milestone>();
         numberOfMilestones.intValue++;
     }
     private void RemoveMilestone()
     {
         DestroyImmediate(milestonesInstantiated.GetArrayElementAtIndex(milestonesInstantiated.arraySize - 1).objectReferenceValue);
         milestonesInstantiated.DeleteArrayElementAtIndex(milestonesInstantiated.arraySize - 1);
+        milestonesInstantiated.arraySize--;
+        milestones.arraySize--;
         numberOfMilestones.intValue--;
     }
     private void ActualiseMilestonesPos()

@@ -21,6 +21,7 @@ public class PlayGround : MonoBehaviour
     private Vector3 point2;
     private GrabablePhysicsHandler _temp;
     public  HandsPlayground _tempHand;
+    public MilestoneManager milestoneManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +32,15 @@ public class PlayGround : MonoBehaviour
         spherCollider.enabled = false;
         distance = Vector3.Distance(point1, point2);
     }
+    /// <summary>
+    /// return the index of the current milestones activated if none is activated, return -1
+    /// </summary>
+    /// <returns></returns>
+    public int CheckMilestones(out Vector3 point)
+    {
+        return milestoneManager.CheckMilestones(out point);
+    }
+
 
     // Update is called once per frame
     void Update()
