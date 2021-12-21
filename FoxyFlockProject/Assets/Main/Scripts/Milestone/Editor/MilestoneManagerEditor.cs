@@ -101,7 +101,7 @@ public class MilestoneManagerEditor : Editor
             EditorGUILayout.EndHorizontal();
             if (numberOfMilestones.intValue > 1)
             {
-                if (GUILayout.Button("Resset Positions", EditorStyles.miniButton))
+                if (GUILayout.Button("Reset Positions", EditorStyles.miniButton))
                     ResetPositions();
             }
 
