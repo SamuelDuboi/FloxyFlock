@@ -13,12 +13,34 @@ public class MilestoneManagerEditor : Editor
     SerializedProperty _tableTransform;
     SerializedProperty distance;
     SerializedProperty milestones;
+    private bool isInScene;
+    private bool isNotChildOfPlayGround;
     public void OnEnable()
     {
+
+        var objects = GameObject.FindObjectsOfType<MilestoneManager>();
+        for (int i = 0; i < objects.Length; i++)
+        {
+            if (objects[i] == target)
+            {
+                isInScene = true;
+                break;
+            }
+        }
+        if (!isInScene)
+            return;
+
+
+        MilestoneManager _target = target as MilestoneManager;
+        if(_target.transform.parent.GetComponent<PlayGround>() == null)
+        {
+            isNotChildOfPlayGround = true;
+            return;
+        }
+
         numberOfMilestones = serializedObject.FindProperty("numberOfMilestones");
         milestonePrefab = serializedObject.FindProperty("milestonePrefab");
         _transform = serializedObject.FindProperty("_transform");
-        MilestoneManager _target = target as MilestoneManager;
         if(_transform.objectReferenceValue == null)
         {
             _transform.objectReferenceValue = _target.transform;
@@ -30,6 +52,8 @@ public class MilestoneManagerEditor : Editor
         {
             _tableTransform.objectReferenceValue = _target.transform.parent.GetChild(0).transform;
         }
+
+
 
         milestonesInstantiated = serializedObject.FindProperty("milestonesInstantiated");
         milestones = serializedObject.FindProperty("milestones");
@@ -45,11 +69,23 @@ public class MilestoneManagerEditor : Editor
         }
 
         distance = serializedObject.FindProperty("distance");
+        
+
         serializedObject.ApplyModifiedProperties();
         serializedObject.Update();
     }
     public override void OnInspectorGUI()
     {
+        if (!isInScene)
+        {
+            EditorGUILayout.HelpBox("game object is not in scene", MessageType.Warning);
+            return;
+        }
+        else if (isNotChildOfPlayGround)
+        {
+            EditorGUILayout.HelpBox("You need to put this prefab as a child of a table", MessageType.Warning);
+            return;
+        }
         EditorGUILayout.PropertyField(milestonePrefab, new GUIContent("Milstone Prefab"));
         if(milestonePrefab.objectReferenceValue != null)
         {
@@ -57,12 +93,18 @@ public class MilestoneManagerEditor : Editor
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("+", EditorStyles.miniButton) )
                 AddMilestone();
-            if(numberOfMilestones.intValue>0)
+            if (numberOfMilestones.intValue > 1)
+            {
                 if (GUILayout.Button("-", EditorStyles.miniButton))
                     RemoveMilestone();
+            }
             EditorGUILayout.EndHorizontal();
-                
-            
+            if (numberOfMilestones.intValue > 1)
+            {
+                if (GUILayout.Button("Resset Positions", EditorStyles.miniButton))
+                    ResetPositions();
+            }
+
         }
         distance.floatValue = Vector3.Distance(((Transform)_transform.objectReferenceValue).position, ((Transform)_tableTransform.objectReferenceValue).position);
 
@@ -93,13 +135,29 @@ public class MilestoneManagerEditor : Editor
     }
     private void ActualiseMilestonesPos()
     {
+        Transform m_transform = ((GameObject)milestonesInstantiated.GetArrayElementAtIndex(0).objectReferenceValue).transform;
+        m_transform.position = new Vector3(m_transform.position.x, ((Transform)_transform.objectReferenceValue).position.y,m_transform.position.z);
         for (int i = 1; i < numberOfMilestones.intValue; i++)
         {
-          ((GameObject)  milestonesInstantiated.GetArrayElementAtIndex(i).objectReferenceValue).transform.position = 
-                ((Transform)_transform.objectReferenceValue).position 
-                - Vector3.up 
-                * (distance.floatValue/ (numberOfMilestones.intValue)) 
+            m_transform = ((GameObject)milestonesInstantiated.GetArrayElementAtIndex(i).objectReferenceValue).transform;
+            m_transform.position = new Vector3(m_transform.position.x, 
+                                                ((Transform)_transform.objectReferenceValue).position.y
+                                                    -(distance.floatValue / (numberOfMilestones.intValue))
+                                                    * i, 
+                                                m_transform.position.z);
+        }
+    }
+    private void ResetPositions()
+    {
+        for (int i = 0; i < numberOfMilestones.intValue; i++)
+        {
+            ((GameObject)milestonesInstantiated.GetArrayElementAtIndex(i).objectReferenceValue).transform.position =
+                ((Transform)_transform.objectReferenceValue).position
+                - Vector3.up
+                * (distance.floatValue / (numberOfMilestones.intValue))
                 * i;
+            ((GameObject)milestonesInstantiated.GetArrayElementAtIndex(i).objectReferenceValue).GetComponent<BoxCollider>().size = Vector3.one;
+            ((GameObject)milestonesInstantiated.GetArrayElementAtIndex(i).objectReferenceValue).GetComponent<BoxCollider>().center= Vector3.zero;
         }
     }
 }

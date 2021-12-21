@@ -11,12 +11,17 @@ public class Milestone : MonoBehaviour
     public BoxCollider boxCollider;
     public LayerMask layerMask;
     private Vector3 halfExtend;
+    public Vector3 center;
     private void Start()
     {
-        halfExtend = boxCollider.size / 2;
+        halfExtend = Multiply( boxCollider.size / 2 ,_transform.lossyScale);
+        center = boxCollider.center;
         Destroy(boxCollider);
     }
-
+    private Vector3 Multiply(Vector3 a, Vector3 b)
+    {
+        return new Vector3(a.x*b.x,a.y*b.y,a.z*b.z);
+    }
    
     public bool CheckCollision(out Vector3 point)
     {
