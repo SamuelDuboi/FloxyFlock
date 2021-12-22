@@ -9,10 +9,12 @@ public class GrabManagerMulti : GrabManager
     public int numberOfPool;
  [SerializeField]   public GameObject fireBallPrefab;
  [SerializeField]   public GameObject fireBallPrefabOut;
-
+   
     // Start is called before the first frame update
-    public override void Start()
+    public override IEnumerator Start()
     {
+        yield return new WaitForSeconds(0.5f);
+
         sound = GetComponent<SoundReader>();
        for (int i = 0; i < grabableObjects.Count; i++)
         {
@@ -23,7 +25,7 @@ public class GrabManagerMulti : GrabManager
         }
 
         inputManager = GetComponentInParent<InputManager>();
-        inputManager.OnSpawn.AddListener(SpawnBacth);
+        inputManager.OnSpawn.AddListener(UpdateBatche);
         playGround = inputManager.GetComponent<PlayerMovementMulti>().tableTransform.GetComponent<PlayGround>();
         inputManager.OnGrabbingLeft.AddListener(OnGrabLeft);
         inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
@@ -66,8 +68,12 @@ public class GrabManagerMulti : GrabManager
                 Destroy(_object);
             }
         }
-        inputManager.OnSpawn.AddListener(SpawnBacth);
+        inputManager.OnSpawn.AddListener(UpdateBatche);
     }
-    
 
+    protected override void UpdateMilestone()
+    {
+        currentMilestone = playGround.CheckMilestones(out positionOfMilestoneIntersection, out numberOfMilestones);
+        NetworkManagerRace.instance.UpdateMilestones(numberOfMilestones);
+    }
 }

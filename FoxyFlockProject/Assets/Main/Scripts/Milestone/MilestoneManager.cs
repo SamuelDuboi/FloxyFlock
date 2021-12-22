@@ -17,8 +17,9 @@ public class MilestoneManager : MonoBehaviour
     /// return the index of the current milestones activated if none is activated, return -1
     /// </summary>
     /// <returns></returns>
-    public int CheckMilestones(out Vector3 point)
+    public int CheckMilestones(out Vector3 point, out int numberOfMilestones)
     {
+        numberOfMilestones = milestones.Count;
         if (milestones[currenMilestonIndex].CheckCollision(out point))
         {
             for (int i = currenMilestonIndex; i > 0; i--)

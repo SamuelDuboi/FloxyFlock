@@ -23,6 +23,10 @@ public class GrabManager : MonoBehaviour
     public GameObject fireBallInstantiated;
     protected SoundReader sound;
 
+    public int currentMilestone = -1;
+    protected Vector3 positionOfMilestoneIntersection;
+    protected int numberOfMilestones;
+
     protected MaterialPropertyBlock propBlock;
 
     // public Buble[] bubles;
@@ -33,8 +37,9 @@ public class GrabManager : MonoBehaviour
     public GameObject[] allflocks;
 #endif
     // Start is called before the first frame update
-    public virtual void Start()
+    public virtual IEnumerator Start()
     {
+        yield return new WaitForEndOfFrame();
         propBlock = new MaterialPropertyBlock();
         sound = GetComponent<SoundReader>();
         inputManager = GetComponentInParent<InputManager>();
@@ -45,7 +50,7 @@ public class GrabManager : MonoBehaviour
             var _object = GetComponent(type);
             grabableObjects[i].ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
         }
-        inputManager.OnSpawn.AddListener(SpawnBacth);
+        inputManager.OnSpawn.AddListener(UpdateBatche);
         for (int i = 0; i < modifiers.Count; i++)
         {
             Type type = modifiers[i].actions.GetType();
@@ -98,14 +103,17 @@ public class GrabManager : MonoBehaviour
 
             flock2.GetComponent<Rigidbody>().useGravity = false;
             mainPool[i].bonus = flock2;
+
+            UpdateMilestone();
         }
     }
+    
 
- 
-    public void SpawnBacth()
+    #region Update
+    public void UpdateBatche()
     {
         int previousPool = currentPool;
-
+        #region security test
         if (isFirstBacthPassed)
         {
             if (!mainPool[currentPool].isEmpty)
@@ -150,6 +158,7 @@ public class GrabManager : MonoBehaviour
                 return;
             }
         }
+        #endregion
 
         int totalWeight = 0;
         for (int i = 0; i < batches.Count-1; i++)
@@ -189,24 +198,62 @@ public class GrabManager : MonoBehaviour
             return;
         }
         if (previousPool < 5000)
-            for (int i = 0; i < mainPool[previousPool].floxes.Count; i++)
-            {
-                /*//Set flox material to the frozen color 
-                //Recup Data
-                mainPool[previousPool].floxes[i].GetComponent<MeshRenderer>().GetPropertyBlock(propBlock);
-                //EditZone
-                propBlock.SetFloat("Frozen?", 1);
-                //Push Data*/
-                mainPool[previousPool].floxes[i].GetComponent<GrabablePhysicsHandler>().OnFreeze();
+            Freez(previousPool);
 
-                Destroy(mainPool[previousPool].floxes[i].GetComponent<GrabbableObject>());
-                Destroy(mainPool[previousPool].floxes[i].GetComponent<GrabablePhysicsHandler>());
-                Destroy(mainPool[previousPool].floxes[i].GetComponent<Rigidbody>());
+        //done
+        UpdateMilestone();
 
-                NetworkRigidbody rgb;
-                if (mainPool[previousPool].floxes[i].TryGetComponent<NetworkRigidbody>(out rgb))             
+        //need to be done
+        UpdateBoard();
+
+        //done
+        UpdateInventory();
+
+        //done
+        UpdateSpecial();
+
+        //need to be done
+        UpdateBubble();
+
+
+        int randomSound3 = UnityEngine.Random.Range(1, 2);
+        sound.ThirdClipName = "FloxMachineGood" + randomSound3.ToString();
+        sound.PlayThird();
+    }
+    protected virtual void Freez(int previousPool)
+    {
+        for (int i = 0; i < mainPool[previousPool].floxes.Count; i++)
+        {
+            /*//Set flox material to the frozen color 
+            //Recup Data
+            mainPool[previousPool].floxes[i].GetComponent<MeshRenderer>().GetPropertyBlock(propBlock);
+            //EditZone
+            propBlock.SetFloat("Frozen?", 1);
+            //Push Data*/
+            mainPool[previousPool].floxes[i].GetComponent<GrabablePhysicsHandler>().OnFreeze();
+
+            Destroy(mainPool[previousPool].floxes[i].GetComponent<GrabbableObject>());
+            Destroy(mainPool[previousPool].floxes[i].GetComponent<GrabablePhysicsHandler>());
+            Destroy(mainPool[previousPool].floxes[i].GetComponent<Rigidbody>());
+
+            NetworkRigidbody rgb;
+            if (mainPool[previousPool].floxes[i].TryGetComponent<NetworkRigidbody>(out rgb))
                 Destroy(rgb);
-            }
+        }
+    }
+    protected virtual void UpdateMilestone()
+    {
+        currentMilestone =  playGround.CheckMilestones(out positionOfMilestoneIntersection, out numberOfMilestones);
+        Debug.Log("You have reache " + currentMilestone.ToString() + " / " + (numberOfMilestones+1).ToString() + "Milestones");
+        if (currentMilestone == numberOfMilestones)
+            UIGlobalManager.instance.Win(1);
+    }
+    protected virtual void UpdateBoard()
+    {
+
+    }
+    protected virtual void UpdateInventory()
+    {
         for (int i = 0; i < representations.Length; i++)
         {
             representations[i].gameObject.SetActive(false);
@@ -221,9 +268,10 @@ public class GrabManager : MonoBehaviour
             representations[i].manager = this;
             representations[i].image.texture = mainPool[currentPool].floxes[i].GetComponent<TextureForDispenser>().texture;
         }
-
-
-        if (malusNumber!= null && malusNumber.Count > 0)
+    }
+    protected virtual void UpdateSpecial()
+    {
+        if (malusNumber != null && malusNumber.Count > 0)
         {
             AllowMalus();
             for (int i = 0; i < malusNumber.Count; i++)
@@ -233,7 +281,7 @@ public class GrabManager : MonoBehaviour
                     StartCoroutine(WaiToDestroyBuble(i, true));
                 }
             }
-            
+
         }
         if (bonusNumber != null && bonusNumber.Count > 0)
         {
@@ -245,10 +293,12 @@ public class GrabManager : MonoBehaviour
             }
             StartCoroutine(DestroyBubble());
         }
-        int randomSound3 = UnityEngine.Random.Range(1, 2);
-        sound.ThirdClipName = "FloxMachineGood" + randomSound3.ToString();
-        sound.PlayThird();
     }
+    protected virtual void UpdateBubble()
+    {
+       
+    }
+    #endregion
     IEnumerator DestroyBubble()
     {
         yield return new WaitForSeconds(1.6f);
@@ -500,7 +550,6 @@ public class GrabManager : MonoBehaviour
 
         }
     }
-
 }
 
 public class pool

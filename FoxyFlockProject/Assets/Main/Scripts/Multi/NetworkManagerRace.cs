@@ -19,6 +19,8 @@ public class NetworkManagerRace : NetworkRoomManager
     private int InitNumberOfPlayer;
     private int number;
     private NetworkConnection[] conns = new NetworkConnection[2];
+
+
     public override void Awake()
     {
         base.Awake();
@@ -128,7 +130,30 @@ public class NetworkManagerRace : NetworkRoomManager
 
         
     }
-  
+  public void UpdateMilestones(int numberOfMilestones)
+    {
+        if (grabManagers== null)
+            return;
+        if(grabManagers.Length != 2)
+            return;
+         if (grabManagers[0].currentMilestone > grabManagers[1].currentMilestone)
+        {
+            playerController.RpcTempPosition(" player 1 is winning");
+        }
+        else if (grabManagers[0].currentMilestone < grabManagers[1].currentMilestone)
+        {
+            playerController.RpcTempPosition(" player 2 is winning");
+        }
+        else
+        {
+            playerController.RpcTempPosition(" it's a tie");
+        }
+
+
+
+    }
+
+
     public void Win(int playerId)
     {
         if (playerId == 0)

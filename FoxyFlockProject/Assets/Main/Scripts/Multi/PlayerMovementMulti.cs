@@ -527,4 +527,18 @@ public class PlayerMovementMulti : NetworkBehaviour
         tableTransform.GetComponentInChildren<FireballManager>().EnterEvent(exitIndex);
     }
    
+    [ClientRpc]
+    public void RpcDebugLog(string text)
+    {
+        Debug.Log(text);
+    }
+    /// <summary>
+    /// will be replace by the actual graph
+    /// </summary>
+    /// <param name="text"></param>
+    [ClientRpc]
+    public void RpcTempPosition(string text)
+    {
+        UIGlobalManager.instance.SetRulesMode(text);
+    }
 }

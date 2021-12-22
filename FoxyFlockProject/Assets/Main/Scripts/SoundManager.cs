@@ -22,7 +22,6 @@ public class SoundManager : MonoBehaviour
         }
     }
 
- 
     public void AddInputManager(InputManager inputManager)
     {
         if (inputManagers == null)

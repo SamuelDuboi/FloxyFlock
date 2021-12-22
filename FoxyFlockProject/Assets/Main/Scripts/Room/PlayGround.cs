@@ -36,9 +36,9 @@ public class PlayGround : MonoBehaviour
     /// return the index of the current milestones activated if none is activated, return -1
     /// </summary>
     /// <returns></returns>
-    public int CheckMilestones(out Vector3 point)
+    public int CheckMilestones(out Vector3 point, out int numberOfMilestones)
     {
-        return milestoneManager.CheckMilestones(out point);
+        return milestoneManager.CheckMilestones(out point, out numberOfMilestones);
     }
 
 

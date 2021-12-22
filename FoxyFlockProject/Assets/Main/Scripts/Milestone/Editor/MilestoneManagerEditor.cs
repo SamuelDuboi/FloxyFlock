@@ -61,6 +61,7 @@ public class MilestoneManagerEditor : Editor
         {
             GameObject currentMilestone = (GameObject)PrefabUtility.InstantiatePrefab(milestonePrefab.objectReferenceValue, (Transform)_transform.objectReferenceValue);
             currentMilestone.GetComponent<Milestone>().isFinale = true;
+            currentMilestone.GetComponent<MeshRenderer>().enabled = false;
             milestonesInstantiated.InsertArrayElementAtIndex(milestonesInstantiated.arraySize );
             milestones.InsertArrayElementAtIndex(milestones.arraySize );
             milestonesInstantiated.GetArrayElementAtIndex(milestonesInstantiated.arraySize-1).objectReferenceValue = currentMilestone;
@@ -102,7 +103,7 @@ public class MilestoneManagerEditor : Editor
             if (numberOfMilestones.intValue > 1)
             {
                 if (GUILayout.Button("Reset Positions", EditorStyles.miniButton))
-                    ResetPositions();
+                    ResetPositions(); 
             }
 
         }

@@ -137,6 +137,10 @@ public class UIGlobalManager : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// index 1 is player 1, index 2 is player 2
+    /// </summary>
+    /// <param name="indexOfWinner"></param>
     public void Win(int indexOfWinner)
     {
         if(indexOfWinner == 1)
