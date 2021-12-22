@@ -541,4 +541,15 @@ public class PlayerMovementMulti : NetworkBehaviour
     {
         UIGlobalManager.instance.SetRulesMode(text);
     }
+    [Command]
+    public void CmdChangeMilestoneValue(int index, int value)
+    {
+        NetworkManagerRace.instance.ChangeMilestonValue(index, value);
+       // RpcChangeMilestonValue(index, value);
+    }
+    [ClientRpc]
+    private void RpcChangeMilestonValue(int index, int value)
+    {
+        NetworkManagerRace.instance.ChangeMilestonValue(index, value);
+    }
 }

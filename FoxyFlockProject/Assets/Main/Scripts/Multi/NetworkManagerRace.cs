@@ -130,13 +130,15 @@ public class NetworkManagerRace : NetworkRoomManager
 
         
     }
-  public void UpdateMilestones(int numberOfMilestones)
+
+    public void ChangeMilestonValue(int index, int value)
     {
-        if (grabManagers== null)
+        if (grabManagers == null)
             return;
-        if(grabManagers.Length != 2)
+        if (grabManagers.Length != 2)
             return;
-         if (grabManagers[0].currentMilestone > grabManagers[1].currentMilestone)
+        grabManagers[index].currentMilestone = value;
+        if (grabManagers[0].currentMilestone > grabManagers[1].currentMilestone)
         {
             playerController.RpcTempPosition(" player 1 is winning");
         }
@@ -148,11 +150,7 @@ public class NetworkManagerRace : NetworkRoomManager
         {
             playerController.RpcTempPosition(" it's a tie");
         }
-
-
-
     }
-
 
     public void Win(int playerId)
     {

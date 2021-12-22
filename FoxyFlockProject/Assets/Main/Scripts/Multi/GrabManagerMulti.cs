@@ -6,10 +6,16 @@ using Mirror;
 
 public class GrabManagerMulti : GrabManager
 {
+    private GameModeSolo gameModeSolo;
     public int numberOfPool;
  [SerializeField]   public GameObject fireBallPrefab;
  [SerializeField]   public GameObject fireBallPrefabOut;
-   
+    private PlayerMovementMulti playerMovement;
+    private void Update()
+    {
+        if(playGround)
+        UpdateMilestone();
+    }
     // Start is called before the first frame update
     public override IEnumerator Start()
     {
@@ -27,6 +33,8 @@ public class GrabManagerMulti : GrabManager
         inputManager = GetComponentInParent<InputManager>();
         inputManager.OnSpawn.AddListener(UpdateBatche);
         playGround = inputManager.GetComponent<PlayerMovementMulti>().tableTransform.GetComponent<PlayGround>();
+        gameModeSolo = playGround.GetComponentInChildren<GameModeSolo>();
+        playerMovement = inputManager.GetComponent<PlayerMovementMulti>();
         inputManager.OnGrabbingLeft.AddListener(OnGrabLeft);
         inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
         inputManager.OnGrabbingRight.AddListener(OnGrabRight);
@@ -74,6 +82,6 @@ public class GrabManagerMulti : GrabManager
     protected override void UpdateMilestone()
     {
         currentMilestone = playGround.CheckMilestones(out positionOfMilestoneIntersection, out numberOfMilestones);
-        NetworkManagerRace.instance.UpdateMilestones(numberOfMilestones);
+       playerMovement.CmdChangeMilestoneValue(gameModeSolo.number, currentMilestone);
     }
 }

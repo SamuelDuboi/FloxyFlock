@@ -39,7 +39,7 @@ public class FloxRaceSolo : GameModeSolo
         else
         {
             tip = "try too reach height";
-            UIGlobalManager.instance.SetRulesMode(tip);
+          //  UIGlobalManager.instance.SetRulesMode(tip);
             timeAboveHeight = 0;
             winLimit.GetComponent<MeshRenderer>().material = winLimit.baseMat;
         }

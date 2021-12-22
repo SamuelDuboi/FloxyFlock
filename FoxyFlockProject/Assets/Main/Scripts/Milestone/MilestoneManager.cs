@@ -10,11 +10,11 @@ public class MilestoneManager : MonoBehaviour
     public List<GameObject> milestonesInstantiated = new List<GameObject>();
     public List<Milestone> milestones= new List<Milestone>();
     public int numberOfMilestones;
-    private int currenMilestonIndex;
+    public int currenMilestonIndex;
 
 
     /// <summary>
-    /// return the index of the current milestones activated if none is activated, return -1
+    /// return the index of the current milestones activated if none is activated, return 0
     /// </summary>
     /// <returns></returns>
     public int CheckMilestones(out Vector3 point, out int numberOfMilestones)
@@ -43,6 +43,6 @@ public class MilestoneManager : MonoBehaviour
                 }
             }
         }
-        return -1;
+        return 0;
     }
 }
