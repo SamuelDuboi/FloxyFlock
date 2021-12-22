@@ -135,7 +135,7 @@ public class NetworkManagerRace : NetworkRoomManager
     {
         if (grabManagers == null)
             return;
-        if (grabManagers.Length != 2)
+        if (grabManagers[1] == null)
             return;
         grabManagers[index].currentMilestone = value;
         if (grabManagers[0].currentMilestone > grabManagers[1].currentMilestone)

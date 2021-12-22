@@ -20,7 +20,7 @@ public class MilestoneManager : MonoBehaviour
     public int CheckMilestones(out Vector3 point, out int numberOfMilestones)
     {
         numberOfMilestones = milestones.Count;
-        if (milestones[currenMilestonIndex].CheckCollision(out point))
+       if (milestones[currenMilestonIndex].CheckCollision(out point))
         {
             for (int i = currenMilestonIndex; i > 0; i--)
             {

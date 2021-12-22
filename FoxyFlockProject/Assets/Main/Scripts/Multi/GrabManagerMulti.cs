@@ -11,11 +11,7 @@ public class GrabManagerMulti : GrabManager
  [SerializeField]   public GameObject fireBallPrefab;
  [SerializeField]   public GameObject fireBallPrefabOut;
     private PlayerMovementMulti playerMovement;
-    private void Update()
-    {
-        if(playGround)
-        UpdateMilestone();
-    }
+  
     // Start is called before the first frame update
     public override IEnumerator Start()
     {
@@ -83,5 +79,19 @@ public class GrabManagerMulti : GrabManager
     {
         currentMilestone = playGround.CheckMilestones(out positionOfMilestoneIntersection, out numberOfMilestones);
        playerMovement.CmdChangeMilestoneValue(gameModeSolo.number, currentMilestone);
+    }
+    protected override IEnumerator WaiToDestroyBuble(int index, bool isBad)
+    {
+        if (isBad)
+            malusNumber[index].GetComponent<SoundReader>().Play();
+        else
+            bonusNumber[index].GetComponent<SoundReader>().Play();
+
+        yield return new WaitForSeconds(0.2f);
+
+        if (isBad)
+           playerMovement.CmdDestroyBubble(malusNumber[index]);
+        else
+            playerMovement.CmdDestroyBubble(bonusNumber[index]);
     }
 }

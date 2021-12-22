@@ -32,7 +32,7 @@ public class Bubble : MonoBehaviour
             if (_temp && !hasFlocks)
             {
                 if (grabManager == null)
-                    grabManager = _temp.GetComponentInParent<GrabablePhysicsHandler>().inputManager.GetComponentInChildren<GrabManager>();
+                    grabManager = GetComponentInParent<PlayGround>().GetComponentInChildren<GameModeSolo>().playerMovement.GetComponentInChildren<GrabManager>();
                 grabManager.AddBubble(isMalus, gameObject);
                 hasFlocks = true;
             }

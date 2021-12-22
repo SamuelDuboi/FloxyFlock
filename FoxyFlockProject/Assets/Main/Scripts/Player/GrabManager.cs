@@ -16,8 +16,8 @@ public class GrabManager : MonoBehaviour
     private bool isGrabRight;
     private bool isFirstBacthPassed;
     private int currentPool;
-    private List<GameObject> malusNumber;
-    private List<GameObject> bonusNumber;
+    protected List<GameObject> malusNumber;
+    protected List<GameObject> bonusNumber;
     public PlayGround playGround;
     public InputManager inputManager;
     public GameObject fireBallInstantiated;
@@ -302,9 +302,10 @@ public class GrabManager : MonoBehaviour
     IEnumerator DestroyBubble()
     {
         yield return new WaitForSeconds(1.6f);
+        if(malusNumber!= null && malusNumber.Count!= 0)
         malusNumber.Clear();
     }
-    IEnumerator WaiToDestroyBuble(int index, bool isBad)
+    protected virtual  IEnumerator WaiToDestroyBuble(int index, bool isBad)
     {
         if(isBad)
         malusNumber[index].GetComponent<SoundReader>().Play();
@@ -314,9 +315,9 @@ public class GrabManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         if (isBad)
-            NetworkManagerRace.instance.playerController.CmdDestroyBubble(malusNumber[index]);
+            Destroy(malusNumber[index]);
         else
-            NetworkManagerRace.instance.playerController.CmdDestroyBubble(bonusNumber[index]);
+            Destroy(bonusNumber[index]);
     }
     public void AddBubble(bool isMalus,GameObject bubble)
     {
@@ -371,7 +372,7 @@ public class GrabManager : MonoBehaviour
         representations[representations.Length - 1].gameObject.SetActive(true);
         representations[representations.Length - 1].index = representations.Length - 1;
         representations[representations.Length - 1].manager = this;
-        representations[representations.Length - 1].image.texture = mainPool[currentPool].bonus.GetComponent<TextureForDispenser>().texture;
+       // representations[representations.Length - 1].image.texture = mainPool[currentPool].bonus.GetComponent<TextureForDispenser>().texture;
     }
     public bool isOnCollision;
     public void GetPiece(XRBaseInteractor baseInteractor, int index)
