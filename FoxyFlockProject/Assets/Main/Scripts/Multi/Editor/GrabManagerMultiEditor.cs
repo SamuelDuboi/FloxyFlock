@@ -13,6 +13,7 @@ public class GrabManagerMultiEditor : Editor
     SerializedProperty baseModifier;
     SerializedProperty representations;
     SerializedProperty representationsModifiers;
+    SerializedProperty fireballRepresentation;
 
     ReorderableList rlistPositiveModifier;
     ReorderableList rlisNegativeModifier;
@@ -33,6 +34,7 @@ public class GrabManagerMultiEditor : Editor
         baseModifier = serializedObject.FindProperty("baseModifier");
         representations = serializedObject.FindProperty("representations");
         representationsModifiers = serializedObject.FindProperty("representationsModifiers");
+        fireballRepresentation = serializedObject.FindProperty("fireballRepresentation");
 
         rlistPositiveModifier = new ReorderableList(serializedObject, positiveModifiers, true, true, true, true);
         rlistPositiveModifier.onAddCallback += Add;
@@ -126,6 +128,7 @@ public class GrabManagerMultiEditor : Editor
         EditorGUILayout.Space(10);
         EditorGUILayout.PropertyField(representations);
         EditorGUILayout.PropertyField(representationsModifiers);
+        EditorGUILayout.PropertyField(fireballRepresentation);
 
         serializedObject.ApplyModifiedProperties();
         EditorUtility.SetDirty(managerTarget);

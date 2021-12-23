@@ -121,6 +121,7 @@ MonoBehaviour:
   image: {fileID: 64561948440138847}
   isMalus: 0
   isModifier: 0
+  isFireBall: 0
   indexInList: 0
 --- !u!1 &64561948750513351
 GameObject:
@@ -243,6 +244,7 @@ MonoBehaviour:
   image: {fileID: 64561948750513349}
   isMalus: 0
   isModifier: 0
+  isFireBall: 0
   indexInList: 0
 --- !u!1 &64561949049342114
 GameObject:
@@ -365,6 +367,7 @@ MonoBehaviour:
   image: {fileID: 64561949049342112}
   isMalus: 0
   isModifier: 0
+  isFireBall: 0
   indexInList: 0
 --- !u!1 &64561949196039522
 GameObject:
@@ -597,6 +600,7 @@ MonoBehaviour:
   image: {fileID: 64561950227593000}
   isMalus: 0
   isModifier: 0
+  isFireBall: 0
   indexInList: 0
 --- !u!1 &64561950346014821
 GameObject:
@@ -719,6 +723,7 @@ MonoBehaviour:
   image: {fileID: 64561950346014827}
   isMalus: 0
   isModifier: 0
+  isFireBall: 0
   indexInList: 0
 --- !u!1 &127206332523632949
 GameObject:
@@ -975,6 +980,7 @@ MonoBehaviour:
   image: {fileID: 5625568011596191652}
   isMalus: 0
   isModifier: 1
+  isFireBall: 0
   indexInList: 0
 --- !u!1 &903691765002606881
 GameObject:
@@ -1097,6 +1103,7 @@ MonoBehaviour:
   image: {fileID: 6005129430358469819}
   isMalus: 0
   isModifier: 1
+  isFireBall: 0
   indexInList: 0
 --- !u!1 &1665952070166654364
 GameObject:
@@ -1629,6 +1636,7 @@ MonoBehaviour:
   numberOfPool: 0
   fireBallPrefab: {fileID: 6014082983983481214, guid: e52973d3546aa0549b5404c2e7192e94, type: 3}
   fireBallPrefabOut: {fileID: 5786458945156589222, guid: 842d7540e247fb04c810536c9642f517, type: 3}
+  fireballRepresentation: {fileID: 3358505727749548560}
 --- !u!114 &5136891162510553805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1768,6 +1776,7 @@ MonoBehaviour:
   image: {fileID: 7047411255037632955}
   isMalus: 0
   isModifier: 1
+  isFireBall: 0
   indexInList: 0
 --- !u!1 &3299724869580970358
 GameObject:
@@ -2942,6 +2951,7 @@ MonoBehaviour:
   image: {fileID: 1266247875847182941}
   isMalus: 0
   isModifier: 1
+  isFireBall: 0
   indexInList: 0
 --- !u!1 &9101130982286785134
 GameObject:
@@ -2958,7 +2968,7 @@ GameObject:
   - component: {fileID: 3294827683476694784}
   - component: {fileID: 3358505727749548560}
   m_Layer: 5
-  m_Name: ImageModifier 5
+  m_Name: ImageFireBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2980,7 +2990,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.0287, y: -0.855}
+  m_AnchoredPosition: {x: -1.0287, y: -0.355}
   m_SizeDelta: {x: 0.2, y: 0.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6748145927471130919
@@ -3063,7 +3073,8 @@ MonoBehaviour:
   manager: {fileID: 2411069798146911233}
   image: {fileID: 3294827683476694784}
   isMalus: 0
-  isModifier: 1
+  isModifier: 0
+  isFireBall: 1
   indexInList: 0
 --- !u!1001 &918359751417070418
 PrefabInstance:

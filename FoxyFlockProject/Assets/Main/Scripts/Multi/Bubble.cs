@@ -9,6 +9,7 @@ public class Bubble : MonoBehaviour
     private float radius;
     private GrabablePhysicsHandler _temp;
     public  bool isMalus;
+    public bool isFireBall;
     [HideInInspector] public GrabManager grabManager;
     bool hasFlocks;
     public SoundReader sound;
@@ -33,7 +34,10 @@ public class Bubble : MonoBehaviour
             {
                 if (grabManager == null)
                     grabManager = GetComponentInParent<PlayGround>().GetComponentInChildren<GameModeSolo>().playerMovement.GetComponentInChildren<GrabManager>();
-                grabManager.AddBubble(isMalus, gameObject);
+                if(isFireBall)
+                    grabManager.AddFireBall(gameObject);
+                 else
+                    grabManager.AddBubble(isMalus, gameObject);
                 hasFlocks = true;
             }
         }

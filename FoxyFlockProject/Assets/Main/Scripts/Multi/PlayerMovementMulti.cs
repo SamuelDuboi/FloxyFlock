@@ -562,4 +562,24 @@ public class PlayerMovementMulti : NetworkBehaviour
     {
         NetworkManagerRace.instance.ChangeMilestonValue(index, value);
     }
+
+
+    [Command(requiresAuthority = false)]
+    public void CmdMoveBubble(GameObject bubble,Vector3 newPos)
+    {
+        bubble.transform.position = newPos;
+        RcpMoveBubble(bubble,newPos);
+    }
+    public void CmdMoveBubble(GameObject bubble, float yToAdd)
+    {
+        bubble.transform.position += Vector3.up * yToAdd;
+        
+        RcpMoveBubble(bubble,bubble.transform.position);
+    }
+
+    [ClientRpc]
+    void RcpMoveBubble(GameObject bubble, Vector3 newPos)
+    {
+        bubble.transform.position = newPos;
+    }
 }
