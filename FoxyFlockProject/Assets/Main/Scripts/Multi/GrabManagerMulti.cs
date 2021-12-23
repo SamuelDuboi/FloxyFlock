@@ -20,7 +20,7 @@ public class GrabManagerMulti : GrabManager
         sound = GetComponent<SoundReader>();
        for (int i = 0; i < grabableObjects.Count; i++)
         {
-            Modifier _modifer = modifiers[UnityEngine.Random.Range(0, modifiers.Count)];
+            Modifier _modifer = positiveModifiers[UnityEngine.Random.Range(0, positiveModifiers.Count)];
             Type type = _modifer.actions.GetType();
             var _object = GetComponent(type);
             grabableObjects[i].ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
@@ -49,23 +49,42 @@ public class GrabManagerMulti : GrabManager
             mainPool[i].isSelected = new List<bool>();
             for (int x = 0; x < batches[i].pieces.Count; x++)
             {
-                Modifier _modifier = modifiers[UnityEngine.Random.Range(0, modifiers.Count)];
+                Modifier _modifier = baseModifier;
                 Type type = _modifier.actions.GetType();
                 var _object = GetComponent(type);
                 player.InitBacth(authority, i, x, batches, _modifier, _object,basicMats,mainPool, out mainPool);
             }
-            Modifier _modifierPiece = batches[i].positiveModifier.modifier;
-            if (_modifierPiece == null)
-                continue;
-            Type typePiece = _modifierPiece.actions.GetType();
-            var _objectPiece = GetComponent(typePiece);
-            player.InitModifier(authority, i, batches[i].positiveModifier, _objectPiece, basicMats, mainPool, out mainPool);
+
+            for (int x = 0; x < batches[i].batchModifier.negativeModifier.Count; x++)
+            {
+                Modifier _modifierPiece = negativeModifiers[UnityEngine.Random.Range(0,negativeModifiers.Count)];
+                Type typePiece = _modifierPiece.actions.GetType();
+                var _objectPiece = GetComponent(typePiece);
+                player.InitModifier(authority, i,_modifierPiece, batches[i].batchModifier.negativeModifier[x], _objectPiece, basicMats,false, mainPool, out mainPool);
+            }
+            for (int x = 0; x < batches[i].batchModifier.positiveModifiers.Count; x++)
+            {
+                Modifier _modifierPiece = positiveModifiers[UnityEngine.Random.Range(0, positiveModifiers.Count)];
+                Type typePiece = _modifierPiece.actions.GetType();
+                var _objectPiece = GetComponent(typePiece);
+                player.InitModifier(authority, i, _modifierPiece, batches[i].batchModifier.positiveModifiers[x], _objectPiece, basicMats,true, mainPool, out mainPool);
+            }
+
         }
         player.InitFireBall(authority, fireBallPrefab, fireBallPrefabOut);
         numberOfPool = 1;
-        for (int i = 0; i < modifiers.Count; i++)
+        for (int i = 0; i < positiveModifiers.Count; i++)
         {
-            Type type = modifiers[i].actions.GetType();
+            Type type = positiveModifiers[i].actions.GetType();
+            var _object = GetComponent(type);
+            if (_object)
+            {
+                Destroy(_object);
+            }
+        }
+        for (int i = 0; i < negativeModifiers.Count; i++)
+        {
+            Type type = negativeModifiers[i].actions.GetType();
             var _object = GetComponent(type);
             if (_object)
             {

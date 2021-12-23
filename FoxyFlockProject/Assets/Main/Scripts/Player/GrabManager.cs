@@ -6,11 +6,14 @@ using UnityEngine.XR.Interaction.Toolkit;
 using Mirror.Experimental;
 public class GrabManager : MonoBehaviour
 {
-    public List<Modifier> modifiers;
+    public Modifier baseModifier;
+    public List<Modifier> positiveModifiers;
+    public List<Modifier> negativeModifiers;
     public List<GrabablePhysicsHandler> grabableObjects;
     public List<Batch> batches;
     public PhysicMaterial[] basicMats = new PhysicMaterial[2];
     public Representation[] representations;
+    public Representation[] representationsModifiers;
     public List<pool> mainPool;
     private bool isGrabLeft;
     private bool isGrabRight;
@@ -45,15 +48,24 @@ public class GrabManager : MonoBehaviour
         inputManager = GetComponentInParent<InputManager>();
         for (int i = 0; i < grabableObjects.Count; i++)
         {
-            Modifier _modifer = modifiers[UnityEngine.Random.Range(0, modifiers.Count)];
+            Modifier _modifer = positiveModifiers[UnityEngine.Random.Range(0, positiveModifiers.Count)];
             Type type = _modifer.actions.GetType();
             var _object = GetComponent(type);
             grabableObjects[i].ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
         }
         inputManager.OnSpawn.AddListener(UpdateBatche);
-        for (int i = 0; i < modifiers.Count; i++)
+        for (int i = 0; i < positiveModifiers.Count; i++)
         {
-            Type type = modifiers[i].actions.GetType();
+            Type type = positiveModifiers[i].actions.GetType();
+            var _object = GetComponent(type);
+            if (_object)
+            {
+                Destroy(_object);
+            }
+        }
+        for (int i = 0; i < negativeModifiers.Count; i++)
+        {
+            Type type = negativeModifiers[i].actions.GetType();
             var _object = GetComponent(type);
             if (_object)
             {
@@ -79,7 +91,7 @@ public class GrabManager : MonoBehaviour
             for (int x = 0; x < batches[i].pieces.Count; x++)
             {
                 GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + (x*5+1) * 20 *(i*5 +1), 300 + x * 20 , 300 + x ), Quaternion.identity);
-                Modifier _modifer = modifiers[UnityEngine.Random.Range(0, modifiers.Count)];
+                Modifier _modifer = baseModifier;
                 Type type = _modifer.actions.GetType();
                 var _object = GetComponent(type);
                 flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
@@ -91,18 +103,37 @@ public class GrabManager : MonoBehaviour
                 mainPool[i].isSelected.Add(false);
                 ScenesManager.instance.numberOfFlocksInScene++;
             }
-            if (batches[i].positiveModifier.piece == null)
-                continue;
-            GameObject flock2 = Instantiate(batches[i].positiveModifier.piece, new Vector3(300 + (15 * 5 + 1) * 20 * (i * 5 + 1), 300 + 15 * 20, 300 + 15), Quaternion.identity);
-            Modifier _modifierPiece = batches[i].positiveModifier.modifier;
-            Type typePiece = _modifierPiece.actions.GetType();
-            var _objectPiece = GetComponent(typePiece);
-            flock2.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifierPiece, _objectPiece as ModifierAction, basicMats);
-            flock2.GetComponent<GrabablePhysicsHandler>().enabled = false;
-            flock2.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
+            for (int x = 0; x < batches[i].batchModifier.negativeModifier.Count; x++)
+            {
+                GameObject flock2 = Instantiate(batches[i].batchModifier.negativeModifier[x], new Vector3(300 + (15 * 5 + 1) * 20 * (i * 5 + 1), 300 + 15 * 20, 300 + 15), Quaternion.identity);
+                Modifier _modifierPiece = negativeModifiers[UnityEngine.Random.Range(0,negativeModifiers.Count)];
+                Type typePiece = _modifierPiece.actions.GetType();
+                var _objectPiece = GetComponent(typePiece);
+                flock2.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifierPiece, _objectPiece as ModifierAction, basicMats);
+                flock2.GetComponent<GrabablePhysicsHandler>().enabled = false;
+                flock2.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
 
-            flock2.GetComponent<Rigidbody>().useGravity = false;
-            mainPool[i].bonus = flock2;
+                flock2.GetComponent<Rigidbody>().useGravity = false;
+                if (mainPool[i].malus == null)
+                    mainPool[i].malus = new List<GameObject>();
+                mainPool[i].malus.Add(flock2);
+            }
+            for (int x = 0; x < batches[i].batchModifier.positiveModifiers.Count; x++)
+            {
+                GameObject flock2 = Instantiate(batches[i].batchModifier.positiveModifiers[x], new Vector3(300 + (15 * 5 + 1) * 20 * (i * 5 + 1), 300 + 15 * 20, 300 + 15), Quaternion.identity);
+                Modifier _modifierPiece = positiveModifiers[UnityEngine.Random.Range(0, positiveModifiers.Count)];
+                Type typePiece = _modifierPiece.actions.GetType();
+                var _objectPiece = GetComponent(typePiece);
+                flock2.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifierPiece, _objectPiece as ModifierAction, basicMats);
+                flock2.GetComponent<GrabablePhysicsHandler>().enabled = false;
+                flock2.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
+
+                flock2.GetComponent<Rigidbody>().useGravity = false;
+                if (mainPool[i].bonus == null)
+                    mainPool[i].bonus = new List<GameObject>();
+                mainPool[i].bonus.Add( flock2);
+            }
+
 
             UpdateMilestone();
         }
@@ -122,6 +153,14 @@ public class GrabManager : MonoBehaviour
                 sound.clipName = "FloxMachineBad" + randomSound.ToString();
                 sound.Play();
                 Debug.LogError("There are still flock on the dispenser");
+                return;
+            }
+            if (!mainPool[currentPool].isEmptyModifier)
+            {
+                int randomSound = UnityEngine.Random.Range(1, 3);
+                sound.clipName = "FloxMachineBad" + randomSound.ToString();
+                sound.Play();
+                Debug.LogError("There are still bonus or malus on the dispenser");
                 return;
             }
 
@@ -358,21 +397,67 @@ public class GrabManager : MonoBehaviour
     }
     private void AllowMalus()
     {
-        if (mainPool[currentPool].isMalusUsed)
-            return;
-        representations[representations.Length - 2].gameObject.SetActive(true);
-        representations[representations.Length - 2].index = representations.Length - 2;
-        representations[representations.Length - 2].manager = this;
-        representations[representations.Length - 2].image.texture = fireBallInstantiated.GetComponent<TextureForDispenser>().texture;
+        //representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].gameObject.SetActive(true);
+        //representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].index = mainPool[currentPool].numberOfModifiersActivated;
+        //representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].manager = this;
+        //representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = fireBallInstantiated.GetComponent<TextureForDispenser>().texture;
+        if (mainPool[currentPool].numberOfModifiersActivated > representationsModifiers.Length)
+        {
+            //if there is no bonus, return, else override the bonus
+            if(mainPool[currentPool].bonusIndex == null || mainPool[currentPool].bonusIndex.Count == 0)
+                return;
+            else
+            {
+                representationsModifiers[mainPool[currentPool].bonusIndex[0]].gameObject.SetActive(true);
+                representationsModifiers[mainPool[currentPool].bonusIndex[0]].index = mainPool[currentPool].bonusIndex[0];
+                representationsModifiers[mainPool[currentPool].bonusIndex[0]].manager = this;
+                representationsModifiers[mainPool[currentPool].bonusIndex[0]].image.texture = mainPool[currentPool].malus[mainPool[currentPool].bonusIndex.Count - 1].GetComponent<TextureForDispenser>().texture;
+                if (mainPool[currentPool].malusIndex == numbersPerModifer)
+                    mainPool[currentPool].malusIndex = new List<int>();
+                mainPool[currentPool].malusIndex.Add( mainPool[currentPool].bonusIndex[0]);
+                representationsModifiers[mainPool[currentPool].bonusIndex[0]].indexInList = mainPool[currentPool].malusIndex.Count-1;
+                representationsModifiers[mainPool[currentPool].bonusIndex[0]].isMalus = true;
+
+                mainPool[currentPool].bonusIndex.RemoveAt(0);
+                return;
+            }
+        }
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].gameObject.SetActive(true);
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].index = mainPool[currentPool].numberOfModifiersActivated;
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].manager = this;
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].malus[mainPool[currentPool].bonusIndex.Count - 1].GetComponent<TextureForDispenser>().texture;
+        if (mainPool[currentPool].malusIndex == numbersPerModifer)
+            mainPool[currentPool].malusIndex = new List<int>();
+        mainPool[currentPool].malusIndex.Add(mainPool[currentPool].numberOfModifiersActivated);
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].indexInList = mainPool[currentPool].malusIndex.Count - 1;
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].isMalus = true;
+
+        mainPool[currentPool].numberOfModifiersActivated++;
+        
+        if(mainPool[currentPool]==null)
+            mainPool[currentPool].isSelected = new List<bool>();
+        mainPool[currentPool].isSelected.Add(false);
     }
     private void AllowBonus()
     {
-        if (mainPool[currentPool].isBonusUsed)
+        if (mainPool[currentPool].numberOfModifiersActivated > representationsModifiers.Length)
             return;
         representations[representations.Length - 1].gameObject.SetActive(true);
         representations[representations.Length - 1].index = representations.Length - 1;
         representations[representations.Length - 1].manager = this;
-       // representations[representations.Length - 1].image.texture = mainPool[currentPool].bonus.GetComponent<TextureForDispenser>().texture;
+        representations[representations.Length - 1].image.texture = mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count-1].GetComponent<TextureForDispenser>().texture;
+       
+        if (mainPool[currentPool].bonusIndex == numbersPerModifer)
+            mainPool[currentPool].bonusIndex = new List<int>();
+        mainPool[currentPool].bonusIndex.Add(mainPool[currentPool].numberOfModifiersActivated);
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].indexInList = mainPool[currentPool].bonus.Count - 1;
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].isMalus = false;
+        mainPool[currentPool].numberOfModifiersActivated++;
+
+        if (mainPool[currentPool] == null)
+            mainPool[currentPool].isSelected = new List<bool>();
+        mainPool[currentPool].isSelected.Add(false);
+
     }
     public bool isOnCollision;
     public void GetPiece(XRBaseInteractor baseInteractor, int index)
@@ -381,34 +466,24 @@ public class GrabManager : MonoBehaviour
             return;
         if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.LeftHand && !isGrabLeft)
             return;
-        representations[index].gameObject.SetActive(false); 
+        representations[index].gameObject.SetActive(false);
 
-        if (index == representations.Length - 2)
+        //how to fireball
+       /* if (index == representations.Length - 2)
         {
-            mainPool[currentPool].isMalusUsed = true;
+            mainPool[currentPool].isFireballUsed = true;
             XRBaseInteractable baseInteractableBonus = fireBallInstantiated.GetComponent<GrabbableObject>();
 
             var grabableBonus = fireBallInstantiated.GetComponent<GrabablePhysicsHandler>();
             grabableBonus.enabled = true;
 
-            StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, grabableBonus,true));
+            StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, grabableBonus, true));
             fireBallInstantiated.transform.position = baseInteractor.transform.position;
 
             grabableBonus.OnHitGround.AddListener(RespawnFireball);
             return;
-        }
-        if (index == representations.Length - 1)
-        {
-            XRBaseInteractable baseInteractableBonus = mainPool[currentPool].bonus.GetComponent<GrabbableObject>();
-            mainPool[currentPool].isBonusUsed = true;
-            var grabableBonus = mainPool[currentPool].bonus.GetComponent<GrabablePhysicsHandler>();
-            grabableBonus.enabled = true;
+        }*/
 
-            StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, grabableBonus,false));
-            grabableBonus.OnHitGround.AddListener(RespawnPiece);
-            mainPool[currentPool].bonus.transform.position = baseInteractor.transform.position;
-            return;
-        }
         XRBaseInteractable baseInteractable = mainPool[currentPool].floxes[index].GetComponent<GrabbableObject>();
 
         var grabable = mainPool[currentPool].floxes[index].GetComponent<GrabablePhysicsHandler>();
@@ -427,6 +502,38 @@ public class GrabManager : MonoBehaviour
         }
         batches[currentPool].isEmpty = true;
         mainPool[currentPool].isEmpty = true;
+    }
+
+    public void GetPiece(XRBaseInteractor baseInteractor, int index,bool isMalus, int indexInList)
+    {
+        if (isMalus)
+        {
+            XRBaseInteractable baseInteractableBonus = mainPool[currentPool].malus[indexInList].GetComponent<GrabbableObject>();
+
+            var grabableBonus = mainPool[currentPool].malus[indexInList].GetComponent<GrabablePhysicsHandler>();
+            grabableBonus.enabled = true;
+
+            StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, grabableBonus, true));
+            mainPool[currentPool].malus[indexInList].transform.position = baseInteractor.transform.position;
+
+            grabableBonus.OnHitGround.AddListener(RespawnFireball);
+        }
+        else
+        {
+            XRBaseInteractable baseInteractableBonus = mainPool[currentPool].bonus[index - 5].GetComponent<GrabbableObject>();
+            var grabableBonus = mainPool[currentPool].bonus[indexInList].GetComponent<GrabablePhysicsHandler>();
+            grabableBonus.enabled = true;
+
+            StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, grabableBonus, false));
+            grabableBonus.OnHitGround.AddListener(RespawnPiece);
+            mainPool[currentPool].bonus[indexInList].transform.position = baseInteractor.transform.position;
+        }
+        for (int i = 0; i < mainPool[currentPool].isSelectedModifier.Count; i++)
+        {
+            if (!mainPool[currentPool].isSelectedModifier[i])
+                return;
+        }
+        mainPool[currentPool].isEmptyModifier = true;
     }
     IEnumerator WaiToSelect(XRBaseInteractable baseInteractable, XRBaseInteractor baseInteractor, GrabablePhysicsHandler grabable, bool isFireBall)
     {
@@ -467,13 +574,33 @@ public class GrabManager : MonoBehaviour
                 return true;
             }
         }
-        if(mainPool[currentPool].bonus == coll.gameObject && !coll.isGrab)
+        for (int i = 0; i < mainPool[currentPool].bonus.Count; i++)
         {
-            representations[representations.Length - 1].gameObject.SetActive(true);
-            representations[representations.Length - 1].index = representations.Length - 1;
-            representations[representations.Length - 1].manager = this;
-            representations[representations.Length - 1].image.texture = mainPool[currentPool].bonus.GetComponent<TextureForDispenser>().texture;
-            return true;
+            if (mainPool[currentPool].bonus[i] == coll.gameObject && !coll.isGrab)
+            {
+                mainPool[currentPool].isSelectedModifier[mainPool[currentPool].bonusIndex[i]] = false;
+                mainPool[currentPool].isEmptyModifier = false;
+                representationsModifiers[mainPool[currentPool].bonusIndex[i]].gameObject.SetActive(true);
+                coll.GetComponent<Rigidbody>().useGravity = false;
+                coll.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                coll.transform.rotation = Quaternion.identity;
+                coll.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
+                return true;
+            }
+        }
+        for (int i = 0; i < mainPool[currentPool].malus.Count; i++)
+        {
+            if (mainPool[currentPool].malus[i] == coll.gameObject && !coll.isGrab)
+            {
+                mainPool[currentPool].isSelectedModifier[mainPool[currentPool].malusIndex[i]] = false;
+                mainPool[currentPool].isEmptyModifier = false;
+                representationsModifiers[mainPool[currentPool].malusIndex[i]].gameObject.SetActive(true);
+                coll.GetComponent<Rigidbody>().useGravity = false;
+                coll.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                coll.transform.rotation = Quaternion.identity;
+                coll.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
+                return true;
+            }
         }
         if (fireBallInstantiated == coll.gameObject && !coll.isGrab)
         {
@@ -545,7 +672,7 @@ public class GrabManager : MonoBehaviour
             var grabableBonus = fireBallInstantiated.GetComponent<GrabablePhysicsHandler>();
             grabableBonus.OnHitGround.RemoveListener(RespawnFireball);
             grabableBonus.enabled = false;
-            mainPool[currentPool].isMalusUsed = false;
+            mainPool[currentPool].isFireballUsed = false;
             playGround.GetComponentInChildren<FireballManager>().canAct = false;
             AllowMalus();
 
@@ -557,8 +684,13 @@ public class pool
 {
     public List<GameObject> floxes;
     public List<bool> isSelected;
-    public GameObject bonus;
+    public List<bool> isSelectedModifier;
+    public List<GameObject>bonus;
+    public List<GameObject> malus;
+    public List<int> bonusIndex;
+    public List<int> malusIndex;
+    public int numberOfModifiersActivated;
     public bool isEmpty;
-    public bool isBonusUsed;
-    public bool isMalusUsed;
+    public bool isEmptyModifier;
+    public bool isFireballUsed;
 }

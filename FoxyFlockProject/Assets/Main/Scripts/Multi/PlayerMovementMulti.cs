@@ -300,11 +300,11 @@ public class PlayerMovementMulti : NetworkBehaviour
         
     }
     private List<Component> components = new List<Component>();
-    public void InitModifier(GameObject authority, int i, ModifierBatch modifierBatch , Component _object, PhysicMaterial[] basicMats, List<pool> _mainPool1, out List<pool> _mainPool)
+    public void InitModifier(GameObject authority, int i,Modifier modifier, GameObject piece , Component _object, PhysicMaterial[] basicMats,bool isBonus, List<pool> _mainPool1, out List<pool> _mainPool)
     {
         int rand = UnityEngine.Random.Range(0, 100);
-        GameObject flock = Instantiate(modifierBatch.piece, new Vector3(300 + 20 * rand , 300 +  20 * rand, 300 + 20 * rand ), Quaternion.identity);
-        tempModifier = modifierBatch.modifier;
+        GameObject flock = Instantiate(piece, new Vector3(300 + 20 * rand , 300 +  20 * rand, 300 + 20 * rand ), Quaternion.identity);
+        tempModifier = modifier;
         int index = 0;
         bool hasFounded = false;
         for (int w = 0;w < components.Count; w++)
@@ -325,8 +325,18 @@ public class PlayerMovementMulti : NetworkBehaviour
         flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(tempModifier, _object as ModifierAction, basicMats);
         flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
         flock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
-
-        _mainPool1[i].bonus = flock;
+        if (isBonus)
+        {
+            if (_mainPool1[i].bonus == null)
+                _mainPool1[i].bonus = new List<GameObject>();
+            _mainPool1[i].bonus.Add(flock);
+        }
+        else
+        {
+            if (_mainPool1[i].malus == null)
+                _mainPool1[i].malus = new List<GameObject>();
+            _mainPool1[i].malus.Add(flock);
+        }
         _mainPool = _mainPool1;
         tempFlock = flock;
         CmdSpawnPiece(authority, _mainPool1, _tempComponent.ToString(), tempbasicMats, index);
