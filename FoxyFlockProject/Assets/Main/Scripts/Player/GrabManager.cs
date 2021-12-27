@@ -22,11 +22,11 @@ public class GrabManager : MonoBehaviour
     protected List<GameObject> malusNumber;
     protected List<GameObject> fireBallNumber;
     protected List<GameObject> bonusNumber;
+    public Reset reset;
     public PlayGround playGround;
     public InputManager inputManager;
     public GameObject fireBallInstantiated;
     protected SoundReader sound;
-
     public int currentMilestone = -1;
     protected Vector3 positionOfMilestoneIntersection;
     protected int numberOfMilestones;
@@ -262,27 +262,19 @@ public class GrabManager : MonoBehaviour
         sound.ThirdClipName = "FloxMachineGood" + randomSound3.ToString();
         sound.PlayThird();
     }
-    protected virtual void Freez(int previousPool)
+    private  void Freez(int previousPool)
     {
         FreezOfList(mainPool[previousPool].floxes);
         FreezOfList(mainPool[previousPool].bonus);
         FreezOfList(mainPool[previousPool].malus);
     }
 
-    private void FreezOfList(List<GameObject> flocksToFreez)
+    protected virtual void FreezOfList(List<GameObject> flocksToFreez)
     {
         if (flocksToFreez == null)
             return;
         for (int i = 0; i < flocksToFreez.Count; i++)
         {
-           /* //Set flox material to the frozen color 
-            //Recup Data
-            flocksToFreez[i].GetComponent<MeshRenderer>().GetPropertyBlock(propBlock);
-            //EditZone
-            propBlock.SetFloat("Frozen?", 1);
-            //Push Data
-            flocksToFreez[i].GetComponent<MeshRenderer>().SetPropertyBlock(propBlock);*/
-
             flocksToFreez[i].GetComponent<GrabablePhysicsHandler>().OnFreeze();
 
             Destroy(flocksToFreez[i].GetComponent<GrabbableObject>());
@@ -292,6 +284,7 @@ public class GrabManager : MonoBehaviour
             NetworkRigidbody rgb;
             if (flocksToFreez[i].TryGetComponent<NetworkRigidbody>(out rgb))
                 Destroy(rgb);
+            reset.AddFreezFlock(flocksToFreez[i]);
         }
     }
     protected virtual void UpdateMilestone()
@@ -427,7 +420,7 @@ public class GrabManager : MonoBehaviour
                 representationsModifiers[mainPool[currentPool].bonusIndex[0]].index = mainPool[currentPool].bonusIndex[0];
                 representationsModifiers[mainPool[currentPool].bonusIndex[0]].manager = this;
                 representationsModifiers[mainPool[currentPool].bonusIndex[0]].image.texture = mainPool[currentPool].malus[mainPool[currentPool].bonusIndex.Count - 1].GetComponent<TextureForDispenser>().texture;
-                if (mainPool[currentPool].malusIndex == numbersPerModifer)
+                if (mainPool[currentPool].malusIndex == null)
                     mainPool[currentPool].malusIndex = new List<int>();
                 mainPool[currentPool].malusIndex.Add( mainPool[currentPool].bonusIndex[0]);
                 representationsModifiers[mainPool[currentPool].bonusIndex[0]].indexInList = mainPool[currentPool].malusIndex.Count-1;
@@ -441,7 +434,7 @@ public class GrabManager : MonoBehaviour
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].index = mainPool[currentPool].numberOfModifiersActivated;
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].manager = this;
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].malus[mainPool[currentPool].bonusIndex.Count - 1].GetComponent<TextureForDispenser>().texture;
-        if (mainPool[currentPool].malusIndex == numbersPerModifer)
+        if (mainPool[currentPool].malusIndex == null)
             mainPool[currentPool].malusIndex = new List<int>();
         mainPool[currentPool].malusIndex.Add(mainPool[currentPool].numberOfModifiersActivated);
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].indexInList = mainPool[currentPool].malusIndex.Count - 1;
@@ -462,7 +455,7 @@ public class GrabManager : MonoBehaviour
         representations[representations.Length - 1].manager = this;
         representations[representations.Length - 1].image.texture = mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count-1].GetComponent<TextureForDispenser>().texture;
        
-        if (mainPool[currentPool].bonusIndex == numbersPerModifer)
+        if (mainPool[currentPool].bonusIndex == null)
             mainPool[currentPool].bonusIndex = new List<int>();
         mainPool[currentPool].bonusIndex.Add(mainPool[currentPool].numberOfModifiersActivated);
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].indexInList = mainPool[currentPool].bonus.Count - 1;

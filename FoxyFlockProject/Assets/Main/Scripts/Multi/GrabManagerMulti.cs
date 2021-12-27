@@ -11,7 +11,7 @@ public class GrabManagerMulti : GrabManager
     [SerializeField] public GameObject fireBallPrefab;
     [SerializeField] public GameObject fireBallPrefabOut;
     private PlayerMovementMulti playerMovement;
-
+    private ResetMulti resetMulti;
     public Representation fireballRepresentation;
     public bool nextIsFireBallBatche;
     // Start is called before the first frame update
@@ -33,6 +33,7 @@ public class GrabManagerMulti : GrabManager
         playGround = inputManager.GetComponent<PlayerMovementMulti>().tableTransform.GetComponent<PlayGround>();
         gameModeSolo = playGround.GetComponentInChildren<GameModeSolo>();
         playerMovement = inputManager.GetComponent<PlayerMovementMulti>();
+        resetMulti = inputManager.GetComponent<ResetMulti>();
         inputManager.OnGrabbingLeft.AddListener(OnGrabLeft);
         inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
         inputManager.OnGrabbingRight.AddListener(OnGrabRight);
@@ -94,6 +95,7 @@ public class GrabManagerMulti : GrabManager
             }
         }
         inputManager.OnSpawn.AddListener(UpdateBatche);
+        resetMulti.AddFreezFlock(mainPool[0].floxes[0]);
     }
 
     protected override void UpdateMilestone()
@@ -150,7 +152,15 @@ public class GrabManagerMulti : GrabManager
         }
 
     }
-   
+    protected override void FreezOfList(List<GameObject> flocksToFreez)
+    {
+        if (flocksToFreez == null)
+            return;
+        for (int i = 0; i < flocksToFreez.Count; i++)
+        {
+            resetMulti.AddFreezFlock(flocksToFreez[i]);
+        }
+    }
     protected override void UpdateBubble()
     {
         foreach (GameObject orb in playGround.bonusOrbes)
