@@ -244,10 +244,17 @@ public class GrabablePhysicsHandler : MonoBehaviour
     }
     public void OnFreeze()
     {
+        if(meshRenderer == null || propBlock == null || initialMat ==  null)
+        {
+            meshRenderer = GetComponent<MeshRenderer>();
+            initialMat = meshRenderer.material;
+            propBlock = new MaterialPropertyBlock();
+        }
+
         //Recup Data
         meshRenderer.GetPropertyBlock(propBlock);
         //EditZone
-        propBlock.SetFloat("Frozen?", 1);
+        meshRenderer.material.SetFloat("IsFrozen", 1);
 
         //Push Data
         meshRenderer.SetPropertyBlock(propBlock);

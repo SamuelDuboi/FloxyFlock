@@ -11,7 +11,9 @@ public class GrabManagerMulti : GrabManager
     [SerializeField] public GameObject fireBallPrefab;
     [SerializeField] public GameObject fireBallPrefabOut;
     private PlayerMovementMulti playerMovement;
+
     public Representation fireballRepresentation;
+    public bool nextIsFireBallBatche;
     // Start is called before the first frame update
     public override IEnumerator Start()
     {
@@ -104,7 +106,8 @@ public class GrabManagerMulti : GrabManager
         base.UpdateSpecial();
         if (fireBallNumber != null && fireBallNumber.Count > 0)
         {
-            AllowFireBall();
+            if(nextIsFireBallBatche)
+                AllowFireBall();
             for (int i = 0; i < fireBallNumber.Count; i++)
             {
                 if (fireBallNumber[i] != null)
@@ -114,7 +117,7 @@ public class GrabManagerMulti : GrabManager
             }
 
         }
-
+        nextIsFireBallBatche = !nextIsFireBallBatche;
     }
     public void GetPieceFireball(XRBaseInteractor baseInteractor)
     {

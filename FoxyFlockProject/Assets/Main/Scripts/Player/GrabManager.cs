@@ -78,7 +78,8 @@ public class GrabManager : MonoBehaviour
         inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
         inputManager.OnGrabbingRight.AddListener(OnGrabRight);
         inputManager.OnGrabbingReleaseRight.AddListener(OnRealeseRight);
-
+        yield return new WaitForSeconds(2f);
+        FreezOfList(mainPool[0].floxes);
     }
    public virtual void InitPool()
     {
@@ -237,6 +238,7 @@ public class GrabManager : MonoBehaviour
             //inputManager.OnSpawn.RemoveListener(SpawnBacth);
             return;
         }
+        //in testing
         if (previousPool < 5000)
             Freez(previousPool);
 
@@ -262,22 +264,33 @@ public class GrabManager : MonoBehaviour
     }
     protected virtual void Freez(int previousPool)
     {
-        for (int i = 0; i < mainPool[previousPool].floxes.Count; i++)
+        FreezOfList(mainPool[previousPool].floxes);
+        FreezOfList(mainPool[previousPool].bonus);
+        FreezOfList(mainPool[previousPool].malus);
+    }
+
+    private void FreezOfList(List<GameObject> flocksToFreez)
+    {
+        if (flocksToFreez == null)
+            return;
+        for (int i = 0; i < flocksToFreez.Count; i++)
         {
-            /*//Set flox material to the frozen color 
+           /* //Set flox material to the frozen color 
             //Recup Data
-            mainPool[previousPool].floxes[i].GetComponent<MeshRenderer>().GetPropertyBlock(propBlock);
+            flocksToFreez[i].GetComponent<MeshRenderer>().GetPropertyBlock(propBlock);
             //EditZone
             propBlock.SetFloat("Frozen?", 1);
-            //Push Data*/
-            mainPool[previousPool].floxes[i].GetComponent<GrabablePhysicsHandler>().OnFreeze();
+            //Push Data
+            flocksToFreez[i].GetComponent<MeshRenderer>().SetPropertyBlock(propBlock);*/
 
-            Destroy(mainPool[previousPool].floxes[i].GetComponent<GrabbableObject>());
-            Destroy(mainPool[previousPool].floxes[i].GetComponent<GrabablePhysicsHandler>());
-            Destroy(mainPool[previousPool].floxes[i].GetComponent<Rigidbody>());
+            flocksToFreez[i].GetComponent<GrabablePhysicsHandler>().OnFreeze();
+
+            Destroy(flocksToFreez[i].GetComponent<GrabbableObject>());
+            Destroy(flocksToFreez[i].GetComponent<GrabablePhysicsHandler>());
+            Destroy(flocksToFreez[i].GetComponent<Rigidbody>());
 
             NetworkRigidbody rgb;
-            if (mainPool[previousPool].floxes[i].TryGetComponent<NetworkRigidbody>(out rgb))
+            if (flocksToFreez[i].TryGetComponent<NetworkRigidbody>(out rgb))
                 Destroy(rgb);
         }
     }

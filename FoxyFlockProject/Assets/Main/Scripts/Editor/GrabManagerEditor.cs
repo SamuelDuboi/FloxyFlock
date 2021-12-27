@@ -94,9 +94,9 @@ public class GrabManagerEditor : Editor
                     EditorGUILayout.HelpBox("The modifier " + _object.name + " need to have an action linked", MessageType.Error);
                 }
                 int nextIndex = (i + 1) % negativeModifiers.arraySize;
-                SerializedProperty nextProp = negativeModifiers.GetArrayElementAtIndex(nextIndex);
+/*                SerializedProperty nextProp = negativeModifiers.GetArrayElementAtIndex(nextIndex);
                 if (negativeModifiers.arraySize == managerTarget.negativeModifiers.Count)
-                    managerTarget.numbersPerModifer[i] = EditorGUILayout.IntField(managerTarget.negativeModifiers[i].name + "Numbers per batches", managerTarget.numbersPerModifer[i]);
+                    managerTarget.numbersPerModifer[i] = EditorGUILayout.IntField(managerTarget.negativeModifiers[i].name + "Numbers per batches", managerTarget.numbersPerModifer[i]);*/
 
             }
 

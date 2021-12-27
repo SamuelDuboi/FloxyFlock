@@ -14,6 +14,7 @@ public class GrabManagerMultiEditor : Editor
     SerializedProperty representations;
     SerializedProperty representationsModifiers;
     SerializedProperty fireballRepresentation;
+    SerializedProperty nextIsFireBallBatche;
 
     ReorderableList rlistPositiveModifier;
     ReorderableList rlisNegativeModifier;
@@ -35,6 +36,7 @@ public class GrabManagerMultiEditor : Editor
         representations = serializedObject.FindProperty("representations");
         representationsModifiers = serializedObject.FindProperty("representationsModifiers");
         fireballRepresentation = serializedObject.FindProperty("fireballRepresentation");
+        nextIsFireBallBatche = serializedObject.FindProperty("nextIsFireBallBatche");
 
         rlistPositiveModifier = new ReorderableList(serializedObject, positiveModifiers, true, true, true, true);
         rlistPositiveModifier.onAddCallback += Add;
@@ -110,6 +112,8 @@ public class GrabManagerMultiEditor : Editor
         }
         managerTarget.fireBallPrefab = (GameObject)EditorGUILayout.ObjectField("Fire ball prefab", managerTarget.fireBallPrefab, typeof(GameObject), true);
         managerTarget.fireBallPrefabOut = (GameObject)EditorGUILayout.ObjectField("Fire ball prefab out", managerTarget.fireBallPrefabOut, typeof(GameObject), true);
+
+        EditorGUILayout.PropertyField(nextIsFireBallBatche, new GUIContent("First batch has fireball","if not the second bacth will have a fireBall"));
         EditorGUILayout.PropertyField(batches);
         EditorGUILayout.PropertyField(grabableObjects);
         if (GUILayout.Button("Add all Scenes Grabable"))
