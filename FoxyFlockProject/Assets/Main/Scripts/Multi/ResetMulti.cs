@@ -6,18 +6,29 @@ using Mirror.Experimental;
 public class ResetMulti : NetworkBehaviour
 {
     private List<GameObject> freezedFlocks = new List<GameObject>();
-
-    public virtual void AddFreezFlock(GameObject flock)
+    private List<int> freezdFlockPoolIndex = new List<int>();
+    private List<int> freezdFlockIndex = new List<int>();
+    public GrabManager grabManager;
+    public InputManager inputManager;
+    public virtual void AddFreezFlock(GameObject flock, int poolIndex, int flockIndex)
     {
         freezedFlocks.Add(flock);
+
+        freezdFlockPoolIndex.Add(poolIndex);
+        freezdFlockIndex.Add(flockIndex);
+
         CmdFreezFlock(flock);
     }
-    public virtual void RemoveFreezedFlock(GameObject flock)
+    public virtual void RemoveFreezedFlock(GameObject flock, int indexOfPool, int indexOfFLock)
     {
         if (freezedFlocks.Contains(flock))
         {
-            freezedFlocks.Remove(flock);
-            CmdDestroyFlock(flock);
+            var index = freezedFlocks.IndexOf(flock);
+            CmdDestroyFlock(flock,indexOfPool, indexOfFLock);
+            freezedFlocks.RemoveAt(index);
+            freezdFlockPoolIndex.RemoveAt(index);
+            freezdFlockIndex.RemoveAt(index);
+
         }
     }
    
@@ -25,19 +36,24 @@ public class ResetMulti : NetworkBehaviour
     {
         for (int i = 0; i < freezedFlocks.Count; i++)
         {
-            CmdDestroyFlock(freezedFlocks[i]);
+            CmdDestroyFlock(freezedFlocks[i], freezdFlockPoolIndex[i], freezdFlockIndex[i]);
         }
         freezedFlocks.Clear();
+        freezdFlockPoolIndex.Clear();
+        freezdFlockIndex.Clear();
     }
     [Command]
-    public void CmdDestroyFlock(GameObject flock)
+    public void CmdDestroyFlock(GameObject flock, int indexOfPool, int indexOfFLock)
     {
+        grabManager.DestroyFlock(flock, indexOfPool,indexOfFLock);
+        RpcDestroyFlock(flock, indexOfPool, indexOfFLock);
         Destroy(flock);
-        RpcDestroyFlock(flock);
+
     }
     [ClientRpc]
-    public void RpcDestroyFlock(GameObject flock)
+    public void RpcDestroyFlock(GameObject flock, int indexOfPool, int indexOfFLock)
     {
+        grabManager.DestroyFlock(flock, indexOfPool, indexOfFLock);
         Destroy(flock);
     }
 
@@ -58,7 +74,6 @@ public class ResetMulti : NetworkBehaviour
     public void RpcFreezFlock(GameObject flock)
     {
         flock.GetComponent<GrabablePhysicsHandler>().OnFreeze();
-
         Destroy(flock.GetComponent<GrabbableObject>());
         Destroy(flock.GetComponent<GrabablePhysicsHandler>());
         Destroy(flock.GetComponent<Rigidbody>());
@@ -66,4 +81,7 @@ public class ResetMulti : NetworkBehaviour
         if (flock.TryGetComponent<NetworkRigidbody>(out rgb))
             Destroy(rgb);
     }
+
+
+
 }

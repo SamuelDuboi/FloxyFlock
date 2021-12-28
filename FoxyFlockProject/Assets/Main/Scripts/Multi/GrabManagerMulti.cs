@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.XR.Interaction.Toolkit;
+using Mirror.Experimental;
 
 public class GrabManagerMulti : GrabManager
 {
@@ -63,14 +64,14 @@ public class GrabManagerMulti : GrabManager
                 Modifier _modifierPiece = negativeModifiers[UnityEngine.Random.Range(0, negativeModifiers.Count)];
                 Type typePiece = _modifierPiece.actions.GetType();
                 var _objectPiece = GetComponent(typePiece);
-                player.InitModifier(authority, i, _modifierPiece, batches[i].batchModifier.negativeModifier[x], _objectPiece, basicMats, false, mainPool, out mainPool);
+                player.InitModifier(authority, i,x, _modifierPiece, batches[i].batchModifier.negativeModifier[x], _objectPiece, basicMats, false, mainPool, out mainPool);
             }
             for (int x = 0; x < batches[i].batchModifier.positiveModifiers.Count; x++)
             {
                 Modifier _modifierPiece = positiveModifiers[UnityEngine.Random.Range(0, positiveModifiers.Count)];
                 Type typePiece = _modifierPiece.actions.GetType();
                 var _objectPiece = GetComponent(typePiece);
-                player.InitModifier(authority, i, _modifierPiece, batches[i].batchModifier.positiveModifiers[x], _objectPiece, basicMats, true, mainPool, out mainPool);
+                player.InitModifier(authority, i,x+2, _modifierPiece, batches[i].batchModifier.positiveModifiers[x], _objectPiece, basicMats, true, mainPool, out mainPool);
             }
 
         }
@@ -95,9 +96,18 @@ public class GrabManagerMulti : GrabManager
             }
         }
         inputManager.OnSpawn.AddListener(UpdateBatche);
-        resetMulti.AddFreezFlock(mainPool[0].floxes[0]);
+
+        //temporary test
+        resetMulti.AddFreezFlock(mainPool[0].floxes[0],0,0);
+        StartCoroutine(temptest());
     }
 
+
+    IEnumerator temptest()
+    {
+        yield return new WaitForSeconds(5f);
+        resetMulti.ResetEvent();
+    }
     protected override void UpdateMilestone()
     {
         currentMilestone = playGround.CheckMilestones(out positionOfMilestoneIntersection, out numberOfMilestones);
@@ -152,13 +162,13 @@ public class GrabManagerMulti : GrabManager
         }
 
     }
-    protected override void FreezOfList(List<GameObject> flocksToFreez)
+    protected override void FreezOfList(List<GameObject> flocksToFreez, int indeOfPool)
     {
         if (flocksToFreez == null)
             return;
         for (int i = 0; i < flocksToFreez.Count; i++)
         {
-            resetMulti.AddFreezFlock(flocksToFreez[i]);
+            resetMulti.AddFreezFlock(flocksToFreez[i],indeOfPool,i);
         }
     }
     protected override void UpdateBubble()
@@ -188,6 +198,38 @@ public class GrabManagerMulti : GrabManager
             mainPool[currentPool].isFireballUsed = false;
             playGround.GetComponentInChildren<FireballManager>().canAct = false;
             AllowFireBall();
+
+        }
+    }
+
+    public override void DestroyFlock(GameObject flock, int indexOfPool, int indexOfFlock)
+    {
+        if (mainPool[indexOfPool].floxes[indexOfFlock] == flock)
+        {
+            Modifier _modifier = baseModifier;
+            Type type = _modifier.actions.GetType();
+            var _object = GetComponent(type);
+            mainPool[indexOfPool].floxes.RemoveAt(indexOfFlock);
+            mainPool[indexOfPool].isSelected.RemoveAt(indexOfFlock);
+            playerMovement.InitBacth(playerMovement.gameObject, indexOfPool, indexOfFlock, batches, _modifier, _object, basicMats, mainPool, out mainPool);
+        }
+        else if (mainPool[indexOfPool].bonus[indexOfFlock] == flock)
+        {
+            Modifier _modifierPiece = negativeModifiers[UnityEngine.Random.Range(0, negativeModifiers.Count)];
+            Type typePiece = _modifierPiece.actions.GetType();
+            var _objectPiece = GetComponent(typePiece);
+            mainPool[indexOfPool].malus.RemoveAt(indexOfFlock);
+
+            playerMovement.InitModifier(playerMovement.gameObject, indexOfPool,indexOfFlock, _modifierPiece, batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], _objectPiece, basicMats, false, mainPool, out mainPool);
+
+        }
+        else if (mainPool[indexOfPool].malus[indexOfFlock] == flock)
+        {
+            Modifier _modifierPiece = positiveModifiers[UnityEngine.Random.Range(0, positiveModifiers.Count)];
+            Type typePiece = _modifierPiece.actions.GetType();
+            var _objectPiece = GetComponent(typePiece);
+            mainPool[indexOfPool].bonus.RemoveAt(indexOfFlock);
+            playerMovement.InitModifier(playerMovement.gameObject, indexOfPool, indexOfFlock+2, _modifierPiece, batches[indexOfPool].batchModifier.positiveModifiers[indexOfFlock], _objectPiece, basicMats, true, mainPool, out mainPool);
 
         }
     }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.XR.Interaction.Toolkit;
-[RequireComponent(typeof(GrabablePhysicsHandler))]
 public class GrabbableObject : XRGrabInteractable
 {
     [HideInInspector] public bool isGrab;
