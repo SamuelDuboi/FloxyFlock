@@ -35,7 +35,6 @@ public class FireballManager : MonoBehaviour
         if (outFireball == null || rig == null||fireballCollider == null)
             return;
         FindExitAngle();
-        CheckForCollision();
     }
 
     public void Initialize()
@@ -138,30 +137,12 @@ public class FireballManager : MonoBehaviour
         inFireball.GetComponent<Rigidbody>().velocity = FireballTableVector * fireballSpeed;
     }
 
-    private void CheckForCollision()
-    {
-        if (inFireball.activeSelf)
-        {
-            Collider[] fireballCollisions = Physics.OverlapSphere(inFireball.transform.position, fireballCollider.radius * inFireball.transform.localScale.x); //TODO : Remove reference to local scale once we have the right fireball mesh (not a scaled one).
-
-            foreach (Collider collider in fireballCollisions)
-            {
-                if (collider.gameObject.layer == 11 || collider.tag == "Piece") //Hand layer index
-                {
-                    print("Fireball collided with : " + collider);
-                    Explosion();
-                    break;
-                }
-            }
-        }
-    }
-
-    private void Explosion()
+    public void Explosion()
     {
         Collider[] explosionHits = Physics.OverlapSphere(inFireball.transform.position, explosionRadius);
         List<GameObject> floxesHit = new List<GameObject>();
         inFireball.GetComponent<SoundReader>().Play();
-        inFireball.SetActive(false); //TODO : Set inFireball back into the pooler (parent + position)
+        inFireball.SetActive(false);
 
         //Go through each collidesr and add the corresponding flox to a list
         foreach (Collider collider in explosionHits)
@@ -177,10 +158,12 @@ public class FireballManager : MonoBehaviour
             }
         }
 
+        //Destroy every flox in the list
         foreach (GameObject flox in floxesHit)
         {
             flox.GetComponent<FloxBurn>().BurnEvent();
         }
+
         canAct = false;
     }
 }
