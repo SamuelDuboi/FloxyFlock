@@ -13,6 +13,7 @@ public class GrabManagerEditor : Editor
     SerializedProperty baseModifier;
     SerializedProperty representations;
     SerializedProperty representationsModifiers;
+    SerializedProperty weightOfBasicInRandom;
     private GrabManager managerTarget;
     ReorderableList rlistPositiveModifier;
     ReorderableList rlisNegativeModifier;
@@ -28,6 +29,7 @@ public class GrabManagerEditor : Editor
         positiveModifiers = serializedObject.FindProperty("positiveModifiers");
         negativeModifiers = serializedObject.FindProperty("negativeModifiers");
         baseModifier = serializedObject.FindProperty("baseModifier");
+        weightOfBasicInRandom = serializedObject.FindProperty("weightOfBasicInRandom");
         representations = serializedObject.FindProperty("representations");
         representationsModifiers = serializedObject.FindProperty("representationsModifiers");
 
@@ -66,6 +68,8 @@ public class GrabManagerEditor : Editor
         if (managerTarget.modifierFoldout)
         {
             EditorGUILayout.PropertyField(baseModifier,new GUIContent( "Base modifier "));
+            if(baseModifier.objectReferenceValue != null)
+            EditorGUILayout.PropertyField(weightOfBasicInRandom, new GUIContent( "  Weight of base  modifier "));
 
             rlistPositiveModifier.DoLayoutList();
             for (int i = 0; i < positiveModifiers.arraySize; i++)

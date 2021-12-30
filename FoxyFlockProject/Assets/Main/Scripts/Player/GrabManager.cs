@@ -30,7 +30,7 @@ public class GrabManager : MonoBehaviour
     public int currentMilestone = -1;
     protected Vector3 positionOfMilestoneIntersection;
     protected int numberOfMilestones;
-
+    public int weightOfBasicInRandom = 1;
     protected MaterialPropertyBlock propBlock;
 
     // public Buble[] bubles;
@@ -85,10 +85,15 @@ public class GrabManager : MonoBehaviour
             for (int x = 0; x < batches[i].pieces.Count; x++)
             {
                 GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + (x * 5 + 1) * 20 * (i * 5 + 1), 300 + x * 20, 300 + x), Quaternion.identity);
-                Modifier _modifer = baseModifier;
-                Type type = _modifer.actions.GetType();
+                int random = UnityEngine.Random.Range(0, negativeModifiers.Count + positiveModifiers.Count + weightOfBasicInRandom);
+                Modifier _modifier = baseModifier;
+                if (random > 15 && random <= negativeModifiers.Count + weightOfBasicInRandom)
+                    _modifier = negativeModifiers[random - weightOfBasicInRandom-1];
+                else if (random > negativeModifiers.Count + weightOfBasicInRandom)
+                    _modifier = positiveModifiers[random -( weightOfBasicInRandom+1) - negativeModifiers.Count];
+                Type type = _modifier.actions.GetType();
                 var _object = GetComponent(type);
-                flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
+                flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifier, _object as ModifierAction, basicMats);
                 flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
                 flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
 

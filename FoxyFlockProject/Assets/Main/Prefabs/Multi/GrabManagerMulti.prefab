@@ -1627,7 +1627,8 @@ MonoBehaviour:
   inputManager: {fileID: 0}
   fireBallInstantiated: {fileID: 0}
   currentMilestone: 0
-  modifierFoldout: 0
+  weightOfBasicInRandom: 15
+  modifierFoldout: 1
   actions: []
   numbersPerModifer: 00000000000000000000000000000000
   allflocks:
@@ -3280,11 +3281,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7224081281983138608, guid: a85e852bf61a0544fad6292e27c5cc2f, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -1.1842378e-14
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224081281983138608, guid: a85e852bf61a0544fad6292e27c5cc2f, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 1.8449948
       objectReference: {fileID: 0}
     - target: {fileID: 7224081281983138608, guid: a85e852bf61a0544fad6292e27c5cc2f, type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -0.000000099341065
+      value: 0.000000049670533
       objectReference: {fileID: 0}
     - target: {fileID: 7224081282557095968, guid: a85e852bf61a0544fad6292e27c5cc2f, type: 3}
       propertyPath: m_Name

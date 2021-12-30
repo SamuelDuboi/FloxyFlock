@@ -267,8 +267,7 @@ public class PlayerMovementMulti : NetworkBehaviour
     {
         batches = _batches;
         int v = 1;
-        if (doOnce)
-            v = 2;
+      
         doOnce = !doOnce;
         GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + (x+v) * 20 * + i * 5, 300 + (x+v) * 20  + i * 5, 300 + (x+v) * 20  + i * 5), Quaternion.identity);
         tempModifier = _modifier;
@@ -277,7 +276,7 @@ public class PlayerMovementMulti : NetworkBehaviour
 
         flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
         flock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
-
+        v++;
         _mainPool1[i].floxes.Add(flock);
         _mainPool1[i].isSelected.Add(false);
         _mainPool1[i].isEmpty = false;
