@@ -43,11 +43,32 @@ float Bezier(in float2 pos, in float2 A, in float2 B, in float2 C)
 	return sqrt(res);
 }
 
-void Face_float(float2 UV, float2 offsetUV, float4 outlineColor, float4 irisColor, float4 eyesColor, float4 mouthColor, float4 tongueColor,
+float RoundedBox(float2 CenterPosition, float2 Size, float Radius) 
+{
+	// How soft the edges should be (in pixels). Higher values could be used to simulate a drop shadow.
+	float edgeSoftness = 1.0f;
+
+	float distance = length(max(abs(CenterPosition) - Size + Radius, 0.0)) - Radius;
+	float smoothedAlpha = 1.0f - smoothstep(0.0f, edgeSoftness * 2.0f, distance);
+	return lerp(0.0, 1.0, smoothedAlpha);
+}
+
+float Unity_RoundedRectangle(float2 UV, float Width, float Height, float Radius, float2 offset)
+{
+	UV = UV + offset;
+	Radius = max(min(min(abs(Radius * 2), abs(Width)), abs(Height)), 1e-5);
+	float2 uv = abs(UV * 2 - 1) -float2(Width, Height) + Radius;
+	float d = length(max(0, uv)) / Radius;
+	float fwd = max(fwidth(d), 1e-5);
+	return saturate((1 - d) / fwd);
+}
+
+void Face_float(float2 UV, float2 offsetUV, float outlineSize, float4 outlineColor, float4 irisColor, float4 eyesColor, float4 mouthColor, float4 tongueColor, float4 teethColor,
 	float eyesDistance, float eyesSize, float eyesShape, float irisPositionX, float irisPositionY, float irisSize, float irisShape, float bossEyed,
-	float outlineSize, bool mouthOpen, float mouthWidth, float mouthHeight, float mouthThickness, float smile,
-	float openMouthSize, float openMouthShapeX, float openMouthShapeY, float tongueSize, float tonguePositionY, float straightMouth, float topLips, float bottomLips, float lipsShapeX,
 	float topEyelid, float bottomEyelid, float rings, float straightEyelid,
+	bool mouthOpen, float mouthWidth, float mouthHeight, float mouthThickness, float smile,
+	float openMouthSize, float openMouthShapeX, float openMouthShapeY, float tongueSize, float tonguePositionY, float straightMouth, float topLips, float bottomLips, float lipsShapeX, 
+	float teethWidth, float teethHeight, float teethCorners,
 	out float alpha, out float4 Out)
 {
 	UV += offsetUV;
@@ -106,6 +127,9 @@ void Face_float(float2 UV, float2 offsetUV, float4 outlineColor, float4 irisColo
 			: step(distance(float2(0.5, mouthHeight), openMouthUV), mouthWidth + outlineSize) * step(mouthWidth * 2.0 - outlineSize, distance(float2(0.5, mouthHeight + topLips), lipsUV)) * step(mouthWidth * 2.0 - outlineSize, distance(float2(0.5, mouthHeight - bottomLips), lipsUV))
 		: mouth;
 
+	//float teeth = RoundedBox(float2(0.5, mouthHeight), teethSize/2.0, teethCorners);
+	float teeth = Unity_RoundedRectangle(UV, teethWidth, teethHeight, teethCorners, float2(0.0,0.5-mouthHeight));
+
 	alpha = outlineEyes + outlineMouth;
 
 	if (eyes > 0) {
@@ -123,12 +147,16 @@ void Face_float(float2 UV, float2 offsetUV, float4 outlineColor, float4 irisColo
 			if (tongue > 0) {
 				colMouth = tongueColor;
 			}
+			if (teeth > 0) {
+				colMouth = teethColor;
+			}
 		}
 	}
 	else { colMouth = outlineColor; }
 
+
 	col.rgb = lerp(outlineColor, lerp(colEyes, colMouth, mouth), eyes + mouth);
 	
-	//col.a = alpha;
+	
 	Out = col;
 }
