@@ -50,7 +50,6 @@ public class PlayerMovementMulti : NetworkBehaviour
             tableTransform.GetComponentInChildren<GameModeSolo>().playerMovement = this;
         }
         
-        tableTransform.GetComponentInChildren<FireballManager>().canAct= false;
         tableRenderer = tableTransform.GetComponent<Renderer>();
         TableGetClamp temp = tableRenderer.GetComponent<TableGetClamp>();
         zClampMin = temp.zClampMin;
@@ -513,18 +512,18 @@ public class PlayerMovementMulti : NetworkBehaviour
     {
         NetworkServer.Destroy(bubble);
     }
+
     [Command]
-    public void CmdSpawnInFireBall(GameObject target, int exitIndex )
+    public void CmdSpawnInFireBall(GameObject target)
     {
         NetworkIdentity opponentIdentity = target.GetComponent<NetworkIdentity>();
-        TargetGetFireBall(opponentIdentity.connectionToClient, exitIndex);
+        TargetGetFireBall(opponentIdentity.connectionToClient);
     }
 
-    
     [TargetRpc]
-    private void TargetGetFireBall(NetworkConnection target, int exitIndex)
+    private void TargetGetFireBall(NetworkConnection target)
     {
-        tableTransform.GetComponentInChildren<FireballManager>().EnterEvent(exitIndex);
+        StartCoroutine(tableTransform.GetComponentInChildren<FireballManager>().FireballIncoming());
     }
    
     [ClientRpc]

@@ -8,9 +8,14 @@ public class OutFireball : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Portal")
+        if (other.gameObject == fireballManager.portal)
         {
-            //init exit portal event
+            fireballManager.FireballHitPortal();
         }
+    }
+
+    public void OpenPortal()
+    {
+        StartCoroutine(fireballManager.TryOpenPortal());
     }
 }

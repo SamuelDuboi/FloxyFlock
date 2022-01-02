@@ -6,10 +6,8 @@ using UnityEngine.UI;
 public class DetectionHUD : MonoBehaviour
 {
     [SerializeField] [Range(0f, 1f)] private float viewportSizeAdjustement = 0.1f;
-    public bool canDetect;
     public Camera playerCamera; //Set in hierarchy
-
-    [SerializeField] private Transform target; //DEBUG ONLY
+    public bool canDetect;
 
     [SerializeField] private Image topWarningImage;
     [SerializeField] private Image bottomWarningImage;

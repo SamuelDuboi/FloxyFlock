@@ -24,7 +24,7 @@ public class GrabManager : MonoBehaviour
     protected SoundReader sound;
 
     public int currentMilestone = -1;
-    protected Vector3 positionOfMilestoneIntersection;
+    [HideInInspector] public Vector3 positionOfMilestoneIntersection;
     protected int numberOfMilestones;
 
     protected MaterialPropertyBlock propBlock;
@@ -439,7 +439,7 @@ public class GrabManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         if (isFireBall)
         {
-            playGround.GetComponentInChildren<FireballManager>().canAct = true;
+            //playGround.GetComponentInChildren<FireballManager>().canAct = true;
         }
 
     }
@@ -537,7 +537,6 @@ public class GrabManager : MonoBehaviour
     {
         if (!isGrab)
         {
-
             _object.GetComponent<Rigidbody>().useGravity = false;
             _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
             _object.transform.rotation = Quaternion.identity;
@@ -546,7 +545,8 @@ public class GrabManager : MonoBehaviour
             grabableBonus.OnHitGround.RemoveListener(RespawnFireball);
             grabableBonus.enabled = false;
             mainPool[currentPool].isMalusUsed = false;
-            playGround.GetComponentInChildren<FireballManager>().canAct = false;
+            //playGround.GetComponentInChildren<FireballManager>().canAct = false;
+            StartCoroutine(playGround.GetComponentInChildren<FireballManager>().TryClosePortal());
             AllowMalus();
 
         }
