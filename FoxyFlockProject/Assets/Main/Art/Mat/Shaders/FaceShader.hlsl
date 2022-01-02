@@ -102,7 +102,7 @@ void Face_float(float2 UV, float2 offsetUV, float outlineSize, float4 outlineCol
 
 	float lightInIris = irisLight ? step(distance(float2(bossEyed ? eyesDistance + lightOffsetX
 		: (UV.x > 0.5 ? eyesDistance + lightOffsetX : 1.0 - eyesDistance + lightOffsetX), 0.5) 
-		+ float2(irisPositionX + lightOffsetX, (bossEyed ? (invertIris ? (UV.x > 0.5 ? irisPositionY + lightOffsetY : -irisPositionY - lightOffsetY) : irisPositionY + lightOffsetY) : irisPositionY + lightOffsetY)) * eyesSize * irisSize, irisUV), eyesSize * irisSize * 0.3)
+		+ float2(irisPositionX + lightOffsetX, (bossEyed ? (invertIris ? (UV.x > 0.5 ? irisPositionY + lightOffsetY : -irisPositionY + lightOffsetY) : irisPositionY + lightOffsetY) : irisPositionY + lightOffsetY)) * eyesSize, irisUV), eyesSize * irisSize * 0.3)
 		: 0.0;
 
 	float outlineEyes = rings ? step(distance(float2(eyesDistance, 0.5), eyeUV), eyesSize + outlineSize)
