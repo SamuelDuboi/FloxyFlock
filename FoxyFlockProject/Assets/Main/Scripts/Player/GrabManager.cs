@@ -338,7 +338,8 @@ public class GrabManager : MonoBehaviour
         {
             doOnce = true;
             return;
-        }
+        }    
+
         foreach (GameObject orb in playGround.bonusOrbes)
         {
             orb.transform.position += Vector3.up * playGround.milestoneManager.distance;
@@ -417,13 +418,23 @@ public class GrabManager : MonoBehaviour
                 representationsModifiers[mainPool[currentPool].bonusIndex[0]].gameObject.SetActive(true);
                 representationsModifiers[mainPool[currentPool].bonusIndex[0]].index = mainPool[currentPool].bonusIndex[0];
                 representationsModifiers[mainPool[currentPool].bonusIndex[0]].manager = this;
-                representationsModifiers[mainPool[currentPool].bonusIndex[0]].image.texture = mainPool[currentPool].malus[mainPool[currentPool].bonusIndex.Count - 1].GetComponent<TextureForDispenser>().texture;
                 if (mainPool[currentPool].malusIndex == null)
                     mainPool[currentPool].malusIndex = new List<int>();
                 mainPool[currentPool].malusIndex.Add(mainPool[currentPool].bonusIndex[0]);
                 if (mainPool[currentPool].malusSeletcted == null)
                     mainPool[currentPool].malusSeletcted = new List<GameObject>();
-                mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[mainPool[currentPool].bonusIndex.Count - 1]);
+                if (mainPool[currentPool].bonusIndex != null)
+                {
+                    representationsModifiers[mainPool[currentPool].bonusIndex[0]].image.texture = mainPool[currentPool].malus[mainPool[currentPool].malus.Count - 1 - mainPool[currentPool].bonusIndex.Count].GetComponent<TextureForDispenser>().texture;
+
+                    mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[mainPool[currentPool].malus.Count - 1 - mainPool[currentPool].bonusIndex.Count]);
+                }
+                else
+                {
+                    representationsModifiers[mainPool[currentPool].bonusIndex[0]].image.texture = mainPool[currentPool].malus[mainPool[currentPool].malus.Count - 1 ].GetComponent<TextureForDispenser>().texture;
+
+                    mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[mainPool[currentPool].malus.Count - 1]);
+                }
                 representationsModifiers[mainPool[currentPool].bonusIndex[0]].indexInList = mainPool[currentPool].malusIndex.Count - 1;
                 representationsModifiers[mainPool[currentPool].bonusIndex[0]].isMalus = true;
 
@@ -437,11 +448,21 @@ public class GrabManager : MonoBehaviour
         mainPool[currentPool].malusIndex.Add(mainPool[currentPool].numberOfModifiersActivated);
         if (mainPool[currentPool].malusSeletcted == null)
             mainPool[currentPool].malusSeletcted = new List<GameObject>();
-        mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[mainPool[currentPool].bonusIndex.Count - 1]);
+        if (mainPool[currentPool].bonusIndex != null)
+        {
+            mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[mainPool[currentPool].malus.Count - 1 - mainPool[currentPool].bonusIndex.Count]);
+            representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].malus[mainPool[currentPool].malus.Count - 1 - mainPool[currentPool].bonusIndex.Count].GetComponent<TextureForDispenser>().texture;
+
+        }
+        else
+        {
+            mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[mainPool[currentPool].malus.Count - 1 ]);
+            representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].malus[mainPool[currentPool].malus.Count - 1 ].GetComponent<TextureForDispenser>().texture;
+        }
+
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].gameObject.SetActive(true);
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].index = mainPool[currentPool].numberOfModifiersActivated;
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].manager = this;
-        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].malus[mainPool[currentPool].bonusIndex.Count - 1].GetComponent<TextureForDispenser>().texture;
        
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].indexInList = mainPool[currentPool].malusIndex.Count - 1;
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].isMalus = true;
@@ -462,11 +483,21 @@ public class GrabManager : MonoBehaviour
         mainPool[currentPool].bonusIndex.Add(mainPool[currentPool].numberOfModifiersActivated);
         if (mainPool[currentPool].bonusSelected == null)
             mainPool[currentPool].bonusSelected = new List<GameObject>();
-        mainPool[currentPool].bonusSelected.Add(mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count - 1]);
+        if(mainPool[currentPool].malusIndex != null)
+        {
+            mainPool[currentPool].bonusSelected.Add(mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count - 1 - mainPool[currentPool].malusIndex.Count]);
+            representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count - 1 - mainPool[currentPool].malusIndex.Count].GetComponent<TextureForDispenser>().texture;
+
+        }
+        else
+        {
+            mainPool[currentPool].bonusSelected.Add(mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count - 1 ]);
+            representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count - 1 ].GetComponent<TextureForDispenser>().texture;
+        }
+
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].gameObject.SetActive(true);
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].index = mainPool[currentPool].numberOfModifiersActivated;
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].manager = this;
-        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count - 1].GetComponent<TextureForDispenser>().texture;
 
 
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].indexInList = mainPool[currentPool].bonus.Count - 1;
