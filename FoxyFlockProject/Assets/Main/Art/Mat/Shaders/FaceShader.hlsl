@@ -43,11 +43,22 @@ float Bezier(in float2 pos, in float2 A, in float2 B, in float2 C)
 	return sqrt(res);
 }
 
-void Face_float(float2 UV, float2 offsetUV, float4 outlineColor, float4 irisColor, float4 eyesColor, float4 mouthColor, float4 tongueColor,
-	float eyesDistance, float eyesSize, float eyesShape, float irisPositionX, float irisPositionY, float irisSize, float irisShape, float bossEyed,
-	float outlineSize, bool mouthOpen, float mouthWidth, float mouthHeight, float mouthThickness, float smile,
-	float openMouthSize, float openMouthShapeX, float openMouthShapeY, float tongueSize, float tonguePositionY, float straightMouth, float topLips, float bottomLips, float lipsShapeX,
-	float topEyelid, float bottomEyelid, float rings, float straightEyelid,
+float RoundedRectangle(float2 UV, float Width, float Height, float Radius, float2 offset)
+{
+	UV = UV + offset;
+	Radius = max(min(min(abs(Radius * 2), abs(Width)), abs(Height)), 1e-5);
+	float2 uv = abs(UV * 2 - 1) -float2(Width, Height) + Radius;
+	float d = length(max(0, uv)) / Radius;
+	float fwd = max(fwidth(d), 1e-5);
+	return saturate((1 - d) / fwd);
+}
+
+void Face_float(float2 UV, float2 offsetUV, float outlineSize, float4 outlineColor, float4 irisColor, float4 eyesColor, float4 mouthColor, float4 tongueColor, float4 teethColor,
+	float eyesDistance, float eyesSize, float eyesShape, float irisPositionX, float irisPositionY, float irisSize, float irisShape, bool bossEyed, bool invertIris, bool irisLight,
+	float topEyelid, float bottomEyelid, bool rings, bool straightEyelid,
+	bool mouthOpen, float mouthWidth, float mouthHeight, float mouthThickness, float smile,
+	float openMouthSize, float openMouthShapeX, float openMouthShapeY, float tongueSize, float tonguePositionY, float straightMouth, float topLips, float bottomLips, float lipsShapeX, 
+	bool withTeeth, float teethWidth, float teethHeight, float teethCorners,
 	out float alpha, out float4 Out)
 {
 	UV += offsetUV;
@@ -68,9 +79,6 @@ void Face_float(float2 UV, float2 offsetUV, float4 outlineColor, float4 irisColo
 	openMouthUV.x -= 0.5;
 	openMouthUV.x *= openMouthShapeX;
 	openMouthUV.x += 0.5;
-	/*openMouthUV.y -= 0.5;
-	openMouthUV.y *= openMouthShapeY;
-	openMouthUV.y += 0.5;*/
 
 	lipsUV.y = openMouthUV.y;
 	lipsUV.x -= 0.5;
@@ -81,13 +89,21 @@ void Face_float(float2 UV, float2 offsetUV, float4 outlineColor, float4 irisColo
 	float3 colEyes = 0.0;
 	float3 colMouth = 0.0;
 
+	float lightOffsetX = 0.0035;
+	float lightOffsetY = 0.35;
+
 	float eyes = step(distance(float2(eyesDistance, 0.5), eyeUV), eyesSize);
 
 	eyes = straightEyelid ? eyes * step(eyeUV.y, 1.0- topEyelid) * step(bottomEyelid, eyeUV.y) 
 		: eyes*step(eyesSize*2.0, distance(float2(eyesDistance, 0.5 + topEyelid),eyeUV))*step(eyesSize * 2.0, distance(float2(eyesDistance, 0.5 - bottomEyelid), eyeUV));
 
-	float iris = step(distance(float2(bossEyed > 0 ? eyesDistance 
-		: (UV.x > 0.5 ? eyesDistance : 1.0 - eyesDistance), 0.5) + float2(irisPositionX, irisPositionY) * eyesSize, irisUV), eyesSize * irisSize);
+	float iris = step(distance(float2(bossEyed ? eyesDistance
+		: (UV.x > 0.5 ? eyesDistance : 1.0 - eyesDistance), 0.5) + float2(irisPositionX, (bossEyed ? (invertIris ? (UV.x > 0.5 ? irisPositionY : -irisPositionY) : irisPositionY) : irisPositionY)) * eyesSize, irisUV), eyesSize* irisSize);
+
+	float lightInIris = irisLight ? step(distance(float2(bossEyed ? eyesDistance + lightOffsetX
+		: (UV.x > 0.5 ? eyesDistance + lightOffsetX : 1.0 - eyesDistance + lightOffsetX), 0.5) 
+		+ float2(irisPositionX + lightOffsetX, (bossEyed ? (invertIris ? (UV.x > 0.5 ? irisPositionY + lightOffsetY : -irisPositionY + lightOffsetY) : irisPositionY + lightOffsetY) : irisPositionY + lightOffsetY)) * eyesSize, irisUV), eyesSize * irisSize * 0.3)
+		: 0.0;
 
 	float outlineEyes = rings ? step(distance(float2(eyesDistance, 0.5), eyeUV), eyesSize + outlineSize)
 		: straightEyelid ? step(distance(float2(eyesDistance, 0.5), eyeUV), eyesSize + outlineSize) * step(eyeUV.y, 1.0 - topEyelid + outlineSize) * step(bottomEyelid - outlineSize, eyeUV.y)
@@ -106,11 +122,16 @@ void Face_float(float2 UV, float2 offsetUV, float4 outlineColor, float4 irisColo
 			: step(distance(float2(0.5, mouthHeight), openMouthUV), mouthWidth + outlineSize) * step(mouthWidth * 2.0 - outlineSize, distance(float2(0.5, mouthHeight + topLips), lipsUV)) * step(mouthWidth * 2.0 - outlineSize, distance(float2(0.5, mouthHeight - bottomLips), lipsUV))
 		: mouth;
 
+	float teeth = withTeeth ? RoundedRectangle(UV, teethWidth, teethHeight, teethCorners, float2(0.0,0.5-mouthHeight)) : 0.0;
+
 	alpha = outlineEyes + outlineMouth;
 
 	if (eyes > 0) {
 		if (iris > 0) {
 			colEyes = irisColor;
+			if (lightInIris > 0) {
+				colEyes = 1.0;
+			}
 		}
 		else {
 			colEyes = eyesColor;
@@ -123,12 +144,16 @@ void Face_float(float2 UV, float2 offsetUV, float4 outlineColor, float4 irisColo
 			if (tongue > 0) {
 				colMouth = tongueColor;
 			}
+			if (teeth > 0) {
+				colMouth = teethColor;
+			}
 		}
 	}
 	else { colMouth = outlineColor; }
 
+
 	col.rgb = lerp(outlineColor, lerp(colEyes, colMouth, mouth), eyes + mouth);
 	
-	//col.a = alpha;
+	
 	Out = col;
 }
