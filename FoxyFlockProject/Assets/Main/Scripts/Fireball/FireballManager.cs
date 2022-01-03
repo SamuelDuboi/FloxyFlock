@@ -11,8 +11,8 @@ public class FireballManager : MonoBehaviour
     public GameObject portal;
 
     [SerializeField] private Transform tableCenter = null;
-    [SerializeField] private DetectionHUD detectionHUD;
-    [SerializeField] private GrabManager grabManager;
+    public DetectionHUD detectionHUD;
+    public GrabManager grabManager;
 
     [SerializeField] private float portalOpeningDuration = 1f;
     [SerializeField] private float portalClosingDuration = 0.5f;

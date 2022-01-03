@@ -193,7 +193,7 @@ public class GrabManagerMulti : GrabManager
             grabableBonus.OnHitGround.RemoveListener(RespawnFireball);
             grabableBonus.enabled = false;
             mainPool[currentPool].isFireballUsed = false;
-            playGround.GetComponentInChildren<FireballManager>().canAct = false;
+            StartCoroutine(playGround.GetComponentInChildren<FireballManager>().TryClosePortal());
             AllowFireBall();
 
         }
