@@ -6,7 +6,7 @@ public class Bubble : MonoBehaviour
     public SphereCollider spherCollider;
     public Transform m_transform;
     public LayerMask layerMask;
-    private float radius;
+   [HideInInspector] public float radius;
     private GrabablePhysicsHandler _temp;
     public  bool isMalus;
     public bool isFireBall;
