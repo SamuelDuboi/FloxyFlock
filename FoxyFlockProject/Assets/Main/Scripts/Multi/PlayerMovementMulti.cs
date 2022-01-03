@@ -29,6 +29,7 @@ public class PlayerMovementMulti : NetworkBehaviour
     [HideInInspector] public List<Batch>batches;
     private GameObject tempFlock;
     private GameObject tempFlock2;
+    bool doOnce;
     // Start is called before the first frame update
     void Start()
     {
@@ -264,19 +265,20 @@ public class PlayerMovementMulti : NetworkBehaviour
     public void InitBacth(GameObject authority, int i, int x, List<Batch> _batches, Modifier _modifier, Component _object, PhysicMaterial[] basicMats, List<pool> _mainPool1,  out List<pool> _mainPool)
     {
         batches = _batches;
-        int rand = UnityEngine.Random.Range(0, 100);
-        int rand1 = UnityEngine.Random.Range(0, 100);
-        int rand2 = UnityEngine.Random.Range(0, 100);
-        GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + (x+1) * 20 * rand + i * 5*rand, 300 + (x+1) * 20 * rand + i * 5*rand1, 300 + (x+1) * 20 * rand + i * 5*rand2), Quaternion.identity);
+        int v = 1;
+      
+        doOnce = !doOnce;
+        GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + (x+v) * 20 * + i * 5, 300 + (x+v) * 20  + i * 5, 300 + (x+v) * 20  + i * 5), Quaternion.identity);
         tempModifier = _modifier;
         tempbasicMats = basicMats;
         flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifier, _object as ModifierAction, basicMats);
 
         flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
         flock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
-
+        v++;
         _mainPool1[i].floxes.Add(flock);
         _mainPool1[i].isSelected.Add(false);
+        _mainPool1[i].isEmpty = false;
         ScenesManager.instance.numberOfFlocksInScene++;
         _mainPool = _mainPool1;
         tempFlock = flock;
@@ -299,11 +301,14 @@ public class PlayerMovementMulti : NetworkBehaviour
         
     }
     private List<Component> components = new List<Component>();
-    public void InitModifier(GameObject authority, int i, ModifierBatch modifierBatch , Component _object, PhysicMaterial[] basicMats, List<pool> _mainPool1, out List<pool> _mainPool)
+    public void InitModifier(GameObject authority, int i,int x,Modifier modifier, GameObject piece , Component _object, PhysicMaterial[] basicMats,bool isBonus, List<pool> _mainPool1, out List<pool> _mainPool)
     {
-        int rand = UnityEngine.Random.Range(0, 100);
-        GameObject flock = Instantiate(modifierBatch.piece, new Vector3(300 + 20 * rand , 300 +  20 * rand, 300 + 20 * rand ), Quaternion.identity);
-        tempModifier = modifierBatch.modifier;
+        int v = 1;
+        if (doOnce)
+            v = 2;
+        doOnce = !doOnce;
+        GameObject flock = Instantiate(piece, new Vector3(-300 + (x + v) * 20 * +i * 5, 300 + (x + v) * 20 + i * 5, 300 + (x + v) * 20 + i * 5), Quaternion.identity);
+        tempModifier = modifier;
         int index = 0;
         bool hasFounded = false;
         for (int w = 0;w < components.Count; w++)
@@ -324,8 +329,20 @@ public class PlayerMovementMulti : NetworkBehaviour
         flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(tempModifier, _object as ModifierAction, basicMats);
         flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
         flock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
+        if (isBonus)
+        {
+            if (_mainPool1[i].bonus == null)
+                _mainPool1[i].bonus = new List<GameObject>();
+            _mainPool1[i].bonus.Add(flock);
+        }
+        else
+        {
+            if (_mainPool1[i].malus == null)
+                _mainPool1[i].malus = new List<GameObject>();
+            _mainPool1[i].malus.Add(flock);
+        }
+        _mainPool1[i].isEmptyModifier = false;
 
-        _mainPool1[i].bonus = flock;
         _mainPool = _mainPool1;
         tempFlock = flock;
         CmdSpawnPiece(authority, _mainPool1, _tempComponent.ToString(), tempbasicMats, index);
@@ -550,5 +567,25 @@ public class PlayerMovementMulti : NetworkBehaviour
     private void RpcChangeMilestonValue(int index, int value)
     {
         NetworkManagerRace.instance.ChangeMilestonValue(index, value);
+    }
+
+
+    [Command(requiresAuthority = false)]
+    public void CmdMoveBubble(GameObject bubble,Vector3 newPos)
+    {
+        bubble.transform.position = newPos;
+        RcpMoveBubble(bubble,newPos);
+    }
+    public void CmdMoveBubble(GameObject bubble, float yToAdd)
+    {
+        bubble.transform.position += Vector3.up * yToAdd;
+        
+        RcpMoveBubble(bubble,bubble.transform.position);
+    }
+
+    [ClientRpc]
+    void RcpMoveBubble(GameObject bubble, Vector3 newPos)
+    {
+        bubble.transform.position = newPos;
     }
 }

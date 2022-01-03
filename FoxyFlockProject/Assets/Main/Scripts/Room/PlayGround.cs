@@ -19,9 +19,15 @@ public class PlayGround : MonoBehaviour
     private Vector3 point1;
     private Vector3 extend;
     private Vector3 point2;
+    
     private GrabablePhysicsHandler _temp;
     public  HandsPlayground _tempHand;
     public MilestoneManager milestoneManager;
+
+    [Header("orbes")]
+    public List<GameObject> bonusOrbes;
+    public List<GameObject> malusOrbes;
+    public GameObject fireBallOrbe;
     // Start is called before the first frame update
     void Start()
     {
