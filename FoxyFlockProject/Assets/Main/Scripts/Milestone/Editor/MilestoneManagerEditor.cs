@@ -108,7 +108,7 @@ public class MilestoneManagerEditor : Editor
 
         }
         distance.floatValue = Vector3.Distance(((Transform)_transform.objectReferenceValue).position, ((Transform)_tableTransform.objectReferenceValue).position);
-
+        EditorGUILayout.LabelField("Distance between milestones",distance.floatValue.ToString());
         ActualiseMilestonesPos();
         serializedObject.ApplyModifiedProperties();
         serializedObject.Update();

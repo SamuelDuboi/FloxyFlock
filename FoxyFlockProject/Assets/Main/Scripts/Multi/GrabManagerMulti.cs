@@ -15,6 +15,7 @@ public class GrabManagerMulti : GrabManager
     private ResetMulti resetMulti;
     public Representation fireballRepresentation;
     public bool nextIsFireBallBatche;
+    int playerNumber;
     // Start is called before the first frame update
     public override IEnumerator Start()
     {
@@ -40,8 +41,9 @@ public class GrabManagerMulti : GrabManager
         inputManager.OnGrabbingRight.AddListener(OnGrabRight);
         inputManager.OnGrabbingReleaseRight.AddListener(OnRealeseRight);
     }
-    public virtual void InitPool(GameObject authority, PlayerMovementMulti player)
+    public virtual void InitPool(GameObject authority, PlayerMovementMulti player, int v)
     {
+        playerNumber = v;
         if (ScenesManager.instance.IsLobbyScene() || ScenesManager.instance.IsMenuScene())
             return;
         mainPool = new List<pool>();
@@ -62,7 +64,7 @@ public class GrabManagerMulti : GrabManager
                     _modifier = positiveModifiers[random - weightOfBasicInRandom-1 - negativeModifiers.Count];
                 Type type = _modifier.actions.GetType();
                 var _object = GetComponent(type);
-                player.InitBacth(authority, i, x, batches, _modifier, _object, basicMats, mainPool, out mainPool);
+                player.InitBacth(authority,v, i, x, batches, _modifier, _object, basicMats, mainPool, out mainPool);
             }
 
             for (int x = 0; x < batches[i].batchModifier.negativeModifier.Count; x++)
@@ -70,15 +72,16 @@ public class GrabManagerMulti : GrabManager
                 Modifier _modifierPiece = negativeModifiers[UnityEngine.Random.Range(0, negativeModifiers.Count)];
                 Type typePiece = _modifierPiece.actions.GetType();
                 var _objectPiece = GetComponent(typePiece);
-                player.InitModifier(authority, i,x, _modifierPiece, batches[i].batchModifier.negativeModifier[x], _objectPiece, basicMats, false, mainPool, out mainPool);
+                player.InitModifier(authority,v, i,x, _modifierPiece, batches[i].batchModifier.negativeModifier[x], _objectPiece, basicMats, false, mainPool, out mainPool);
             }
             for (int x = 0; x < batches[i].batchModifier.positiveModifiers.Count; x++)
             {
                 Modifier _modifierPiece = positiveModifiers[UnityEngine.Random.Range(0, positiveModifiers.Count)];
                 Type typePiece = _modifierPiece.actions.GetType();
                 var _objectPiece = GetComponent(typePiece);
-                player.InitModifier(authority, i,x+2, _modifierPiece, batches[i].batchModifier.positiveModifiers[x], _objectPiece, basicMats, true, mainPool, out mainPool);
+                player.InitModifier(authority,v, i,x+2, _modifierPiece, batches[i].batchModifier.positiveModifiers[x], _objectPiece, basicMats, true, mainPool, out mainPool);
             }
+            mainPool[i].isEmptyModifier = true;
 
         }
         player.InitFireBall(authority, fireBallPrefab, fireBallPrefabOut);
@@ -170,6 +173,11 @@ public class GrabManagerMulti : GrabManager
     }
     protected override void UpdateBubble()
     {
+        if (!doOnce)
+        {
+            doOnce = true;
+            return;
+        }
         foreach (GameObject orb in playGround.bonusOrbes)
         {
           playerMovement.CmdMoveBubble(  orb, playGround.milestoneManager.distance);
@@ -208,7 +216,7 @@ public class GrabManagerMulti : GrabManager
             var _object = GetComponent(type);
             mainPool[indexOfPool].floxes.RemoveAt(indexOfFlock);
             mainPool[indexOfPool].isSelected.RemoveAt(indexOfFlock);
-            playerMovement.InitBacth(playerMovement.gameObject, indexOfPool, indexOfFlock, batches, _modifier, _object, basicMats, mainPool, out mainPool);
+            playerMovement.InitBacth(playerMovement.gameObject, playerNumber, indexOfPool, indexOfFlock, batches, _modifier, _object, basicMats, mainPool, out mainPool);
         }
         else if (mainPool[indexOfPool].bonus[indexOfFlock] == flock)
         {
@@ -217,7 +225,7 @@ public class GrabManagerMulti : GrabManager
             var _objectPiece = GetComponent(typePiece);
             mainPool[indexOfPool].malus.RemoveAt(indexOfFlock);
 
-            playerMovement.InitModifier(playerMovement.gameObject, indexOfPool,indexOfFlock, _modifierPiece, batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], _objectPiece, basicMats, false, mainPool, out mainPool);
+            playerMovement.InitModifier(playerMovement.gameObject, playerNumber, indexOfPool,indexOfFlock, _modifierPiece, batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], _objectPiece, basicMats, false, mainPool, out mainPool);
 
         }
         else if (mainPool[indexOfPool].malus[indexOfFlock] == flock)
@@ -226,7 +234,7 @@ public class GrabManagerMulti : GrabManager
             Type typePiece = _modifierPiece.actions.GetType();
             var _objectPiece = GetComponent(typePiece);
             mainPool[indexOfPool].bonus.RemoveAt(indexOfFlock);
-            playerMovement.InitModifier(playerMovement.gameObject, indexOfPool, indexOfFlock+2, _modifierPiece, batches[indexOfPool].batchModifier.positiveModifiers[indexOfFlock], _objectPiece, basicMats, true, mainPool, out mainPool);
+            playerMovement.InitModifier(playerMovement.gameObject, playerNumber,indexOfPool, indexOfFlock+2, _modifierPiece, batches[indexOfPool].batchModifier.positiveModifiers[indexOfFlock], _objectPiece, basicMats, true, mainPool, out mainPool);
 
         }
     }

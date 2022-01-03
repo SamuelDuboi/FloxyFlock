@@ -60,14 +60,14 @@ public class ResetMulti : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void CmdFreezFlock(GameObject flock)
     {
-        flock.GetComponent<GrabablePhysicsHandler>().OnFreeze();
+/*        flock.GetComponent<GrabablePhysicsHandler>().OnFreeze();
 
         Destroy(flock.GetComponent<GrabbableObject>());
         Destroy(flock.GetComponent<GrabablePhysicsHandler>());
         Destroy(flock.GetComponent<Rigidbody>());
         NetworkRigidbody rgb;
         if (flock.TryGetComponent<NetworkRigidbody>(out rgb))
-            Destroy(rgb);
+            Destroy(rgb);*/
         RpcFreezFlock(flock);
     }
     [ClientRpc]

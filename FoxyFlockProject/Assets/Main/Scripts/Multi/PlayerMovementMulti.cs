@@ -262,13 +262,12 @@ public class PlayerMovementMulti : NetworkBehaviour
     Component tempComponent;
     private Type _tempComponent;
     PhysicMaterial[] tempbasicMats;
-    public void InitBacth(GameObject authority, int i, int x, List<Batch> _batches, Modifier _modifier, Component _object, PhysicMaterial[] basicMats, List<pool> _mainPool1,  out List<pool> _mainPool)
+    public void InitBacth(GameObject authority,int v, int i, int x, List<Batch> _batches, Modifier _modifier, Component _object, PhysicMaterial[] basicMats, List<pool> _mainPool1,  out List<pool> _mainPool)
     {
         batches = _batches;
-        int v = 1;
       
         doOnce = !doOnce;
-        GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + (x+v) * 20 * + i * 5, 300 + (x+v) * 20  + i * 5, 300 + (x+v) * 20  + i * 5), Quaternion.identity);
+        GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + (x+v*6) * 20 * + i * 5, 300 + (x+v*6) * 20  + i * 5, 300 + (x+v*6) * 20  + i * 5), Quaternion.identity);
         tempModifier = _modifier;
         tempbasicMats = basicMats;
         flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifier, _object as ModifierAction, basicMats);
@@ -301,13 +300,11 @@ public class PlayerMovementMulti : NetworkBehaviour
         
     }
     private List<Component> components = new List<Component>();
-    public void InitModifier(GameObject authority, int i,int x,Modifier modifier, GameObject piece , Component _object, PhysicMaterial[] basicMats,bool isBonus, List<pool> _mainPool1, out List<pool> _mainPool)
+    public void InitModifier(GameObject authority,int v, int i,int x,Modifier modifier, GameObject piece , Component _object, PhysicMaterial[] basicMats,bool isBonus, List<pool> _mainPool1, out List<pool> _mainPool)
     {
-        int v = 1;
-        if (doOnce)
-            v = 2;
+   
         doOnce = !doOnce;
-        GameObject flock = Instantiate(piece, new Vector3(-300 + (x + v) * 20 * +i * 5, 300 + (x + v) * 20 + i * 5, 300 + (x + v) * 20 + i * 5), Quaternion.identity);
+        GameObject flock = Instantiate(piece, new Vector3(-300 + (x + v*6) * 20 * +i * 5, 300 + (x + v*6) * 20 + i * 5, 300 + (x + v*6) * 20 + i * 5), Quaternion.identity);
         tempModifier = modifier;
         int index = 0;
         bool hasFounded = false;
@@ -334,12 +331,19 @@ public class PlayerMovementMulti : NetworkBehaviour
             if (_mainPool1[i].bonus == null)
                 _mainPool1[i].bonus = new List<GameObject>();
             _mainPool1[i].bonus.Add(flock);
+            if (_mainPool1[i].isSelectedModifier == null)
+                _mainPool1[i].isSelectedModifier = new List<bool>();
+            _mainPool1[i].isSelectedModifier.Add(false);
+
         }
         else
         {
             if (_mainPool1[i].malus == null)
                 _mainPool1[i].malus = new List<GameObject>();
             _mainPool1[i].malus.Add(flock);
+            if (_mainPool1[i].isSelectedModifier == null)
+                _mainPool1[i].isSelectedModifier = new List<bool>();
+            _mainPool1[i].isSelectedModifier.Add(false);
         }
         _mainPool1[i].isEmptyModifier = false;
 

@@ -123,7 +123,7 @@ public class NetworkManagerRace : NetworkRoomManager
             {
                 playerController.CmdInitUI(i, players[i], false, avatarsSprite[i]);
             }
-            grabManagers[i].InitPool(players[i], playerController);
+            grabManagers[i].InitPool(players[i], playerController,i+1);
             if (i == InitNumberOfPlayer-1)
                 InitNumberOfPlayer = 0;
         }
