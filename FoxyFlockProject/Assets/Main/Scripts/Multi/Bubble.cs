@@ -10,7 +10,7 @@ public class Bubble : MonoBehaviour
     private GrabablePhysicsHandler _temp;
     public  bool isMalus;
     public bool isFireBall;
-    [HideInInspector] public GrabManager grabManager;
+    public GrabManager grabManager;
     bool hasFlocks;
     public SoundReader sound;
     private void Start()

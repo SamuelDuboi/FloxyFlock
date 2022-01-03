@@ -132,6 +132,7 @@ public class GrabManager : MonoBehaviour
                     mainPool[i].bonus = new List<GameObject>();
                 mainPool[i].bonus.Add(flock2);
             }
+            mainPool[i].isEmptyModifier = true;
 
 
         }
@@ -337,6 +338,7 @@ public class GrabManager : MonoBehaviour
         {
             orb.transform.position += Vector3.up * playGround.milestoneManager.distance;
         }
+        if (playGround.fireBallOrbe)
         playGround.fireBallOrbe.transform.position += Vector3.up * playGround.milestoneManager.distance;
 
     }
@@ -428,7 +430,7 @@ public class GrabManager : MonoBehaviour
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].isMalus = true;
 
         mainPool[currentPool].numberOfModifiersActivated++;
-
+        mainPool[currentPool].isEmptyModifier = false;
         if (mainPool[currentPool] == null)
             mainPool[currentPool].isSelected = new List<bool>();
         mainPool[currentPool].isSelected.Add(false);
@@ -453,6 +455,7 @@ public class GrabManager : MonoBehaviour
         if (mainPool[currentPool] == null)
             mainPool[currentPool].isSelected = new List<bool>();
         mainPool[currentPool].isSelected.Add(false);
+        mainPool[currentPool].isEmptyModifier = false;
 
     }
     public bool isOnCollision;
