@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 2960859933846960095}
   - component: {fileID: 6664463968500549111}
   - component: {fileID: 8227977322592970272}
+  - component: {fileID: -896477228234636948}
   m_Layer: 13
   m_Name: Fireball_In
   m_TagString: Untagged
@@ -300,6 +301,19 @@ MonoBehaviour:
   ForthClipName: 
   applyAudioOnStart: 0
   doOnce: 0
+--- !u!114 &-896477228234636948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6014082983983481214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9e9afcb77181a14ca0e811534ea271c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireballManager: {fileID: 0}
 --- !u!1001 &1956766027252594379
 PrefabInstance:
   m_ObjectHideFlags: 0
