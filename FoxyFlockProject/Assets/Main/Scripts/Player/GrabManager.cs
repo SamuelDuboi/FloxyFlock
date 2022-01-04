@@ -15,6 +15,8 @@ public class GrabManager : MonoBehaviour
     public Representation[] representations;
     public Representation[] representationsModifiers;
     public List<pool> mainPool;
+    public MoveBubble moveBubble;
+    protected Vector3 nextMilestonePos;
     protected bool isGrabLeft;
     protected bool isGrabRight;
     protected bool isFirstBacthPassed;
@@ -68,6 +70,8 @@ public class GrabManager : MonoBehaviour
             
         }
         InitPool();
+        currentMilestone = playGround.CheckMilestones(out positionOfMilestoneIntersection, out numberOfMilestones, out nextMilestonePos);
+        moveBubble.MoveBubbles(playGround.radius, nextMilestonePos.y, playGround.bonusOrbes, playGround.malusOrbes);
         inputManager.OnGrabbingLeft.AddListener(OnGrabLeft);
         inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
         inputManager.OnGrabbingRight.AddListener(OnGrabRight);
@@ -82,6 +86,7 @@ public class GrabManager : MonoBehaviour
             mainPool.Add(new pool());
             mainPool[i].floxes = new List<GameObject>();
             mainPool[i].isSelected = new List<bool>();
+            mainPool[i].isSelectedModifier = new List<bool>();
             for (int x = 0; x < batches[i].pieces.Count; x++)
             {
                 GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + (x * 5 + 1) * 20 * (i * 5 + 1), 300 + x * 20, 300 + x), Quaternion.identity);
@@ -280,7 +285,7 @@ public class GrabManager : MonoBehaviour
     }
     protected virtual void UpdateMilestone()
     {
-        currentMilestone = playGround.CheckMilestones(out positionOfMilestoneIntersection, out numberOfMilestones);
+        currentMilestone = playGround.CheckMilestones(out positionOfMilestoneIntersection, out numberOfMilestones, out nextMilestonePos);
         Debug.Log("You have reache " + currentMilestone.ToString() + " / " + (numberOfMilestones + 1).ToString() + "Milestones");
         if (currentMilestone == numberOfMilestones)
             UIGlobalManager.instance.Win(1);

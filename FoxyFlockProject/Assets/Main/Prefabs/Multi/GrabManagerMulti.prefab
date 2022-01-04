@@ -1258,6 +1258,7 @@ GameObject:
   - component: {fileID: 8828409454304139947}
   - component: {fileID: 2411069798146911233}
   - component: {fileID: 5136891162510553805}
+  - component: {fileID: 7394776807181511762}
   m_Layer: 0
   m_Name: GrabManagerMulti
   m_TagString: Untagged
@@ -1632,6 +1633,7 @@ MonoBehaviour:
   - {fileID: 1587853947122525455}
   - {fileID: 3376255007773378961}
   - {fileID: 3358505727749548560}
+  moveBubble: {fileID: 0}
   reset: {fileID: 0}
   playGround: {fileID: 0}
   inputManager: {fileID: 0}
@@ -1670,6 +1672,31 @@ MonoBehaviour:
   ForthClipName: 
   applyAudioOnStart: 0
   doOnce: 0
+--- !u!114 &7394776807181511762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924033292305017701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d270d06f9e1c72346a1e91805428c5bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cb: 0
+  cbPrime: 0
+  hb: 0
+  hbPrime: 0
+  cm: 0
+  cmPrime: 0
+  minValue: 0
+  hm: 0
+  hmPrime: 0
+  cf: 0
+  cfPrime: 0
+  hf: 0
+  hfPrime: 0
 --- !u!1 &2566278654900317865
 GameObject:
   m_ObjectHideFlags: 0

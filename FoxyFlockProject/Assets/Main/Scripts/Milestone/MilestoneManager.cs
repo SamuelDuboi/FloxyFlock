@@ -17,7 +17,7 @@ public class MilestoneManager : MonoBehaviour
     /// return the index of the current milestones activated if none is activated, return 0
     /// </summary>
     /// <returns></returns>
-    public int CheckMilestones(out Vector3 point, out int numberOfMilestones)
+    public int CheckMilestones(out Vector3 point, out int numberOfMilestones, out Vector3 nextMilestonePos)
     {
         numberOfMilestones = milestones.Count;
        if (milestones[currenMilestonIndex].CheckCollision(out point))
@@ -27,9 +27,14 @@ public class MilestoneManager : MonoBehaviour
                 if (milestones[i].CheckCollision(out point))
                 {
                     currenMilestonIndex = i;
+                    nextMilestonePos = milestones[i - 1].transform.localPosition + transform.localPosition;
                     return currenMilestonIndex;
                 }
             }
+            if (currenMilestonIndex != 0)
+                nextMilestonePos = milestones[currenMilestonIndex - 1].transform.localPosition + transform.localPosition;
+            else
+                nextMilestonePos = transform.localPosition + Vector3.up * distance;
             return currenMilestonIndex;
         }
         else
@@ -39,10 +44,13 @@ public class MilestoneManager : MonoBehaviour
                 if (milestones[i].CheckCollision(out point))
                 {
                     currenMilestonIndex = i;
+                    nextMilestonePos = milestones[i - 1].transform.localPosition + transform.localPosition;
                     return currenMilestonIndex;
                 }
             }
         }
+       
+        nextMilestonePos = transform.localPosition + Vector3.up * distance;
         return 0;
     }
 }

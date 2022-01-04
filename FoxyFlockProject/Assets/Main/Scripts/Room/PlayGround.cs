@@ -13,7 +13,7 @@ public class PlayGround : MonoBehaviour
     [Range(1,2)]
     public float slowForce;
     public float timeBeforFall;
-    private float radius;
+    [HideInInspector] public float radius;
     private RaycastHit hit;
     private float distance;
     private Vector3 point1;
@@ -42,9 +42,9 @@ public class PlayGround : MonoBehaviour
     /// return the index of the current milestones activated if none is activated, return -1
     /// </summary>
     /// <returns></returns>
-    public int CheckMilestones(out Vector3 point, out int numberOfMilestones)
+    public int CheckMilestones(out Vector3 point, out int numberOfMilestones, out Vector3 nextMilestonePos)
     {
-        return milestoneManager.CheckMilestones(out point, out numberOfMilestones);
+        return milestoneManager.CheckMilestones(out point, out numberOfMilestones, out nextMilestonePos);
     }
 
 

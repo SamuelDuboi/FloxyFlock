@@ -10,6 +10,7 @@ public class ResetMulti : NetworkBehaviour
     private List<int> freezdFlockIndex = new List<int>();
     public GrabManager grabManager;
     public InputManager inputManager;
+   
     public virtual void AddFreezFlock(GameObject flock, int poolIndex, int flockIndex)
     {
         freezedFlocks.Add(flock);

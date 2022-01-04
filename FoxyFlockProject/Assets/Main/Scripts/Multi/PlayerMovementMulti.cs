@@ -30,6 +30,7 @@ public class PlayerMovementMulti : NetworkBehaviour
     private GameObject tempFlock;
     private GameObject tempFlock2;
     bool doOnce;
+    public MoveBubble moveBubble;
     // Start is called before the first frame update
     void Start()
     {
@@ -579,21 +580,16 @@ public class PlayerMovementMulti : NetworkBehaviour
 
 
     [Command(requiresAuthority = false)]
-    public void CmdMoveBubble(GameObject bubble,Vector3 newPos)
+    public void CmdMoveBubble(float _playgroundRayon,float tposition,List<GameObject> bonus, List<GameObject> malus, GameObject fireball)
     {
-        bubble.transform.position = newPos;
-        RcpMoveBubble(bubble,newPos);
-    }
-    public void CmdMoveBubble(GameObject bubble, float yToAdd)
-    {
-        bubble.transform.position += Vector3.up * yToAdd;
-        
-        RcpMoveBubble(bubble,bubble.transform.position);
+        moveBubble.MoveBubbles(_playgroundRayon, tposition, bonus, malus, fireball);
+        RcpMoveBubble( _playgroundRayon, tposition, bonus, malus, fireball);
     }
 
+
     [ClientRpc]
-    void RcpMoveBubble(GameObject bubble, Vector3 newPos)
+    void RcpMoveBubble(float _playgroundRayon, float tposition, List<GameObject> bonus, List<GameObject> malus, GameObject fireball)
     {
-        bubble.transform.position = newPos;
+        moveBubble.MoveBubbles(_playgroundRayon, tposition, bonus, malus, fireball);
     }
 }
