@@ -277,7 +277,6 @@ public class PlayerMovementMulti : NetworkBehaviour
         flock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
         v++;
         _mainPool1[i].floxes.Add(flock);
-        _mainPool1[i].isSelected.Add(false);
         _mainPool1[i].isEmpty = false;
         ScenesManager.instance.numberOfFlocksInScene++;
         _mainPool = _mainPool1;
@@ -332,9 +331,6 @@ public class PlayerMovementMulti : NetworkBehaviour
             if (_mainPool1[i].bonus == null)
                 _mainPool1[i].bonus = new List<GameObject>();
             _mainPool1[i].bonus.Add(flock);
-            if (_mainPool1[i].isSelectedModifier == null)
-                _mainPool1[i].isSelectedModifier = new List<bool>();
-            _mainPool1[i].isSelectedModifier.Add(false);
 
         }
         else
@@ -342,9 +338,6 @@ public class PlayerMovementMulti : NetworkBehaviour
             if (_mainPool1[i].malus == null)
                 _mainPool1[i].malus = new List<GameObject>();
             _mainPool1[i].malus.Add(flock);
-            if (_mainPool1[i].isSelectedModifier == null)
-                _mainPool1[i].isSelectedModifier = new List<bool>();
-            _mainPool1[i].isSelectedModifier.Add(false);
         }
         _mainPool1[i].isEmptyModifier = false;
 

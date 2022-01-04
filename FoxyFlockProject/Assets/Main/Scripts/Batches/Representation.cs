@@ -12,7 +12,7 @@ public class Representation : MonoBehaviour
    [HideInInspector] public bool isMalus;
     public bool isModifier;
     public bool isFireBall;
-    [HideInInspector] public int indexInList;
+     public int indexInList;
 
     private void OnTriggerStay(Collider other)
     {

@@ -1234,8 +1234,12 @@ MonoBehaviour:
     - {fileID: 7752209755336706059, guid: 98c6ae1acc34f734a83930c767b03bee, type: 3}
     weight: 10
     batchModifier:
-      positiveModifiers: []
-      negativeModifier: []
+      positiveModifiers:
+      - {fileID: 8274945382952786794, guid: c78a8e22e637b5940881ee6ae043cb3c, type: 3}
+      - {fileID: 3700406415017159875, guid: da98e338cc291544881dfaf700deb660, type: 3}
+      negativeModifier:
+      - {fileID: 7455921705368196685, guid: e98772b7067e2bb4ea1c3ef807248d3d, type: 3}
+      - {fileID: 6861033994696840683, guid: 68833875d141d3e47805fd6889487399, type: 3}
     isEmpty: 0
   - pieces:
     - {fileID: 7752209755336706059, guid: 98c6ae1acc34f734a83930c767b03bee, type: 3}
@@ -1244,8 +1248,12 @@ MonoBehaviour:
     - {fileID: 3700406415017159875, guid: da98e338cc291544881dfaf700deb660, type: 3}
     weight: 10
     batchModifier:
-      positiveModifiers: []
-      negativeModifier: []
+      positiveModifiers:
+      - {fileID: 3069128699973587937, guid: b33fc83a3466a3e40aabb143ac1a2f22, type: 3}
+      - {fileID: 7752209755336706059, guid: 98c6ae1acc34f734a83930c767b03bee, type: 3}
+      negativeModifier:
+      - {fileID: 8274945382952786794, guid: c78a8e22e637b5940881ee6ae043cb3c, type: 3}
+      - {fileID: 5191685301571692960, guid: 156febf843691c44992cafb366dabc8d, type: 3}
     isEmpty: 0
   - pieces:
     - {fileID: 3069128699973587937, guid: b33fc83a3466a3e40aabb143ac1a2f22, type: 3}
@@ -1255,15 +1263,23 @@ MonoBehaviour:
     - {fileID: 8274945382952786794, guid: c78a8e22e637b5940881ee6ae043cb3c, type: 3}
     weight: 1
     batchModifier:
-      positiveModifiers: []
-      negativeModifier: []
+      positiveModifiers:
+      - {fileID: 8274945382952786794, guid: c78a8e22e637b5940881ee6ae043cb3c, type: 3}
+      - {fileID: 7455921705368196685, guid: e98772b7067e2bb4ea1c3ef807248d3d, type: 3}
+      negativeModifier:
+      - {fileID: 6861033994696840683, guid: 68833875d141d3e47805fd6889487399, type: 3}
+      - {fileID: 7455921705368196685, guid: e98772b7067e2bb4ea1c3ef807248d3d, type: 3}
     isEmpty: 0
   - pieces:
     - {fileID: 3700406415017159875, guid: da98e338cc291544881dfaf700deb660, type: 3}
     weight: 0
     batchModifier:
-      positiveModifiers: []
-      negativeModifier: []
+      positiveModifiers:
+      - {fileID: 3700406415017159875, guid: da98e338cc291544881dfaf700deb660, type: 3}
+      - {fileID: 7455921705368196685, guid: e98772b7067e2bb4ea1c3ef807248d3d, type: 3}
+      negativeModifier:
+      - {fileID: 5191685301571692960, guid: 156febf843691c44992cafb366dabc8d, type: 3}
+      - {fileID: 6861033994696840683, guid: 68833875d141d3e47805fd6889487399, type: 3}
     isEmpty: 0
   basicMats:
   - {fileID: 13400000, guid: f49b989612fc3e34f8e1d4904afb1022, type: 2}
