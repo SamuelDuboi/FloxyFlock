@@ -54,7 +54,6 @@ public class GrabManagerMulti : GrabManager
         {
             mainPool.Add(new pool());
             mainPool[i].floxes = new List<GameObject>();
-            mainPool[i].isSelected = new List<bool>();
             for (int x = 0; x < batches[i].pieces.Count; x++)
             {
                 // temp solution for attribution

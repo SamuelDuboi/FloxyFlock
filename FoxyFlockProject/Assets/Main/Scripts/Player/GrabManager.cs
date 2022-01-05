@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.XR.Interaction.Toolkit;
 using Mirror.Experimental;
+
 public class GrabManager : MonoBehaviour
 {
     public Modifier baseModifier;
@@ -86,7 +87,7 @@ public class GrabManager : MonoBehaviour
             mainPool.Add(new pool());
             mainPool[i].floxes = new List<GameObject>();
             mainPool[i].isSelected = new List<bool>();
-            mainPool[i].isSelectedModifier = new List<bool>();
+           ;
             for (int x = 0; x < batches[i].pieces.Count; x++)
             {
                 GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + (x * 5 + 1) * 20 * (i * 5 + 1), 300 + x * 20, 300 + x), Quaternion.identity);
@@ -121,7 +122,7 @@ public class GrabManager : MonoBehaviour
                 if (mainPool[i].malus == null)
                     mainPool[i].malus = new List<GameObject>();
                 mainPool[i].malus.Add(flock2);
-                mainPool[i].isSelectedModifier.Add(false);
+                
             }
             for (int x = 0; x < batches[i].batchModifier.positiveModifiers.Count; x++)
             {
@@ -137,7 +138,7 @@ public class GrabManager : MonoBehaviour
                 if (mainPool[i].bonus == null)
                     mainPool[i].bonus = new List<GameObject>();
                 mainPool[i].bonus.Add(flock2);
-                mainPool[i].isSelectedModifier.Add(false);
+               
 
             }
             mainPool[i].isEmptyModifier = true;
@@ -313,28 +314,34 @@ public class GrabManager : MonoBehaviour
     }
     protected virtual void UpdateSpecial()
     {
+        if (bonusNumber != null && bonusNumber.Count > 0)
+        {
+
+            for (int i = 0; i < bonusNumber.Count; i++)
+            {
+
+                if (bonusNumber[i] != null)
+                {
+                    AllowBonus();
+                    bonusNumber[i].GetComponent<SoundReader>().Play();
+                }
+            }
+           
+        }
         if (malusNumber != null && malusNumber.Count > 0)
         {
-            AllowMalus();
+           
             for (int i = 0; i < malusNumber.Count; i++)
             {
                 if (malusNumber[i] != null)
                 {
+                    AllowMalus();
                     malusNumber[i].GetComponent<SoundReader>().Play();
                 }
             }
 
         }
-        if (bonusNumber != null && bonusNumber.Count > 0)
-        {
-            AllowBonus();
-            for (int i = 0; i < bonusNumber.Count; i++)
-            {
-                if (bonusNumber[i] != null)
-                    bonusNumber[i].GetComponent<SoundReader>().Play();
-            }
-            StartCoroutine(ResetModifierCount());
-        }
+        StartCoroutine(ResetModifierCount());
     }
     protected bool doOnce;
     protected virtual void UpdateBubble()
@@ -363,6 +370,8 @@ public class GrabManager : MonoBehaviour
         yield return new WaitForSeconds(1.6f);
         if (malusNumber != null && malusNumber.Count != 0)
             malusNumber.Clear();
+        if (bonusNumber != null && bonusNumber.Count != 0)
+            bonusNumber.Clear();
     }
 
     public void AddBubble(bool isMalus, GameObject bubble)
@@ -413,7 +422,7 @@ public class GrabManager : MonoBehaviour
     private void AllowMalus()
     {
 
-        if (mainPool[currentPool].numberOfModifiersActivated > representationsModifiers.Length)
+        if (mainPool[currentPool].numberOfModifiersActivated >= representationsModifiers.Length)
         {
             //if there is no bonus, return, else override the bonus
             if (mainPool[currentPool].bonusIndex == null || mainPool[currentPool].bonusIndex.Count == 0)
@@ -430,17 +439,12 @@ public class GrabManager : MonoBehaviour
                     mainPool[currentPool].malusSeletcted = new List<GameObject>();
                 if (mainPool[currentPool].bonusIndex != null)
                 {
-                    representationsModifiers[mainPool[currentPool].bonusIndex[0]].image.texture = mainPool[currentPool].malus[mainPool[currentPool].malus.Count - 1 - mainPool[currentPool].bonusIndex.Count].GetComponent<TextureForDispenser>().texture;
+                    representationsModifiers[mainPool[currentPool].bonusIndex[0]].image.texture = mainPool[currentPool].malus[1].GetComponent<TextureForDispenser>().texture;
 
-                    mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[mainPool[currentPool].malus.Count - 1 - mainPool[currentPool].bonusIndex.Count]);
+                    mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[1]);
                 }
-                else
-                {
-                    representationsModifiers[mainPool[currentPool].bonusIndex[0]].image.texture = mainPool[currentPool].malus[mainPool[currentPool].malus.Count - 1 ].GetComponent<TextureForDispenser>().texture;
-
-                    mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[mainPool[currentPool].malus.Count - 1]);
-                }
-                representationsModifiers[mainPool[currentPool].bonusIndex[0]].indexInList = mainPool[currentPool].malusIndex.Count - 1;
+                
+                representationsModifiers[mainPool[currentPool].bonusIndex[0]].indexInList = mainPool[currentPool].malusIndex[mainPool[currentPool].malusIndex.Count - 1];
                 representationsModifiers[mainPool[currentPool].bonusIndex[0]].isMalus = true;
 
                 mainPool[currentPool].bonusIndex.RemoveAt(0);
@@ -448,70 +452,60 @@ public class GrabManager : MonoBehaviour
                 return;
             }
         }
+
         if (mainPool[currentPool].malusIndex == null)
             mainPool[currentPool].malusIndex = new List<int>();
-        mainPool[currentPool].malusIndex.Add(mainPool[currentPool].numberOfModifiersActivated);
+
+        mainPool[currentPool].malusIndex.Add(mainPool[currentPool].malusIndex.Count);
         if (mainPool[currentPool].malusSeletcted == null)
             mainPool[currentPool].malusSeletcted = new List<GameObject>();
-        if (mainPool[currentPool].bonusIndex != null)
-        {
-            mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[mainPool[currentPool].malus.Count - 1 - mainPool[currentPool].bonusIndex.Count]);
-            representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].malus[mainPool[currentPool].malus.Count - 1 - mainPool[currentPool].bonusIndex.Count].GetComponent<TextureForDispenser>().texture;
 
-        }
-        else
-        {
-            mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[mainPool[currentPool].malus.Count - 1 ]);
-            representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].malus[mainPool[currentPool].malus.Count - 1 ].GetComponent<TextureForDispenser>().texture;
-        }
+
+        mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count-1]);
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<TextureForDispenser>().texture;
+        
 
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].gameObject.SetActive(true);
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].index = mainPool[currentPool].numberOfModifiersActivated;
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].manager = this;
        
-        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].indexInList = mainPool[currentPool].malusIndex.Count - 1;
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].indexInList = mainPool[currentPool].malusIndex[mainPool[currentPool].malusIndex.Count-1];
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].isMalus = true;
 
         mainPool[currentPool].numberOfModifiersActivated++;
         mainPool[currentPool].isEmptyModifier = false;
-        if (mainPool[currentPool] == null)
-            mainPool[currentPool].isSelected = new List<bool>();
-        mainPool[currentPool].isSelected.Add(false);
+        if (mainPool[currentPool].isSelectedModifier == null)
+            mainPool[currentPool].isSelectedModifier = new List<bool>();
+        mainPool[currentPool].isSelectedModifier.Add(false);
     }
 
     private void AllowBonus()
     {
         if (mainPool[currentPool].numberOfModifiersActivated > representationsModifiers.Length)
             return;
-        if (mainPool[currentPool].bonusIndex == null)
-            mainPool[currentPool].bonusIndex = new List<int>();
-        mainPool[currentPool].bonusIndex.Add(mainPool[currentPool].numberOfModifiersActivated);
+        
         if (mainPool[currentPool].bonusSelected == null)
             mainPool[currentPool].bonusSelected = new List<GameObject>();
-        if(mainPool[currentPool].malusIndex != null)
-        {
-            mainPool[currentPool].bonusSelected.Add(mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count - 1 - mainPool[currentPool].malusIndex.Count]);
-            representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count - 1 - mainPool[currentPool].malusIndex.Count].GetComponent<TextureForDispenser>().texture;
+        if (mainPool[currentPool].bonusIndex == null)
+            mainPool[currentPool].bonusIndex = new List<int>();
+        mainPool[currentPool].bonusSelected.Add(mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count]);
 
-        }
-        else
-        {
-            mainPool[currentPool].bonusSelected.Add(mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count - 1 ]);
-            representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count - 1 ].GetComponent<TextureForDispenser>().texture;
-        }
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count].GetComponent<TextureForDispenser>().texture;
+      
+        mainPool[currentPool].bonusIndex.Add(mainPool[currentPool].bonusIndex.Count);
 
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].gameObject.SetActive(true);
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].index = mainPool[currentPool].numberOfModifiersActivated;
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].manager = this;
 
 
-        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].indexInList = mainPool[currentPool].bonus.Count - 1;
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].isMalus = false;
         mainPool[currentPool].numberOfModifiersActivated++;
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].indexInList = mainPool[currentPool].bonusIndex[mainPool[currentPool].bonusIndex.Count-1];
+        if (mainPool[currentPool].isSelectedModifier == null)
+            mainPool[currentPool].isSelectedModifier = new List<bool>();
+        mainPool[currentPool].isSelectedModifier.Add(false);
 
-        if (mainPool[currentPool] == null)
-            mainPool[currentPool].isSelected = new List<bool>();
-        mainPool[currentPool].isSelected.Add(false);
         mainPool[currentPool].isEmptyModifier = false;
 
     }
@@ -589,12 +583,15 @@ public class GrabManager : MonoBehaviour
             grabableBonus.OnHitGround.AddListener(RespawnModifier);
             mainPool[currentPool].bonus[indexInList].transform.position = baseInteractor.transform.position;
         }
+
+        mainPool[currentPool].isSelectedModifier[index]= true;
         for (int i = 0; i < mainPool[currentPool].isSelectedModifier.Count; i++)
         {
             if (!mainPool[currentPool].isSelectedModifier[i])
                 return;
         }
         mainPool[currentPool].isEmptyModifier = true;
+
     }
 
     protected IEnumerator WaiToSelect(XRBaseInteractable baseInteractable, XRBaseInteractor baseInteractor, GrabablePhysicsHandler grabable, bool isFireBall)
