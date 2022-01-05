@@ -16,7 +16,7 @@ public class ClampObejct : MonoBehaviour
             if (forwardClamp)
             {
                 Handles.color = Color.red;
-                float distance = (transform.position - table.transform.position).magnitude;
+                float distance = (new Vector3( transform.position.x,table.transform.position.y,transform.position.z) - table.transform.position).magnitude;
                 Handles.DrawWireDisc(table.transform.position, transform.up, distance);
                 if (isMin)
                 {
