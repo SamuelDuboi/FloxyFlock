@@ -54,6 +54,8 @@ public class GrabManagerMulti : GrabManager
         {
             mainPool.Add(new pool());
             mainPool[i].floxes = new List<GameObject>();
+            mainPool[i].isSelected = new List<bool>();
+
             for (int x = 0; x < batches[i].pieces.Count; x++)
             {
                 // temp solution for attribution
@@ -87,7 +89,7 @@ public class GrabManagerMulti : GrabManager
         }
         player.InitFireBall(authority, fireBallPrefab, fireBallPrefabOut);
         numberOfPool = 1;
-        for (int i = 0; i < positiveModifiers.Count; i++)
+/*        for (int i = 0; i < positiveModifiers.Count; i++)
         {
             Type type = positiveModifiers[i].actions.GetType();
             var _object = GetComponent(type);
@@ -104,7 +106,7 @@ public class GrabManagerMulti : GrabManager
             {
                 Destroy(_object);
             }
-        }
+        }*/
         inputManager.OnSpawn.AddListener(UpdateBatche);
 
     }
@@ -209,19 +211,25 @@ public class GrabManagerMulti : GrabManager
         }
     }
 
-    public override void DestroyFlock(GameObject flock, int indexOfPool, int indexOfFlock)
+    public override void DestroyFlock(GameObject flock, int indexOfPool)
     {
-        if (mainPool[indexOfPool].floxes[indexOfFlock] == flock)
+        if (mainPool[indexOfPool].floxes.Contains(flock))
         {
+            int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
+            StartCoroutine(  flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true,this));
+
             Modifier _modifier = baseModifier;
             Type type = _modifier.actions.GetType();
             var _object = GetComponent(type);
-            mainPool[indexOfPool].floxes.RemoveAt(indexOfFlock);
-            mainPool[indexOfPool].isSelected.RemoveAt(indexOfFlock);
+
             playerMovement.InitBacth(playerMovement.gameObject, playerNumber, indexOfPool, indexOfFlock, batches, _modifier, _object, basicMats, mainPool, out mainPool);
         }
-        else if (mainPool[indexOfPool].bonus[indexOfFlock] == flock)
+
+        else if (mainPool[indexOfPool].bonus.Contains(flock))
         {
+            int indexOfFlock = mainPool[indexOfPool].bonus.IndexOf(flock);
+            StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true,this));
+
             Modifier _modifierPiece = negativeModifiers[UnityEngine.Random.Range(0, negativeModifiers.Count)];
             Type typePiece = _modifierPiece.actions.GetType();
             var _objectPiece = GetComponent(typePiece);
@@ -230,8 +238,11 @@ public class GrabManagerMulti : GrabManager
             playerMovement.InitModifier(playerMovement.gameObject, playerNumber, indexOfPool,indexOfFlock, _modifierPiece, batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], _objectPiece, basicMats, false, mainPool, out mainPool);
 
         }
-        else if (mainPool[indexOfPool].malus[indexOfFlock] == flock)
+
+        else if (mainPool[indexOfPool].malus.Contains(flock))
         {
+            int indexOfFlock = mainPool[indexOfPool].malus.IndexOf(flock);
+            StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true,this));
             Modifier _modifierPiece = positiveModifiers[UnityEngine.Random.Range(0, positiveModifiers.Count)];
             Type typePiece = _modifierPiece.actions.GetType();
             var _objectPiece = GetComponent(typePiece);
@@ -239,5 +250,10 @@ public class GrabManagerMulti : GrabManager
             playerMovement.InitModifier(playerMovement.gameObject, playerNumber,indexOfPool, indexOfFlock+2, _modifierPiece, batches[indexOfPool].batchModifier.positiveModifiers[indexOfFlock], _objectPiece, basicMats, true, mainPool, out mainPool);
 
         }
+    }
+    public void Destroy(GameObject flock)
+    {
+        resetMulti.GetComponent<ResetMulti>().StopAllCoroutines();
+        resetMulti.CmdDestroy(flock);
     }
 }

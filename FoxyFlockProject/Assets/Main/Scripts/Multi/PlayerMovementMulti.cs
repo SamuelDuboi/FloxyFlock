@@ -277,6 +277,7 @@ public class PlayerMovementMulti : NetworkBehaviour
         flock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
         v++;
         _mainPool1[i].floxes.Add(flock);
+        _mainPool1[i].isSelected.Add(false);
         _mainPool1[i].isEmpty = false;
         ScenesManager.instance.numberOfFlocksInScene++;
         _mainPool = _mainPool1;
@@ -465,22 +466,31 @@ public class PlayerMovementMulti : NetworkBehaviour
     void RpcSyncUnits(GameObject x, List<pool> mainPool, GameObject authority,string _tempComponent,PhysicMaterial[] _tempbasicMats, int index)
     {
         bool hasFounded = false;
-        for (int w = 0; w < components.Count; w++)
-        {
-            if (components[w].GetType() == _tempComponent.GetType())
-            {
-                hasFounded = true;
-            }
-        }
-        if (!hasFounded)
-        {
+       
             components.Add(grabManager.GetComponent( _tempComponent));
-        }
+        
         tempFlock = x;
         tempFlock.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
         tempFlock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
         tempFlock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
-        tempFlock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(components[index] as ModifierAction, _tempbasicMats);
+       if(_tempComponent == "BasicFloakAction")
+            tempFlock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(components[components.Count-1] as ModifierAction, _tempbasicMats);
+        else
+        {
+            var manager = grabManager.GetComponent<GrabManagerMulti>();
+            for (int i = 0; i < manager.negativeModifiers.Count; i++)
+            {
+                if(manager.negativeModifiers[i].name == _tempComponent)
+                    tempFlock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(manager.negativeModifiers[i],components[components.Count - 1] as ModifierAction, _tempbasicMats);
+            }
+            for (int i = 0; i < manager.positiveModifiers.Count; i++)
+            {
+                if (manager.positiveModifiers[i].name == _tempComponent)
+                    tempFlock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(manager.positiveModifiers[i], components[components.Count - 1] as ModifierAction, _tempbasicMats);
+            }
+
+        }
+
         tempFlock.GetComponent<GrabablePhysicsHandler>().enabled = false;
         authority.GetComponentInChildren<GrabManagerMulti>().mainPool = mainPool;
         authority.GetComponentInChildren<GrabManagerMulti>().numberOfPool = mainPool.Count;

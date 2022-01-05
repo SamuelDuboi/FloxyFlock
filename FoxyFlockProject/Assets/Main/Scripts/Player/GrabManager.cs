@@ -87,7 +87,7 @@ public class GrabManager : MonoBehaviour
             mainPool.Add(new pool());
             mainPool[i].floxes = new List<GameObject>();
             mainPool[i].isSelected = new List<bool>();
-           ;
+           
             for (int x = 0; x < batches[i].pieces.Count; x++)
             {
                 GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + (x * 5 + 1) * 20 * (i * 5 + 1), 300 + x * 20, 300 + x), Quaternion.identity);
@@ -455,6 +455,7 @@ public class GrabManager : MonoBehaviour
 
         if (mainPool[currentPool].malusIndex == null)
             mainPool[currentPool].malusIndex = new List<int>();
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<TextureForDispenser>().texture;
 
         mainPool[currentPool].malusIndex.Add(mainPool[currentPool].malusIndex.Count);
         if (mainPool[currentPool].malusSeletcted == null)
@@ -462,7 +463,6 @@ public class GrabManager : MonoBehaviour
 
 
         mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count-1]);
-        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<TextureForDispenser>().texture;
         
 
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].gameObject.SetActive(true);
@@ -768,11 +768,15 @@ public class GrabManager : MonoBehaviour
         }
     }
 
-    public virtual void DestroyFlock(GameObject flock, int indexOfPool, int indexOfFlock)
+    public virtual void DestroyFlock(GameObject flock, int indexOfPool)
     {
-        if(mainPool[indexOfPool].floxes[indexOfFlock] == flock)
+        
+        if(mainPool[indexOfPool].floxes.Contains( flock))
         {
-            Destroy(flock);
+            int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
+            StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true)); 
+           
+
             GameObject _flock = Instantiate(batches[indexOfPool].pieces[indexOfFlock], new Vector3(300 + (indexOfFlock * 5 + 1) * 20 * (indexOfPool * 5 + 1), 300 + indexOfFlock * 20, 300 + indexOfFlock), Quaternion.identity);
             Modifier _modifer = baseModifier;
             Type type = _modifer.actions.GetType();
@@ -786,9 +790,12 @@ public class GrabManager : MonoBehaviour
             mainPool[indexOfPool].isSelected[indexOfFlock] = false;
             mainPool[indexOfPool].isEmpty = false;
         }
-        else if (mainPool[indexOfPool].bonus[indexOfFlock] == flock)
+        else if (mainPool[indexOfPool].floxes.Contains(flock))
         {
-            Destroy(flock);
+            StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true));
+            int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
+
+
             GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.positiveModifiers[indexOfFlock], new Vector3(300 + (indexOfFlock * 5 + 1) * 20 * (indexOfPool * 5 + 1), 300 + indexOfFlock * 20, 300 + indexOfFlock), Quaternion.identity);
             Modifier _modifer = baseModifier;
             Type type = _modifer.actions.GetType();
@@ -801,9 +808,11 @@ public class GrabManager : MonoBehaviour
             mainPool[indexOfPool].bonus[indexOfFlock] = _flock;
             mainPool[indexOfPool].isEmptyModifier = false;
         }
-        else if (mainPool[indexOfPool].malus[indexOfFlock] == flock)
+        else if (mainPool[indexOfPool].floxes.Contains(flock))
         {
-            Destroy(flock);
+            StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true));
+            int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
+
             GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], new Vector3(300 + (indexOfFlock * 5 + 1) * 20 * (indexOfPool * 5 + 1), 300 + indexOfFlock * 20, 300 + indexOfFlock), Quaternion.identity);
             Modifier _modifer = baseModifier;
             Type type = _modifer.actions.GetType();
@@ -817,6 +826,7 @@ public class GrabManager : MonoBehaviour
             mainPool[indexOfPool].isEmptyModifier = false;
         }
     }
+
 
 }
 

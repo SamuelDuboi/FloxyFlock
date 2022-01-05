@@ -155,6 +155,7 @@ public class MoveBubble : MonoBehaviour
                 if (Mathf.Abs(Vector3.Distance(malus[i - 1].transform.position, malus[i].transform.position)) < rayonBuble)
                 {
                     i--;
+                    continue;
                 }
             }
         }

@@ -12,7 +12,7 @@ public class Reset : MonoBehaviour
         flock.GetComponent<GrabablePhysicsHandler>().OnFreeze();
 
         freezdFlockPoolIndex.Add(poolIndex);
-        freezdFlockPoolIndex.Add(flockIndex);
+        freezdFlockIndex.Add(flockIndex);
 
         Destroy(flock.GetComponent<GrabbableObject>());
         Destroy( flock.GetComponent<GrabablePhysicsHandler>());
@@ -25,7 +25,7 @@ public class Reset : MonoBehaviour
         if(freezedFlocks.Contains(flock))
         {
             var index = freezedFlocks.IndexOf(flock);
-            grabManager.DestroyFlock(flock, indexOfPool, indexOfFlock); 
+            grabManager.DestroyFlock(flock, indexOfPool); 
             freezedFlocks.Remove(flock);
             freezdFlockPoolIndex.RemoveAt(index);
             freezdFlockIndex.RemoveAt(index);
@@ -36,7 +36,7 @@ public class Reset : MonoBehaviour
     {
         for (int i = 0; i < freezedFlocks.Count; i++)
         {
-            grabManager.DestroyFlock(freezedFlocks[i], freezdFlockPoolIndex[i], freezdFlockIndex[i]);
+            grabManager.DestroyFlock(freezedFlocks[i], freezdFlockPoolIndex[i]);
         }
         freezedFlocks.Clear();
         freezdFlockIndex.Clear();

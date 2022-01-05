@@ -25,7 +25,7 @@ public class ResetMulti : NetworkBehaviour
         if (freezedFlocks.Contains(flock))
         {
             var index = freezedFlocks.IndexOf(flock);
-            CmdDestroyFlock(flock,indexOfPool, indexOfFLock);
+            CmdDestroyFlock(flock,indexOfPool);
             freezedFlocks.RemoveAt(index);
             freezdFlockPoolIndex.RemoveAt(index);
             freezdFlockIndex.RemoveAt(index);
@@ -37,25 +37,25 @@ public class ResetMulti : NetworkBehaviour
     {
         for (int i = 0; i < freezedFlocks.Count; i++)
         {
-            CmdDestroyFlock(freezedFlocks[i], freezdFlockPoolIndex[i], freezdFlockIndex[i]);
+            CmdDestroyFlock(freezedFlocks[i], freezdFlockPoolIndex[i]);
         }
         freezedFlocks.Clear();
         freezdFlockPoolIndex.Clear();
         freezdFlockIndex.Clear();
     }
     [Command]
-    public void CmdDestroyFlock(GameObject flock, int indexOfPool, int indexOfFLock)
+    public void CmdDestroyFlock(GameObject flock, int indexOfPool)
     {
-        grabManager.DestroyFlock(flock, indexOfPool,indexOfFLock);
-        RpcDestroyFlock(flock, indexOfPool, indexOfFLock);
-        Destroy(flock);
+        grabManager.DestroyFlock(flock, indexOfPool);
+        RpcDestroyFlock(flock, indexOfPool);
+
 
     }
     [ClientRpc]
-    public void RpcDestroyFlock(GameObject flock, int indexOfPool, int indexOfFLock)
+    public void RpcDestroyFlock(GameObject flock, int indexOfPool)
     {
-        grabManager.DestroyFlock(flock, indexOfPool, indexOfFLock);
-        Destroy(flock);
+        grabManager.DestroyFlock(flock, indexOfPool);
+
     }
 
     [Command(requiresAuthority = false)]
@@ -82,7 +82,9 @@ public class ResetMulti : NetworkBehaviour
         if (flock.TryGetComponent<NetworkRigidbody>(out rgb))
             Destroy(rgb);
     }
-
-
-
+    [Command(requiresAuthority = false)]
+    public void CmdDestroy(GameObject flock)
+    {
+        NetworkServer.Destroy(flock);
+    }
 }

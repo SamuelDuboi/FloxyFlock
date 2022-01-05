@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Jcvf
-  m_Shader: {fileID: -6465566751694194690, guid: 511160bef368ff14483b3dd1db3bdca4, type: 3}
+  m_Name: JcvfT
+  m_Shader: {fileID: -6465566751694194690, guid: fffd84bee03e00e48b4d94d7bcbb27da, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -21,6 +21,50 @@ Material:
     m_TexEnvs:
     - Texture2D_fac2268ce5aa479a8e33a1ae262686cb:
         m_Texture: {fileID: 2800000, guid: 0a88319ef328e9649b43aaf188f3b6f0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -56,7 +100,6 @@ Material:
     - Vector1_43304801e75f486b8d4c18f6c1f5de2f: 0
     - Vector1_4cfc3f553b2f4ebbb9eee3f04c498d73: 3
     - Vector1_54e9097bc12f4f3293ce16cbec5f0041: 4.86
-    - Vector1_5d8d10022378479fb790b5fef1d564be: 0.05
     - Vector1_5ec55a1520e24d1f9d6ff8cc1ed0db19: 0.31
     - Vector1_688861A9: 4.5
     - Vector1_69521d4303a842c38f64cd1557b3dc6e: 0.489
@@ -66,13 +109,10 @@ Material:
     - Vector1_88fe92e75e234c19b11c25a4e72c02af: 1.97
     - Vector1_896f8f9e61fc4173a110bfd9cb167496: 2.17
     - Vector1_903A7FAB: 1
-    - Vector1_945dfc7e605e4831973ab1aaad58439b: 0.5
     - Vector1_949a4921a03e40ae83d8ed07ecee88a6: 6.5
-    - Vector1_9515d2547b464d989967b24be3de8cd7: 1
     - Vector1_E39B1B65: 0.08
     - Vector1_a9c01cac01c243db9c5cec5b8af2f308: 0.8
     - Vector1_b51fc2be0fa347498098668bb7e15a4d: 0.725
-    - Vector1_b5bbcba7409c400e9d583df1d652f0cc: 0
     - Vector1_cf88669366724204a68270ef11b3f42b: 0.22
     - Vector1_d22f4d3bd8224a808a76bc4b36c1d57b: 1
     - Vector1_d22f4d3bd8224a808a76bc4b36c1d57b_1: 0.61
@@ -83,26 +123,66 @@ Material:
     - Vector1_eb664db73c63482c8dccd8cee349402e: -0.34
     - Vector1_eb664db73c63482c8dccd8cee349402e_1: 0.88
     - Vector1_eb664db73c63482c8dccd8cee349402e_3: -1.01
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BumpScale: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _EnvironmentReflections: 1
+    - _GlossMapScale: 0
+    - _Glossiness: 0
+    - _GlossyReflections: 0
+    - _Metallic: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.005
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
+    - _Smoothness: 0.5
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
     - dissolveFloxNoiseScale: 35.03
     - dissolveNoiseAmplitude: 1
-    - floxFrozen: 0
     - inHand: 0
-    - outlineActivation: 1
+    - outlineActivation: 0
     m_Colors:
     - Color_1: {r: 0.8666667, g: 0.8156863, b: 0.68235296, a: 1}
-    - Color_2: {r: 0.53773576, g: 0.39822888, b: 0.39822888, a: 1}
-    - Color_29366eada27a4b0b9b42de996d4cf1d2: {r: 0.5568628, g: 0.2509804, b: 0.08627451, a: 1}
-    - Color_3: {r: 0.5647059, g: 0.14901961, b: 0.098039225, a: 1}
+    - Color_2: {r: 0.5377357, g: 0.39822885, b: 0.39822885, a: 1}
+    - Color_29366eada27a4b0b9b42de996d4cf1d2: {r: 0.5568628, g: 0.25098038, b: 0.08627448, a: 1}
+    - Color_3: {r: 0.5647059, g: 0.14901957, b: 0.09803919, a: 1}
     - Color_453aaf4068894b2ba40d9311332b1239: {r: 1, g: 0.8281114, b: 0.7216981, a: 1}
-    - Color_4efd9c8e6933410f9cdc6afd87d1ebb6: {r: 0.9490197, g: 0.427451, b: 0.14901961, a: 1}
-    - Color_664b19e8fad344728067b36c103e6699: {r: 0.6698113, g: 0.22978929, b: 0, a: 1}
+    - Color_4efd9c8e6933410f9cdc6afd87d1ebb6: {r: 0.9490196, g: 0.42745098, b: 0.14901957, a: 1}
+    - Color_664b19e8fad344728067b36c103e6699: {r: 0.6698113, g: 0.22978926, b: 0, a: 1}
     - Color_902e3bc3ec2948518ce43177568f22a4: {r: 0, g: 0, b: 0, a: 1}
-    - Color_a8cbeac0810e45919f25cf579b20221e: {r: 0.5566038, g: 0.2502066, b: 0.08664116, a: 1}
-    - Color_a8cbeac0810e45919f25cf579b20221e_1: {r: 0.98039216, g: 0.9764706, b: 0.9764706, a: 1}
-    - Color_edf4778a0f1842ce9b1f3c89a8ff1d23: {r: 1, g: 0, b: 0, a: 1}
+    - Color_a8cbeac0810e45919f25cf579b20221e: {r: 0.5566037, g: 0.25020656, b: 0.086641155, a: 1}
+    - Color_a8cbeac0810e45919f25cf579b20221e_1: {r: 0.98039216, g: 0.97647053, b: 0.97647053, a: 1}
     - Color_fb464c085df94487801cfdcd1c612dfc: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_6141d7dac06746a08cdc702ae44ca3ab: {r: 0.12, g: 0, b: 0, a: 0}
-    - Vector2_97f81f3cecc24f3eb453d64c7ca4132f: {r: -0.04, g: -0.08, b: 0, a: 0}
     - Vector2_a321f672c3754f3383ff7ba9472c2feb: {r: 0.29, g: 0.035, b: 0, a: 0}
     - Vector4_9615197b4444462498be7f7fbf25390d: {r: 0, g: 0, b: 0, a: 0}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
+--- !u!114 &3123777515542988625
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 4

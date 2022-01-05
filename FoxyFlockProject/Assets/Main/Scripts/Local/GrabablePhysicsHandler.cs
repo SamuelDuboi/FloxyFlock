@@ -254,7 +254,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
         //Recup Data
         meshRenderer.GetPropertyBlock(propBlock);
         //EditZone
-        meshRenderer.material.SetFloat("IsFrozen", 1);
+        propBlock.SetFloat("IsFrozen", 1);
 
         //Push Data
         meshRenderer.SetPropertyBlock(propBlock);
@@ -298,6 +298,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
         meshRenderer.material = mats;
         //change value in shader
     }
+
 }
 public static class MyExtension
 {

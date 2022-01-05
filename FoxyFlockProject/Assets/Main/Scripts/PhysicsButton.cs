@@ -25,8 +25,7 @@ public class PhysicsButton : MonoBehaviour
             startPos = transform.localPosition;
         else
             startRotation = transform.localRotation;
-        inputManager = GetComponentInParent<InputManager>();
-        onPressed.AddListener(inputManager.SpawnInvoke);
+        inputManager = GetComponentInParent<InputManager>();        
         joint = GetComponent<ConfigurableJoint>();
         rb = GetComponent<Rigidbody>();
     }

@@ -17,7 +17,7 @@ public class FloxBurn : MonoBehaviour
 
     public void BurnEvent()
     {
-        dissolveFlox.StartDissolve(default, Vector3.zero, false);
+       StartCoroutine( dissolveFlox.StartDissolve(default, Vector3.zero, false));
     }
 
 }
