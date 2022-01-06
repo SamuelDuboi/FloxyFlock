@@ -571,7 +571,7 @@ public class GrabManager : MonoBehaviour
             StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, grabableBonus, true));
             mainPool[currentPool].malus[indexInList].transform.position = baseInteractor.transform.position;
 
-            grabableBonus.OnHitGround.AddListener(RespawnModifier);
+            grabableBonus.OnHitGround.AddListener(RespawnPiece);
         }
         else
         {
@@ -580,7 +580,7 @@ public class GrabManager : MonoBehaviour
             grabableBonus.enabled = true;
 
             StartCoroutine(WaiToSelect(baseInteractableBonus, baseInteractor, grabableBonus, false));
-            grabableBonus.OnHitGround.AddListener(RespawnModifier);
+            grabableBonus.OnHitGround.AddListener(RespawnPiece);
             mainPool[currentPool].bonus[indexInList].transform.position = baseInteractor.transform.position;
         }
 
@@ -694,79 +694,104 @@ public class GrabManager : MonoBehaviour
     {
         if (!isGrab)
         {
-            if (!IsInCurrentPool(_object.GetComponent<GrabbableObject>()))
+            _object.GetComponent<Rigidbody>().useGravity = false;
+            _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            StartCoroutine( _object.GetComponent<DissolveFlox>().StartDissolve(_object, initPos,false,this,isGrab));
+        }
+    }
+   
+    public void ResetInInventory(GameObject _object, Vector3 initPos, bool isGrab)
+    {
+        if (!IsInCurrentPool(_object.GetComponent<GrabbableObject>()))
+        {
+            for (int i = 0; i < mainPool.Count; i++)
             {
-                for (int i = 0; i < mainPool.Count; i++)
+                if (i != currentPool)
                 {
-                    if (i != currentPool)
+                    for (int x = 0; x < mainPool[i].floxes.Count; x++)
                     {
-                        for (int x = 0; x < mainPool[i].floxes.Count; x++)
+                        if (mainPool[i].floxes[x] == _object)
                         {
-                            if (mainPool[i].floxes[x] == _object)
+                            mainPool[i].isSelected[x] = false;
+                            batches[i].isEmpty = false;
+                            mainPool[i].isEmpty = true;
+                            _object.GetComponent<Rigidbody>().useGravity = false;
+                            _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                            _object.transform.rotation = Quaternion.identity;
+                            _object.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
+                        }
+
+                        //find a way to add recreat a bacth with only one piece and nee to add this piece with others
+                        // if(mainPool)
+                    }
+                }
+            }
+        }
+    }
+    public void ResetInInventory(GameObject _object, Vector3 initPos, bool isGrab, bool isMalus)
+    {
+        if (!IsInCurrentPool(_object.GetComponent<GrabbableObject>()))
+        {
+            for (int i = 0; i < mainPool.Count; i++)
+            {
+                if (i != currentPool)
+                {
+                    for (int x = 0; x < mainPool[i].floxes.Count; x++)
+                    {
+                        if (mainPool[i].floxes[x] == _object)
+                        {
+                            mainPool[i].isSelected[x] = false;
+                            batches[i].isEmpty = false;
+                            mainPool[i].isEmpty = true;
+                            _object.GetComponent<Rigidbody>().useGravity = false;
+                            _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                            _object.transform.rotation = Quaternion.identity;
+                            _object.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
+                            return;
+                        }
+
+                        //find a way to add recreat a bacth with only one piece and nee to add this piece with others
+                        // if(mainPool)
+                    }
+                    if (mainPool[i].bonusSelected != null)
+                    {
+                        for (int x = 0; x < mainPool[i].bonusSelected.Count; x++)
+                        {
+                            if (mainPool[i].bonusSelected[x] == _object)
                             {
-                                mainPool[i].isSelected[x] = false;
-                                batches[i].isEmpty = false;
-                                mainPool[i].isEmpty = true;
+                                mainPool[i].isSelectedModifier[mainPool[i].bonusIndex[i]] = false;
+                                mainPool[i].isEmptyModifier = false;
                                 _object.GetComponent<Rigidbody>().useGravity = false;
                                 _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
                                 _object.transform.rotation = Quaternion.identity;
                                 _object.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
-                            }
+                                return;
 
-                            //find a way to add recreat a bacth with only one piece and nee to add this piece with others
-                            // if(mainPool)
+                            }
                         }
                     }
-                }
-            }
-        }
-    }
-    private void RespawnModifier(GameObject _object, Vector3 initPos, bool isGrab)
-    {
-        if (!isGrab)
-        {
-            if (!IsInCurrentPool(_object.GetComponent<GrabbableObject>()))
-            {
-                for (int i = 0; i < mainPool.Count; i++)
-                {
-                    if (i != currentPool)
+                    if (mainPool[i].malusSeletcted != null)
                     {
-                        if (mainPool[i].bonusSelected != null)
+                        for (int x = 0; x < mainPool[i].malusSeletcted.Count; x++)
                         {
-                            for (int x = 0; x < mainPool[i].bonusSelected.Count; x++)
+                            if (mainPool[i].malusSeletcted[x] == _object)
                             {
-                                if (mainPool[i].bonusSelected[x] == _object)
-                                {
-                                    mainPool[i].isSelectedModifier[mainPool[i].bonusIndex[i]] = false;
-                                    mainPool[i].isEmptyModifier = false;
-                                    _object.GetComponent<Rigidbody>().useGravity = false;
-                                    _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                                    _object.transform.rotation = Quaternion.identity;
-                                    _object.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
-                                }
-                            }
-                        }
-                        if (mainPool[i].malusSeletcted != null)
-                        {
-                            for (int x = 0; x < mainPool[i].malusSeletcted.Count; x++)
-                            {
-                                if (mainPool[i].malusSeletcted[x] == _object)
-                                {
-                                    mainPool[i].isSelectedModifier[mainPool[i].malusIndex[i]] = false;
-                                    mainPool[i].isEmptyModifier = false;
-                                    _object.GetComponent<Rigidbody>().useGravity = false;
-                                    _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                                    _object.transform.rotation = Quaternion.identity;
-                                    _object.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
-                                }
-                            }
-                        }
+                                mainPool[i].isSelectedModifier[mainPool[i].malusIndex[i]] = false;
+                                mainPool[i].isEmptyModifier = false;
+                                _object.GetComponent<Rigidbody>().useGravity = false;
+                                _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                                _object.transform.rotation = Quaternion.identity;
+                                _object.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
+                                return;
 
+                            }
+                        }
                     }
                 }
             }
         }
     }
+
 
     public virtual void DestroyFlock(GameObject flock, int indexOfPool)
     {

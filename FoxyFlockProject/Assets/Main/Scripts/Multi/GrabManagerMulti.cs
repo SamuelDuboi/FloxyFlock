@@ -216,7 +216,7 @@ public class GrabManagerMulti : GrabManager
         if (mainPool[indexOfPool].floxes.Contains(flock))
         {
             int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
-            StartCoroutine(  flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true,this));
+            StartCoroutine(  flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true, null, false, this));
 
             Modifier _modifier = baseModifier;
             Type type = _modifier.actions.GetType();
@@ -228,7 +228,7 @@ public class GrabManagerMulti : GrabManager
         else if (mainPool[indexOfPool].bonus.Contains(flock))
         {
             int indexOfFlock = mainPool[indexOfPool].bonus.IndexOf(flock);
-            StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true,this));
+            StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true,null,false,this));
 
             Modifier _modifierPiece = negativeModifiers[UnityEngine.Random.Range(0, negativeModifiers.Count)];
             Type typePiece = _modifierPiece.actions.GetType();
@@ -242,7 +242,7 @@ public class GrabManagerMulti : GrabManager
         else if (mainPool[indexOfPool].malus.Contains(flock))
         {
             int indexOfFlock = mainPool[indexOfPool].malus.IndexOf(flock);
-            StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true,this));
+            StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true, null, false, this));
             Modifier _modifierPiece = positiveModifiers[UnityEngine.Random.Range(0, positiveModifiers.Count)];
             Type typePiece = _modifierPiece.actions.GetType();
             var _objectPiece = GetComponent(typePiece);

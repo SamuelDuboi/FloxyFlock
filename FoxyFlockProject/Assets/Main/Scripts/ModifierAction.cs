@@ -16,7 +16,7 @@ public class ModifierAction : MonoBehaviour
     protected float timerSlow;
     public float timerToSlowInStasis = 1.0f;
     public float slowForce = 1.2f;
-    public float vibrationForce = 0.5f;
+    public float vibrationForce = 0.2f;
     public float vibrationTime = 0.2f;
     protected bool isGrab;
     public string grab;

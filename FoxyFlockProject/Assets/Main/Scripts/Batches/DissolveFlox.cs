@@ -35,9 +35,10 @@ public class DissolveFlox : MonoBehaviour
         }
 
     }
-    public IEnumerator StartDissolve(GameObject obj, Vector3 pos, bool isDestroy, GrabManagerMulti grabManagerMulti = default)
+    public IEnumerator StartDissolve(GameObject obj, Vector3 pos, bool isDestroy,GrabManager grabManager = null,bool isGrab = false, GrabManagerMulti grabManagerMulti = default)
     {
         tempTime = 0;
+        dissolveState = 1;
         isDissolving = true;
         flox.material = floxMaterialT;
         flox.GetPropertyBlock(propBlock);
@@ -65,6 +66,13 @@ public class DissolveFlox : MonoBehaviour
                 grabManagerMulti.Destroy(gameObject);
             else
                 Destroy(gameObject);
+        }
+        if(grabManager != null)
+        {
+            grabManager.ResetInInventory(obj, pos, isGrab);
+            flox.material = floxMaterial;
+            dissolveState = 0;
+            yield break ;
         }
         flox.material = floxMaterial;
         
