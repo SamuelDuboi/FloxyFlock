@@ -1572,13 +1572,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d270d06f9e1c72346a1e91805428c5bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnMax: 0.43
   cb: 0.27
-  cbPrime: 0.37
+  cbPrime: 0.47
   cbMin: 0.05
   hb: 0.12
   hbPrime: 0.22
   cm: 0.4
-  cmPrime: 0.27
+  cmPrime: 0.37
   cmMin: 0
   minValue: 0.05
   hm: 0.14
@@ -1588,7 +1589,7 @@ MonoBehaviour:
   cfMin: 0
   hf: 0
   hfPrime: 0
-  offset: 0.05
+  offset: 0.025
 --- !u!1 &3256001965616286297
 GameObject:
   m_ObjectHideFlags: 0
