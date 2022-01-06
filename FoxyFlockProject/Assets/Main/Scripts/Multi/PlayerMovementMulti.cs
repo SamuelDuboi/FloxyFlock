@@ -573,16 +573,16 @@ public class PlayerMovementMulti : NetworkBehaviour
 
 
     [Command(requiresAuthority = false)]
-    public void CmdMoveBubble(float _playgroundRayon,float tposition,List<GameObject> bonus, List<GameObject> malus, GameObject fireball)
+    public void CmdMoveBubble(float _playgroundRayon,float tposition,Vector3 pPos,List<GameObject> bonus, List<GameObject> malus, GameObject fireball)
     {
-        moveBubble.MoveBubbles(_playgroundRayon, tposition, bonus, malus, fireball);
-        RcpMoveBubble( _playgroundRayon, tposition, bonus, malus, fireball);
+        moveBubble.MoveBubbles(_playgroundRayon, tposition, pPos, bonus, malus, fireball);
+        RcpMoveBubble( _playgroundRayon, tposition,pPos, bonus, malus, fireball);
     }
 
 
     [ClientRpc]
-    void RcpMoveBubble(float _playgroundRayon, float tposition, List<GameObject> bonus, List<GameObject> malus, GameObject fireball)
+    void RcpMoveBubble(float _playgroundRayon, float tposition, Vector3 pPos, List<GameObject> bonus, List<GameObject> malus, GameObject fireball)
     {
-        moveBubble.MoveBubbles(_playgroundRayon, tposition, bonus, malus, fireball);
+        moveBubble.MoveBubbles(_playgroundRayon, tposition,pPos, bonus, malus, fireball);
     }
 }

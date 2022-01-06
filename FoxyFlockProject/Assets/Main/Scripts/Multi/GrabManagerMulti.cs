@@ -41,7 +41,7 @@ public class GrabManagerMulti : GrabManager
         inputManager.OnGrabbingRight.AddListener(OnGrabRight);
         inputManager.OnGrabbingReleaseRight.AddListener(OnRealeseRight);
         currentMilestone = playGround.CheckMilestones(out positionOfMilestoneIntersection, out numberOfMilestones, out nextMilestonePos);
-        playerMovement.CmdMoveBubble(playGround.radius, nextMilestonePos.y, playGround.bonusOrbes, playGround.malusOrbes,playGround.fireBallOrbe);
+        playerMovement.CmdMoveBubble(playGround.radius, nextMilestonePos.y,positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes,playGround.fireBallOrbe);
     }
     public virtual void InitPool(GameObject authority, PlayerMovementMulti player, int v)
     {
@@ -182,13 +182,13 @@ public class GrabManagerMulti : GrabManager
         }
         foreach (GameObject orb in playGround.bonusOrbes)
         {
-          playerMovement.CmdMoveBubble( playGround.radius, nextMilestonePos.y, playGround.bonusOrbes, playGround.malusOrbes, playGround.fireBallOrbe);
+          playerMovement.CmdMoveBubble( playGround.radius, nextMilestonePos.y,positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes, playGround.fireBallOrbe);
         }
         foreach (GameObject orb in playGround.malusOrbes)
         {
-            playerMovement.CmdMoveBubble( playGround.radius, nextMilestonePos.y, playGround.bonusOrbes, playGround.malusOrbes, playGround.fireBallOrbe);
+            playerMovement.CmdMoveBubble( playGround.radius, nextMilestonePos.y,positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes, playGround.fireBallOrbe);
         }
-        playerMovement.CmdMoveBubble( playGround.radius, nextMilestonePos.y, playGround.bonusOrbes, playGround.malusOrbes, playGround.fireBallOrbe); 
+        playerMovement.CmdMoveBubble( playGround.radius, nextMilestonePos.y,positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes, playGround.fireBallOrbe); 
     }
     private void RespawnFireball(GameObject _object, Vector3 initPos, bool isGrab)
     {
