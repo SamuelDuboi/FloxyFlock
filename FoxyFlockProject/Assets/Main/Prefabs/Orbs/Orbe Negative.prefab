@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 512951843046324273}
   - component: {fileID: 6117914578734096546}
   - component: {fileID: 171101280186085881}
+  - component: {fileID: 5504134613387574004}
   m_Layer: 12
   m_Name: Orbe Negative
   m_TagString: Untagged
@@ -47,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb9dd2c86d8146a47aec8cad7770fa76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spherCollider: {fileID: 2998121788484631844}
+  spherCollider: {fileID: 5504134613387574004}
   m_transform: {fileID: 512951843046324268}
   layerMask:
     serializedVersion: 2
@@ -171,6 +172,19 @@ MonoBehaviour:
   ForthClipName: 
   applyAudioOnStart: 0
   doOnce: 0
+--- !u!135 &5504134613387574004
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512951843046324267}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5188588231664447982
 GameObject:
   m_ObjectHideFlags: 0
@@ -4995,7 +5009,6 @@ GameObject:
   - component: {fileID: 7773201948461944667}
   - component: {fileID: 1615568041794101812}
   - component: {fileID: 2159483642249681437}
-  - component: {fileID: 2998121788484631844}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -5066,16 +5079,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2998121788484631844
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6229941136817524292}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
