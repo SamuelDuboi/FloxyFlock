@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform zClampMax;
     public Transform upClamp;
     public Transform downClamp;
-    private Vector3 movementMidle;
+    public Vector3 movementMidle;
     private Vector3 deltaPose;
     private Vector3 initMidle;
     private CharacterStats characterStats;
@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
         if (!tableRenderer)
             return;
         tempLeftHand.position = inputManager.leftHand.transform.position;
-        tempRighttHand.position = inputManager.leftHand.transform.position;
+        tempRighttHand.position = inputManager.rightHand.transform.position;
         movementMidle = Vector3.Lerp(tempRighttHand.localPosition  , tempLeftHand.localPosition, 0.5f);
         //get delat pos 
         deltaPose = new Vector3((movementMidle.x - initMidle.x), (movementMidle.y - initMidle.y), (movementMidle.z - initMidle.z));

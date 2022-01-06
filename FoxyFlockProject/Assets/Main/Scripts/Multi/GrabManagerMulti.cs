@@ -42,6 +42,8 @@ public class GrabManagerMulti : GrabManager
         inputManager.OnGrabbingReleaseRight.AddListener(OnRealeseRight);
         currentMilestone = playGround.CheckMilestones(out positionOfMilestoneIntersection, out numberOfMilestones, out nextMilestonePos);
         playerMovement.CmdMoveBubble(playGround.radius, nextMilestonePos.y,positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes,playGround.fireBallOrbe);
+        Vector3 headSettPos = inputManager.GetComponent<XRRig>().cameraFloorOffsetObject.transform.localPosition;
+        transform.localPosition += headSettPos;
     }
     public virtual void InitPool(GameObject authority, PlayerMovementMulti player, int v)
     {

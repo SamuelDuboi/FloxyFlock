@@ -46,7 +46,7 @@ public class HandBurn : MonoBehaviour
     {
         heatPourcentage = heatCurrentValue / heatMaxValue;
 
-        if (heatPourcentage != lastFrameHeatPourcentage)
+        if (heatState != HeatState.cool)
         {
             UpdateMatBurnValue();
             CoolEvent();
@@ -56,6 +56,9 @@ public class HandBurn : MonoBehaviour
 
     private void UpdateMatBurnValue()
     {
+        if(handRenderer == null)
+        handRenderer = this.GetComponentInChildren<SkinnedMeshRenderer>();
+
         if (handRenderer != null)
         {
             //Recup Data
@@ -100,6 +103,10 @@ public class HandBurn : MonoBehaviour
                 }
             }  
         }
+    }
+    public void DropEvent()
+    {
+        heatState = HeatState.burned;   
     }
 
     private float wiggleStrengh()

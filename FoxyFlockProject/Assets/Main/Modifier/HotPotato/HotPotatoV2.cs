@@ -36,5 +36,6 @@ public class HotPotatoV2 : ModifierAction
     public override void OnReleased(GameObject _object)
     {
         base.OnReleased(_object);
+        currentInteractor.GetComponent<HandBurn>().DropEvent();
     }
 }

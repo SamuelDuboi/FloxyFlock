@@ -76,6 +76,10 @@ public class GrabManager : MonoBehaviour
         inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
         inputManager.OnGrabbingRight.AddListener(OnGrabRight);
         inputManager.OnGrabbingReleaseRight.AddListener(OnRealeseRight);
+        yield return new WaitForSeconds(2.0f);
+        Vector3 headSettPos = inputManager.GetComponent<XRRig>().cameraFloorOffsetObject.transform.localPosition;
+        transform.localPosition += headSettPos;
+       
     }
     public virtual void InitPool()
     {
@@ -695,6 +699,7 @@ public class GrabManager : MonoBehaviour
         {
             _object.GetComponent<Rigidbody>().useGravity = false;
             _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            _object.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             StartCoroutine( _object.GetComponent<DissolveFlox>().StartDissolve(_object, initPos,false,this,isGrab));
         }
     }
@@ -745,7 +750,7 @@ public class GrabManager : MonoBehaviour
                             _object.GetComponent<Rigidbody>().useGravity = false;
                             _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
                             _object.transform.rotation = Quaternion.identity;
-                            _object.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
+                          
                             return;
                         }
 
@@ -763,7 +768,7 @@ public class GrabManager : MonoBehaviour
                                 _object.GetComponent<Rigidbody>().useGravity = false;
                                 _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
                                 _object.transform.rotation = Quaternion.identity;
-                                _object.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
+                                
                                 return;
 
                             }
@@ -780,7 +785,7 @@ public class GrabManager : MonoBehaviour
                                 _object.GetComponent<Rigidbody>().useGravity = false;
                                 _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
                                 _object.transform.rotation = Quaternion.identity;
-                                _object.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
+                             
                                 return;
 
                             }
@@ -820,7 +825,7 @@ public class GrabManager : MonoBehaviour
             int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
 
 
-            GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.positiveModifiers[indexOfFlock], new Vector3(300 + (indexOfFlock * 5 + 1) * 20 * (indexOfPool * 5 + 1), 300 + indexOfFlock * 20, 300 + indexOfFlock), Quaternion.identity);
+            GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.positiveModifiers[indexOfFlock], new Vector3(-300 + (indexOfFlock + 6) * 20 * +indexOfPool * 5, 300 + (indexOfFlock + 6) * 20 + indexOfPool * 5, 300 + (indexOfFlock + 6) * 20 + indexOfFlock * 5), Quaternion.identity);
             Modifier _modifer = baseModifier;
             Type type = _modifer.actions.GetType();
             var _object = GetComponent(type);
@@ -837,7 +842,7 @@ public class GrabManager : MonoBehaviour
             StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true));
             int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
 
-            GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], new Vector3(300 + (indexOfFlock * 5 + 1) * 20 * (indexOfPool * 5 + 1), 300 + indexOfFlock * 20, 300 + indexOfFlock), Quaternion.identity);
+            GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], new Vector3(-300 + (indexOfFlock + 8) * 20 * +indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfFlock * 5), Quaternion.identity);
             Modifier _modifer = baseModifier;
             Type type = _modifer.actions.GetType();
             var _object = GetComponent(type);

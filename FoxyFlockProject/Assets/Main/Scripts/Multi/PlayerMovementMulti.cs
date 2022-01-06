@@ -115,7 +115,7 @@ public class PlayerMovementMulti : NetworkBehaviour
         SeeTable();
 
         tempLeftHand.position = inputManager.leftHand.transform.position;
-        tempRighttHand.position = inputManager.leftHand.transform.position;
+        tempRighttHand.position = inputManager.rightHand.transform.position;
         movementMidle = Vector3.Lerp(tempRighttHand.localPosition, tempLeftHand.localPosition, 0.5f);
         //get delat pos 
         deltaPose = new Vector3((movementMidle.x - initMidle.x), (movementMidle.y - initMidle.y), (movementMidle.z - initMidle.z));
