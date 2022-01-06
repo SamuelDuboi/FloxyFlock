@@ -14,13 +14,19 @@ public class MoveBubble : MonoBehaviour
     float r5;
     float x;
     float d;
-    float d1;
-/*    private Vector3 v1;
-    private Vector3 v2;*/
+    float d1; 
+    float angle;
+    float minAngle;
+    float maxAngle;
+    float J;
+
+    /*    private Vector3 v1;
+        private Vector3 v2;*/
     private Vector3 c;
     private Vector3 cPrime;
     private Vector3 cPrimePrime;
     private float playgroundRayon;
+    public float spawnMax;
     public float cb;
     public float cbPrime;
     public float cbMin;
@@ -38,13 +44,27 @@ public class MoveBubble : MonoBehaviour
     public float hf;
     public float hfPrime;
     public float offset;
-   public void MoveBubbles(float _playgroundRayon, float Tposition, List<GameObject> bonus, List<GameObject> malus)
+   public void MoveBubbles(float _playgroundRayon, float Tposition, Vector3 pPos, List<GameObject> bonus, List<GameObject> malus)
     {
         playgroundRayon = _playgroundRayon;
         rayonBuble = bonus[0].GetComponent<Bubble>().radius+offset;
-        angleInDegrees = Random.Range(0, Mathf.PI*2);
-       /* v1 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees));
-        v2 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees+Mathf.PI), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees+180));*/
+        /* v1 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees));
+         v2 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees+Mathf.PI), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees+180));*/
+
+        J = Mathf.Abs(Vector3.Distance(Vector3.up* Tposition, pPos));
+        minAngle = 0;
+        maxAngle = Mathf.PI;
+
+
+        if (J >= spawnMax)
+        {
+            angle = Mathf.Acos((spawnMax * spawnMax - _playgroundRayon * _playgroundRayon - J * J) / (-2 * _playgroundRayon * J));
+            minAngle = angle;
+            maxAngle = Mathf.PI - angle;
+
+        }
+        angleInDegrees = Random.Range(minAngle, maxAngle);
+
         #region bonus
         for (int i = 0; i < bonus.Count; i++)
         {
@@ -52,7 +72,7 @@ public class MoveBubble : MonoBehaviour
             r2 = Random.Range(cbMin, playgroundRayon - cbPrime);
             r3 = Random.Range(hb, hbPrime );
             x = (r1 + r2 )/ 2.0f;
-            angleInDegrees2 = Random.Range(angleInDegrees, angleInDegrees + (Mathf.PI/3)*2);
+            angleInDegrees2 = Random.Range(angleInDegrees, angleInDegrees + Mathf.PI);
             c = new Vector3( Mathf.Cos(angleInDegrees2)*x *bonus[i].transform.lossyScale.x, Tposition,  Mathf.Sin(angleInDegrees2)*x * bonus[i].transform.lossyScale.z);
             bonus[i].transform.localPosition = c + Vector3.up*r3 * bonus[i].transform.lossyScale.y; 
             if(i == 1)
@@ -106,15 +126,35 @@ public class MoveBubble : MonoBehaviour
                 continue;
             }
         }
+        for (int i=0;i<bonus.Count; i++)
+        {
+            Vector3.MoveTowards(bonus[i].transform.position, Vector3.up*Tposition - pPos, J);
+        }
+        for (int i = 0; i < malus.Count; i++)
+        {
+            Vector3.MoveTowards(malus[i].transform.position, Vector3.up * Tposition - pPos, J);
+        }
+
         #endregion
     }
-    public void MoveBubbles(float _playgroundRayon, float Tposition, List<GameObject> bonus, List<GameObject> malus,GameObject fireball)
+    public void MoveBubbles(float _playgroundRayon, float Tposition, Vector3 pPos, List<GameObject> bonus, List<GameObject> malus,GameObject fireball)
     {
         playgroundRayon = _playgroundRayon;
         rayonBuble = bonus[0].GetComponent<Bubble>().radius;
-        angleInDegrees = Random.Range(0, Mathf.PI * 2);
-      /*  v1 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees));
-        v2 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees + Mathf.PI), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees + 180));*/
+        J = Mathf.Abs(Vector3.Distance(Vector3.up * Tposition, pPos));
+        minAngle = 0;
+        maxAngle = Mathf.PI;
+
+        if (J >= spawnMax)
+        {
+            angle = Mathf.Acos((spawnMax * spawnMax - _playgroundRayon * _playgroundRayon - J * J) / (-2 * _playgroundRayon * J));
+            minAngle = angle;
+            maxAngle = Mathf.PI - angle;
+
+        }
+        angleInDegrees = Random.Range(minAngle, maxAngle);
+        /*  v1 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees));
+          v2 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees + Mathf.PI), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees + 180));*/
         #region bonus
         for (int i = 0; i < bonus.Count; i++)
         {
@@ -183,6 +223,15 @@ public class MoveBubble : MonoBehaviour
         }
         while (IsInContact(c,bonus,malus));
         fireball.transform.localPosition = c;
+        for (int i = 0; i < bonus.Count; i++)
+        {
+            Vector3.MoveTowards(bonus[i].transform.position, Vector3.up * Tposition - pPos, J);
+        }
+        for (int i = 0; i < malus.Count; i++)
+        {
+            Vector3.MoveTowards(malus[i].transform.position, Vector3.up * Tposition - pPos, J);
+        }
+        Vector3.MoveTowards(fireball.transform.position, Vector3.up * Tposition - pPos, J);
         #endregion
     }
     private bool IsInContact(Vector3 pos, List<GameObject> bonus, List<GameObject> malus)
@@ -210,5 +259,6 @@ public class MoveBubble : MonoBehaviour
 
         return false;
     }
+
 
 }
