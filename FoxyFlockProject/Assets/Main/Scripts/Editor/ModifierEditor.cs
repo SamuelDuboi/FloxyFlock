@@ -8,6 +8,7 @@ public class ModifierEditor : Editor
     private SerializedProperty hasPhysiqueMaterial;
     private SerializedProperty physiqueMaterial;
     private SerializedProperty mats;
+    private SerializedProperty matsT;
 
 
     private void OnEnable()
@@ -16,6 +17,7 @@ public class ModifierEditor : Editor
         hasPhysiqueMaterial = serializedObject.FindProperty("hasPhysiqueMaterial");
         physiqueMaterial = serializedObject.FindProperty("physiqueMaterial");
         mats = serializedObject.FindProperty("material");
+        matsT = serializedObject.FindProperty("materialt");
     }
 
     public override void OnInspectorGUI()
@@ -26,6 +28,7 @@ public class ModifierEditor : Editor
             EditorGUILayout.PropertyField(physiqueMaterial);
         targeModifier.actions = (ModifierAction)EditorGUILayout.ObjectField(targeModifier.actions, typeof(ModifierAction), true);
         EditorGUILayout.PropertyField(mats);
+        EditorGUILayout.PropertyField(matsT);
         serializedObject.ApplyModifiedProperties();
         EditorUtility.SetDirty(targeModifier);
         serializedObject.Update();

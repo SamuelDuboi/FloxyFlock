@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 512951843046324271}
   - component: {fileID: 3592268391959826341}
   - component: {fileID: 4866765346457155038}
+  - component: {fileID: 7034816717798849153}
   m_Layer: 12
   m_Name: Orbe FireBall
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 512951843046324267}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3755052618111920329}
   - {fileID: 7868546901152459597}
@@ -49,11 +50,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb9dd2c86d8146a47aec8cad7770fa76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spherCollider: {fileID: 5705994535041228104}
+  spherCollider: {fileID: 7034816717798849153}
   m_transform: {fileID: 512951843046324268}
   layerMask:
     serializedVersion: 2
     m_Bits: 64
+  radius: 0
   isMalus: 0
   isFireBall: 1
   grabManager: {fileID: 0}
@@ -218,6 +220,19 @@ MonoBehaviour:
   ForthClipName: 
   applyAudioOnStart: 0
   doOnce: 0
+--- !u!135 &7034816717798849153
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512951843046324267}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2579652286901999640
 GameObject:
   m_ObjectHideFlags: 0
@@ -5042,7 +5057,6 @@ GameObject:
   - component: {fileID: 7868546901152459597}
   - component: {fileID: 4946328377088361394}
   - component: {fileID: 4183542056103383642}
-  - component: {fileID: 5705994535041228104}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -5059,7 +5073,7 @@ Transform:
   m_GameObject: {fileID: 5526673065476616982}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.49999997, y: 0.49999997, z: 0.49999997}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 512951843046324268}
   m_RootOrder: 1
@@ -5113,16 +5127,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5705994535041228104
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5526673065476616982}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

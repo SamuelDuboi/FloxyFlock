@@ -157,7 +157,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
         else
             tempMat[1] = grabedMat[1];
         if (!modifier.isBasciFloat)
-            ChangeMat(_modifier.material, tempMat);
+            ChangeMat(_modifier.material,_modifier.materialt, tempMat);
         else
             ChangeMat(tempMat);
 
@@ -205,7 +205,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
         else
             tempMat[1] = grabedMat[1];
         if (!modifier.isBasciFloat)
-            ChangeMat(initialModifier.material, tempMat);
+            ChangeMat(initialModifier.material, null, tempMat);
         else
             ChangeMat(tempMat);
 
@@ -278,10 +278,16 @@ public class GrabablePhysicsHandler : MonoBehaviour
             colliders[i].material = physicMaterials[1];
         }
     }
-    private void ChangeMat(Material _mat, PhysicMaterial[] _physicMaterial)
+    private void ChangeMat(Material _mat, Material _matT, PhysicMaterial[] _physicMaterial)
     {
         physicMaterials = _physicMaterial;
         mats = _mat;
+        if(_matT != null)
+        {
+            GetComponent<DissolveFlox>().floxMaterial = mats;
+            GetComponent<DissolveFlox>().floxMaterialT = _matT;
+        }
+        
         if (!meshRenderer)
             meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.material = mats;

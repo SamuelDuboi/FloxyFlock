@@ -9,6 +9,7 @@ public class Modifier : ScriptableObject
     public PhysicMaterial physiqueMaterial;
     public ModifierAction actions;
     public Material material;
+    public Material materialt;
     public bool isBasciFloat;
 
 }

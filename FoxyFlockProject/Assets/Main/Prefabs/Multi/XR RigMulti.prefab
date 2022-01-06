@@ -743,7 +743,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b98cc18855f82947b40ea461ff0764e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_transform: {fileID: 3942066853048612209}
+  m_transform: {fileID: 3059216091244151401}
+  pantoufleTransform: {fileID: 8709848909756773618}
   inputManager: {fileID: 2175791090075427051}
 --- !u!114 &7398025500495590836
 MonoBehaviour:
@@ -1633,6 +1634,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8709848909756773618}
   - component: {fileID: 6420070356279482056}
+  - component: {fileID: 460195145825334350}
   m_Layer: 0
   m_Name: pantoufles
   m_TagString: Untagged
@@ -1705,6 +1707,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &460195145825334350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4745147256219171187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58ecf3b6bc2b7b49b754e0078a28629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headSettTransform: {fileID: 3059216091244151401}
+  headSettTransformR: {fileID: 3059216092818332027}
 --- !u!1 &5304199041780906145
 GameObject:
   m_ObjectHideFlags: 0

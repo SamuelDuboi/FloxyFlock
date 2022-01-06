@@ -109,7 +109,7 @@ public class GrabManager : MonoBehaviour
             }
             for (int x = 0; x < batches[i].batchModifier.negativeModifier.Count; x++)
             {
-                GameObject flock2 = Instantiate(batches[i].batchModifier.negativeModifier[x], new Vector3(300 + (15 * 5 + 1) * 20 * (i * 5 + 1), 300 + 15 * 20, 300 + 15), Quaternion.identity);
+                GameObject flock2 = Instantiate(batches[i].batchModifier.negativeModifier[x], new Vector3(-300 + (x + 6) * 20 * +i * 5, 300 + (x + 6) * 20 + i * 5, 300 + (x + 6) * 20 + i * 5), Quaternion.identity);
                 Modifier _modifierPiece = negativeModifiers[UnityEngine.Random.Range(0, negativeModifiers.Count)];
                 Type typePiece = _modifierPiece.actions.GetType();
                 var _objectPiece = GetComponent(typePiece);
@@ -125,7 +125,7 @@ public class GrabManager : MonoBehaviour
             }
             for (int x = 0; x < batches[i].batchModifier.positiveModifiers.Count; x++)
             {
-                GameObject flock2 = Instantiate(batches[i].batchModifier.positiveModifiers[x], new Vector3(300 + (15 * 5 + 1) * 20 * (i * 5 + 1), 300 + 15 * 20, 300 + 15), Quaternion.identity);
+                GameObject flock2 = Instantiate(batches[i].batchModifier.positiveModifiers[x], new Vector3(-300 + (x + 8) * 20 * +i * 5, 300 + (x +8) * 20 + i * 5, 300 + (x + 8) * 20 + i * 5), Quaternion.identity);
                 Modifier _modifierPiece = positiveModifiers[UnityEngine.Random.Range(0, positiveModifiers.Count)];
                 Type typePiece = _modifierPiece.actions.GetType();
                 var _objectPiece = GetComponent(typePiece);

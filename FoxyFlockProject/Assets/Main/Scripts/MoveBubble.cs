@@ -118,16 +118,16 @@ public class MoveBubble : MonoBehaviour
         #region bonus
         for (int i = 0; i < bonus.Count; i++)
         {
-            r1 = Random.Range(0, playgroundRayon - cb );
+            r1 = Random.Range(0, playgroundRayon - cb);
             r2 = Random.Range(cbMin, playgroundRayon - cbPrime);
-            r3 = Random.Range(hb, hbPrime );
+            r3 = Random.Range(hb, hbPrime);
             x = (r1 + r2) / 2.0f;
             angleInDegrees2 = Random.Range(angleInDegrees, angleInDegrees + (Mathf.PI / 3) * 2);
-            c = new Vector3( Mathf.Cos(angleInDegrees2) * x * bonus[i].transform.lossyScale.x, Tposition, Mathf.Sin(angleInDegrees2) * x * bonus[i].transform.lossyScale.z);
+            c = new Vector3(Mathf.Cos(angleInDegrees2) * x * bonus[i].transform.lossyScale.x, Tposition, Mathf.Sin(angleInDegrees2) * x * bonus[i].transform.lossyScale.z);
             bonus[i].transform.localPosition = c + Vector3.up * r3 * bonus[i].transform.lossyScale.y;
             if (i == 1)
             {
-                if (Mathf.Abs(Vector3.Distance(bonus[i - 1].transform.position, bonus[i].transform.position)) < rayonBuble*2)
+                if (Mathf.Abs(Vector3.Distance(bonus[i - 1].transform.position, bonus[i].transform.position)) < rayonBuble * 2)
                 {
                     i--;
                 }

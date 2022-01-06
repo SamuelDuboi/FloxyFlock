@@ -81,7 +81,7 @@ public class DissolveFlox : MonoBehaviour
         
     }
 
-    public void ResetDissolve() // A AJOUTER LORSQUE LES FLOX RESET <- n'a pas été fait 
+    public void ResetDissolve() 
     {
         isDissolving = false;
         dissolveState = 1;

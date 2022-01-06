@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5721291045351929228}
   - component: {fileID: 8870068809602658906}
+  - component: {fileID: 8568060087636096483}
   m_Layer: 0
   m_Name: pantoufles
   m_TagString: Untagged
@@ -82,6 +83,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8568060087636096483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580227014853838067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58ecf3b6bc2b7b49b754e0078a28629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headSettTransform: {fileID: 1972585048388471978}
+  headSettTransformR: {fileID: 1972585046672742328}
 --- !u!1 &1972585046477117326
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,7 +762,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b98cc18855f82947b40ea461ff0764e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_transform: {fileID: 549874146066611122}
+  m_transform: {fileID: 1972585048388471978}
+  pantoufleTransform: {fileID: 5721291045351929228}
   inputManager: {fileID: 1972585046942177089}
 --- !u!82 &5851740290584689345
 AudioSource:
@@ -1467,6 +1483,10 @@ PrefabInstance:
     - target: {fileID: 1897938308515805258, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_Name
       value: GrabManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2759863809716346480, guid: b384fbe0379810344b24bf520b847674, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2759863809716346480, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_ConnectedAnchor.z
