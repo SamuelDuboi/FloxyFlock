@@ -163,8 +163,7 @@ public class GrabManagerMulti : GrabManager
         if (!mainPool[currentPool].isFireballUsed)
         {
             fireballRepresentation.gameObject.SetActive(true);
-            fireballRepresentation.manager = this;
-            fireballRepresentation.image.texture = fireBallInstantiated.GetComponent<TextureForDispenser>().texture;
+            fireballRepresentation.ApplyVisual(this, fireBallInstantiated.GetComponent<MeshForDispenser>().mesh, fireBallInstantiated.GetComponent<MeshRenderer>().material);
         }
 
     }

@@ -310,9 +310,7 @@ public class GrabManager : MonoBehaviour
             if (mainPool[currentPool].isSelected[i])
                 return;
             representations[i].gameObject.SetActive(true);
-            representations[i].index = i;
-            representations[i].manager = this;
-            representations[i].image.texture = mainPool[currentPool].floxes[i].GetComponent<TextureForDispenser>().texture;
+            representations[i].ApplyVisual(i, this, mainPool[currentPool].floxes[i].GetComponent<MeshForDispenser>().mesh, mainPool[currentPool].floxes[i].GetComponent<MeshRenderer>().material);
         }
     }
     protected virtual void UpdateSpecial()
@@ -432,9 +430,10 @@ public class GrabManager : MonoBehaviour
                 return;
             else
             {
+
                 representationsModifiers[mainPool[currentPool].bonusIndex[0]].gameObject.SetActive(true);
-                representationsModifiers[mainPool[currentPool].bonusIndex[0]].index = mainPool[currentPool].bonusIndex[0];
-                representationsModifiers[mainPool[currentPool].bonusIndex[0]].manager = this;
+                representationsModifiers[mainPool[currentPool].bonusIndex[0]].ApplyVisual(mainPool[currentPool].bonusIndex[0], this);
+                
                 if (mainPool[currentPool].malusIndex == null)
                     mainPool[currentPool].malusIndex = new List<int>();
                 mainPool[currentPool].malusIndex.Add(mainPool[currentPool].bonusIndex[0]);
@@ -442,13 +441,12 @@ public class GrabManager : MonoBehaviour
                     mainPool[currentPool].malusSeletcted = new List<GameObject>();
                 if (mainPool[currentPool].bonusIndex != null)
                 {
-                    representationsModifiers[mainPool[currentPool].bonusIndex[0]].image.texture = mainPool[currentPool].malus[1].GetComponent<TextureForDispenser>().texture;
+                    representationsModifiers[mainPool[currentPool].bonusIndex[0]].ApplyVisual(mainPool[currentPool].malus[1].GetComponent<MeshForDispenser>().mesh, mainPool[currentPool].malus[1].GetComponent<MeshRenderer>().material);
 
                     mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[1]);
                 }
                 
-                representationsModifiers[mainPool[currentPool].bonusIndex[0]].indexInList = mainPool[currentPool].malusIndex[mainPool[currentPool].malusIndex.Count - 1];
-                representationsModifiers[mainPool[currentPool].bonusIndex[0]].isMalus = true;
+                representationsModifiers[mainPool[currentPool].bonusIndex[0]].ApplyVisual(mainPool[currentPool].malusIndex[mainPool[currentPool].malusIndex.Count - 1],true);
 
                 mainPool[currentPool].bonusIndex.RemoveAt(0);
                 mainPool[currentPool].bonusSelected.RemoveAt(0);
@@ -458,7 +456,8 @@ public class GrabManager : MonoBehaviour
 
         if (mainPool[currentPool].malusIndex == null)
             mainPool[currentPool].malusIndex = new List<int>();
-        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<TextureForDispenser>().texture;
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].ApplyVisual(mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<MeshForDispenser>().mesh,
+                                                                                                    mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<MeshRenderer>().material);
 
         mainPool[currentPool].malusIndex.Add(mainPool[currentPool].malusIndex.Count);
         if (mainPool[currentPool].malusSeletcted == null)
@@ -469,14 +468,10 @@ public class GrabManager : MonoBehaviour
         
 
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].gameObject.SetActive(true);
-        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].index = mainPool[currentPool].numberOfModifiersActivated;
-        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].manager = this;
-       
-        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].indexInList = mainPool[currentPool].malusIndex[mainPool[currentPool].malusIndex.Count-1];
-        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].isMalus = true;
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].ApplyVisual( mainPool[currentPool].numberOfModifiersActivated, this, mainPool[currentPool].malusIndex[mainPool[currentPool].malusIndex.Count-1], true);
 
         mainPool[currentPool].numberOfModifiersActivated++;
-        mainPool[currentPool].isEmptyModifier = false;
+        mainPool[currentPool].isEmptyModifier = false; 
         if (mainPool[currentPool].isSelectedModifier == null)
             mainPool[currentPool].isSelectedModifier = new List<bool>();
         mainPool[currentPool].isSelectedModifier.Add(false);
@@ -493,18 +488,15 @@ public class GrabManager : MonoBehaviour
             mainPool[currentPool].bonusIndex = new List<int>();
         mainPool[currentPool].bonusSelected.Add(mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count]);
 
-        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].image.texture = mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count].GetComponent<TextureForDispenser>().texture;
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].ApplyVisual(mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count].GetComponent<MeshForDispenser>().mesh,
+                                                                                                   mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count].GetComponent<MeshRenderer>().material);
       
         mainPool[currentPool].bonusIndex.Add(mainPool[currentPool].bonusIndex.Count);
 
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].gameObject.SetActive(true);
-        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].index = mainPool[currentPool].numberOfModifiersActivated;
-        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].manager = this;
-
-
-        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].isMalus = false;
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].ApplyVisual(mainPool[currentPool].numberOfModifiersActivated, this,false);
         mainPool[currentPool].numberOfModifiersActivated++;
-        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].indexInList = mainPool[currentPool].bonusIndex[mainPool[currentPool].bonusIndex.Count-1];
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].ApplyVisual(mainPool[currentPool].bonusIndex[mainPool[currentPool].bonusIndex.Count-1]);
         if (mainPool[currentPool].isSelectedModifier == null)
             mainPool[currentPool].isSelectedModifier = new List<bool>();
         mainPool[currentPool].isSelectedModifier.Add(false);
@@ -669,9 +661,8 @@ public class GrabManager : MonoBehaviour
         if (fireBallInstantiated == coll.gameObject && !coll.isGrab)
         {
             representations[representations.Length - 2].gameObject.SetActive(true);
-            representations[representations.Length - 2].index = representations.Length - 1;
-            representations[representations.Length - 2].manager = this;
-            representations[representations.Length - 2].image.texture = fireBallInstantiated.GetComponent<TextureForDispenser>().texture;
+            representations[representations.Length - 2].ApplyVisual(representations.Length - 1, this, fireBallInstantiated.GetComponent<MeshForDispenser>().mesh, fireBallInstantiated.GetComponent<MeshRenderer>().material);
+
             return true;
         }
         return false;

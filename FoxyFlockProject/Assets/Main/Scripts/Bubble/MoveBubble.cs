@@ -15,7 +15,7 @@ public class MoveBubble : MonoBehaviour
     float x;
     float d;
     float d1; 
-    float angle;
+    float angle=0;
     float minAngle;
     float maxAngle;
     float J;
@@ -145,13 +145,13 @@ public class MoveBubble : MonoBehaviour
         minAngle = 0;
         maxAngle = Mathf.PI;
 
-        if (J >= spawnMax)
+       /* if (J >= spawnMax)
         {
             angle = Mathf.Acos((spawnMax * spawnMax - _playgroundRayon * _playgroundRayon - J * J) / (-2 * _playgroundRayon * J));
             minAngle = angle;
             maxAngle = Mathf.PI - angle;
 
-        }
+        }*/
         angleInDegrees = Random.Range(minAngle, maxAngle);
         /*  v1 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees));
           v2 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees + Mathf.PI), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees + 180));*/

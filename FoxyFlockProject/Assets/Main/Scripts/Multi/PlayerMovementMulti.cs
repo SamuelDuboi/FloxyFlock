@@ -52,8 +52,8 @@ public class PlayerMovementMulti : NetworkBehaviour
             tableTransform.GetComponentInChildren<GameModeSolo>().playerMovement = this;
         }
         
-        tableRenderer = tableTransform.GetComponent<Renderer>();
-        TableGetClamp temp = tableRenderer.GetComponent<TableGetClamp>();
+        tableRenderer = tableTransform.GetComponentInChildren<Renderer>();
+        TableGetClamp temp = tableTransform.GetComponent<TableGetClamp>();
         zClampMin = temp.zClampMin;
         zClampMax = temp.zClampMax;
         upClamp = temp.upClamp;
