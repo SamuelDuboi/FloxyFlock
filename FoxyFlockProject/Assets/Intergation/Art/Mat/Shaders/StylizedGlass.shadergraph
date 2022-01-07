@@ -5892,7 +5892,7 @@
     "m_SourceType": 1,
     "m_FunctionName": "MainLightDirection",
     "m_FunctionSource": "",
-    "m_FunctionBody": "#if SHADERGRAPH_PREVIEW\nDirection = float3(0.5,0.5,0);\n#else\nLight light = GetMainLight();\nDirection = light.direction;\n#endif"
+    "m_FunctionBody": "#ifdef SHADERGRAPH_PREVIEW\nDirection = float3(0.5,0.5,0);\n#else\nLight light = GetMainLight();\nDirection = light.direction;\n#endif"
 }
 
 {
