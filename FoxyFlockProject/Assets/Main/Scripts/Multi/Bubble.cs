@@ -13,6 +13,7 @@ public class Bubble : MonoBehaviour
     public GrabManager grabManager;
     bool hasFlocks;
     public SoundReader sound;
+    public GameObject destroyBubble;
     private void Start()
     {
         radius = spherCollider.radius *m_transform.lossyScale.x;
@@ -49,4 +50,9 @@ public class Bubble : MonoBehaviour
         }
     }
 
+    public void OnDestroyed()
+    {
+        destroyBubble.transform.position = m_transform.position;
+        destroyBubble.SetActive(true);
+    }
 }
