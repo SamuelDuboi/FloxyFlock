@@ -1915,8 +1915,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3952706059049276121, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3952706059049276122, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
       propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 3059216092818332026}
+    - target: {fileID: 3952706059049276123, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
+      propertyPath: playerCamera
       value: 
       objectReference: {fileID: 3059216092818332026}
     m_RemovedComponents: []
@@ -2285,7 +2293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5181890961825097967, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6489083103315609469, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: m_RootOrder
@@ -2333,7 +2341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6823798317389140183, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7319081760283737090, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: onPressed.m_PersistentCalls.m_Calls.Array.size
