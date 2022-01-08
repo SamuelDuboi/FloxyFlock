@@ -14,6 +14,10 @@ public class Bubble : MonoBehaviour
     bool hasFlocks;
     public SoundReader sound;
     public GameObject destroyBubble;
+    public GameObject startBubble;
+    public GameObject particuleBubble;
+    public MeshRenderer meshRenderer;
+    public GameObject bubbleCore;
     private void Start()
     {
         radius = spherCollider.radius *m_transform.lossyScale.x;
@@ -50,9 +54,34 @@ public class Bubble : MonoBehaviour
         }
     }
 
-    public void OnDestroyed()
+    public bool OnDestroyed()
     {
         destroyBubble.transform.position = m_transform.position;
         destroyBubble.SetActive(true);
+        meshRenderer.enabled = false;
+        bubbleCore.SetActive(false);
+        StartCoroutine(WaitForDestroy ());
+        return hasFlocks;
+    }
+    IEnumerator WaitForDestroy()
+    {
+        yield return new WaitForSeconds(1.0f);
+        OnSpawn();
+    }
+    private void OnSpawn()
+    {
+        destroyBubble.SetActive(false);
+        startBubble.transform.position = transform.position;
+        startBubble.SetActive(true);
+        StartCoroutine(WaitForSpawn());
+
+    }
+
+    IEnumerator WaitForSpawn()
+    {
+        yield return new WaitForSeconds(2.5f);
+        startBubble.SetActive(false);
+        meshRenderer.enabled = true;
+        bubbleCore.SetActive(true);
     }
 }

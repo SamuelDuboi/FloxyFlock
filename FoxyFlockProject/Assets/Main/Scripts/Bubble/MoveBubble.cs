@@ -44,7 +44,7 @@ public class MoveBubble : MonoBehaviour
     public float hf;
     public float hfPrime;
     public float offset;
-   public void MoveBubbles(float _playgroundRayon, float Tposition, Vector3 pPos, List<GameObject> bonus, List<GameObject> malus)
+   public void MoveBubbles(float _playgroundRayon, float Tposition, Vector3 pPos, List<GameObject> bonus, List<GameObject> malus, List<Vector3> position)
     {
         playgroundRayon = _playgroundRayon;
         rayonBuble = bonus[0].GetComponent<Bubble>().radius+offset;
@@ -64,6 +64,25 @@ public class MoveBubble : MonoBehaviour
 
         }
         angleInDegrees = Random.Range(minAngle, maxAngle);
+        int index = 0;
+        for (int i = 0; i < bonus.Count; i++)
+        {
+            if (bonus[i].GetComponent<Bubble>().OnDestroyed()) 
+            {
+                bonus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
+                index++;
+            }
+        }
+        for (int i = 0; i < malus.Count; i++)
+        {
+            if (malus[i].GetComponent<Bubble>().OnDestroyed())
+            {
+                malus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
+                index++;
+            }
+        }
+
+
 
         #region bonus
         for (int i = 0; i < bonus.Count; i++)
@@ -137,7 +156,7 @@ public class MoveBubble : MonoBehaviour
 
         #endregion
     }
-    public void MoveBubbles(float _playgroundRayon, float Tposition, Vector3 pPos, List<GameObject> bonus, List<GameObject> malus,GameObject fireball)
+    public void MoveBubbles(float _playgroundRayon, float Tposition, Vector3 pPos, List<GameObject> bonus, List<GameObject> malus,GameObject fireball, List<Vector3> position)
     {
         playgroundRayon = _playgroundRayon;
         rayonBuble = bonus[0].GetComponent<Bubble>().radius;
@@ -155,6 +174,28 @@ public class MoveBubble : MonoBehaviour
         angleInDegrees = Random.Range(minAngle, maxAngle);
         /*  v1 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees));
           v2 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees + Mathf.PI), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees + 180));*/
+        int index = 0;
+        for (int i = 0; i < bonus.Count; i++)
+        {
+            if (bonus[i].GetComponent<Bubble>().OnDestroyed())
+            {
+                bonus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
+                index++;
+            }
+        }
+        for (int i = 0; i < malus.Count; i++)
+        {
+            if (malus[i].GetComponent<Bubble>().OnDestroyed())
+            {
+                malus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
+                index++;
+            }
+        }
+      if(fireball.GetComponent<Bubble>().OnDestroyed())
+        {
+            fireball.GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
+            index++;
+        }
         #region bonus
         for (int i = 0; i < bonus.Count; i++)
         {

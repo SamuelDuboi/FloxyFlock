@@ -41,7 +41,7 @@ public class GrabManagerMulti : GrabManager
         inputManager.OnGrabbingRight.AddListener(OnGrabRight);
         inputManager.OnGrabbingReleaseRight.AddListener(OnRealeseRight);
         currentMilestone = playGround.CheckMilestones(out positionOfMilestoneIntersection, out numberOfMilestones, out nextMilestonePos);
-        playerMovement.CmdMoveBubble(playGround.radius, nextMilestonePos.y,positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes,playGround.fireBallOrbe);
+        playerMovement.CmdMoveBubble(playGround.radius, nextMilestonePos.y,positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes,playGround.fireBallOrbe, directionForBubble);
         Vector3 headSettPos = inputManager.GetComponent<XRRig>().cameraFloorOffsetObject.transform.localPosition;
         transform.localPosition += headSettPos;
     }
@@ -164,6 +164,7 @@ public class GrabManagerMulti : GrabManager
         {
             fireballRepresentation.gameObject.SetActive(true);
             fireballRepresentation.ApplyVisual(this, fireBallInstantiated.GetComponent<MeshForDispenser>().mesh, fireBallInstantiated.GetComponent<MeshRenderer>().material);
+            directionForBubble.Add(fireballRepresentation.transform.position);
         }
 
     }
@@ -183,15 +184,8 @@ public class GrabManagerMulti : GrabManager
             doOnce = true;
             return;
         }
-        foreach (GameObject orb in playGround.bonusOrbes)
-        {
-          playerMovement.CmdMoveBubble( playGround.radius, nextMilestonePos.y,positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes, playGround.fireBallOrbe);
-        }
-        foreach (GameObject orb in playGround.malusOrbes)
-        {
-            playerMovement.CmdMoveBubble( playGround.radius, nextMilestonePos.y,positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes, playGround.fireBallOrbe);
-        }
-        playerMovement.CmdMoveBubble( playGround.radius, nextMilestonePos.y,positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes, playGround.fireBallOrbe); 
+
+        playerMovement.CmdMoveBubble( playGround.radius, nextMilestonePos.y,positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes, playGround.fireBallOrbe, directionForBubble); 
     }
     private void RespawnFireball(GameObject _object, Vector3 initPos, bool isGrab)
     {

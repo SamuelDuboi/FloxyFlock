@@ -71,7 +71,7 @@ public class GrabManager : MonoBehaviour
             
         }
         InitPool();
-        moveBubble.MoveBubbles(playGround.radius,0.0f,positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes);
+          
         inputManager.OnGrabbingLeft.AddListener(OnGrabLeft);
         inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
         inputManager.OnGrabbingRight.AddListener(OnGrabRight);
@@ -296,7 +296,7 @@ public class GrabManager : MonoBehaviour
     }
     protected virtual void UpdateBoard()
     {
-
+      
     }
     protected virtual void UpdateInventory()
     {
@@ -313,8 +313,10 @@ public class GrabManager : MonoBehaviour
             representations[i].ApplyVisual(i, this, mainPool[currentPool].floxes[i].GetComponent<MeshForDispenser>().mesh, mainPool[currentPool].floxes[i].GetComponent<MeshRenderer>().material);
         }
     }
+    public List<Vector3> directionForBubble;
     protected virtual void UpdateSpecial()
     {
+        directionForBubble = new List<Vector3>();
         if (bonusNumber != null && bonusNumber.Count > 0)
         {
 
@@ -347,22 +349,14 @@ public class GrabManager : MonoBehaviour
     protected bool doOnce;
     protected virtual void UpdateBubble()
     {
-        if (!doOnce)
+      // so they wont move on start
+      /*  if (!doOnce)
         {
             doOnce = true;
             return;
-        }    
+        }*/
+        moveBubble.MoveBubbles(playGround.radius, 0.0f, positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes, directionForBubble);
 
-        foreach (GameObject orb in playGround.bonusOrbes)
-        {
-            orb.transform.position += Vector3.up * playGround.milestoneManager.distance;
-        }
-        foreach (GameObject orb in playGround.malusOrbes)
-        {
-            orb.transform.position += Vector3.up * playGround.milestoneManager.distance;
-        }
-        if (playGround.fireBallOrbe)
-        playGround.fireBallOrbe.transform.position += Vector3.up * playGround.milestoneManager.distance;
 
     }
     #endregion
@@ -442,12 +436,10 @@ public class GrabManager : MonoBehaviour
                 if (mainPool[currentPool].bonusIndex != null)
                 {
                     representationsModifiers[mainPool[currentPool].bonusIndex[0]].ApplyVisual(mainPool[currentPool].malus[1].GetComponent<MeshForDispenser>().mesh, mainPool[currentPool].malus[1].GetComponent<MeshRenderer>().material);
-
                     mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[1]);
                 }
-                
+                directionForBubble.Add(representationsModifiers[mainPool[currentPool].bonusIndex[0]].transform.position);
                 representationsModifiers[mainPool[currentPool].bonusIndex[0]].ApplyVisual(mainPool[currentPool].malusIndex[mainPool[currentPool].malusIndex.Count - 1],true);
-
                 mainPool[currentPool].bonusIndex.RemoveAt(0);
                 mainPool[currentPool].bonusSelected.RemoveAt(0);
                 return;
@@ -458,15 +450,15 @@ public class GrabManager : MonoBehaviour
             mainPool[currentPool].malusIndex = new List<int>();
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].ApplyVisual(mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<MeshForDispenser>().mesh,
                                                                                                     mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<MeshRenderer>().material);
-
+        
         mainPool[currentPool].malusIndex.Add(mainPool[currentPool].malusIndex.Count);
         if (mainPool[currentPool].malusSeletcted == null)
             mainPool[currentPool].malusSeletcted = new List<GameObject>();
 
 
         mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count-1]);
-        
 
+        directionForBubble.Add(representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].transform.position);
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].gameObject.SetActive(true);
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].ApplyVisual( mainPool[currentPool].numberOfModifiersActivated, this, mainPool[currentPool].malusIndex[mainPool[currentPool].malusIndex.Count-1], true);
 
@@ -492,7 +484,7 @@ public class GrabManager : MonoBehaviour
                                                                                                    mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count].GetComponent<MeshRenderer>().material);
       
         mainPool[currentPool].bonusIndex.Add(mainPool[currentPool].bonusIndex.Count);
-
+        directionForBubble.Add(representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].transform.position);
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].gameObject.SetActive(true);
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].ApplyVisual(mainPool[currentPool].numberOfModifiersActivated, this,false);
         mainPool[currentPool].numberOfModifiersActivated++;
