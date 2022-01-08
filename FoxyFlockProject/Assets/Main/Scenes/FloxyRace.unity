@@ -1207,36 +1207,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7976848945701037305, guid: 34a7fcef33af31b4e81654da49c8d759, type: 3}
   m_PrefabInstance: {fileID: 267843391}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &299620913
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 299620914}
-  m_Layer: 11
-  m_Name: SnapTurnParent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &299620914
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 299620913}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 549874146384825822}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &326349824
 GameObject:
   m_ObjectHideFlags: 0
@@ -2028,9 +1998,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2016200331}
     m_Modifications:
+    - target: {fileID: -4326114821262069758, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6576508662175088817, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
       propertyPath: m_RootOrder
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6576508662175088817, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6576508662175088817, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6576508662175088817, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6576508662175088817, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2233,6 +2219,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2016200331}
     m_Modifications:
+    - target: {fileID: -4326114821262069758, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6576508662175088817, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -4711,6 +4701,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2016200331}
     m_Modifications:
+    - target: {fileID: -4326114821262069758, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6576508662175088817, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -7000,6 +6994,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2016200331}
     m_Modifications:
+    - target: {fileID: -4326114821262069758, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6576508662175088817, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -7347,7 +7345,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5721291045570593760}
-  - {fileID: 299620914}
   - {fileID: 1972585047667636934}
   m_Father: {fileID: 1972585046622904622}
   m_RootOrder: 0
@@ -7557,7 +7554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputManager: {fileID: 1972585046622904621}
   vrHeadSett: {fileID: 1972585046890373588}
-  tableRenderer: {fileID: 0}
+  tableRenderer: {fileID: 1520363358376355927}
   tableTransform: {fileID: 2438865839756169299}
   zClampMin: {fileID: 1280803067}
   zClampMax: {fileID: 1387273588}
@@ -8060,7 +8057,7 @@ Transform:
   - {fileID: 1972585046890373588}
   - {fileID: 3249969305389261287}
   m_Father: {fileID: 549874146384825822}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1972585047667636935
 GameObject:

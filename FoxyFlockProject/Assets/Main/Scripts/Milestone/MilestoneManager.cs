@@ -50,7 +50,8 @@ public class MilestoneManager : MonoBehaviour
             }
         }
        
-        nextMilestonePos = transform.localPosition + Vector3.up * distance;
+        //nextMilestonePos = transform.localPosition + Vector3.up * distance;
+        nextMilestonePos = Vector3.zero;
         return 0;
     }
 }

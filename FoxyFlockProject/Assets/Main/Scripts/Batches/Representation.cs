@@ -8,7 +8,7 @@ public class Representation : MonoBehaviour
 {
     [SerializeField] private float modelRotationSpeed;
     [SerializeField] private Transform modelTransform;
-    private MeshRenderer meshRenderer;
+    [SerializeField] private MeshRenderer meshRenderer;
     private MeshFilter meshFilter;
 
     [HideInInspector] private int index;
@@ -100,9 +100,9 @@ public class Representation : MonoBehaviour
         meshMat.material = _mat;
         if (propBlock == null)
             propBlock = new MaterialPropertyBlock();
-        meshMat.GetPropertyBlock(propBlock);
+        meshRenderer.GetPropertyBlock(propBlock);
         propBlock.SetInt("SelectedColorTint", 3);
-        meshMat.SetPropertyBlock(propBlock);
+        meshRenderer.SetPropertyBlock(propBlock);
     }
     public void ApplyVisual(int _index, GrabManager grabManager,int _indexInList, bool _isMalus)
     {
@@ -112,14 +112,14 @@ public class Representation : MonoBehaviour
         isMalus = _isMalus;
         if (propBlock == null)
             propBlock = new MaterialPropertyBlock();
-        meshMat.GetPropertyBlock(propBlock);
+        meshRenderer.GetPropertyBlock(propBlock);
         if (isMalus)
         {
             propBlock.SetInt("SelectedColorTint", 2);
         }
         else
             propBlock.SetInt("SelectedColorTint", 1);
-        meshMat.SetPropertyBlock(propBlock);
+        meshRenderer.SetPropertyBlock(propBlock);
     }
     public void ApplyVisual(Mesh _mesh, Material _mat)
     {

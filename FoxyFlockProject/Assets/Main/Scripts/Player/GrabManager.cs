@@ -71,7 +71,7 @@ public class GrabManager : MonoBehaviour
             
         }
         InitPool();
-          
+        moveBubble.MoveBubbles(playGround.radius, 0.0f, positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes, directionForBubble);
         inputManager.OnGrabbingLeft.AddListener(OnGrabLeft);
         inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
         inputManager.OnGrabbingRight.AddListener(OnGrabRight);
@@ -355,7 +355,7 @@ public class GrabManager : MonoBehaviour
             doOnce = true;
             return;
         }*/
-        moveBubble.MoveBubbles(playGround.radius, 0.0f, positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes, directionForBubble);
+        moveBubble.MoveBubbles(playGround.radius, nextMilestonePos.y, positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes, directionForBubble);
 
 
     }

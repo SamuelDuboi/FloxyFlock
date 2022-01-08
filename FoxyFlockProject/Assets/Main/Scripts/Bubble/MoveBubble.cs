@@ -58,7 +58,13 @@ public class MoveBubble : MonoBehaviour
 
         if (J >= spawnMax)
         {
-            angle = Mathf.Acos((spawnMax * spawnMax - _playgroundRayon * _playgroundRayon - J * J) / (-2 * _playgroundRayon * J));
+            // security until Simon find the probleme
+            float angleValue = (spawnMax * spawnMax - _playgroundRayon * _playgroundRayon - J * J) / (-2 * _playgroundRayon * J);
+            if (angleValue > 1)
+                angleValue = 1;
+            if (angleValue < -1)
+                angleValue = -1;
+            angle = Mathf.Acos(angleValue);
             minAngle = angle;
             maxAngle = Mathf.PI - angle;
 
@@ -164,13 +170,19 @@ public class MoveBubble : MonoBehaviour
         minAngle = 0;
         maxAngle = Mathf.PI;
 
-       /* if (J >= spawnMax)
-        {
-            angle = Mathf.Acos((spawnMax * spawnMax - _playgroundRayon * _playgroundRayon - J * J) / (-2 * _playgroundRayon * J));
-            minAngle = angle;
-            maxAngle = Mathf.PI - angle;
+        if (J >= spawnMax)
+         {
+                    float angleValue = (spawnMax * spawnMax - _playgroundRayon * _playgroundRayon - J * J) / (-2 * _playgroundRayon * J);
+             if (angleValue > 1)
+                 angleValue = 1;
+             if (angleValue < -1)
+                 angleValue = -1;
+             angle = Mathf.Acos(angleValue);
+            
+             minAngle = angle;
+             maxAngle = Mathf.PI - angle;
 
-        }*/
+         }
         angleInDegrees = Random.Range(minAngle, maxAngle);
         /*  v1 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees));
           v2 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees + Mathf.PI), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees + 180));*/

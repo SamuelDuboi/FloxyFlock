@@ -16,14 +16,11 @@ public class Lever : MonoBehaviour
 
     public UnityEvent onPressed, onReleased;
 
-    private IEnumerator Start()
+    private void Start()
     {
 
         joint = GetComponent<HingeJoint>();
         rb = GetComponent<Rigidbody>();
-        yield return new WaitForSeconds(10);
-        Pressed();
-
     }
 
     private void Update()
