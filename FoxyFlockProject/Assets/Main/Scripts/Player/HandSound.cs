@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof( SoundReader))]
 public class HandSound : MonoBehaviour
 {
+    public string activationName;
+    public string loopName;
     public SoundReader sound;
     public bool isLeft;
     private bool startActivated;
@@ -22,12 +24,23 @@ public class HandSound : MonoBehaviour
             inputManager.OnRightTrigger.AddListener(HandStart);
             inputManager.OnRightTriggerRelease.AddListener(HandStop);
         }
+        inputManager.OnBothTrigger.AddListener(OnBothActivate);
     }
     private void HandStart(bool seeTable)
     {
         if (seeTable)
         {
-            sound.clipName = "HandMoveStart";
+            sound.clipName = activationName;
+            sound.Play();
+            startActivated = true;
+        }
+    }
+    private void OnBothActivate(bool seeTable)
+    {
+        if (seeTable)
+        {
+            sound.clipName = loopName;
+            sound.source.loop = true;
             sound.Play();
             startActivated = true;
         }
@@ -37,8 +50,8 @@ public class HandSound : MonoBehaviour
         if (startActivated )
         {
             startActivated = false;
-            sound.clipName = "HandMoveStop";
-            sound.Play();
+            sound.source.loop = false;
+            sound.StopSound();
         }
     }
 }

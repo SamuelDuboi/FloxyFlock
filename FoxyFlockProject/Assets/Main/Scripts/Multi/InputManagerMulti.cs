@@ -153,8 +153,6 @@ public class InputManagerMulti : InputManager
     protected override void OnBothTriggerListener(bool seeTable)
     {
         canMove = true;
-        sound.clipName = "MoveAroundLoop";
-        sound.Play();
     }
 
     /// <summary>
@@ -164,7 +162,6 @@ public class InputManagerMulti : InputManager
     {
         rightHandIsTriggerRelease = true;
         canMove = false;
-        sound.StopSound();
     }
     /// <summary>
     /// Call when the right trigger is relase once
@@ -173,7 +170,6 @@ public class InputManagerMulti : InputManager
     {
         leftHandIsTriggerRelease = true;
         canMove = false;
-        sound.StopSound();
 
     }
     #endregion

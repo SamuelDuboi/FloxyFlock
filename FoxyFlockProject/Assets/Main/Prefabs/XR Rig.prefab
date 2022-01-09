@@ -284,6 +284,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a67be31e99ec9249a1089b8d65eefe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activationName: MoveAroundLeftActivation
+  loopName: MoveAroundLeftLoop
   sound: {fileID: 953689677}
   isLeft: 1
   inputManager: {fileID: 1972585046942177089}
@@ -399,7 +401,9 @@ MonoBehaviour:
   secondClipName: 
   ThirdClipName: 
   ForthClipName: 
+  source: {fileID: 0}
   applyAudioOnStart: 0
+  randomSelectionOnStart: 0
   doOnce: 0
 --- !u!114 &5902130214628305284
 MonoBehaviour:
@@ -418,6 +422,7 @@ MonoBehaviour:
   coolingSpeed: 35
   wiggleCoolingScale: 2
   heatPourcentage: 0
+  doOnce: 0
 --- !u!1 &1972585046672742331
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,7 +883,9 @@ MonoBehaviour:
   secondClipName: 
   ThirdClipName: 
   ForthClipName: 
+  source: {fileID: 0}
   applyAudioOnStart: 0
+  randomSelectionOnStart: 0
   doOnce: 0
 --- !u!1 &1972585047074453697
 GameObject:
@@ -1197,7 +1204,9 @@ MonoBehaviour:
   secondClipName: 
   ThirdClipName: 
   ForthClipName: 
+  source: {fileID: 0}
   applyAudioOnStart: 0
+  randomSelectionOnStart: 0
   doOnce: 0
 --- !u!114 &688586328
 MonoBehaviour:
@@ -1211,6 +1220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a67be31e99ec9249a1089b8d65eefe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activationName: MoveAroundRightActivation
+  loopName: MoveAroundRightLoop
   sound: {fileID: 688586329}
   isLeft: 0
   inputManager: {fileID: 1972585046942177089}
@@ -1231,6 +1242,7 @@ MonoBehaviour:
   coolingSpeed: 35
   wiggleCoolingScale: 2
   heatPourcentage: 0
+  doOnce: 0
 --- !u!1 &1972585047932625600
 GameObject:
   m_ObjectHideFlags: 0

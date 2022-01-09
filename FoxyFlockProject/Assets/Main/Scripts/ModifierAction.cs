@@ -21,6 +21,7 @@ public class ModifierAction : MonoBehaviour
     protected bool isGrab;
     public string grabSound;
     public string collisionSound;
+    public string dissolvSound;
     private bool cantPlaySound;
     private bool hasDoneStart;
     public InputManager inputManager;
@@ -28,7 +29,7 @@ public class ModifierAction : MonoBehaviour
     {
         sound = _object.AddComponent<SoundReader>();
         sound.secondClipName = "EnterStasis";
-        sound.ThirdClipName = collisionSound;
+        sound.ForthClipName = "Dissolve";
         rgb = GetComponent<Rigidbody>();
         hasDoneStart = true;
     }
@@ -79,10 +80,8 @@ public class ModifierAction : MonoBehaviour
     }
     public virtual void OnHitGround(GameObject _object, Vector3 initPos, bool isGrab)
     {
-        /*if (!isGrab)
-        {
-            _object.transform.position = initPos;
-        }*/
+        sound.ForthClipName = dissolvSound;
+        sound.Playforth();
     }
     public virtual void OnExitStasis(GameObject _object)
     {

@@ -961,6 +961,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a67be31e99ec9249a1089b8d65eefe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activationName: MoveAroundLeftActivation
+  loopName: MoveAroundLeftLoop
   sound: {fileID: 231788577}
   isLeft: 1
   inputManager: {fileID: 1972585046622904621}
@@ -1674,6 +1676,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a67be31e99ec9249a1089b8d65eefe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activationName: MoveAroundRightActivation
+  loopName: MoveAroundRightLoop
   sound: {fileID: 469895221}
   isLeft: 0
   inputManager: {fileID: 1972585046622904621}

@@ -1,5 +1,6 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using System.Collections;
 using NaughtyAttributes;
 using UnityEngine.XR.Interaction.Toolkit;
 public class ScenesManager : MonoBehaviour
@@ -41,10 +42,27 @@ public class ScenesManager : MonoBehaviour
     }
     public void LunchScene(string sceneToLunch)
     {
-        SceneManager.LoadScene(sceneToLunch);
+        StartCoroutine(WaitToLunch(sceneToLunch));
     }
     public void LunchScene(int sceneToLunch)
     {
-        SceneManager.LoadScene(sceneToLunch);
+        StartCoroutine(WaitToLunch(sceneToLunch));
     }
+    IEnumerator WaitToLunch(string sceneToLunch)
+    {
+        var async= SceneManager.LoadSceneAsync(sceneToLunch);
+        async.allowSceneActivation = false;
+        yield return new WaitForSeconds(0.5f);
+        async.allowSceneActivation = true;
+
+    }
+    IEnumerator WaitToLunch(int sceneToLunch)
+    {
+        var async = SceneManager.LoadSceneAsync(sceneToLunch);
+        async.allowSceneActivation = false;
+        yield return new WaitForSeconds(0.5f);
+        async.allowSceneActivation = true;
+
+    }
+
 }

@@ -786,7 +786,7 @@ public class GrabManager : MonoBehaviour
             StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true)); 
            
 
-            GameObject _flock = Instantiate(batches[indexOfPool].pieces[indexOfFlock], new Vector3(300 + (indexOfFlock * 5 + 1) * 20 * (indexOfPool * 5 + 1), 300 + indexOfFlock * 20, 300 + indexOfFlock), Quaternion.identity);
+            GameObject _flock = Instantiate(batches[indexOfPool].pieces[indexOfFlock], new Vector3(302 + (indexOfFlock * 5 + 1) * 20 * (indexOfPool * 5 + 1), 300 + indexOfFlock * 20, 300 + indexOfFlock), Quaternion.identity);
             Modifier _modifer = baseModifier;
             Type type = _modifer.actions.GetType();
             var _object = GetComponent(type);

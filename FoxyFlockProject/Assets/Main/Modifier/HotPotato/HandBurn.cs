@@ -26,6 +26,7 @@ public class HandBurn : MonoBehaviour
     private SkinnedMeshRenderer handRenderer;
     private MaterialPropertyBlock propBlock;
     [HideInInspector] public bool doOnce;
+    private bool playOnceCool;
     private SoundReader soundReader;
 
     private HeatState heatState =  HeatState.cool;
@@ -91,18 +92,32 @@ public class HandBurn : MonoBehaviour
             heatState = HeatState.burned;
             soundReader.source.loop = false;
             soundReader.StopSound();
+            soundReader.ThirdClipName = "HotForceRelease";
+            soundReader.PlayThird();
             doOnce = false;
             InteractionManager.instance.SelectExit(interactor, flockInteractable);
             interactor.allowSelect = false;
+            StartCoroutine(WaitToCoolSound());
         }
     }
-
+    IEnumerator WaitToCoolSound()
+    {
+        yield return new WaitForSeconds(0.4f);
+        playOnceCool = false;
+    }
     private void CoolEvent()
     {
         if (heatState != HeatState.burning)
         {
             if (heatCurrentValue > 0)
             {
+                if (!playOnceCool)
+                {
+                    playOnceCool = false;
+                    soundReader.ThirdClipName = "HotCool";
+                    soundReader.source.loop = true;
+                    soundReader.PlayThird();
+                }
                 heatCurrentValue -= Time.deltaTime*( coolingSpeed + (coolingSpeed * wiggleStrengh()));
                 
                 if (heatCurrentValue <= 0)
@@ -121,6 +136,7 @@ public class HandBurn : MonoBehaviour
         soundReader.source.loop = false;
         soundReader.StopSound();
         doOnce = false;
+        playOnceCool = false;
     }
 
     private float wiggleStrengh()

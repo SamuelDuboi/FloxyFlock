@@ -209,7 +209,7 @@ public class InputManager : MonoBehaviour
     protected virtual void OnBothTriggerListener(bool seeTable)
     {
         canMove = true;
-        sound.clipName = "MoveAroundLoop";
+        sound.clipName = "MoveAroundEnable";
         sound.Play();
     }
 
@@ -220,7 +220,6 @@ public class InputManager : MonoBehaviour
     {
         rightHandIsTriggerRelease = true;
         canMove = false;
-        sound.StopSound();
     }
     /// <summary>
     /// Call when the right trigger is relase once
@@ -229,8 +228,6 @@ public class InputManager : MonoBehaviour
     {
         leftHandIsTriggerRelease = true;
         canMove = false;
-        sound.StopSound();
-
     }
     #endregion
     #region GrabListeners
