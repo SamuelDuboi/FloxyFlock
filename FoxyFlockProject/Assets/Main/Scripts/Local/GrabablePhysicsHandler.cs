@@ -81,9 +81,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-
-            OnHitSomething.Invoke(gameObject, m_rgb.velocity, collision.gameObject); ;
-
+        OnHitSomething.Invoke(gameObject, m_rgb.velocity, collision.gameObject); ;
     }
     private void OnTriggerStay(Collider other)
     {

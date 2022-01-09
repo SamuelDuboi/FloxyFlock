@@ -7,6 +7,7 @@ public class Reset : MonoBehaviour
     private List<int> freezdFlockPoolIndex = new List<int>();
     private List<int> freezdFlockIndex = new List<int>();
     public GrabManager grabManager;
+    private SoundReader soundReader;
    public virtual void AddFreezFlock(GameObject flock, int poolIndex, int flockIndex)
     {
         flock.GetComponent<GrabablePhysicsHandler>().OnFreeze();
@@ -38,8 +39,21 @@ public class Reset : MonoBehaviour
         {
             grabManager.DestroyFlock(freezedFlocks[i], freezdFlockPoolIndex[i]);
         }
+        if (soundReader == null)
+            soundReader = GetComponent<SoundReader>();
+        soundReader.secondClipName = "StartReset";
+        soundReader.PlaySeconde();
+        if (freezedFlocks != null && freezedFlocks.Count > 0)
+            StartCoroutine(LastFlockIsDestroy(freezedFlocks[freezedFlocks.Count - 1].GetComponent<DissolveFlox>()));
         freezedFlocks.Clear();
         freezdFlockIndex.Clear();
         freezdFlockPoolIndex.Clear();
+    }
+    IEnumerator LastFlockIsDestroy(DissolveFlox dissolveFlox)
+    {
+        grabManager.playGround.soundReader.Play("Dissolve");
+        yield return new WaitForSeconds(dissolveFlox.dissolveTime);
+        soundReader.ThirdClipName = "EndReset";
+        soundReader.PlayThird();
     }
 }

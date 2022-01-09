@@ -11,6 +11,7 @@ public class BasicFloakAction : ModifierAction
     }
     public override void OnGrabed(GameObject _object)
     {
+        grabSound = "BasicGrab";
         base.OnGrabed(_object);
     }
     public override void OnHitGround(GameObject _object, Vector3 initPos, bool isGrab)
@@ -19,6 +20,8 @@ public class BasicFloakAction : ModifierAction
     }
     public override void OnHitSomething(GameObject _object, Vector3 velocity, GameObject collision)
     {
+        collisionSound = "BasicCollisionTable";
+
         base.OnHitSomething(_object, velocity, collision);
     }
     public override void OnReleased(GameObject _object)

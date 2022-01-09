@@ -67,6 +67,10 @@ public class SoundListEditor : Editor
                     cantAdd = true;
                     break;
                 }
+                else if(soundList.music[i].clip == null)
+                {
+                    soundList.music.RemoveAt(i);                    
+                }
             }
             if (!cantAdd)
             {

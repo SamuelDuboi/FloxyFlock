@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-
+[RequireComponent(typeof( SoundReader))]
 public class PlayGround : MonoBehaviour
 {
     public CapsuleCollider spherCollider;
@@ -28,6 +28,7 @@ public class PlayGround : MonoBehaviour
     public List<GameObject> bonusOrbes;
     public List<GameObject> malusOrbes;
     public GameObject fireBallOrbe;
+    public SoundReader soundReader;
     // Start is called before the first frame update
     void Start()
     {

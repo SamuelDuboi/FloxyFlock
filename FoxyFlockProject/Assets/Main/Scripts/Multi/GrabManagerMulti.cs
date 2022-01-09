@@ -176,6 +176,7 @@ public class GrabManagerMulti : GrabManager
         {
             resetMulti.AddFreezFlock(flocksToFreez[i],indeOfPool,i);
         }
+        playGround.soundReader.Play("Freez");
     }
     protected override void UpdateBubble()
     {

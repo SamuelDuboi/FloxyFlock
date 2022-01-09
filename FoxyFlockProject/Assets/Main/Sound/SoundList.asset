@@ -1,0 +1,174 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a49e97d058d52d45a675c4567174e0d, type: 3}
+  m_Name: SoundList
+  m_EditorClassIdentifier: 
+  music:
+  - name: BasicCollisionTable
+    clip: {fileID: 8300000, guid: 162557a2aebc5e442812243251e8978e, type: 3}
+    volume: 0.5
+  - name: BasicGrab
+    clip: {fileID: 8300000, guid: 7a71bc45bd34f25468c2081dbc1f4c7d, type: 3}
+    volume: 0.5
+  - name: EnterStasis
+    clip: {fileID: 8300000, guid: 803f875b0ee00a5439eefb9ed8b11f34, type: 3}
+    volume: 0.5
+  - name: ExitStasis
+    clip: {fileID: 8300000, guid: 69af67c04b5c259448b561718a081d15, type: 3}
+    volume: 0.5
+  - name: MoveAroundEnable
+    clip: {fileID: 8300000, guid: e7a831d834705e8438bba5ed1fd127f0, type: 3}
+    volume: 0.5
+  - name: OrbPop1
+    clip: {fileID: 8300000, guid: 36cd50cb731c2e84e8289f6ddaa358cf, type: 3}
+    volume: 0.5
+  - name: OrbPop2
+    clip: {fileID: 8300000, guid: caa2837639de5674d9f1a07e2034361a, type: 3}
+    volume: 0.5
+  - name: OrbPop3
+    clip: {fileID: 8300000, guid: fdce2131bcb40de49914408c9a1502d4, type: 3}
+    volume: 0.5
+  - name: OrbPop4
+    clip: {fileID: 8300000, guid: 01925b8302103504b901d8a80137a729, type: 3}
+    volume: 0.5
+  - name: FloxMachineBad
+    clip: {fileID: 8300000, guid: 452226a57191cee4d843c91b7f5332d4, type: 3}
+    volume: 0.5
+  - name: FloxMachineNotEmpty
+    clip: {fileID: 8300000, guid: 05825487e34d4e946ae8414109b40c2a, type: 3}
+    volume: 0.5
+  - name: FloxMachineGood
+    clip: {fileID: 8300000, guid: 039b3a2862926b341ad69fe9bfdf9cb3, type: 3}
+    volume: 0.5
+  - name: MenuSelect
+    clip: {fileID: 8300000, guid: ad3780af0ab984240975c92ce6195994, type: 3}
+    volume: 0.5
+  - name: MenuValidate
+    clip: {fileID: 8300000, guid: 68631ea78a495fb4d9b0814ca479c034, type: 3}
+    volume: 0.5
+  - name: BubbleSpawn
+    clip: {fileID: 8300000, guid: 44e775d0e5ef3f249b5ffca317d35169, type: 3}
+    volume: 0.5
+  - name: NotUsed
+    clip: {fileID: 8300000, guid: cffd6b8044d3d334bb47698da2bc3e46, type: 3}
+    volume: 0.5
+  - name: EndReset
+    clip: {fileID: 8300000, guid: 5b50e1b60813a1d42947ad20ec674f5e, type: 3}
+    volume: 0.5
+  - name: StartReset
+    clip: {fileID: 8300000, guid: dc0a3c200cf23d54a8cac3913db9e043, type: 3}
+    volume: 0.5
+  - name: NoteUsed
+    clip: {fileID: 8300000, guid: c6501b46d7c9c064a84d45002c36b201, type: 3}
+    volume: 0.5
+  - name: FireBallAlert
+    clip: {fileID: 8300000, guid: 80cc58ee4ed35284a90fd5afd5350e0d, type: 3}
+    volume: 0.5
+  - name: FireBallCollision
+    clip: {fileID: 8300000, guid: 451d517bc29ee05439ad11abbe837dc2, type: 3}
+    volume: 0.5
+  - name: FireBallGrab
+    clip: {fileID: 8300000, guid: 425d3ce7b62a08b4189bb2b56c7c0efa, type: 3}
+    volume: 0.5
+  - name: FireBallIncoming
+    clip: {fileID: 8300000, guid: f70f20331f3ce824baf9c7e590db27bc, type: 3}
+    volume: 0.5
+  - name: FireBallLoop
+    clip: {fileID: 8300000, guid: 178c0a17de426d341a0b8ac9cd7bc346, type: 3}
+    volume: 0.5
+  - name: NoteUsed
+    clip: {fileID: 8300000, guid: 578ba14483534484ba224f4aba786edb, type: 3}
+    volume: 0.5
+  - name: Dissolve
+    clip: {fileID: 8300000, guid: 787aafe804f581c46a375107499a9438, type: 3}
+    volume: 0.5
+  - name: Freez
+    clip: {fileID: 8300000, guid: 4cb98cd9096a9804583194823cdc4f66, type: 3}
+    volume: 0.5
+  - name: HotCollision
+    clip: {fileID: 8300000, guid: f50f0b96deda8ae44a8f267012313963, type: 3}
+    volume: 0.5
+  - name: HotCool
+    clip: {fileID: 8300000, guid: cb683401e17f6e24387e70b19db1f88f, type: 3}
+    volume: 0.5
+  - name: HotForceRelease
+    clip: {fileID: 8300000, guid: be29397d96e96ee42a0d4aa82eb81cfe, type: 3}
+    volume: 0.5
+  - name: HotGrab
+    clip: {fileID: 8300000, guid: f2bf473c7a0c84f40bb468e34119aab8, type: 3}
+    volume: 0.5
+  - name: HotFloxHolding
+    clip: {fileID: 8300000, guid: 4986ee69e1bbe114dbc3002e0a2b192f, type: 3}
+    volume: 0.5
+  - name: MetalCollision
+    clip: {fileID: 8300000, guid: 63362eac20614354783d99238b8a0dbc, type: 3}
+    volume: 0.5
+  - name: MetalGrab
+    clip: {fileID: 8300000, guid: 4d277c855f43c7a44afb88f51d169cf5, type: 3}
+    volume: 0.5
+  - name: 
+    clip: {fileID: 8300000, guid: 4ca54e3eebcec2e43ba04b03176df7fc, type: 3}
+    volume: 0.5
+  - name: 
+    clip: {fileID: 8300000, guid: 86c3dc45d886df449ac1782d17e6d813, type: 3}
+    volume: 0.5
+  - name: 
+    clip: {fileID: 8300000, guid: c5b7892dfa102d74386b96503ae17b31, type: 3}
+    volume: 0.5
+  - name: 
+    clip: {fileID: 8300000, guid: 0cbfa1f09183eaf4e840b80af5610887, type: 3}
+    volume: 0.5
+  - name: 
+    clip: {fileID: 8300000, guid: 15194eb8eac26e14b8c23605c80df328, type: 3}
+    volume: 0.5
+  - name: 
+    clip: {fileID: 8300000, guid: 876f403366ef4964ea72237775d69f6d, type: 3}
+    volume: 0.5
+  - name: 
+    clip: {fileID: 8300000, guid: d12b671b0bb779745909bd73f1dad215, type: 3}
+    volume: 0.5
+  - name: MenuHover
+    clip: {fileID: 8300000, guid: 99a6004166307f14c978dae184e7e1e4, type: 3}
+    volume: 0.5
+  - name: MoveAroundLeftActivation
+    clip: {fileID: 8300000, guid: 09b81ae7e0e3b7d46823262f47c0534d, type: 3}
+    volume: 0.5
+  - name: MoveAroundLeftLoop
+    clip: {fileID: 8300000, guid: 9af8fdf1287f8414e85f0cf6111acd16, type: 3}
+    volume: 0.5
+  - name: 
+    clip: {fileID: 8300000, guid: a71899abd660425488ff66689ddc3ade, type: 3}
+    volume: 0.5
+  - name: MoveAroundRightActivation
+    clip: {fileID: 8300000, guid: 1b7c13e561aa3e949b5608cadd39c39b, type: 3}
+    volume: 0.5
+  - name: MoveAroundRightLoop
+    clip: {fileID: 8300000, guid: c7534ac7ff646d340b7109056be6acc5, type: 3}
+    volume: 0.5
+  - name: 
+    clip: {fileID: 8300000, guid: e8bb04c605c6d304285003494e44e0c4, type: 3}
+    volume: 0.5
+  - name: 
+    clip: {fileID: 8300000, guid: 62a17749d62d1374e8ff3424717192d3, type: 3}
+    volume: 0.5
+  - name: PauseOff
+    clip: {fileID: 8300000, guid: 09c768d6821a64340979595e436e6911, type: 3}
+    volume: 0.5
+  - name: PauseOn
+    clip: {fileID: 8300000, guid: 612851cbc84e5c1479bfa0090f18eac0, type: 3}
+    volume: 0.5
+  - name: PointCollision
+    clip: {fileID: 8300000, guid: 390b9b842855aa440826f9ff541e17aa, type: 3}
+    volume: 0.5
+  - name: 
+    clip: {fileID: 0}
+    volume: 0.5

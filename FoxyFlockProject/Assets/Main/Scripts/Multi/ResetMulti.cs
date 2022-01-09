@@ -10,7 +10,7 @@ public class ResetMulti : NetworkBehaviour
     private List<int> freezdFlockIndex = new List<int>();
     public GrabManager grabManager;
     public InputManager inputManager;
-   
+    private SoundReader soundReader;
     public virtual void AddFreezFlock(GameObject flock, int poolIndex, int flockIndex)
     {
         freezedFlocks.Add(flock);
@@ -39,6 +39,11 @@ public class ResetMulti : NetworkBehaviour
         {
             CmdDestroyFlock(freezedFlocks[i], freezdFlockPoolIndex[i]);
         }
+        if (soundReader == null)
+            soundReader = grabManager.sound;
+        soundReader.secondClipName = "StartReset";
+        if(freezedFlocks != null && freezedFlocks.Count>0)
+        StartCoroutine(LastFlockIsDestroy(freezedFlocks[freezedFlocks.Count - 1].GetComponent<DissolveFlox>()));
         freezedFlocks.Clear();
         freezdFlockPoolIndex.Clear();
         freezdFlockIndex.Clear();
@@ -61,14 +66,6 @@ public class ResetMulti : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void CmdFreezFlock(GameObject flock)
     {
-/*        flock.GetComponent<GrabablePhysicsHandler>().OnFreeze();
-
-        Destroy(flock.GetComponent<GrabbableObject>());
-        Destroy(flock.GetComponent<GrabablePhysicsHandler>());
-        Destroy(flock.GetComponent<Rigidbody>());
-        NetworkRigidbody rgb;
-        if (flock.TryGetComponent<NetworkRigidbody>(out rgb))
-            Destroy(rgb);*/
         RpcFreezFlock(flock);
     }
     [ClientRpc]
@@ -86,5 +83,12 @@ public class ResetMulti : NetworkBehaviour
     public void CmdDestroy(GameObject flock)
     {
         NetworkServer.Destroy(flock);
+    }
+    IEnumerator LastFlockIsDestroy(DissolveFlox dissolveFlox)
+    {
+        grabManager.playGround.soundReader.Play("Dissolve");
+        yield return new WaitForSeconds(dissolveFlox.dissolveTime);
+        soundReader.ThirdClipName = "EndReset";
+        soundReader.PlayThird();
     }
 }

@@ -19,24 +19,16 @@ public class ModifierAction : MonoBehaviour
     public float vibrationForce = 0.2f;
     public float vibrationTime = 0.2f;
     protected bool isGrab;
-    public string grab;
-    public string collisionTable;
+    public string grabSound;
+    public string collisionSound;
     private bool cantPlaySound;
     private bool hasDoneStart;
     public InputManager inputManager;
     public virtual void OnStarted(GameObject _object)
     {
         sound = _object.AddComponent<SoundReader>();
-        int rand = Random.Range(0, 2);
-
-        if (rand == 0)
-            grab = "Grab1";
-        else
-            grab = "Grab2";
-        sound.clipName = grab;
-        collisionTable = "CollisionTable";
         sound.secondClipName = "EnterStasis";
-        sound.ThirdClipName = collisionTable;
+        sound.ThirdClipName = collisionSound;
         rgb = GetComponent<Rigidbody>();
         hasDoneStart = true;
     }
@@ -50,12 +42,7 @@ public class ModifierAction : MonoBehaviour
         timerSlow = 0;
         StopCoroutine(SlowCoroutine());
         isGrab = true;
-        int rand = Random.Range(0, 2);
-        if (rand == 0)
-            grab = "Grab1";
-        else
-            grab = "Grab2";
-        sound.clipName = grab;
+        sound.clipName = grabSound;
         sound.Play();
     }
     public virtual void OnReleased(GameObject _object)
@@ -76,9 +63,10 @@ public class ModifierAction : MonoBehaviour
     {
         if (!cantPlaySound)
         {
-            if(collision.tag == "Table"    || collision.tag == "TableComponent" || collision.tag == "Table2")
+            if(collision.tag == "Table"    || collision.tag == "TableComponent" || collision.tag == "Table2" || collision.tag == "Piece")
             {
-              //  sound.PlayThird();
+                sound.ThirdClipName = collisionSound;
+                sound.PlayThird();
                 StartCoroutine(WaiToPlaySoundTable());
             }
         }

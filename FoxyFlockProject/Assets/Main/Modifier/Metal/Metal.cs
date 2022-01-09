@@ -35,10 +35,12 @@ public class Metal : ModifierAction
     }
     public override void OnGrabed(GameObject _object)
     {
+        grabSound = "MetalGrab";
         base.OnGrabed(_object);
     }
     public override void OnHitGround(GameObject _object, Vector3 initPos, bool isGrab)
     {
+        collisionSound = "MetalCollision";
         base.OnHitGround(_object,initPos,isGrab);
     }
     public override void OnHitSomething(GameObject _object, Vector3 velocity, GameObject collision)

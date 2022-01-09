@@ -25,7 +25,8 @@ public class HandBurn : MonoBehaviour
     private XRDirectInteractor interactor;
     private SkinnedMeshRenderer handRenderer;
     private MaterialPropertyBlock propBlock;
-
+    [HideInInspector] public bool doOnce;
+    private SoundReader soundReader;
 
     private HeatState heatState =  HeatState.cool;
 
@@ -40,6 +41,7 @@ public class HandBurn : MonoBehaviour
         interactor = this.GetComponent<XRDirectInteractor>();
 
         handRenderer = this.GetComponentInChildren<SkinnedMeshRenderer>();
+        soundReader = GetComponent<SoundReader>();
     }
 
     private void Update()
@@ -73,7 +75,13 @@ public class HandBurn : MonoBehaviour
     public void BurnEvent(GrabbableObject flockInteractable)
     {
         heatState = HeatState.burning;
-
+        if (!doOnce)
+        {
+            doOnce = true;
+            soundReader.secondClipName = "HotFloxHolding";
+            soundReader.source.loop = true;
+            soundReader.PlaySeconde();
+        }
         heatCurrentValue += Time.deltaTime* burningSpeed;
         lastFrameTransform = this.transform;
         if (heatCurrentValue >= heatMaxValue)
@@ -81,6 +89,9 @@ public class HandBurn : MonoBehaviour
             heatCurrentValue = heatMaxValue;
 
             heatState = HeatState.burned;
+            soundReader.source.loop = false;
+            soundReader.StopSound();
+            doOnce = false;
             InteractionManager.instance.SelectExit(interactor, flockInteractable);
             interactor.allowSelect = false;
         }
@@ -106,7 +117,10 @@ public class HandBurn : MonoBehaviour
     }
     public void DropEvent()
     {
-        heatState = HeatState.burned;   
+        heatState = HeatState.burned;
+        soundReader.source.loop = false;
+        soundReader.StopSound();
+        doOnce = false;
     }
 
     private float wiggleStrengh()

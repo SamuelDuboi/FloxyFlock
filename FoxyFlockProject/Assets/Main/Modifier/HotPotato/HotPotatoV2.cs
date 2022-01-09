@@ -10,7 +10,9 @@ public class HotPotatoV2 : ModifierAction
     private void Update()
     {
         if (isGrab)
+        {
             currentInteractor.GetComponent<HandBurn>().BurnEvent(flockInteractable);
+        }
     }
     public override void OnStarted(GameObject _object)
     {
@@ -23,7 +25,9 @@ public class HotPotatoV2 : ModifierAction
     }
     public override void OnGrabed(GameObject _object)
     {
+        grabSound = "HotGrab";
         base.OnGrabed(_object);
+        currentInteractor.GetComponent<HandBurn>().doOnce = false;
     }
     public override void OnHitGround(GameObject _object, Vector3 initPos, bool isGrab)
     {
@@ -31,6 +35,8 @@ public class HotPotatoV2 : ModifierAction
     }
     public override void OnHitSomething(GameObject _object, Vector3 velocity, GameObject collision)
     {
+        collisionSound = "HotCollision";
+
         base.OnHitSomething(_object, velocity, collision);
     }
     public override void OnReleased(GameObject _object)

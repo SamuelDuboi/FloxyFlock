@@ -29,7 +29,7 @@ public class GrabManager : MonoBehaviour
     public PlayGround playGround;
     public InputManager inputManager;
     public GameObject fireBallInstantiated;
-    protected SoundReader sound;
+    [HideInInspector] public SoundReader sound;
     public int currentMilestone = -1;
     [HideInInspector] public Vector3 positionOfMilestoneIntersection;
     protected int numberOfMilestones;
@@ -79,7 +79,8 @@ public class GrabManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         Vector3 headSettPos = inputManager.GetComponent<XRRig>().cameraFloorOffsetObject.transform.localPosition;
         transform.localPosition += headSettPos;
-       
+        reset.AddFreezFlock(mainPool[0].floxes[0], 0, 0);
+        reset.ResetEvent();
     }
     public virtual void InitPool()
     {
@@ -160,16 +161,15 @@ public class GrabManager : MonoBehaviour
         {
             if (!mainPool[currentPool].isEmpty)
             {
-                int randomSound = UnityEngine.Random.Range(1, 3);
-                sound.clipName = "FloxMachineBad" + randomSound.ToString();
+                
+                sound.clipName = "FloxMachineNotEmpty";
                 sound.Play();
                 Debug.LogError("There are still flock on the dispenser");
                 return;
             }
             if (!mainPool[currentPool].isEmptyModifier)
             {
-                int randomSound = UnityEngine.Random.Range(1, 3);
-                sound.clipName = "FloxMachineBad" + randomSound.ToString();
+                sound.clipName = "FloxMachineNotEmpty";
                 sound.Play();
                 Debug.LogError("There are still bonus or malus on the dispenser");
                 return;
@@ -185,24 +185,21 @@ public class GrabManager : MonoBehaviour
         {
             if (mainPool[currentPool].floxes[i].GetComponent<Rigidbody>().velocity.magnitude > 0.1f)
             {
-                int randomSound = UnityEngine.Random.Range(1, 3);
-                sound.clipName = "FloxMachineBad" + randomSound.ToString();
+                sound.clipName = "FloxMachineBad";
                 sound.Play();
                 Debug.LogError("Your floxes are still moving");
                 return;
             }
             if (mainPool[currentPool].floxes[i].GetComponent<GrabbableObject>().isGrab)
             {
-                int randomSound = UnityEngine.Random.Range(1, 3);
-                sound.clipName = "FloxMachineBad" + randomSound.ToString();
+                sound.clipName = "FloxMachineBad";
                 sound.Play();
                 Debug.Log("grabbed");
                 return;
             }
             if (mainPool[currentPool].floxes[i].GetComponent<GrabablePhysicsHandler>().enabled && !mainPool[currentPool].floxes[i].GetComponent<GrabablePhysicsHandler>().isOnPlayground)
             {
-                int randomSound = UnityEngine.Random.Range(1, 3);
-                sound.clipName = "FloxMachineBad" + randomSound.ToString();
+                sound.clipName = "FloxMachineBad";
                 sound.Play();
                 Debug.Log("Flock in stasis");
                 return;
@@ -267,8 +264,7 @@ public class GrabManager : MonoBehaviour
         UpdateBubble();
 
 
-        int randomSound3 = UnityEngine.Random.Range(1, 2);
-        sound.ThirdClipName = "FloxMachineGood" + randomSound3.ToString();
+        sound.ThirdClipName = "FloxMachineGood";
         sound.PlayThird();
     }
     private void Freez(int previousPool)
@@ -286,6 +282,7 @@ public class GrabManager : MonoBehaviour
         {
             reset.AddFreezFlock(flocksToFreez[i],indexOfPool,i);
         }
+        playGround.soundReader.Play("Freez");
     }
     protected virtual void UpdateMilestone()
     {
@@ -808,7 +805,7 @@ public class GrabManager : MonoBehaviour
             int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
 
 
-            GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.positiveModifiers[indexOfFlock], new Vector3(-300 + (indexOfFlock + 6) * 20 * +indexOfPool * 5, 300 + (indexOfFlock + 6) * 20 + indexOfPool * 5, 300 + (indexOfFlock + 6) * 20 + indexOfFlock * 5), Quaternion.identity);
+            GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.positiveModifiers[indexOfFlock], new Vector3(-302 + (indexOfFlock + 6) * 20 * +indexOfPool * 5, 300 + (indexOfFlock + 6) * 20 + indexOfPool * 5, 300 + (indexOfFlock + 6) * 20 + indexOfFlock * 5), Quaternion.identity);
             Modifier _modifer = baseModifier;
             Type type = _modifer.actions.GetType();
             var _object = GetComponent(type);
@@ -825,7 +822,7 @@ public class GrabManager : MonoBehaviour
             StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true));
             int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
 
-            GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], new Vector3(-300 + (indexOfFlock + 8) * 20 * +indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfFlock * 5), Quaternion.identity);
+            GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], new Vector3(-302 + (indexOfFlock + 8) * 20 * +indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfFlock * 5), Quaternion.identity);
             Modifier _modifer = baseModifier;
             Type type = _modifer.actions.GetType();
             var _object = GetComponent(type);
