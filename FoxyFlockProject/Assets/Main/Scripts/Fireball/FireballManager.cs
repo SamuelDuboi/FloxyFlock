@@ -5,19 +5,28 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class FireballManager : MonoBehaviour
 {
-    //Set in hierarchy
+    [Header("Set in hierarchy")]
+    public GameObject portalRenderer;
+    public Collider portalCollider;
+    [SerializeField] private Transform portalTransform;
+    [SerializeField] private SoundReader portalSoundReader;
+    [SerializeField] private Transform explosionTransform;
+    [SerializeField] private SoundReader explosionSFX;
+    [SerializeField] private SoundReader managerSoundReader;
+    [SerializeField] private ParticleSystem explosionVFX;
+    [SerializeField] private Transform tableCenter = null;
+    [SerializeField] private LayerMask explosionLayer;
+
+    [Header("Set in code")]
     public GameObject outFireball;
     public GameObject inFireball;
-    public GameObject portal;
-
-    [SerializeField] private Transform tableCenter = null;
     public DetectionHUD detectionHUD;
     public GrabManager grabManager;
 
+    [Header("Balancing")]
     [SerializeField] private float portalOpeningDuration = 1f;
     [SerializeField] private float portalClosingDuration = 0.5f;
     [SerializeField] private float portalSpawnHeight = 1f;
-
     [SerializeField] private float timeBeforeFireballSpawn = 3f;
     [SerializeField] private float fireballMinSpawnDistance = 0.5f;
     [SerializeField] private float fireballMaxSpawnDistance = 1.5f;
@@ -25,7 +34,6 @@ public class FireballManager : MonoBehaviour
     [SerializeField] private float fireballMaxScaleMultiply = 3f;
     [SerializeField] [Range(0f, 1f)] private float fireballMaxLerpDistance = 0.5f;
     [SerializeField] private float explosionRadius = 0.5f;
-    [SerializeField] private LayerMask explosionLayer;
 
     [HideInInspector] public bool isPortalOpen = false;
     [HideInInspector] public bool isPortalOpenning = false;
@@ -37,8 +45,6 @@ public class FireballManager : MonoBehaviour
 
     private bool canLerp = false;
     private bool canDetectTarget = false;
-    private MeshRenderer portalRenderer;
-    private Collider portalCollider;
     private Vector3 fireballSpawnPosition = Vector3.zero;
     private Vector3 fireballTargetPosition;
     private Vector3 baseFireballScale;
@@ -47,11 +53,11 @@ public class FireballManager : MonoBehaviour
 
     public void Initialize()
     {
-        portalRenderer = portal.GetComponent<MeshRenderer>();
-        portalCollider = portal.GetComponent<Collider>();
-
         inFireball.GetComponent<InFireball>().fireballManager = this;
         outFireball.GetComponent<OutFireball>().fireballManager = this;
+
+        ParticleSystem.MainModule main = explosionVFX.main;
+        main.startSize = explosionRadius * 2;
 
         baseFireballScale = inFireball.transform.localScale;
     }
@@ -84,10 +90,8 @@ public class FireballManager : MonoBehaviour
         {
             isPortalOpenning = true;
 
-            portal.transform.position = new Vector3(tableCenter.position.x, grabManager.positionOfMilestoneIntersection.y + portalSpawnHeight, tableCenter.position.z);
-            portalRenderer.enabled = true;
-
-            //TODO : Add portal openning effect here
+            portalTransform.position = new Vector3(tableCenter.position.x, grabManager.positionOfMilestoneIntersection.y + portalSpawnHeight, tableCenter.position.z);
+            portalRenderer.SetActive(true);
 
             yield return new WaitForSeconds(portalOpeningDuration);
 
@@ -116,7 +120,7 @@ public class FireballManager : MonoBehaviour
 
             yield return new WaitForSeconds(portalClosingDuration);
 
-            portalRenderer.enabled = false;
+            portalRenderer.SetActive(false);
 
             isPortalClosing = false;
             isPortalOpen = false;
@@ -129,6 +133,8 @@ public class FireballManager : MonoBehaviour
 
         NetworkManagerRace.instance.playerController.CmdSpawnInFireBall(NetworkManagerRace.instance.players[otherPlayerIndex]);
 
+        //StartCoroutine(FireballIncoming());
+
         StartCoroutine(TryClosePortal());
     }
 
@@ -136,6 +142,7 @@ public class FireballManager : MonoBehaviour
     {
         isFireballArriving = true;
         //CHANGE LIGHTING + DISPLAY BOARD INFO + PLAY ALERT SOUND TO PLAYER
+        managerSoundReader.Play();
         StartCoroutine(TryOpenPortal());
 
         yield return new WaitForSeconds(portalOpeningDuration);
@@ -145,14 +152,13 @@ public class FireballManager : MonoBehaviour
 
         yield return new WaitForSeconds(timeBeforeFireballSpawn);
 
-        inFireball.SetActive(true);
         inFireball.transform.position = fireballSpawnPosition;
-        //ADD FIREBALL SPAWN FEEDBACK HERE
+        inFireball.SetActive(true);
+        portalSoundReader.Play();
 
         fireballTargetPosition = grabManager.positionOfMilestoneIntersection;
         Vector3 fireballToTarget = fireballTargetPosition - inFireball.transform.position;
         inFireball.GetComponent<Rigidbody>().AddForce(fireballToTarget * fireballSpeed, ForceMode.Impulse);
-
         StartFireballLerp();
     }
 
@@ -197,7 +203,10 @@ public class FireballManager : MonoBehaviour
         Collider[] explosionHits = Physics.OverlapSphere(inFireball.transform.position, explosionRadius, explosionLayer);
         List<GameObject> floxesHit = new List<GameObject>();
 
-        inFireball.GetComponent<SoundReader>().Play();
+        explosionTransform.position = inFireball.transform.position;
+        explosionVFX.Play();
+        explosionSFX.Play();
+
         inFireball.SetActive(false);
 
         //Go through each colliders and add the corresponding flox to a list

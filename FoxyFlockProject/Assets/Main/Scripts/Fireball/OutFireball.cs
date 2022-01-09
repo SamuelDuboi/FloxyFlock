@@ -8,8 +8,9 @@ public class OutFireball : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == fireballManager.portal)
+        if (other == fireballManager.portalCollider)
         {
+            print(this + " as hit " + other.gameObject);
             fireballManager.FireballHitPortal();
         }
     }

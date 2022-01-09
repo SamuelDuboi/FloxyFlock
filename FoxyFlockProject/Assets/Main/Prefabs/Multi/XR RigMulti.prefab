@@ -1448,7 +1448,7 @@ Transform:
   - {fileID: 3059216091834231820}
   - {fileID: 3059216092148528643}
   - {fileID: 5937023139824719538}
-  - {fileID: 3923509811950268714}
+  - {fileID: 4232379041684378159}
   m_Father: {fileID: 3059216091244151401}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1832,7 +1832,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!1001 &47796135550821357
+--- !u!1001 &893607629573406952
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1873,11 +1873,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3952706059049276103, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 653.49994
+      value: 1493
       objectReference: {fileID: 0}
     - target: {fileID: 3952706059049276103, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 388.5
+      value: 1263
       objectReference: {fileID: 0}
     - target: {fileID: 3952706059049276103, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1889,7 +1889,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3952706059049276103, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.099999905
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3952706059049276103, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1927,24 +1927,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3952706059049276121, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3952706059049276122, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 3059216092818332026}
-    - target: {fileID: 3952706059049276123, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
-      propertyPath: playerCamera
-      value: 
-      objectReference: {fileID: 3059216092818332026}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
---- !u!224 &3923509811950268714 stripped
+--- !u!224 &4232379041684378159 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3952706059049276103, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
-  m_PrefabInstance: {fileID: 47796135550821357}
+  m_PrefabInstance: {fileID: 893607629573406952}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1825801115044279966
 PrefabInstance:
@@ -2101,7 +2089,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2004728800561539467, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2411069798146911233, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: modifierFoldout
@@ -2317,7 +2305,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6823798315740113862, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.0000007947285
+      value: 0.00000039736426
       objectReference: {fileID: 0}
     - target: {fileID: 6823798315740113862, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: m_ConnectedAnchor.y
@@ -2325,7 +2313,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6823798315740113862, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: 0.000000049670533
+      value: -0.0000001125348
       objectReference: {fileID: 0}
     - target: {fileID: 6823798315740113867, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: onPressed.m_PersistentCalls.m_Calls.Array.size
@@ -2357,7 +2345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6823798317389140183, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7319081760283737090, guid: ce95da5c577d5b1489aa1dc2cca0e442, type: 3}
       propertyPath: onPressed.m_PersistentCalls.m_Calls.Array.size

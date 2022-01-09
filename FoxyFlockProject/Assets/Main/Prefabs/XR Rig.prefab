@@ -1523,7 +1523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4878064583546168965, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -0.00000016671927
+      value: -0.00000006737821
       objectReference: {fileID: 0}
     - target: {fileID: 9133556912260582695, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_Enabled
@@ -1543,6 +1543,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1972585046672742328}
     m_Modifications:
+    - target: {fileID: 3952706057817535425, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952706058610626346, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952706058883669494, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952706058927474296, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3952706059049276102, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
       propertyPath: m_Name
       value: HUDCanvas
@@ -1576,14 +1592,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3952706059049276103, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 654
-      objectReference: {fileID: 0}
-    - target: {fileID: 3952706059049276103, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 388
-      objectReference: {fileID: 0}
-    - target: {fileID: 3952706059049276103, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1593,7 +1601,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3952706059049276103, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.1
+      value: 0.444
       objectReference: {fileID: 0}
     - target: {fileID: 3952706059049276103, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1639,6 +1647,10 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 1972585046672742329}
+    - target: {fileID: 3952706059049276123, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
+      propertyPath: viewportSizeAdjustement
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
 --- !u!224 &7031273734939338648 stripped
