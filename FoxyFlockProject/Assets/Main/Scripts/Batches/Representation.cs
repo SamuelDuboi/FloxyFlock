@@ -36,7 +36,7 @@ public class Representation : MonoBehaviour
     {
         if (meshFilter != null)
         {
-            modelTransform.Rotate(new Vector3(0f, 0f, modelRotationSpeed) * Time.deltaTime);
+            modelTransform.Rotate(new Vector3(modelRotationSpeed, modelRotationSpeed*1.5f, modelRotationSpeed*0.5f) * Time.deltaTime);
         }
     }
 

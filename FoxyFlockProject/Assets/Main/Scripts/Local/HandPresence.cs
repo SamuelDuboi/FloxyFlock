@@ -113,14 +113,16 @@ public class HandPresence : MonoBehaviour
     private bool isGrabReset;
     private void UpdateHandAnimation()
     {
+
         if (targetDevice.TryGetFeatureValue(CommonUsages.grip, out float gripValue) && gripValue > 0.1f)
         {
             isGrabReset = false;
 
             if (!isGrab)
             {
-                handAnimator.SetFloat("Trigger", gripValue);
-                if (gripValue > 0.5f)
+                handAnimator.SetFloat("Grip", gripValue);
+
+                if (gripValue > 0.5f && targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue2) && triggerValue2 < 0.1f)
                 {
 
                     if (!isLeft)
@@ -158,6 +160,14 @@ public class HandPresence : MonoBehaviour
             isGrabReset = true;
         }
 
+        if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue) && triggerValue > 0.1f)
+        {
+            handAnimator.SetFloat("Trigger", triggerValue);
+        }
+        else
+        {
+            handAnimator.SetFloat("Trigger", 0);
+        }
     }
 
     private void OnTriggerPressLeft(bool seeTable)
