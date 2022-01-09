@@ -11,6 +11,9 @@ public class Billboard : MonoBehaviour
     }
     private void Update()
     {
-        transform.forward = billboardCamera.transform.forward;
+        if (!billboardCamera)
+            billboardCamera = GetComponentInParent<PlayerMovement>().vrHeadSett.GetComponent<Camera>();
+        else
+            transform.forward = billboardCamera.transform.forward;
     }
 }

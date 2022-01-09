@@ -234,12 +234,12 @@ MonoBehaviour:
   m_PlayHapticsOnSelectCanceled: 0
   m_HapticSelectCancelIntensity: 0
   m_HapticSelectCancelDuration: 0
-  m_PlayHapticsOnHoverEntered: 0
-  m_HapticHoverEnterIntensity: 0
-  m_HapticHoverEnterDuration: 0
-  m_PlayHapticsOnHoverExited: 0
-  m_HapticHoverExitIntensity: 0
-  m_HapticHoverExitDuration: 0
+  m_PlayHapticsOnHoverEntered: 1
+  m_HapticHoverEnterIntensity: 0.3
+  m_HapticHoverEnterDuration: 0.1
+  m_PlayHapticsOnHoverExited: 1
+  m_HapticHoverExitIntensity: 0.1
+  m_HapticHoverExitDuration: 0.1
   m_PlayHapticsOnHoverCanceled: 0
   m_HapticHoverCancelIntensity: 0
   m_HapticHoverCancelDuration: 0
@@ -254,8 +254,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.05
-  m_Center: {x: 0, y: -0.07, z: 0}
+  m_Radius: 0.06
+  m_Center: {x: 0.02, y: -0.04, z: 0.001}
 --- !u!54 &1972585046477117321
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -414,8 +414,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heatMaxValue: 100
-  burningSpeed: 10
-  coolingSpeed: 10
+  burningSpeed: 35
+  coolingSpeed: 35
   wiggleCoolingScale: 2
   heatPourcentage: 0
 --- !u!1 &1972585046672742331
@@ -1047,12 +1047,12 @@ MonoBehaviour:
   m_PlayHapticsOnSelectCanceled: 0
   m_HapticSelectCancelIntensity: 0
   m_HapticSelectCancelDuration: 0
-  m_PlayHapticsOnHoverEntered: 0
-  m_HapticHoverEnterIntensity: 0
-  m_HapticHoverEnterDuration: 0
-  m_PlayHapticsOnHoverExited: 0
-  m_HapticHoverExitIntensity: 0
-  m_HapticHoverExitDuration: 0
+  m_PlayHapticsOnHoverEntered: 1
+  m_HapticHoverEnterIntensity: 0.3
+  m_HapticHoverEnterDuration: 0.1
+  m_PlayHapticsOnHoverExited: 1
+  m_HapticHoverExitIntensity: 0.1
+  m_HapticHoverExitDuration: 0.1
   m_PlayHapticsOnHoverCanceled: 0
   m_HapticHoverCancelIntensity: 0
   m_HapticHoverCancelDuration: 0
@@ -1067,8 +1067,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.05
-  m_Center: {x: 0, y: -0.04, z: 0.03}
+  m_Radius: 0.06
+  m_Center: {x: -0.02, y: -0.04, z: 0.01}
 --- !u!54 &1972585047833366934
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1227,8 +1227,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heatMaxValue: 100
-  burningSpeed: 10
-  coolingSpeed: 10
+  burningSpeed: 35
+  coolingSpeed: 35
   wiggleCoolingScale: 2
   heatPourcentage: 0
 --- !u!1 &1972585047932625600
@@ -1503,15 +1503,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4878064583546168965, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.0000005960464
+      value: 0.0000006953875
       objectReference: {fileID: 0}
     - target: {fileID: 4878064583546168965, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 1.8449951
+      value: 1.8449955
       objectReference: {fileID: 0}
     - target: {fileID: 4878064583546168965, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: 0.00000024835265
+      value: -0.00000016671927
       objectReference: {fileID: 0}
     - target: {fileID: 9133556912260582695, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_Enabled
