@@ -39,8 +39,9 @@ public class FloxExpressionManager : MonoBehaviour
             floxanimator.SetBool("Sleep",true);
         }
 
-        else if (isFroze == false & GrabbableFlox.isGrab == false & rb.velocity != Vector3.zero)
+        else if (isFroze == false && GrabbableFlox != null && GrabbableFlox.isGrab == false && rb!= null&& rb.velocity != Vector3.zero)
         {
+            
             baseFace = false;
             floxanimator.SetBool("Base", false);
             sleepFace = false;

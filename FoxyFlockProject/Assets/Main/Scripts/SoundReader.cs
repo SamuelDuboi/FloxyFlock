@@ -15,8 +15,12 @@ public class SoundReader : MonoBehaviour
     private void Start()
     {
         source = GetComponent<AudioSource>();
-        if (SoundManager.instance != null && clipName != string.Empty && clipName != null)
+        if (SoundManager.instance != null )
         {
+            if(clipName == string.Empty || clipName == null)
+            {
+                return;
+            }
             SoundManager.instance.ApplyAudioClip(clipName, source);
             if (applyAudioOnStart)
             {
@@ -61,8 +65,12 @@ public class SoundReader : MonoBehaviour
     private void OnEnable()
     {
         source = GetComponent<AudioSource>();
-        if (SoundManager.instance != null && clipName != string.Empty && clipName != null)
+        if (SoundManager.instance != null)
         {
+            if (clipName == string.Empty || clipName == null)
+            {
+                return;
+            }
             SoundManager.instance.ApplyAudioClip(clipName, source);
             if (applyAudioOnStart)
             {

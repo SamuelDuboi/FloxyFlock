@@ -149,6 +149,7 @@ public class Representation : MonoBehaviour
     }
     public void ApplyVisual(int _indexInList, GrabManager grabManager, bool _malus)
     {
+        index= _indexInList;
         indexInList= _indexInList;
         isMalus = _malus;
         manager = grabManager;
