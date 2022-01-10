@@ -92,6 +92,7 @@ public class FireballManager : MonoBehaviour
 
             portalTransform.position = new Vector3(tableCenter.position.x, grabManager.positionOfMilestoneIntersection.y + portalSpawnHeight, tableCenter.position.z);
             portalRenderer.SetActive(true);
+            portalSoundReader.PlaySeconde();
 
             yield return new WaitForSeconds(portalOpeningDuration);
 
@@ -131,9 +132,9 @@ public class FireballManager : MonoBehaviour
         outFireball.SetActive(false);
         outFireball.transform.position = Vector3.zero; //To avoid triggering the fireball again when regrabbing
 
-        NetworkManagerRace.instance.playerController.CmdSpawnInFireBall(NetworkManagerRace.instance.players[otherPlayerIndex]);
+        //NetworkManagerRace.instance.playerController.CmdSpawnInFireBall(NetworkManagerRace.instance.players[otherPlayerIndex]);
 
-        //StartCoroutine(FireballIncoming());
+        StartCoroutine(FireballIncoming());
 
         StartCoroutine(TryClosePortal());
     }
@@ -143,6 +144,9 @@ public class FireballManager : MonoBehaviour
         isFireballArriving = true;
         //CHANGE LIGHTING + DISPLAY BOARD INFO + PLAY ALERT SOUND TO PLAYER
         managerSoundReader.Play();
+
+        yield return new WaitForSeconds(5f);
+
         StartCoroutine(TryOpenPortal());
 
         yield return new WaitForSeconds(portalOpeningDuration);
@@ -235,5 +239,8 @@ public class FireballManager : MonoBehaviour
 
             flox.GetComponent<FloxBurn>().BurnEvent();
         }
+
+        TryClosePortal();
+        canDetectTarget = false;
     }
 }

@@ -65,14 +65,14 @@ MonoBehaviour:
   grabManager: {fileID: 0}
   portalOpeningDuration: 1
   portalClosingDuration: 0.5
-  portalSpawnHeight: 1.5
+  portalSpawnHeight: 1.75
   timeBeforeFireballSpawn: 3
-  fireballMinSpawnDistance: 0.5
-  fireballMaxSpawnDistance: 1.5
-  fireballSpeed: 0.35
-  fireballMaxScaleMultiply: 3
-  fireballMaxLerpDistance: 0.5
-  explosionRadius: 0.5
+  fireballMinSpawnDistance: 0.25
+  fireballMaxSpawnDistance: 0.75
+  fireballSpeed: 0.25
+  fireballMaxScaleMultiply: 10
+  fireballMaxLerpDistance: 0.7
+  explosionRadius: 0.8
   isPortalOpen: 0
   isPortalOpenning: 0
   isPortalClosing: 0

@@ -67,12 +67,6 @@ MonoBehaviour:
   - name: StartReset
     clip: {fileID: 8300000, guid: dc0a3c200cf23d54a8cac3913db9e043, type: 3}
     volume: 0.5
-  - name: NoteUsed
-    clip: {fileID: 8300000, guid: c6501b46d7c9c064a84d45002c36b201, type: 3}
-    volume: 0.5
-  - name: FireBallAlert
-    clip: {fileID: 8300000, guid: 80cc58ee4ed35284a90fd5afd5350e0d, type: 3}
-    volume: 0.5
   - name: FireBallCollision
     clip: {fileID: 8300000, guid: 451d517bc29ee05439ad11abbe837dc2, type: 3}
     volume: 0.5
@@ -169,6 +163,12 @@ MonoBehaviour:
   - name: PointCollision
     clip: {fileID: 8300000, guid: 390b9b842855aa440826f9ff541e17aa, type: 3}
     volume: 0.5
-  - name: 
-    clip: {fileID: 0}
+  - name: FireballAlarm
+    clip: {fileID: 8300000, guid: 83ba8652c8cbba44784c4639be3225f2, type: 3}
+    volume: 0.5
+  - name: PortalOpen
+    clip: {fileID: 8300000, guid: b14287bada730c847b957f8907b34474, type: 3}
+    volume: 0.5
+  - name: FireballSpawn
+    clip: {fileID: 8300000, guid: 2bf5f0ff74ae88e409be3d5d923ca89e, type: 3}
     volume: 0.5
