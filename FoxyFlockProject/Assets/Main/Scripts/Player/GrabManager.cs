@@ -71,7 +71,6 @@ public class GrabManager : MonoBehaviour
             
         }
         InitPool();
-        moveBubble.MoveBubbles(playGround.radius, 0.0f, positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes, directionForBubble);
         inputManager.OnGrabbingLeft.AddListener(OnGrabLeft);
         inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
         inputManager.OnGrabbingRight.AddListener(OnGrabRight);

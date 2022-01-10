@@ -32,9 +32,9 @@ public class MilestoneManager : MonoBehaviour
                 }
             }
             if (currenMilestonIndex != 0)
-                nextMilestonePos = milestones[currenMilestonIndex - 1].transform.localPosition + transform.localPosition;
+                nextMilestonePos = milestones[currenMilestonIndex - 1].transform.localPosition;
             else
-                nextMilestonePos = transform.localPosition + Vector3.up * distance;
+                nextMilestonePos =  Vector3.up * distance;
             return currenMilestonIndex;
         }
         else
@@ -44,7 +44,7 @@ public class MilestoneManager : MonoBehaviour
                 if (milestones[i].CheckCollision(out point))
                 {
                     currenMilestonIndex = i;
-                    nextMilestonePos = milestones[i - 1].transform.localPosition + transform.localPosition;
+                    nextMilestonePos = milestones[i - 1].transform.localPosition ;
                     return currenMilestonIndex;
                 }
             }

@@ -15,7 +15,7 @@ public class SoundReader : MonoBehaviour
     private void Start()
     {
         source = GetComponent<AudioSource>();
-        if (SoundManager.instance != null)
+        if (SoundManager.instance != null && clipName != string.Empty && clipName != null)
         {
             SoundManager.instance.ApplyAudioClip(clipName, source);
             if (applyAudioOnStart)
@@ -61,13 +61,14 @@ public class SoundReader : MonoBehaviour
     private void OnEnable()
     {
         source = GetComponent<AudioSource>();
-        if (SoundManager.instance != null)
+        if (SoundManager.instance != null && clipName != string.Empty && clipName != null)
         {
             SoundManager.instance.ApplyAudioClip(clipName, source);
             if (applyAudioOnStart)
             {
                 if (randomSelectionOnStart)
                 {
+
                     int random = 0;
                     if (clipName != string.Empty)
                         random++;

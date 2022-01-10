@@ -2353,61 +2353,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4143025127470346026, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
-      propertyPath: m_Size.x
-      value: 9.996764
-      objectReference: {fileID: 0}
-    - target: {fileID: 4143025127470346026, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
-      propertyPath: m_Size.y
-      value: 9.996764
-      objectReference: {fileID: 0}
-    - target: {fileID: 4143025127470346026, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
-      propertyPath: m_Size.z
-      value: 10.755841
-      objectReference: {fileID: 0}
-    - target: {fileID: 4143025127470346026, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
-      propertyPath: m_Center.y
-      value: -7.836262e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 4143025127470346026, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
-      propertyPath: m_Center.z
-      value: -0.3779428
-      objectReference: {fileID: 0}
-    - target: {fileID: 4143025127470346026, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910762, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_Name
       value: Floor_Disc
       objectReference: {fileID: 0}
-    - target: {fileID: 9192220744790910762, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 9192220744790910764, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: d94face24f821aa4fab5ccf97a253fcd, type: 2}
-    - target: {fileID: 9192220744790910765, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 973877516759717424, guid: 58d72d0a62df8024d93bee1516a71c8b, type: 3}
     - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2415,11 +2367,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.5
+      value: -3.97
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2449,8 +2401,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 9192220744790910763, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
 --- !u!1 &689498194
 GameObject:
@@ -8616,7 +8567,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
