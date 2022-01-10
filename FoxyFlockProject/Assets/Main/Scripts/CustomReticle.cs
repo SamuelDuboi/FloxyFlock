@@ -8,6 +8,9 @@ public class CustomReticle : MonoBehaviour
 
     private void Update()
     {
-        transform.position = lineRenderer.GetPosition(1);
+        if (lineRenderer.positionCount > 1)
+        {
+            transform.position = lineRenderer.GetPosition(1);
+        }
     }
 }
