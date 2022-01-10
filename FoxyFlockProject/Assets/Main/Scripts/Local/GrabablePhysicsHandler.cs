@@ -26,7 +26,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
     //enter on playgroundValue
     [HideInInspector] public float slowForce;
     [HideInInspector] public float timeToSlow;
-    private PhysicMaterial[] physicMaterials;
+    public PhysicMaterial[] physicMaterials;
     public bool isOnPlayground;
     public bool isOnStasisOnce;
     public float timerToExit;
@@ -34,9 +34,13 @@ public class GrabablePhysicsHandler : MonoBehaviour
     MaterialPropertyBlock propBlock;
     public InputManager inputManager;
     public Modifier initialModifier;
+    private void Awake()
+    {
+        colliders = m_grabbable.colliders;
+
+    }
     public IEnumerator Start()
     {
-
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
         meshRenderer = GetComponent<MeshRenderer>();
@@ -46,7 +50,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
         propBlock = new MaterialPropertyBlock();
 
         
-        colliders = m_grabbable.colliders;
+       
         initPos = transform.position;
         InvokeOnStart();
     }
@@ -278,7 +282,6 @@ public class GrabablePhysicsHandler : MonoBehaviour
     }
     private void ChangeMat(Material _mat, Material _matT, PhysicMaterial[] _physicMaterial)
     {
-        physicMaterials = _physicMaterial;
         mats = _mat;
         if(_matT != null)
         {
@@ -293,7 +296,6 @@ public class GrabablePhysicsHandler : MonoBehaviour
     }
     private void ChangeMat( PhysicMaterial[] _physicMaterial)
     {
-        physicMaterials = _physicMaterial;
         if (!meshRenderer)
             meshRenderer = GetComponent<MeshRenderer>();
         if (!initialMat)

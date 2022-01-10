@@ -641,6 +641,9 @@ MonoBehaviour:
       m_Calls: []
   slowForce: 0
   timeToSlow: 0
+  physicMaterials:
+  - {fileID: 13400000, guid: 0ec93648bcb5b33408f6d7c3e1badb68, type: 2}
+  - {fileID: 13400000, guid: f49b989612fc3e34f8e1d4904afb1022, type: 2}
   isOnPlayground: 0
   isOnStasisOnce: 0
   timerToExit: 0
@@ -771,7 +774,9 @@ MonoBehaviour:
   secondClipName: 
   ThirdClipName: 
   ForthClipName: 
+  source: {fileID: 0}
   applyAudioOnStart: 0
+  randomSelectionOnStart: 0
   doOnce: 0
 --- !u!114 &592354505847921003
 MonoBehaviour:
@@ -828,6 +833,7 @@ MonoBehaviour:
   rb: {fileID: 7787269577375896468}
   GrabbableFlox: {fileID: 8357688151850016788}
   floxanimator: {fileID: 8226347912734026144}
+  isFroze: 0
   baseFace: 0
   sleepFace: 0
   panicFace: 0
