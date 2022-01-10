@@ -51,7 +51,7 @@ public class MoveBubble : MonoBehaviour
         /* v1 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees));
          v2 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees+Mathf.PI), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees+180));*/
 
-        J = Mathf.Abs(Vector3.Distance(Vector3.up* Tposition, pPos));
+        J = Mathf.Abs(Vector3.Distance(Vector3.up* Tposition, pPos+Vector3.up*(Tposition-pPos.y)));
         minAngle = 0;
         maxAngle = Mathf.PI;
 
@@ -60,10 +60,10 @@ public class MoveBubble : MonoBehaviour
         {
             // security until Simon find the probleme
             float angleValue = (spawnMax * spawnMax - _playgroundRayon * _playgroundRayon - J * J) / (-2 * _playgroundRayon * J);
-            if (angleValue > 1)
+            /*if (angleValue > 1)
                 angleValue = 1;
             if (angleValue < -1)
-                angleValue = -1;
+                angleValue = -1;*/
             angle = Mathf.Acos(angleValue);
             minAngle = angle;
             maxAngle = Mathf.PI - angle;

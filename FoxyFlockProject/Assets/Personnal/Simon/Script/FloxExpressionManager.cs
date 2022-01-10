@@ -10,7 +10,7 @@ public class FloxExpressionManager : MonoBehaviour
     public GrabbableObject GrabbableFlox;
     public Animator floxanimator;
 
-
+    public bool isFroze;
     public bool baseFace;
     public bool sleepFace;
     public bool panicFace;
@@ -24,8 +24,12 @@ public class FloxExpressionManager : MonoBehaviour
 
     void Update()
     {
+        if (floxMat.GetFloat("IsFrozen") == 1)
+        {
+            isFroze = true;
+        }
 
-        if (floxMat.GetFloat("IsFrozen") == 1 )
+            if (isFroze )
         {
             baseFace = false;
             floxanimator.SetBool("Base", false);
@@ -35,7 +39,7 @@ public class FloxExpressionManager : MonoBehaviour
             floxanimator.SetBool("Sleep",true);
         }
 
-        else if (GrabbableFlox.isGrab == false & rb.velocity != Vector3.zero)
+        else if (isFroze == false & GrabbableFlox.isGrab == false & rb.velocity != Vector3.zero)
         {
             baseFace = false;
             floxanimator.SetBool("Base", false);
@@ -44,7 +48,7 @@ public class FloxExpressionManager : MonoBehaviour
             panicFace = true;
             floxanimator.SetBool("Panic", true);
         }
-        else 
+        else if (isFroze == false)
         {
             panicFace = false;
             floxanimator.SetBool("Panic", false);
