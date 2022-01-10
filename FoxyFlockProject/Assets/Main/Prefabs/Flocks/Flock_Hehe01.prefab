@@ -363,6 +363,8 @@ GameObject:
   - component: {fileID: 1904604802663810676}
   - component: {fileID: -1479980008408552161}
   - component: {fileID: 592354505847921003}
+  - component: {fileID: 8226347912734026144}
+  - component: {fileID: 3246485525995808903}
   m_Layer: 6
   m_Name: Flock_Hehe01
   m_TagString: Piece
@@ -377,14 +379,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8274945382952786794}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8234402162002356740}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &5634717551890501237
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -790,3 +792,43 @@ MonoBehaviour:
   dissolveTime: 5
   isDissolving: 0
   grabable: {fileID: 4497491642748258773}
+--- !u!95 &8226347912734026144
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8274945382952786794}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 24ec163bd1ecebf4b8068e3b8b862419, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3246485525995808903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8274945382952786794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6279a1836e8854fa72bbc0d12e8768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMat: {fileID: 2100000, guid: eef01bd43ab0c884a87999c582f3f907, type: 2}
+  flox: {fileID: 7626422156612041407}
+  rb: {fileID: 7787269577375896468}
+  GrabbableFlox: {fileID: 8357688151850016788}
+  floxanimator: {fileID: 8226347912734026144}
+  baseFace: 0
+  sleepFace: 0
+  panicFace: 0
+  floxReactions: []

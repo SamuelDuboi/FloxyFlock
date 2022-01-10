@@ -106,6 +106,8 @@ GameObject:
   - component: {fileID: -9150362011053891089}
   - component: {fileID: 1153344942567290252}
   - component: {fileID: 7391701159102804052}
+  - component: {fileID: 7907176707206923985}
+  - component: {fileID: 1347691867544592155}
   m_Layer: 6
   m_Name: Flock_Ayo01
   m_TagString: Piece
@@ -533,6 +535,46 @@ MonoBehaviour:
   dissolveTime: 5
   isDissolving: 0
   grabable: {fileID: -9111260855410012163}
+--- !u!95 &7907176707206923985
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069128699973587937}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 80389ccf1525b4746a9f844137ded912, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1347691867544592155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069128699973587937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6279a1836e8854fa72bbc0d12e8768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMat: {fileID: 2100000, guid: 8d186f9ce224a684ebd407b52fc2981f, type: 2}
+  flox: {fileID: 3573395449833222708}
+  rb: {fileID: 3769740337178434335}
+  GrabbableFlox: {fileID: 7608741055610583529}
+  floxanimator: {fileID: 7907176707206923985}
+  baseFace: 0
+  sleepFace: 0
+  panicFace: 0
+  floxReactions: []
 --- !u!1 &4323605721872298282
 GameObject:
   m_ObjectHideFlags: 0

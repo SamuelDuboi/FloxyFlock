@@ -141,6 +141,8 @@ GameObject:
   - component: {fileID: 3142668824451181960}
   - component: {fileID: 2847168166766851832}
   - component: {fileID: 1528275294065715360}
+  - component: {fileID: 6486553227515799288}
+  - component: {fileID: 6516494043970186639}
   m_Layer: 6
   m_Name: Flock_Jit01
   m_TagString: Piece
@@ -566,6 +568,46 @@ MonoBehaviour:
   dissolveTime: 5
   isDissolving: 0
   grabable: {fileID: 8070194755144034207}
+--- !u!95 &6486553227515799288
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5191685301571692960}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 26b24060c635a8d4d925ecd7d2125b0c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6516494043970186639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5191685301571692960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6279a1836e8854fa72bbc0d12e8768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMat: {fileID: 2100000, guid: 62309bf7d5813d44584466cae0d4576b, type: 2}
+  flox: {fileID: 5984279184676194421}
+  rb: {fileID: 6254339699525460318}
+  GrabbableFlox: {fileID: 5065954506491773976}
+  floxanimator: {fileID: 6486553227515799288}
+  baseFace: 0
+  sleepFace: 0
+  panicFace: 0
+  floxReactions: []
 --- !u!1 &7439024318472477456
 GameObject:
   m_ObjectHideFlags: 0
