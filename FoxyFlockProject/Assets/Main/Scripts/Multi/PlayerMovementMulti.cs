@@ -532,7 +532,6 @@ public class PlayerMovementMulti : NetworkBehaviour
         var assigntToUi = player.GetComponentInChildren<AssignToUI>();
         if (!activate)
             NetworkManagerRace.instance.player2Canvas.SetActive(false);
-        UIGlobalManager.instance.AddPlayer(index, assigntToUi.stopWatch, assigntToUi.gameModeName,assigntToUi.gameModeRule,assigntToUi.flockNumber,assigntToUi.player1Image,assigntToUi.winPlayer1,assigntToUi.losePlayer1,assigntToUi.particules);
         UIGlobalManager.instance.PlayerImage(index, indexOFSprite);
     }
 

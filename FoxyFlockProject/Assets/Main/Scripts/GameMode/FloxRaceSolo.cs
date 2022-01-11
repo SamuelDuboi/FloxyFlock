@@ -15,7 +15,7 @@ public class FloxRaceSolo : GameModeSolo
         p = winLimit.transform.position;
         p.y = tableTransform.position.y + limitHeight;
         winLimit.transform.position = p;
-        UIGlobalManager.instance.SetGameMode("Flock Race","0");
+        //UIGlobalManager.instance.SetGameMode("Flock Race","0");
         //winLimit.gameObject.diameter = limitDiameter;
         //winLimit.gameObject.diameter = limitDiameter;
 
@@ -29,17 +29,18 @@ public class FloxRaceSolo : GameModeSolo
             tip = "can win";
             winLimit.GetComponent<MeshRenderer>().material = winLimit.winMat;
             timeAboveHeight += Time.deltaTime;
-        } else if (winLimit.triggered && hands.inPlayground == true)
+            UIGlobalManager.instance.Validation(number, false,timeAboveHeight,timeToWin);
+        } 
+        else if (winLimit.triggered && hands.inPlayground == true)
         {
             tip = "hands out";
-            UIGlobalManager.instance.SetRulesMode(tip);
+            UIGlobalManager.instance.Validation(number, true);
             timeAboveHeight = 0;
             winLimit.GetComponent<MeshRenderer>().material = winLimit.defeatMat;
         }
         else
         {
             tip = "try too reach height";
-          //  UIGlobalManager.instance.SetRulesMode(tip);
             timeAboveHeight = 0;
             winLimit.GetComponent<MeshRenderer>().material = winLimit.baseMat;
         }
