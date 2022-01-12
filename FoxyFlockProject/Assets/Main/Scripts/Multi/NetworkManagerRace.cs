@@ -12,7 +12,6 @@ public class NetworkManagerRace : NetworkRoomManager
     public int[] avatarsSprite = new int[2];
     public PlayerMovementMulti playerController;
     private GrabManagerMulti[] grabManagers;
-    public GameObject player2Canvas;
     public static NetworkManagerRace instance;
    [HideInInspector] public GameObject[] players = new GameObject[2];
     private List<GameObject> roomPlayers = new List<GameObject>();
@@ -140,15 +139,15 @@ public class NetworkManagerRace : NetworkRoomManager
         grabManagers[index].currentMilestone = value;
         if (grabManagers[0].currentMilestone > grabManagers[1].currentMilestone)
         {
-            playerController.RpcTempPosition(" player 1 is winning");
+            grabManagers[0].multiUI.CmdIsWinning();
         }
         else if (grabManagers[0].currentMilestone < grabManagers[1].currentMilestone)
         {
-            playerController.RpcTempPosition(" player 2 is winning");
+            grabManagers[1].multiUI.CmdIsWinning();
         }
         else
         {
-            playerController.RpcTempPosition(" it's a tie");
+            grabManagers[1].multiUI.CmdIsATie();
         }
     }
 

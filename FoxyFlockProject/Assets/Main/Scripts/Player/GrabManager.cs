@@ -152,7 +152,7 @@ public class GrabManager : MonoBehaviour
 
 
     #region Update
-    public void UpdateBatche()
+    public virtual void UpdateBatche()
     {
         int previousPool = currentPool;
         #region security test
@@ -247,19 +247,14 @@ public class GrabManager : MonoBehaviour
         if (previousPool < 5000)
             Freez(previousPool);
 
-        //In testing
         UpdateMilestone();
 
-        //need to be done
         UpdateBoard();
 
-        //done
         UpdateInventory();
 
-        //In testing
         UpdateSpecial();
 
-        //In testing
         UpdateBubble();
 
 

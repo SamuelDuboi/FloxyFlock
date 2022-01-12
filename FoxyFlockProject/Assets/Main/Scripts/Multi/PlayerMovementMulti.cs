@@ -466,8 +466,9 @@ public class PlayerMovementMulti : NetworkBehaviour
     void RpcSyncUnits(GameObject x, List<pool> mainPool, GameObject authority,string _tempComponent,PhysicMaterial[] _tempbasicMats, int index)
     {
         bool hasFounded = false;
-       
-            components.Add(grabManager.GetComponent( _tempComponent));
+        Debug.Log(_tempComponent);
+        Debug.Log(grabManager.GetComponent(_tempComponent));
+        components.Add(grabManager.GetComponent( _tempComponent));
         
         tempFlock = x;
         tempFlock.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
@@ -522,7 +523,6 @@ public class PlayerMovementMulti : NetworkBehaviour
     public void CmdInitUI(int index, GameObject player, bool activate, int indexOFSprite)
     {
         if(!activate)
-        NetworkManagerRace.instance.player2Canvas.SetActive(false);
         RcpInitUI(index,player,activate,indexOFSprite);
     }
 
@@ -530,8 +530,6 @@ public class PlayerMovementMulti : NetworkBehaviour
     void RcpInitUI(int index, GameObject player,bool activate, int indexOFSprite)
     {
         var assigntToUi = player.GetComponentInChildren<AssignToUI>();
-        if (!activate)
-            NetworkManagerRace.instance.player2Canvas.SetActive(false);
         UIGlobalManager.instance.PlayerImage(index, indexOFSprite);
     }
 
@@ -572,7 +570,7 @@ public class PlayerMovementMulti : NetworkBehaviour
     public void CmdChangeMilestoneValue(int index, int value)
     {
         NetworkManagerRace.instance.ChangeMilestonValue(index, value);
-       // RpcChangeMilestonValue(index, value);
+        RpcChangeMilestonValue(index, value);
     }
     [ClientRpc]
     private void RpcChangeMilestonValue(int index, int value)

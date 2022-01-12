@@ -643,6 +643,9 @@ MonoBehaviour:
       m_Calls: []
   slowForce: 0
   timeToSlow: 0
+  physicMaterials:
+  - {fileID: 13400000, guid: 0ec93648bcb5b33408f6d7c3e1badb68, type: 2}
+  - {fileID: 13400000, guid: f49b989612fc3e34f8e1d4904afb1022, type: 2}
   isOnPlayground: 0
   isOnStasisOnce: 0
   timerToExit: 0
@@ -773,7 +776,9 @@ MonoBehaviour:
   secondClipName: 
   ThirdClipName: 
   ForthClipName: 
+  source: {fileID: 0}
   applyAudioOnStart: 0
+  randomSelectionOnStart: 0
   doOnce: 0
 --- !u!114 &-5642343373413378113
 MonoBehaviour:

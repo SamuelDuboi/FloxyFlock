@@ -15,7 +15,8 @@ public class GrabManagerMulti : GrabManager
     private ResetMulti resetMulti;
     public Representation fireballRepresentation;
     public bool nextIsFireBallBatche;
-    int playerNumber;
+    [HideInInspector] public int playerNumber;
+    public MultiUIHandler multiUI;
     // Start is called before the first frame update
     public override IEnumerator Start()
     {
@@ -44,6 +45,10 @@ public class GrabManagerMulti : GrabManager
         playerMovement.CmdMoveBubble(playGround.radius, nextMilestonePos.y,positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes,playGround.fireBallOrbe, directionForBubble);
         Vector3 headSettPos = inputManager.GetComponent<XRRig>().cameraFloorOffsetObject.transform.localPosition;
         transform.localPosition += headSettPos;
+
+        yield return new WaitForSeconds(5f);
+        multiUI.grabManager = this;
+        
     }
     public virtual void InitPool(GameObject authority, PlayerMovementMulti player, int v)
     {

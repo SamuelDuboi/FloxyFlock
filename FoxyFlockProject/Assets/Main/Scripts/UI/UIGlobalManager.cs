@@ -7,7 +7,10 @@ public class UIGlobalManager : MonoBehaviour
     public static UIGlobalManager instance;
     public TextMeshProUGUI stopWatch;
     public TextMeshProUGUI gameModeRules;
-
+    public Color firstPositionColor;
+    public Color secondPositionColor;
+    public float firstPositionScaleUp= 50;
+    private float positionSize;
 
 
     public Image player1Images;
@@ -16,7 +19,8 @@ public class UIGlobalManager : MonoBehaviour
     public TextMeshProUGUI player1ClockTimer;
     public GameObject player1HandsText;
     public GameObject winPlayer1;
-
+    public GameObject player1fireBallOn;
+    public TextMeshProUGUI player1Position;
 
 
 
@@ -26,7 +30,8 @@ public class UIGlobalManager : MonoBehaviour
     public TextMeshProUGUI player2ClockTimer;
     public GameObject player2HandsText;
     public GameObject winPlayer2;
-
+    public GameObject player2fireBallOn;
+    public TextMeshProUGUI player2Position;
 
 
 
@@ -48,7 +53,8 @@ public class UIGlobalManager : MonoBehaviour
         {
             yield break;
         }
-
+        if (player1Position != null)
+            positionSize = player1Position.fontSize;
     }
     private void Update()
     {
@@ -59,17 +65,16 @@ public class UIGlobalManager : MonoBehaviour
 
     private string ConvertToHourMinSec(float timer)
     {
-        string tempString = "";
-        int hour = Mathf.FloorToInt(timer) / 3600;
-        int min = (Mathf.FloorToInt(timer) - hour * 3600) / 60;
-        int s = Mathf.FloorToInt(timer) - hour * 3600 - min * 60;
+        //int hour = Mathf.FloorToInt(timer) / 3600;
+        int min = (Mathf.FloorToInt(timer)) / 60;
+        int s = Mathf.FloorToInt(timer) - min * 60;
         string secString = s.ToString();
         if (s < 10)
             secString = " 0" + s.ToString();
         string minString = min.ToString();
-        if (min < 10)
-            minString = " 0" + min.ToString();
-        return tempString = "Timer\n" + hour.ToString() + " :" + minString + " :" + secString;
+        
+        //return tempString = "Timer\n" + hour.ToString() + " :" + minString + " :" + secString;
+        return  $"{minString} : {secString}";
     }
 
     public void SetRulesMode(string rule)
@@ -151,4 +156,53 @@ public class UIGlobalManager : MonoBehaviour
 
     }
 
+    public void IsFirst(int index)
+    {
+        if(index == 0)
+        {
+            player1Position.text = "1er";
+            player1Position.fontSize+= firstPositionScaleUp;
+            player1Position.color = firstPositionColor;
+            player2Position.text = "2nd";
+            player2Position.fontSize = positionSize;
+            player2Position.color = secondPositionColor;
+        }
+        else
+        {
+            player2Position.text = "1er";
+            player2Position.fontSize += firstPositionScaleUp;
+            player2Position.color = firstPositionColor;
+            player1Position.text = "2nd";
+            player1Position.fontSize = positionSize;
+            player1Position.color = secondPositionColor;
+        }
+    }
+    public void IsATie()
+    {
+        player1Position.text = "2nd";
+        player1Position.fontSize = positionSize;
+        player1Position.color = secondPositionColor;
+        player2Position.text = "2nd";
+        player2Position.fontSize = positionSize;
+        player2Position.color = secondPositionColor;
+        
+    }
+    public void CanSelectFireBall(int index)
+    {
+        if (index == 0)
+        {
+            player1fireBallOn.SetActive(true);
+        }
+        else
+            player2fireBallOn.SetActive(true);
+    }
+    public void UnSelectFireBall(int index)
+    {
+        if (index == 0)
+        {
+            player1fireBallOn.SetActive(false);
+        }
+        else
+            player2fireBallOn.SetActive(false);
+    }
 }
