@@ -116,6 +116,7 @@ public class GrabManagerMulti : GrabManager
         }*/
         inputManager.OnSpawn.AddListener(UpdateBatche);
 
+        multiUI.CmdInitManagers(NetworkManagerRace.instance.players);
     }
 
     protected override void UpdateMilestone()
@@ -170,6 +171,7 @@ public class GrabManagerMulti : GrabManager
             fireballRepresentation.gameObject.SetActive(true);
             fireballRepresentation.ApplyVisual(this, fireBallInstantiated.GetComponent<MeshForDispenser>().mesh, fireBallInstantiated.GetComponent<MeshRenderer>().material);
             directionForBubble.Add(fireballRepresentation.transform.position);
+            multiUI.CmdSelectFireBall();
         }
 
     }

@@ -11,9 +11,9 @@ public class NetworkManagerRace : NetworkRoomManager
     public GameObject[] startSpawn;
     public int[] avatarsSprite = new int[2];
     public PlayerMovementMulti playerController;
-    private GrabManagerMulti[] grabManagers;
+    public GrabManagerMulti[] grabManagers;
     public static NetworkManagerRace instance;
-   [HideInInspector] public GameObject[] players = new GameObject[2];
+    public GameObject[] players = new GameObject[2];
     private List<GameObject> roomPlayers = new List<GameObject>();
     private int InitNumberOfPlayer;
     private int number;
@@ -113,7 +113,7 @@ public class NetworkManagerRace : NetworkRoomManager
         roomPlayers.Clear();
         for (int i = 0; i < InitNumberOfPlayer; i++)
         {
-            if (grabManagers == null)
+            if (grabManagers == null || grabManagers.Length != 2)
                 grabManagers = new GrabManagerMulti[2];
             grabManagers[i] = players[i].GetComponentInChildren<GrabManagerMulti>();
             if(InitNumberOfPlayer>1)
@@ -126,8 +126,6 @@ public class NetworkManagerRace : NetworkRoomManager
             if (i == InitNumberOfPlayer-1)
                 InitNumberOfPlayer = 0;
         }
-
-        
     }
 
     public void ChangeMilestonValue(int index, int value)

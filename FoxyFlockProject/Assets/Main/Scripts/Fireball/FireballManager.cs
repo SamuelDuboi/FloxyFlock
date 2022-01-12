@@ -160,7 +160,7 @@ public class FireballManager : MonoBehaviour
         inFireball.transform.position = fireballSpawnPosition;
         inFireball.SetActive(true);
         portalSoundReader.Play();
-
+        GetComponentInParent<PlayGround>().GetComponentInChildren<GameModeSolo>().playerMovement.grabManager.GetComponent<GrabManagerMulti>().multiUI.CmdUnSelectFireBall();
         fireballTargetPosition = grabManager.positionOfMilestoneIntersection;
         Vector3 fireballToTarget = fireballTargetPosition - inFireball.transform.position;
         inFireball.GetComponent<Rigidbody>().AddForce(fireballToTarget * fireballSpeed, ForceMode.Impulse);
@@ -245,7 +245,7 @@ public class FireballManager : MonoBehaviour
         canDetectTarget = false;
 
     }
-
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Handles.color = Color.yellow;
@@ -264,4 +264,5 @@ public class FireballManager : MonoBehaviour
         Handles.DrawWireDisc(wireDiscPosition, Vector3.up, fireballMinSpawnDistance);
         Handles.DrawWireDisc(wireDiscPosition, Vector3.up, fireballMaxSpawnDistance);
     }
+#endif
 }

@@ -466,8 +466,6 @@ public class PlayerMovementMulti : NetworkBehaviour
     void RpcSyncUnits(GameObject x, List<pool> mainPool, GameObject authority,string _tempComponent,PhysicMaterial[] _tempbasicMats, int index)
     {
         bool hasFounded = false;
-        Debug.Log(_tempComponent);
-        Debug.Log(grabManager.GetComponent(_tempComponent));
         components.Add(grabManager.GetComponent( _tempComponent));
         
         tempFlock = x;

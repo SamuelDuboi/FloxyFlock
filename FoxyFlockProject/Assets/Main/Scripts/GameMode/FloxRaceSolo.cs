@@ -29,12 +29,18 @@ public class FloxRaceSolo : GameModeSolo
             tip = "can win";
             winLimit.GetComponent<MeshRenderer>().material = winLimit.winMat;
             timeAboveHeight += Time.deltaTime;
-            UIGlobalManager.instance.Validation(number, false,timeAboveHeight,timeToWin);
+            if (playerMovement == null)
+                UIGlobalManager.instance.Validation(number, false, timeAboveHeight, timeToWin);
+            else
+                playerMovement.grabManager.GetComponent<GrabManagerMulti>().multiUI.CmdValidate(number, false, timeAboveHeight, timeToWin);
         } 
         else if (winLimit.triggered && hands.inPlayground == true)
         {
             tip = "hands out";
-            UIGlobalManager.instance.Validation(number, true);
+            if (playerMovement == null)
+                UIGlobalManager.instance.Validation(number, true);
+            else
+                playerMovement.grabManager.GetComponent<GrabManagerMulti>().multiUI.CmdValidate(number, true,0,0);
             timeAboveHeight = 0;
             winLimit.GetComponent<MeshRenderer>().material = winLimit.defeatMat;
         }

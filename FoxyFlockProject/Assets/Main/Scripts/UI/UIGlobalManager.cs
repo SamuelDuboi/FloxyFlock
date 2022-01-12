@@ -116,7 +116,7 @@ public class UIGlobalManager : MonoBehaviour
     {
         if (indexOfWinner == 1)
         {
-            if (!player1Validation.activeSelf)
+            if (!player2Validation.activeSelf)
                 player2Validation.SetActive(true);
             if (isHandInZone)
             {
