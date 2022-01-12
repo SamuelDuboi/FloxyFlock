@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class FireballManager : MonoBehaviour
@@ -242,5 +243,25 @@ public class FireballManager : MonoBehaviour
 
         TryClosePortal();
         canDetectTarget = false;
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Handles.color = Color.yellow;
+
+        Vector3 wireDiscPosition = Vector3.zero;
+
+        if (tableCenter != null)
+        {
+            wireDiscPosition = tableCenter.position + Vector3.up * portalSpawnHeight;
+        }
+        else
+        {
+            wireDiscPosition = transform.position + Vector3.up * portalSpawnHeight;
+        }
+
+        Handles.DrawWireDisc(wireDiscPosition, Vector3.up, fireballMinSpawnDistance);
+        Handles.DrawWireDisc(wireDiscPosition, Vector3.up, fireballMaxSpawnDistance);
     }
 }
