@@ -12,7 +12,7 @@ public class UIGlobalManager : MonoBehaviour
     public float firstPositionScaleUp= 50;
     private float positionSize;
 
-
+    [Header("Player 1")]
     public Image player1Images;
     public GameObject player1Validation;
     public Image player1Clock;
@@ -21,8 +21,9 @@ public class UIGlobalManager : MonoBehaviour
     public GameObject winPlayer1;
     public GameObject player1fireBallOn;
     public TextMeshProUGUI player1Position;
+    public RawImage player1table;
 
-
+    [Header("Player 2")]
 
     public Image player2Images;
     public GameObject player2Validation;
@@ -32,6 +33,7 @@ public class UIGlobalManager : MonoBehaviour
     public GameObject winPlayer2;
     public GameObject player2fireBallOn;
     public TextMeshProUGUI player2Position;
+    public RawImage player2table;
 
 
 
@@ -205,4 +207,5 @@ public class UIGlobalManager : MonoBehaviour
         else
             player2fireBallOn.SetActive(false);
     }
+
 }

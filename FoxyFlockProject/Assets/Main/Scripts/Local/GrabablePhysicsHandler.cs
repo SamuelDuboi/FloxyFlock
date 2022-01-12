@@ -253,6 +253,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
             propBlock = new MaterialPropertyBlock();
         }
 
+        meshRenderer.material = initialMat;
         //Recup Data
         meshRenderer.GetPropertyBlock(propBlock);
         //EditZone
@@ -260,6 +261,8 @@ public class GrabablePhysicsHandler : MonoBehaviour
 
         //Push Data
         meshRenderer.SetPropertyBlock(propBlock);
+
+        gameObject.layer = 14;
     }
 
     private void ChangePhysicMatsOnSelect()

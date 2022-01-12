@@ -105,6 +105,4 @@ public class MultiUIHandler : NetworkBehaviour
     {
             UIGlobalManager.instance.Validation(indexOfWinner, isHandInZone, timer, maxTimer);
     }
-
-
 }
