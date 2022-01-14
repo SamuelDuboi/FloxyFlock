@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class Bubble : MonoBehaviour
 {
     public SphereCollider spherCollider;
@@ -18,6 +19,8 @@ public class Bubble : MonoBehaviour
     public GameObject particuleBubble;
     public MeshRenderer meshRenderer;
     public GameObject bubbleCore;
+    private MaterialPropertyBlock propBlock;
+
     private void Start()
     {
         radius = spherCollider.radius *m_transform.lossyScale.x;
@@ -25,7 +28,10 @@ public class Bubble : MonoBehaviour
         spherCollider.enabled = false;
         int rand = Random.Range(1, 5);
         sound.clipName = "OrbPop" + rand.ToString();
+
+        propBlock = new MaterialPropertyBlock();
     }
+
     private void Update()
     {
         var collidiers = Physics.OverlapSphere(m_transform.position, radius, layerMask);
@@ -33,7 +39,6 @@ public class Bubble : MonoBehaviour
        
         for (int i = 0; i < collidiers.Length; i++)
         {
-           
             _temp = collidiers[i].GetComponentInParent<GrabablePhysicsHandler>();
             if (_temp && !hasFlocks)
             {
@@ -45,6 +50,9 @@ public class Bubble : MonoBehaviour
                     grabManager.AddFireBall(gameObject);
                  else
                     grabManager.AddBubble(isMalus, gameObject);
+
+                UpdateBubbleMat(1);
+
                 hasFlocks = true;
             }
         }
@@ -52,6 +60,9 @@ public class Bubble : MonoBehaviour
         if(collidiers.Length == 0 && grabManager != null && hasFlocks)
         {
             grabManager.RemoveBubble(isMalus, gameObject);
+
+            UpdateBubbleMat(0);
+
             hasFlocks = false;
         }
     }
@@ -85,5 +96,15 @@ public class Bubble : MonoBehaviour
         startBubble.SetActive(false);
         meshRenderer.enabled = true;
         bubbleCore.SetActive(true);
+    }
+
+    private void UpdateBubbleMat(int index)
+    {
+        //Recup Data
+        meshRenderer.GetPropertyBlock(propBlock);
+        //EditZone
+        propBlock.SetFloat("State", index);
+        //Push Data
+        meshRenderer.SetPropertyBlock(propBlock);
     }
 }
