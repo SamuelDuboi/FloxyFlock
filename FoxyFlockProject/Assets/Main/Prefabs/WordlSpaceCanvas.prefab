@@ -236,7 +236,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &6919671422555776522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,18 +287,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stopWatch: {fileID: 6919671423744897282}
   gameModeRules: {fileID: 6919671423131891080}
+  firstPositionColor: {r: 0, g: 0, b: 0, a: 0}
+  secondPositionColor: {r: 0, g: 0, b: 0, a: 0}
+  firstPositionScaleUp: 50
   player1Images: {fileID: 6919671422691902781}
   player1Validation: {fileID: 6919671422602927373}
   player1Clock: {fileID: 6919671423155783502}
   player1ClockTimer: {fileID: 6919671423572240953}
   player1HandsText: {fileID: 6919671423612295647}
   winPlayer1: {fileID: 6919671422408239591}
+  player1fireBallOn: {fileID: 0}
+  player1Position: {fileID: 0}
+  player1table: {fileID: 0}
   player2Images: {fileID: 0}
   player2Validation: {fileID: 0}
   player2Clock: {fileID: 0}
   player2ClockTimer: {fileID: 0}
   player2HandsText: {fileID: 0}
   winPlayer2: {fileID: 0}
+  player2fireBallOn: {fileID: 0}
+  player2Position: {fileID: 0}
+  player2table: {fileID: 0}
   sprites:
   - {fileID: 21300000, guid: 7077e445741c0594790710643ae1316d, type: 3}
   - {fileID: 21300000, guid: b39fc0698b0e0a240a381a02a6d0e4c6, type: 3}

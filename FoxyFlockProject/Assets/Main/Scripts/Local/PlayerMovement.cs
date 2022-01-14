@@ -49,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
         tempRighttHand.position = inputManager.rightHand.transform.position;
         
         initMidle = Vector3.Lerp(tempLeftHand.localPosition, tempRighttHand.localPosition, 0.5f);
-        Debug.Log(initMidle);
     }
     public bool SeeTable()
     {

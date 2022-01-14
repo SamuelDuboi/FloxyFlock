@@ -29,7 +29,7 @@ public class HandPresence : MonoBehaviour
         {
             TryInitialize();
         }
-
+        inputManager.OnMenuPressed.AddListener(OnMenuPressed);
 
     }
 
@@ -93,7 +93,25 @@ public class HandPresence : MonoBehaviour
 
         }
 
+    }
 
+    private void OnMenuPressed()
+    {
+        if (!isMenu)
+        {
+            if (!isLeft)
+                pointerGO.SetActive(true);
+            inputManager.OnLeftTrigger.AddListener(OnTriggerPressLeft);
+            inputManager.OnRightTrigger.AddListener(OnTriggerPressRight);
+            isMenu = true;
+        }
+        else
+        {
+            pointerGO.SetActive(false);
+            inputManager.OnLeftTrigger.RemoveListener(OnTriggerPressLeft);
+            inputManager.OnRightTrigger.RemoveListener(OnTriggerPressRight);
+            isMenu = false;
+        }
     }
     private void OnTriggerEnter(Collider other)
     {

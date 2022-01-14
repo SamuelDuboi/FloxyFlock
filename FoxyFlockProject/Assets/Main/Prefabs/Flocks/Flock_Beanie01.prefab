@@ -504,7 +504,7 @@ AudioSource:
   m_GameObject: {fileID: 3700406415017159875}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8634683232827515855, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -666,7 +666,7 @@ MonoBehaviour:
   rb: {fileID: 3286799318257116221}
   GrabbableFlox: {fileID: 2454482396839849466}
   floxanimator: {fileID: 907465211597312272}
-  isFroze: 0
+  isFrozen: 0
   baseFace: 0
   sleepFace: 0
   panicFace: 0

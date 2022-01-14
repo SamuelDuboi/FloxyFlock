@@ -88,7 +88,7 @@ AudioSource:
   m_GameObject: {fileID: 3727896624638508635}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -24711,6 +24711,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3727896624638508633}
     m_Modifications:
+    - target: {fileID: 1213073053303269507, guid: abb2c30472d72af4d8ccc327adbf0e8e, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2702310418857865942, guid: abb2c30472d72af4d8ccc327adbf0e8e, type: 3}
       propertyPath: m_Name
       value: Portal
