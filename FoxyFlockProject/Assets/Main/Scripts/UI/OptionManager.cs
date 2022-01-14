@@ -2,94 +2,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using NaughtyAttributes;
+using TMPro;
+using UnityEngine.Audio;
 public class OptionManager : MonoBehaviour
 {
-    private bool isAliasing;
-    private bool castShadow;
-    public enum ResulutionQuality { high,medium,low};
-    private ResulutionQuality currentResolution;
-    
-    [Foldout("Rendering")]public RenderPipelineAsset AllOn;
-    [Foldout("Rendering")]public RenderPipelineAsset AllOnNoAliasing;
-    [Foldout("Rendering")]public RenderPipelineAsset AllOnNoShadow;
-    [Foldout("Rendering")]public RenderPipelineAsset AllOnShadowResolutionLow;
-    [Foldout("Rendering")]public RenderPipelineAsset AllOnShadowResolutionMedium;
-    [Foldout("Rendering")]public RenderPipelineAsset NoAliasingNoShadow;
-    [Foldout("Rendering")]public RenderPipelineAsset NoAliasingShadowResolutionLow;
-    [Foldout("Rendering")] public RenderPipelineAsset NoAliasingShadowResolutionMedium;
-    
+    private ResolutionQuality currentResolution;
+    public RenderPipelineAsset[] qualitySettings;
+    public TextMeshProUGUI textResolution;
 
-    // Start is called before the first frame update
-    void Start()
+    public AudioMixer master;
+    public float maxSoundValue = 0;
+    public float minSoundValue = -80;
+    public void Right()
     {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    public void IsAlliasing(bool _aliasing)
-    {
-        isAliasing = _aliasing;
-        ApplyRender();
-    }
-    public void IsShadow(bool _isShadow)
-    {
-        castShadow = _isShadow;
-        ApplyRender();
-    }
-    public void ChangeEnum(int value)
-    {
-        currentResolution = (ResulutionQuality) value;
-        ApplyRender();
-    }
-    private void ApplyRender()
-    {
-        if (castShadow)
-        {
-            if (isAliasing)
-            {
-                switch (currentResolution)
-                {
-                    case ResulutionQuality.high:
-                        GraphicsSettings.renderPipelineAsset = AllOn;
-                        break;
-                    case ResulutionQuality.medium:
-                        GraphicsSettings.renderPipelineAsset = AllOnShadowResolutionMedium;
-                        break;
-                    case ResulutionQuality.low:
-                        GraphicsSettings.renderPipelineAsset = AllOnShadowResolutionLow;
-                        break;
-                }
-            }
-            else
-            {
-                switch (currentResolution)
-                {
-                    case ResulutionQuality.high:
-                        GraphicsSettings.renderPipelineAsset = AllOnNoAliasing;
-                        break;
-                    case ResulutionQuality.medium:
-                        GraphicsSettings.renderPipelineAsset = NoAliasingShadowResolutionMedium;
-                        break;
-                    case ResulutionQuality.low:
-                        GraphicsSettings.renderPipelineAsset = NoAliasingShadowResolutionLow;
-                        break;
-                }
-            }
-        }
+        if ((int)currentResolution < 2)
+            currentResolution++;
         else
-        {
-            if (isAliasing)
-            {
-                GraphicsSettings.renderPipelineAsset = AllOnNoShadow;
-            }
-            else
-            {
-                GraphicsSettings.renderPipelineAsset = NoAliasingNoShadow;
-            }
-        }
+            currentResolution = 0;
+        GraphicsSettings.renderPipelineAsset = qualitySettings[(int)currentResolution];
+        textResolution.text = currentResolution.ToString();
+    }
+    public void Left()
+    {
+        if ((int)currentResolution >0)
+            currentResolution--;
+        else
+            currentResolution = ResolutionQuality.low;
+        GraphicsSettings.renderPipelineAsset = qualitySettings[(int)currentResolution];
+        textResolution.text = currentResolution.ToString();
+    }
+
+    public void Actualise(TextMeshProUGUI text)
+    {
+        text.text = currentResolution.ToString();
+    }
+
+    public void ChangeSoundMaster(float value)
+    {
+        master.SetFloat("MasterVolume", minSoundValue * value / 100);
+    }
+    public void ChangeSoundMusic(float value)
+    {
+        master.SetFloat("MusicVolume", minSoundValue * value / 100);
+    }
+    public void ChangeSoundFlox(float value)
+    {
+        master.SetFloat("FloxVolume", minSoundValue * value / 100);
+    }
+    public void ChangeSoundSFX(float value)
+    {
+        master.SetFloat("SFXVolume", minSoundValue * value / 100);
     }
 }
+
+    public enum ResolutionQuality { high,medium,low};
