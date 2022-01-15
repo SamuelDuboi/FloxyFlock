@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Rendering;
 using TMPro;
 using UnityEngine.Audio;
@@ -13,6 +14,32 @@ public class OptionManager : MonoBehaviour
     public AudioMixer master;
     public float maxSoundValue = 0;
     public float minSoundValue = -80;
+
+    private InputManager inputManager;
+    public Slider masterSlider;
+    public Slider floxSlider;
+    public Slider musicSlider;
+    public Slider sfxSlider;
+    private void Start()
+    {
+        inputManager = GetComponentInParent<InputManager>();
+        inputManager.OnMenuPressed.AddListener(OnMenuPresse);
+    }
+    void OnMenuPresse()
+    {
+        float value = 0;
+        master.GetFloat("MasterVolume", out value);
+        masterSlider.value = 100 - value * 100 / minSoundValue;
+        master.GetFloat("FloxVolume", out value);
+        floxSlider.value = 100 - value * 100 / minSoundValue;
+        master.GetFloat("MusicVolume", out value);
+        musicSlider.value = 100 - value * 100 / minSoundValue;
+        master.GetFloat("SFXVolume", out value);
+        sfxSlider.value = 100 - value * 100 / minSoundValue;
+        textResolution.text = currentResolution.ToString();
+    }
+
+
     public void Right()
     {
         if ((int)currentResolution < 2)
@@ -31,27 +58,21 @@ public class OptionManager : MonoBehaviour
         GraphicsSettings.renderPipelineAsset = qualitySettings[(int)currentResolution];
         textResolution.text = currentResolution.ToString();
     }
-
-    public void Actualise(TextMeshProUGUI text)
-    {
-        text.text = currentResolution.ToString();
-    }
-
     public void ChangeSoundMaster(float value)
     {
-        master.SetFloat("MasterVolume", minSoundValue * value / 100);
+        master.SetFloat("MasterVolume",minSoundValue - minSoundValue * value / 100);
     }
     public void ChangeSoundMusic(float value)
     {
-        master.SetFloat("MusicVolume", minSoundValue * value / 100);
+        master.SetFloat("MusicVolume", minSoundValue - minSoundValue * value / 100);
     }
     public void ChangeSoundFlox(float value)
     {
-        master.SetFloat("FloxVolume", minSoundValue * value / 100);
+        master.SetFloat("FloxVolume", minSoundValue- minSoundValue * value / 100);
     }
     public void ChangeSoundSFX(float value)
     {
-        master.SetFloat("SFXVolume", minSoundValue * value / 100);
+        master.SetFloat("SFXVolume", minSoundValue-  minSoundValue * value / 100);
     }
 }
 
