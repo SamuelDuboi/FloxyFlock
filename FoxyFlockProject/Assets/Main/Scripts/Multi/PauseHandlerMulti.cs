@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class PauseHandler : MonoBehaviour
+using Mirror;
+public class PauseHandlerMulti : NetworkBehaviour
 {
 
     public GameObject UI;
@@ -12,7 +12,7 @@ public class PauseHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inputManager.OnMenuPressed.AddListener(MenuPressed);   
+        inputManager.OnMenuPressed.AddListener(MenuPressed);
     }
     private void MenuPressed()
     {
@@ -32,10 +32,10 @@ public class PauseHandler : MonoBehaviour
     {
         inputManager.OnMenuPressed.Invoke();
     }
-    public void LoadMenu(int index)
-    {
-        NetworkManagerRace.instance.StopServer();
-        ScenesManager.instance.LunchScene(0);
-    }
 
+ [Command]
+ public void CmdReturToLobbye()
+    {
+        NetworkManagerRace.instance.OnReset();
+    }
 }

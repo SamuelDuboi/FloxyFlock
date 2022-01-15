@@ -31,7 +31,6 @@ public class PlayerMovementMulti : NetworkBehaviour
     private GameObject tempFlock2;
     bool doOnce;
     public MoveBubble moveBubble;
-    public GameObject ReturnToLobby;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +43,6 @@ public class PlayerMovementMulti : NetworkBehaviour
         {
             tableTransform = GameObject.FindGameObjectWithTag("Table").transform;
             tableTransform.GetComponentInChildren<GameModeSolo>().number = 0;
-            ReturnToLobby.SetActive(true);
         }
         if (isLocalPlayer)
         {

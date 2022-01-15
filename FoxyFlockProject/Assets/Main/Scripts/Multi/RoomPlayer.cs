@@ -50,4 +50,12 @@ public class RoomPlayer : MonoBehaviour
         networkRoom.CmdSetIndex(networkRoom.index, index);
         GetComponentInParent<InputManager>().gameObject.SetActive(false);
     }
+
+    public void Menu()
+    {
+        if (index != 0)
+            NetworkManagerRace.instance.StopClient();
+        else
+            NetworkManagerRace.instance.StopHost();
+    }
 }

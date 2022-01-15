@@ -776,7 +776,8 @@ namespace Mirror
             NetworkServer.isLoadingScene = true;
 
             loadingSceneAsync = SceneManager.LoadSceneAsync(newSceneName);
-
+            if (newSceneName == "MainMenu")
+                Destroy(gameObject);
             // ServerChangeScene can be called when stopping the server
             // when this happens the server is not active so does not need to tell clients about the change
             if (NetworkServer.active)
