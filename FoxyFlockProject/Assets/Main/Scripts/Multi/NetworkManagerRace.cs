@@ -19,7 +19,16 @@ public class NetworkManagerRace : NetworkRoomManager
     private int number;
     private NetworkConnection[] conns = new NetworkConnection[2];
 
-
+    public void OnReset()
+    {
+        clientIndex = 0;
+        numberOfPlayer = 0;
+        number = 0;
+        InitNumberOfPlayer = 0;
+        roomPlayers.Clear();
+        grabManagers = null;
+       ServerChangeScene(RoomScene);
+    }
     public override void Awake()
     {
         base.Awake();
@@ -148,7 +157,11 @@ public class NetworkManagerRace : NetworkRoomManager
             grabManagers[1].multiUI.CmdIsATie();
         }
     }
-
+    public override void OnClientDisconnect(NetworkConnection conn)
+    {
+        base.OnClientDisconnect(conn);
+        OnReset();
+    }
     public void Win(int playerId)
     {
         if (playerId == 0)

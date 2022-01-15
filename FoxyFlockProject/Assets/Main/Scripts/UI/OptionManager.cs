@@ -20,6 +20,7 @@ public class OptionManager : MonoBehaviour
     public Slider floxSlider;
     public Slider musicSlider;
     public Slider sfxSlider;
+    
     private void Start()
     {
         inputManager = GetComponentInParent<InputManager>();
@@ -73,6 +74,11 @@ public class OptionManager : MonoBehaviour
     public void ChangeSoundSFX(float value)
     {
         master.SetFloat("SFXVolume", minSoundValue-  minSoundValue * value / 100);
+    }
+
+    public void OnReturnLobby()
+    {
+        NetworkManagerRace.instance.OnReset();
     }
 }
 
