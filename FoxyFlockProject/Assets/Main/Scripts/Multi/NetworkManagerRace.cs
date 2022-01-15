@@ -91,7 +91,6 @@ public class NetworkManagerRace : NetworkRoomManager
         if (numberOfPlayer == 0)
         {
             playerController = player.GetComponent<PlayerMovementMulti>();
-            playerController.GetComponent<InputManager>().OnMenuPressed.AddListener(ReturnToMenu);
         }
         else
         {
@@ -106,11 +105,7 @@ public class NetworkManagerRace : NetworkRoomManager
       
         return player;
     }
-    private void ReturnToMenu()
-    {
-        ServerChangeScene(RoomScene);
-    }
-    IEnumerator WaitToSpawn(NetworkConnection conn, GameObject[] players)
+       IEnumerator WaitToSpawn(NetworkConnection conn, GameObject[] players)
     {
         yield return new WaitForSeconds(1f);
          //playerController.CmdSpawnManager(player);
