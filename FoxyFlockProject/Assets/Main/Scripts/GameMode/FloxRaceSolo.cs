@@ -10,6 +10,9 @@ public class FloxRaceSolo : GameModeSolo
     private float timeAboveHeight;
     public Limits winLimit;
     [HideInInspector] public Vector3 p;
+    private MaterialPropertyBlock propBlock;
+    [SerializeField] private MeshRenderer meshRenderer;
+
     void Start()
     {
         p = winLimit.transform.position;
@@ -19,6 +22,8 @@ public class FloxRaceSolo : GameModeSolo
         //winLimit.gameObject.diameter = limitDiameter;
         //winLimit.gameObject.diameter = limitDiameter;
 
+        propBlock = new MaterialPropertyBlock();
+
     }
 
     public override void FixedUpdate()
@@ -27,7 +32,9 @@ public class FloxRaceSolo : GameModeSolo
         if (winLimit.triggered && hands.inPlayground == false)
         {
             tip = "can win";
-            winLimit.GetComponent<MeshRenderer>().material = winLimit.winMat;
+
+            UpdateLimitMat(2);
+
             timeAboveHeight += Time.deltaTime;
             if (playerMovement == null)
                 UIGlobalManager.instance.Validation(number, false, timeAboveHeight, timeToWin);
@@ -42,13 +49,15 @@ public class FloxRaceSolo : GameModeSolo
             else
                 playerMovement.grabManager.GetComponent<GrabManagerMulti>().multiUI.CmdValidate(number, true,0,0);
             timeAboveHeight = 0;
-            winLimit.GetComponent<MeshRenderer>().material = winLimit.defeatMat;
+
+            UpdateLimitMat(1);
         }
         else
         {
             tip = "try too reach height";
             timeAboveHeight = 0;
-            winLimit.GetComponent<MeshRenderer>().material = winLimit.baseMat;
+
+            UpdateLimitMat(0);
         }
         if (timeAboveHeight >= timeToWin)
         {
@@ -66,5 +75,15 @@ public class FloxRaceSolo : GameModeSolo
            
             Destroy(this);
         }
+    }
+
+    private void UpdateLimitMat(int index)
+    {
+        //Recup Data
+        meshRenderer.GetPropertyBlock(propBlock);
+        //EditZone
+        propBlock.SetFloat("SelectedTint", index);
+        //Push Data
+        meshRenderer.GetComponent<MeshRenderer>().SetPropertyBlock(propBlock);
     }
 }

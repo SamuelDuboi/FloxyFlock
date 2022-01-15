@@ -60,6 +60,7 @@ MonoBehaviour:
   timeToWin: 3
   winLimit: {fileID: 5625922142415559253}
   p: {x: 0, y: 0, z: 0}
+  meshRenderer: {fileID: 0}
 --- !u!114 &5625922142415559253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,9 +77,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   triggered: 0
-  baseMat: {fileID: 2100000, guid: e520f318bf2a95f4fa666e8f495db2f2, type: 2}
-  winMat: {fileID: 2100000, guid: 29a0009dfa6d7bf43aa3762233843c6f, type: 2}
-  defeatMat: {fileID: 2100000, guid: ef6f7ad8e64307340b2f729ea717e5a8, type: 2}
 --- !u!114 &547975940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +113,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e520f318bf2a95f4fa666e8f495db2f2, type: 2}
+  - {fileID: 2100000, guid: a388b6799f8357e47b1231d1eba154a6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
