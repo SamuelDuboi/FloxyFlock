@@ -280,7 +280,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 15
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -24711,6 +24711,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3727896624638508633}
     m_Modifications:
+    - target: {fileID: 1213073053303269507, guid: abb2c30472d72af4d8ccc327adbf0e8e, type: 3}
+      propertyPath: MaxDistance
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1213073053303269507, guid: abb2c30472d72af4d8ccc327adbf0e8e, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
