@@ -4959,17 +4959,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1192844400}
   m_CullTransparentMesh: 1
---- !u!114 &1265385504 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1972585046942177088, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-  m_PrefabInstance: {fileID: 1267336388}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4794d705f1a90cf4bb7585fdee4166c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1267336388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4977,54 +4966,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 688586330, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
-    - target: {fileID: 953689678, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
     - target: {fileID: 184619146077363865, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
-    - target: {fileID: 1972585046336503022, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: MaxDistance
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1972585046477117323, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 140003731}
-    - target: {fileID: 1972585046942177088, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: upClamp
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1972585046942177088, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: downClamp
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1972585046942177088, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: zClampMax
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1972585046942177088, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: zClampMin
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1972585046942177088, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: tableRenderer
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1972585046942177088, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: tableTransform
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1972585046942177089, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: playerMovement
-      value: 
-      objectReference: {fileID: 1265385504}
     - target: {fileID: 1972585046942177090, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -5073,38 +5022,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Rig
       objectReference: {fileID: 0}
-    - target: {fileID: 1972585046942177100, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: baseInteractable
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1972585046942177100, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: interactionManager
-      value: 
-      objectReference: {fileID: 140003731}
     - target: {fileID: 1972585047833366920, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 140003731}
-    - target: {fileID: 3249969304668379019, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5851740290584689345, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
-    - target: {fileID: 7031273734939338648, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7224081282907466628, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: m_ConnectedAnchor.x
-      value: -0.0000000372529
-      objectReference: {fileID: 0}
-    - target: {fileID: 7224081282907466628, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
-      propertyPath: m_ConnectedAnchor.y
-      value: 1.8449936
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
 --- !u!1 &1302512188
@@ -6633,10 +6554,10 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 140
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 10
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

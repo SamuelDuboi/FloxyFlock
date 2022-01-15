@@ -310,7 +310,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 2
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -718,7 +718,7 @@ MonoBehaviour:
   ActiveSound:
     m_PersistentCalls:
       m_Calls: []
-  playerMovement: {fileID: 0}
+  playerMovement: {fileID: 1972585046942177088}
   seeTable: 0
   isMenuPressed: 0
   isMenuPressing: 0
@@ -792,7 +792,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 3
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1113,7 +1113,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 2
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1497,6 +1497,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrabManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1897938308515805258, guid: b384fbe0379810344b24bf520b847674, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2759863809716346480, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 0
@@ -1601,7 +1605,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3952706059049276103, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.444
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3952706059049276103, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
       propertyPath: m_LocalRotation.w
