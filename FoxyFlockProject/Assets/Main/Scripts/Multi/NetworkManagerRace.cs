@@ -126,22 +126,19 @@ public class NetworkManagerRace : NetworkRoomManager
         yield return new WaitForSeconds(1f);
          //playerController.CmdSpawnManager(player);
         yield return new WaitForSeconds(1f);
-        foreach (var roomPlayer in roomPlayers)
-        {
-            NetworkServer.Destroy(roomPlayer);
-        }
-        roomPlayers.Clear();
+        
         for (int i = 0; i < InitNumberOfPlayer; i++)
         {
             if (grabManagers == null || grabManagers.Length != 2)
                 grabManagers = new GrabManagerMulti[2];
             grabManagers[i] = players[i].GetComponentInChildren<GrabManagerMulti>();
             if(InitNumberOfPlayer>1)
-            playerController.CmdInitUI(i, players[i],true,avatarsSprite[i]);
+            playerController.CmdInitUI(i, players[i],false,avatarsSprite[i],roomPlayers[0], roomPlayers[1]);
             else
             {
-                playerController.CmdInitUI(i, players[i], false, avatarsSprite[i]);
+                playerController.CmdInitUI(i, players[i], false, avatarsSprite[i], roomPlayers[0], roomPlayers[1]);
             }
+         roomPlayers.Clear();
             grabManagers[i].InitPool(players[i], playerController,i+1);
             if (i == InitNumberOfPlayer-1)
                 InitNumberOfPlayer = 0;

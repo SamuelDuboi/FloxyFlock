@@ -1,11 +1,12 @@
 using Mirror;
 using UnityEngine;
 using System.Collections;
+
 public class playerSetup : NetworkBehaviour
 {
     [SerializeField]
     Behaviour[] componentToDisable = new Behaviour[3];
-
+    public bool isRoomPlayer;
     private IEnumerator Start()
     {
         yield return new WaitForEndOfFrame();
@@ -16,5 +17,6 @@ public class playerSetup : NetworkBehaviour
                 componentToDisable[i].enabled = false;
             }
         }
-    }
+ 
+  }
 }

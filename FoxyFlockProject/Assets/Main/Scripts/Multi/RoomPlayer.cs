@@ -37,6 +37,7 @@ public class RoomPlayer : MonoBehaviour
         thisAvatar = avatars[index];
         avatartImage.sprite = thisAvatar;
     }
+  
 
     public void Ready()
     {
