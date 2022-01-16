@@ -99,15 +99,15 @@ public class HandPresence : MonoBehaviour
     {
         if (!isMenu)
         {
-            if (!isLeft)
-                pointerGO.SetActive(true);
+           /* if (!isLeft)
+                pointerGO.SetActive(true);*/
             inputManager.OnLeftTrigger.AddListener(OnTriggerPressLeft);
             inputManager.OnRightTrigger.AddListener(OnTriggerPressRight);
             isMenu = true;
         }
         else
         {
-            pointerGO.SetActive(false);
+        //    pointerGO.SetActive(false);
             inputManager.OnLeftTrigger.RemoveListener(OnTriggerPressLeft);
             inputManager.OnRightTrigger.RemoveListener(OnTriggerPressRight);
             isMenu = false;

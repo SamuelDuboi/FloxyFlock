@@ -19,7 +19,7 @@ public class NetworkManagerRace : NetworkRoomManager
     private int number;
     private NetworkConnection[] conns = new NetworkConnection[2];
 
-    public void OnReset()
+    public void OnReset(bool isCLient = false)
     {
         clientIndex = 0;
         numberOfPlayer = 0;
@@ -27,7 +27,7 @@ public class NetworkManagerRace : NetworkRoomManager
         InitNumberOfPlayer = 0;
         roomPlayers.Clear();
         grabManagers = null;
-       ServerChangeScene(RoomScene);
+        ServerChangeScene(RoomScene);
     }
     public override void Awake()
     {
@@ -37,6 +37,16 @@ public class NetworkManagerRace : NetworkRoomManager
             instance = this;
         else
             Destroy(instance.gameObject);
+    }
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
+        if(clientIndex>0)
+        clientIndex--;
+        if(roomPlayers.Count>0)
+        roomPlayers.RemoveAt(roomPlayers.Count - 1);
+        if(InitNumberOfPlayer>0)
+        InitNumberOfPlayer--;
     }
     public override void OnServerChangeScene(string newSceneName)
     {
@@ -49,6 +59,12 @@ public class NetworkManagerRace : NetworkRoomManager
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
         // increment the index before adding the player, so first player starts at 1
+        if (clientIndex > 1)
+            clientIndex--;
+        if (roomPlayers.Count > 1)
+            roomPlayers.RemoveAt(roomPlayers.Count - 1);
+        if (InitNumberOfPlayer > 1)
+            InitNumberOfPlayer--;
         if (conns[clientIndex] == null)
             conns[clientIndex] = conn;
         clientIndex++;
@@ -91,7 +107,6 @@ public class NetworkManagerRace : NetworkRoomManager
         if (numberOfPlayer == 0)
         {
             playerController = player.GetComponent<PlayerMovementMulti>();
-            playerController.GetComponent<InputManager>().OnMenuPressed.AddListener(ReturnToMenu);
         }
         else
         {
@@ -106,31 +121,24 @@ public class NetworkManagerRace : NetworkRoomManager
       
         return player;
     }
-    private void ReturnToMenu()
-    {
-        ServerChangeScene(RoomScene);
-    }
-    IEnumerator WaitToSpawn(NetworkConnection conn, GameObject[] players)
+       IEnumerator WaitToSpawn(NetworkConnection conn, GameObject[] players)
     {
         yield return new WaitForSeconds(1f);
          //playerController.CmdSpawnManager(player);
         yield return new WaitForSeconds(1f);
-        foreach (var roomPlayer in roomPlayers)
-        {
-            NetworkServer.Destroy(roomPlayer);
-        }
-        roomPlayers.Clear();
+        
         for (int i = 0; i < InitNumberOfPlayer; i++)
         {
             if (grabManagers == null || grabManagers.Length != 2)
                 grabManagers = new GrabManagerMulti[2];
             grabManagers[i] = players[i].GetComponentInChildren<GrabManagerMulti>();
             if(InitNumberOfPlayer>1)
-            playerController.CmdInitUI(i, players[i],true,avatarsSprite[i]);
+            playerController.CmdInitUI(i, players[i],false,avatarsSprite[i],roomPlayers[0], roomPlayers[1]);
             else
             {
-                playerController.CmdInitUI(i, players[i], false, avatarsSprite[i]);
+                playerController.CmdInitUI(i, players[i], false, avatarsSprite[i], roomPlayers[0], roomPlayers[1]);
             }
+         roomPlayers.Clear();
             grabManagers[i].InitPool(players[i], playerController,i+1);
             if (i == InitNumberOfPlayer-1)
                 InitNumberOfPlayer = 0;
@@ -157,11 +165,7 @@ public class NetworkManagerRace : NetworkRoomManager
             grabManagers[1].multiUI.CmdIsATie();
         }
     }
-    public override void OnClientDisconnect(NetworkConnection conn)
-    {
-        base.OnClientDisconnect(conn);
-        OnReset();
-    }
+    
     public void Win(int playerId)
     {
         if (playerId == 0)
