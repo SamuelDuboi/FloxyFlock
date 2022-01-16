@@ -10,36 +10,42 @@ public class MoveAroundVignette : MonoBehaviour
     public float vignetteIntensity = 0.66f;
     public float vignetteFadeDuration = 0.5f;
     private Vignette vignette = null;
-    private InputManager inputManager;
+    [SerializeField] private InputManager inputManager;
+    private bool isVignetteActive = false;
 
     private void Start()
     {
         if (!ScenesManager.instance.IsLobbyScene() && !ScenesManager.instance.IsMenuScene())
         {
-            inputManager.OnBothTrigger.AddListener(TriggersState);
+            inputManager.OnBothTrigger.AddListener(OnBothTriggerState);
+            inputManager.OnLeftTriggerRelease.AddListener(VignetteFadeOut);
+            inputManager.OnRightTriggerRelease.AddListener(VignetteFadeOut);
         }
 
         if (postProcessVolume != null && postProcessVolume.profile.TryGet(out Vignette _vignette))
             vignette = _vignette;
     }
 
-    public void TriggersState(bool areBothTriggerPressed)
+    public void OnBothTriggerState(bool seeTable)
     {
-        if (areBothTriggerPressed)
-        {
-            
-        }
+       if (seeTable)
+            VignetteFadeIn();
     }
 
-    private void VignetteFadeIn(bool canFade)
+
+    private void VignetteFadeIn()
     {
-        if (canFade)
-            StartCoroutine(FadeValue(0f, vignetteIntensity));
+        isVignetteActive = true;
+        StartCoroutine(FadeValue(0f, vignetteIntensity));
     }
 
     private void VignetteFadeOut()
     {
-        StartCoroutine(FadeValue(vignetteIntensity, 0f));
+        if (isVignetteActive)
+        {
+            isVignetteActive = false;
+            StartCoroutine(FadeValue(vignetteIntensity, 0f));
+        }
     }
 
     private IEnumerator FadeValue(float startvalue, float endValue)

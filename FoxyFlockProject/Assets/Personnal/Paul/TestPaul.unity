@@ -2934,6 +2934,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840217000}
   m_CullTransparentMesh: 1
+--- !u!114 &1849833441 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8803766868527634916, guid: aaece3cd8460a32469196ee31d0a728c, type: 3}
+  m_PrefabInstance: {fileID: 1308369200}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1867358793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4147,13 +4158,30 @@ GameObject:
   - component: {fileID: 1972585047226611525}
   - component: {fileID: 5851740290333285067}
   - component: {fileID: 3001822156226777354}
+  - component: {fileID: 1972585047226611535}
   m_Layer: 0
-  m_Name: XR Rig
+  m_Name: 
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1972585047226611535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972585047226611534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a183b555772f1ad42963108e8085c27d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  postProcessVolume: {fileID: 1849833441}
+  vignetteIntensity: 0.66
+  vignetteFadeDuration: 0.5
+  inputManager: {fileID: 1972585047226611531}
 --- !u!4 &1972585047358871754
 Transform:
   m_ObjectHideFlags: 0
