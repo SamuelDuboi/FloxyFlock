@@ -24,6 +24,7 @@ public class OptionManager : MonoBehaviour
     private void Start()
     {
         inputManager = GetComponentInParent<InputManager>();
+        if(inputManager)
         inputManager.OnMenuPressed.AddListener(OnMenuPresse);
     }
     void OnMenuPresse()
