@@ -729,7 +729,6 @@ MonoBehaviour:
   grabManager: {fileID: 5914146490334888577}
   batches: []
   moveBubble: {fileID: 3332462103063463350}
-  ReturnToLobby: {fileID: 3035442178759654743}
 --- !u!114 &3059216092012026255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1079,7 +1078,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   grabManager: {fileID: 0}
---- !u!114 &8063630165346040607
+--- !u!114 &2915741205809194163
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1088,9 +1087,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3059216092012026247}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 048be8a9c7cb68e49b3776b6bf6f13cb, type: 3}
+  m_Script: {fileID: 11500000, guid: cd15ce09e0288704dbfb62044d814446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   UI: {fileID: 8787834551938030599}
   inputManager: {fileID: 2175791090075427051}
   UIToReset:
@@ -2038,12 +2039,36 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3227987838227191861, guid: 4bc3b15c1c80d6e4f880acf7a753717a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4839212263296182253, guid: 4bc3b15c1c80d6e4f880acf7a753717a, type: 3}
       propertyPath: headeSett
       value: 
       objectReference: {fileID: 3059216092818332027}
+    - target: {fileID: 7158235174802285158, guid: 4bc3b15c1c80d6e4f880acf7a753717a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2915741205809194163}
+    - target: {fileID: 7158235174802285158, guid: 4bc3b15c1c80d6e4f880acf7a753717a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CmdReturToLobbye
+      objectReference: {fileID: 0}
+    - target: {fileID: 7158235174802285158, guid: 4bc3b15c1c80d6e4f880acf7a753717a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseHandlerMulti, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9158276229108699083, guid: 4bc3b15c1c80d6e4f880acf7a753717a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2915741205809194163}
+    - target: {fileID: 9158276229108699083, guid: 4bc3b15c1c80d6e4f880acf7a753717a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Resume
+      objectReference: {fileID: 0}
+    - target: {fileID: 9158276229108699083, guid: 4bc3b15c1c80d6e4f880acf7a753717a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseHandlerMulti, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 9158276229811370336, guid: 4bc3b15c1c80d6e4f880acf7a753717a, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -2139,6 +2164,18 @@ PrefabInstance:
     - target: {fileID: 9158276229811370341, guid: 4bc3b15c1c80d6e4f880acf7a753717a, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9158276230090247447, guid: 4bc3b15c1c80d6e4f880acf7a753717a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2915741205809194163}
+    - target: {fileID: 9158276230090247447, guid: 4bc3b15c1c80d6e4f880acf7a753717a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 9158276230090247447, guid: 4bc3b15c1c80d6e4f880acf7a753717a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseHandlerMulti, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bc3b15c1c80d6e4f880acf7a753717a, type: 3}

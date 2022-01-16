@@ -11,7 +11,8 @@ public class MultiUIHandler : NetworkBehaviour
     {
         NetworkManagerRace.instance.grabManagers = new GrabManagerMulti[2];
         NetworkManagerRace.instance.grabManagers[0] = grabManagers[0].GetComponentInChildren<GrabManagerMulti>();
-        NetworkManagerRace.instance.grabManagers[1] = grabManagers[1].GetComponentInChildren<GrabManagerMulti>();
+        if(NetworkManagerRace.instance.grabManagers[1])
+            NetworkManagerRace.instance.grabManagers[1] = grabManagers[1].GetComponentInChildren<GrabManagerMulti>();
         RpcInitManagers(grabManagers);
     }
 
@@ -21,7 +22,8 @@ public class MultiUIHandler : NetworkBehaviour
     {
         NetworkManagerRace.instance.grabManagers = new GrabManagerMulti[2];
         NetworkManagerRace.instance.grabManagers[0] = grabManagers[0].GetComponentInChildren<GrabManagerMulti>();
-        NetworkManagerRace.instance.grabManagers[1] = grabManagers[1].GetComponentInChildren<GrabManagerMulti>();
+        if (NetworkManagerRace.instance.grabManagers[1])
+            NetworkManagerRace.instance.grabManagers[1] = grabManagers[1].GetComponentInChildren<GrabManagerMulti>();
     }
 
     [Command(requiresAuthority = false)]

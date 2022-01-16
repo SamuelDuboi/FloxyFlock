@@ -31,7 +31,6 @@ public class PlayerMovementMulti : NetworkBehaviour
     private GameObject tempFlock2;
     bool doOnce;
     public MoveBubble moveBubble;
-    public GameObject ReturnToLobby;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +43,6 @@ public class PlayerMovementMulti : NetworkBehaviour
         {
             tableTransform = GameObject.FindGameObjectWithTag("Table").transform;
             tableTransform.GetComponentInChildren<GameModeSolo>().number = 0;
-            ReturnToLobby.SetActive(true);
         }
         if (isLocalPlayer)
         {
@@ -520,15 +518,22 @@ public class PlayerMovementMulti : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    public void CmdInitUI(int index, GameObject player, bool activate, int indexOFSprite)
+    public void CmdInitUI(int index, GameObject player, bool activate, int indexOFSprite, GameObject roomPLayer1, GameObject roomPLayer2)
     {
+
         if(!activate)
-        RcpInitUI(index,player,activate,indexOFSprite);
+        RcpInitUI(index,player,activate,indexOFSprite,roomPLayer1,roomPLayer1);
+        Destroy(roomPLayer1);
+        Destroy(roomPLayer2);
     }
 
     [ClientRpc]
-    void RcpInitUI(int index, GameObject player,bool activate, int indexOFSprite)
+    void RcpInitUI(int index, GameObject player,bool activate, int indexOFSprite,GameObject roomPLayer1, GameObject roomPLayer2)
     {
+        if (roomPLayer1 != null)
+            Destroy(roomPLayer1);
+        if (roomPLayer2 != null)
+            Destroy(roomPLayer2);
         var assigntToUi = player.GetComponentInChildren<AssignToUI>();
         UIGlobalManager.instance.PlayerImage(index, indexOFSprite);
     }
