@@ -41,6 +41,7 @@ public class DissolveFlox : MonoBehaviour
         dissolveState = 1;
         isDissolving = true;
         flox.material = floxMaterialT;
+        propBlock = new MaterialPropertyBlock();
         flox.GetPropertyBlock(propBlock);
         if (isDestroy)
         {
@@ -71,12 +72,17 @@ public class DissolveFlox : MonoBehaviour
         {
             grabManager.ResetInInventory(obj, pos, isGrab);
             flox.material = floxMaterial;
+            propBlock = new MaterialPropertyBlock();
+            flox.GetPropertyBlock(propBlock);
+            flox.SetPropertyBlock(propBlock);
             dissolveState = 0;
             yield break ;
         }
         flox.material = floxMaterial;
-        
-            gameObject.SetActive(false);
+        propBlock = new MaterialPropertyBlock();
+        flox.GetPropertyBlock(propBlock);
+        flox.SetPropertyBlock(propBlock);
+        gameObject.SetActive(false);
             dissolveState = 0;
         
     }

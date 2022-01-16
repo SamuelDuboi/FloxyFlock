@@ -430,6 +430,8 @@ public class PlayerMovementMulti : NetworkBehaviour
         if (i == 0)
         {
             authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().inFireball = fireBall;
+            authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().grabManager = grabManager.GetComponent<GrabManager>();
+            authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().detectionHUD = vrHeadSett.GetComponentInChildren<DetectionHUD>();
             fireBall.GetComponent<Rigidbody>().useGravity = false;
             fireBall.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
@@ -440,6 +442,8 @@ public class PlayerMovementMulti : NetworkBehaviour
             fireBall.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
             fireBall.GetComponent<GrabablePhysicsHandler>().enabled = false;
             authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().outFireball = fireBall;
+            authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().grabManager = grabManager.GetComponent<GrabManager>();
+            authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().detectionHUD = vrHeadSett.GetComponentInChildren<DetectionHUD>();
             authority.GetComponent<PlayerMovementMulti>().tableTransform.GetComponentInChildren<FireballManager>().Initialize();
             authority.GetComponentInChildren<GrabManagerMulti>().fireBallInstantiated = fireBall;
 

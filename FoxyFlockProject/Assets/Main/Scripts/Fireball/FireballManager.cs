@@ -11,6 +11,7 @@ public class FireballManager : MonoBehaviour
     public Collider portalCollider;
     [SerializeField] private Transform portalTransform;
     [SerializeField] private SoundReader portalSoundReader;
+    public Transform limite;
     [SerializeField] private Transform explosionTransform;
     [SerializeField] private SoundReader explosionSFX;
     [SerializeField] private SoundReader managerSoundReader;
@@ -27,7 +28,7 @@ public class FireballManager : MonoBehaviour
     [Header("Balancing")]
     [SerializeField] private float portalOpeningDuration = 1f;
     [SerializeField] private float portalClosingDuration = 0.5f;
-    [SerializeField] private float portalSpawnHeight = 1f;
+    [SerializeField] private float portalSpawnHeight = 0.2f;
     [SerializeField] private float timeBeforeFireballSpawn = 3f;
     [SerializeField] private float fireballMinSpawnDistance = 0.5f;
     [SerializeField] private float fireballMaxSpawnDistance = 1.5f;
@@ -91,7 +92,7 @@ public class FireballManager : MonoBehaviour
         {
             isPortalOpenning = true;
 
-            portalTransform.position = new Vector3(tableCenter.position.x, grabManager.positionOfMilestoneIntersection.y + portalSpawnHeight, tableCenter.position.z);
+            portalTransform.position = new Vector3(tableCenter.position.x, limite.position.y + portalSpawnHeight, tableCenter.position.z);
             portalRenderer.SetActive(true);
             portalSoundReader.PlaySeconde();
 
@@ -159,7 +160,11 @@ public class FireballManager : MonoBehaviour
         inFireball.SetActive(true);
         portalSoundReader.Play();
         GetComponentInParent<PlayGround>().GetComponentInChildren<GameModeSolo>().playerMovement.grabManager.GetComponent<GrabManagerMulti>().multiUI.CmdUnSelectFireBall();
-        fireballTargetPosition = grabManager.positionOfMilestoneIntersection;
+        if (grabManager.positionOfMilestoneIntersection != Vector3.zero)
+            fireballTargetPosition = grabManager.positionOfMilestoneIntersection;
+        else
+            fireballTargetPosition = tableCenter.position;
+
         Vector3 fireballToTarget = fireballTargetPosition - inFireball.transform.position;
         inFireball.GetComponent<Rigidbody>().AddForce(fireballToTarget * fireballSpeed, ForceMode.Impulse);
         StartFireballLerp();

@@ -148,11 +148,11 @@ public class NetworkManagerRace : NetworkRoomManager
                     playerController.CmdInitUI(i, players[i], false, avatarsSprite[i], roomPlayers[0], null);
 
             }
-            roomPlayers.Clear();
             grabManagers[i].InitPool(players[i], playerController,i+1);
             if (i == InitNumberOfPlayer-1)
                 InitNumberOfPlayer = 0;
         }
+            roomPlayers.Clear();
     }
 
     public void ChangeMilestonValue(int index, int value)
