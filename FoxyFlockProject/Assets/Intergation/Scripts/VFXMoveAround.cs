@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+
 public class VFXMoveAround : MonoBehaviour
 {
     public VisualEffect visualEffect;
@@ -19,6 +20,7 @@ public class VFXMoveAround : MonoBehaviour
         {
             if (!visualEffect.enabled)
                 visualEffect.enabled = true;
+
             visualEffect.SetInt(Size, 4);
             currentsize = 4;
         }
@@ -59,7 +61,9 @@ public class VFXMoveAround : MonoBehaviour
                 inputManager.OnBothTrigger.AddListener(OnBothTriggerPressListener);
                 inputManager.OnRightTriggerRelease.AddListener(OnTriggerPressReleaseListener);
                 inputManager.OnLeftTriggerRelease.AddListener(OnTriggerPressReleaseListener);
-                child.transform.SetParent(rightHand.transform);
+
+                child.transform.SetParent(rightHand.transform.GetChild(0));
+                child.transform.localPosition = Vector3.zero;
             }
         }
     }
