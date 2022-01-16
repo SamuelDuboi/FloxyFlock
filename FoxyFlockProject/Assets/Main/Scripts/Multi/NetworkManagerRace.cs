@@ -136,9 +136,13 @@ public class NetworkManagerRace : NetworkRoomManager
             playerController.CmdInitUI(i, players[i],false,avatarsSprite[i],roomPlayers[0], roomPlayers[1]);
             else
             {
+                if(roomPlayers.Count>1)
                 playerController.CmdInitUI(i, players[i], false, avatarsSprite[i], roomPlayers[0], roomPlayers[1]);
+                else
+                    playerController.CmdInitUI(i, players[i], false, avatarsSprite[i], roomPlayers[0], null);
+
             }
-         roomPlayers.Clear();
+            roomPlayers.Clear();
             grabManagers[i].InitPool(players[i], playerController,i+1);
             if (i == InitNumberOfPlayer-1)
                 InitNumberOfPlayer = 0;
