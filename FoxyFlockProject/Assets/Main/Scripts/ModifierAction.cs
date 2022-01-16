@@ -62,7 +62,7 @@ public class ModifierAction : MonoBehaviour
     }
     public virtual void OnHitSomething(GameObject _object, Vector3 velocity, GameObject collision)
     {
-        if (!cantPlaySound)
+        if (!cantPlaySound && !isGrab)
         {
             if(collision.tag == "Table"    || collision.tag == "TableComponent" || collision.tag == "Table2" || collision.tag == "Piece")
             {

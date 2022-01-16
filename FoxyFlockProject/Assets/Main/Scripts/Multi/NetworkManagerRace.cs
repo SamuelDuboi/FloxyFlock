@@ -132,8 +132,14 @@ public class NetworkManagerRace : NetworkRoomManager
             if (grabManagers == null || grabManagers.Length != 2)
                 grabManagers = new GrabManagerMulti[2];
             grabManagers[i] = players[i].GetComponentInChildren<GrabManagerMulti>();
-            if(InitNumberOfPlayer>1)
-            playerController.CmdInitUI(i, players[i],false,avatarsSprite[i],roomPlayers[0], roomPlayers[1]);
+            if (InitNumberOfPlayer > 1)
+            {
+                if (roomPlayers.Count > 1)
+                    playerController.CmdInitUI(i, players[i], false, avatarsSprite[i], roomPlayers[0], roomPlayers[1]);
+                else
+                    playerController.CmdInitUI(i, players[i], false, avatarsSprite[i], roomPlayers[0],null);
+            }
+           
             else
             {
                 if(roomPlayers.Count>1)

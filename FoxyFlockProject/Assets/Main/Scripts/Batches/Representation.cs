@@ -61,13 +61,23 @@ public class Representation : MonoBehaviour
             manager.isOnCollision = true;
         if (isFireBall)
         {
+            if (!collision.gameObject.GetComponentInParent<XRDirectInteractor>())
+                Debug.Log(collision.gameObject);
             ((GrabManagerMulti)manager).GetPieceFireball(collision.gameObject.GetComponentInParent<XRDirectInteractor>());
             return;
         }
         if (!isModifier)
+        {
+            if (!collision.gameObject.GetComponentInParent<XRDirectInteractor>())
+                Debug.Log(collision.gameObject);
             manager.GetPiece(collision.gameObject.GetComponentInParent<XRDirectInteractor>(), index);
+        }
         else
+        {
+            if (!collision.gameObject.GetComponentInParent<XRDirectInteractor>())
+                Debug.Log(collision.gameObject);
             manager.GetPieceModifier(collision.gameObject.GetComponentInParent<XRDirectInteractor>(), index, isMalus, indexInList);
+        }
     }
     private void OnTriggerExit(Collider other)
     {

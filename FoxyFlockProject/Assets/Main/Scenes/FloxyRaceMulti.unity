@@ -2003,6 +2003,10 @@ PrefabInstance:
       propertyPath: otherPlayerIndex
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3727896624638508634, guid: ecc77d2d2314a05419bc2069bca098d9, type: 3}
+      propertyPath: explosionLayer.m_Bits
+      value: 16448
+      objectReference: {fileID: 0}
     - target: {fileID: 3727896624638508635, guid: ecc77d2d2314a05419bc2069bca098d9, type: 3}
       propertyPath: m_Name
       value: FireballManager
@@ -2018,6 +2022,10 @@ PrefabInstance:
     - target: {fileID: 8228122798586205812, guid: ecc77d2d2314a05419bc2069bca098d9, type: 3}
       propertyPath: clipName
       value: FireBallIncoming
+      objectReference: {fileID: 0}
+    - target: {fileID: 8228122798586205812, guid: ecc77d2d2314a05419bc2069bca098d9, type: 3}
+      propertyPath: secondClipName
+      value: PortalOpen
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecc77d2d2314a05419bc2069bca098d9, type: 3}
@@ -5651,6 +5659,10 @@ PrefabInstance:
     - target: {fileID: 6588341428796695970, guid: 7f7a159b70767384baf9fe0ff721a08e, type: 3}
       propertyPath: sceneId
       value: 2239350905
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588341428796695974, guid: 7f7a159b70767384baf9fe0ff721a08e, type: 3}
+      propertyPath: m_Radius
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 6588341428796695980, guid: 7f7a159b70767384baf9fe0ff721a08e, type: 3}
       propertyPath: m_RootOrder

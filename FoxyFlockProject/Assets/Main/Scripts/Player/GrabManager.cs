@@ -392,14 +392,14 @@ public class GrabManager : MonoBehaviour
     {
         if (isMalus)
         {
-            if (malusNumber.Count == 0)
+            if (malusNumber == null || malusNumber.Count == 0)
                 return;
             if (malusNumber.Contains(bubble))
                 malusNumber.Remove(bubble);
         }
         else
         {
-            if (bonusNumber.Count == 0)
+            if (bonusNumber == null ||  bonusNumber.Count == 0)
                 return;
             if (bonusNumber.Contains(bubble))
                 bonusNumber.Remove(bubble);
@@ -490,6 +490,7 @@ public class GrabManager : MonoBehaviour
     public bool isOnCollision;
     public void GetPiece(XRBaseInteractor baseInteractor, int index)
     {
+            
         if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.RightHand && !isGrabRight)
             return;
         if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.LeftHand && !isGrabLeft)

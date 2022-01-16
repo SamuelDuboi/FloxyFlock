@@ -133,9 +133,7 @@ public class FireballManager : MonoBehaviour
         outFireball.SetActive(false);
         outFireball.transform.position = Vector3.zero; //To avoid triggering the fireball again when regrabbing
 
-        //NetworkManagerRace.instance.playerController.CmdSpawnInFireBall(NetworkManagerRace.instance.players[otherPlayerIndex]);
-
-        StartCoroutine(FireballIncoming());
+        NetworkManagerRace.instance.playerController.CmdSpawnInFireBall(NetworkManagerRace.instance.players[otherPlayerIndex]);
 
         StartCoroutine(TryClosePortal());
     }
@@ -231,13 +229,14 @@ public class FireballManager : MonoBehaviour
         //Destroy every floxes in the list
         foreach (GameObject flox in floxesHit)
         {
-            GrabbableObject floxInteractable = flox.GetComponent<GrabbableObject>();
-
-            if (floxInteractable.isSelected)
+            if (flox.GetComponent<GrabbableObject>())
             {
-                InteractionManager.instance.SelectExit(floxInteractable.currentInteractor, floxInteractable);
+                GrabbableObject floxInteractable = flox.GetComponent<GrabbableObject>();
+                if (floxInteractable.isSelected)
+                {
+                    InteractionManager.instance.SelectExit(floxInteractable.currentInteractor, floxInteractable);
+                }
             }
-
             flox.GetComponent<FloxBurn>().BurnEvent();
         }
 
