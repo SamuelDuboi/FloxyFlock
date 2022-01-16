@@ -6,10 +6,18 @@ using UnityEngine.UI;
 public class FadeHUD : MonoBehaviour
 {
     [SerializeField] private Image image; //Set in hierarchy
-    [SerializeField] private float fadeDuration;
+    [SerializeField] private float fadeDuration = 1f;
+    [SerializeField] private float timeBeforeFade = 1.5f;
 
     private bool canLerp = false;
     private float startTime;
+
+    private void Start()
+    {
+        image.color = Color.black;
+
+        Invoke("StartFade", timeBeforeFade);
+    }
 
     private void Update()
     {
