@@ -7,8 +7,8 @@ using UnityEngine.Rendering.Universal;
 public class MoveAroundVignette : MonoBehaviour
 {
     public Volume postProcessVolume = null;
-    public float vignetteIntensity = 0.66f;
-    public float vignetteFadeDuration = 0.5f;
+    public float vignetteIntensity = 0.7f;
+    public float vignetteFadeDuration = 0.25f;
     private Vignette vignette = null;
     [SerializeField] private InputManager inputManager;
     private bool isVignetteActive = false;
