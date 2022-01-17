@@ -31,7 +31,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
     public bool isOnStasisOnce;
     public float timerToExit;
     private ModifierAction[] actions = new ModifierAction[1];
-    MaterialPropertyBlock propBlock;
+    public MaterialPropertyBlock propBlock;
     public InputManager inputManager;
     public Modifier initialModifier;
     private void Awake()
@@ -215,6 +215,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
     
     private void OnHover()
     {
+        propBlock.Clear();
         //Recup Data
         meshRenderer.GetPropertyBlock(propBlock);
         //EditZone
@@ -225,6 +226,8 @@ public class GrabablePhysicsHandler : MonoBehaviour
     }
     private void OnHoverExit()
     {
+        propBlock.Clear();
+
         //Recup Data
         meshRenderer.GetPropertyBlock(propBlock);
         //EditZone
@@ -236,6 +239,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
 
     private void OnSelect()
     {
+        propBlock.Clear();
         //Recup Data
         meshRenderer.GetPropertyBlock(propBlock);
         //EditZone
@@ -254,6 +258,8 @@ public class GrabablePhysicsHandler : MonoBehaviour
         }
 
         meshRenderer.material = initialMat;
+        propBlock.Clear();
+
         //Recup Data
         meshRenderer.GetPropertyBlock(propBlock);
         //EditZone

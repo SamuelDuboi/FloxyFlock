@@ -45,6 +45,7 @@ public class ModifierAction : MonoBehaviour
         isGrab = true;
         sound.clipName = grabSound;
         sound.Play();
+        cantPlaySound = false;
     }
     public virtual void OnReleased(GameObject _object)
     {
@@ -66,18 +67,13 @@ public class ModifierAction : MonoBehaviour
         {
             if(collision.tag == "Table"    || collision.tag == "TableComponent" || collision.tag == "Table2" || collision.tag == "Piece")
             {
+                cantPlaySound = true;
                 sound.ThirdClipName = collisionSound;
                 sound.PlayThird();
-                StartCoroutine(WaiToPlaySoundTable());
             }
         }
     }
-    IEnumerator WaiToPlaySoundTable()
-    {
-        cantPlaySound = true;
-        yield return new WaitForSeconds(0.5f);
-        cantPlaySound = false;
-    }
+
     public virtual void OnHitGround(GameObject _object, Vector3 initPos, bool isGrab)
     {
         sound.ForthClipName = "Dissolve";

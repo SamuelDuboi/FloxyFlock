@@ -25,6 +25,12 @@ public class Representation : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
         meshFilter = GetComponentInChildren<MeshFilter>();
         propBlock = new MaterialPropertyBlock();
+        if (isFireBall)
+        {
+            meshRenderer.GetPropertyBlock(propBlock);
+            propBlock.SetInt("SelectedColorTint", 3);
+            meshRenderer.SetPropertyBlock(propBlock);
+        }
     }
 
     private void Update()
@@ -110,8 +116,16 @@ public class Representation : MonoBehaviour
         meshMat.material = _mat;
         if (propBlock == null)
             propBlock = new MaterialPropertyBlock();
-        meshRenderer.GetPropertyBlock(propBlock);
-        propBlock.SetInt("SelectedColorTint", 3);
+            meshRenderer.GetPropertyBlock(propBlock);
+        if (isFireBall)
+        {
+            propBlock.SetInt("SelectedColorTint", 3);
+        }
+        else
+        {
+            propBlock.SetInt("SelectedColorTint", 0);
+
+        }
         meshRenderer.SetPropertyBlock(propBlock);
     }
     public void ApplyVisual(int _index, GrabManager grabManager,int _indexInList, bool _isMalus)

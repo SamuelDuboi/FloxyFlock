@@ -49,7 +49,7 @@ public class RoomPlayer : MonoBehaviour
             readyButton.color = Color.white;
         networkRoom.CmdChangeReadyState(isReady);
         networkRoom.CmdSetIndex(networkRoom.index, index);
-        GetComponentInParent<InputManager>().gameObject.SetActive(false);
+      //  GetComponentInParent<InputManager>().gameObject.SetActive(false);
     }
 
     public void Menu()

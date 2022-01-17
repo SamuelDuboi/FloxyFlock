@@ -15,23 +15,22 @@ public class DissolveFlox : MonoBehaviour
     private float tempTime;
 
     public GrabablePhysicsHandler grabable;
-    public MaterialPropertyBlock propBlock;
     public MaterialPropertyBlock initBlock;
 
     void Start()
     {
-        propBlock = new MaterialPropertyBlock();
-        flox.GetPropertyBlock(propBlock);
-        initBlock = propBlock;
+        grabable.propBlock = new MaterialPropertyBlock();
+        flox.GetPropertyBlock(grabable.propBlock);
+        initBlock = grabable.propBlock;
         // grabable.OnHitGround.AddListener(StartDissolve);
-        flox.SetPropertyBlock(propBlock);
+        flox.SetPropertyBlock(grabable.propBlock);
     }
     void Update()
     {
         if (isDissolving)
         {
-            propBlock.SetFloat("dissolveNoiseAmplitude", 1);
-            flox.SetPropertyBlock(propBlock);
+            grabable.propBlock.SetFloat("dissolveNoiseAmplitude", 1);
+            flox.SetPropertyBlock(grabable.propBlock);
         }
 
     }
@@ -40,13 +39,14 @@ public class DissolveFlox : MonoBehaviour
         tempTime = 0;
         dissolveState = 1;
         isDissolving = true;
+        grabable.propBlock.Clear();
         flox.material = floxMaterialT;
-        propBlock = new MaterialPropertyBlock();
-        flox.GetPropertyBlock(propBlock);
+        grabable.propBlock = new MaterialPropertyBlock();
+        flox.GetPropertyBlock(grabable.propBlock);
         if (isDestroy)
         {
-            propBlock.SetFloat("IsFrozen", 1);
-            flox.SetPropertyBlock(propBlock);
+            grabable.propBlock.SetFloat("IsFrozen", 1);
+            flox.SetPropertyBlock(grabable.propBlock);
         }
 
         while (dissolveState > 0)
@@ -55,9 +55,9 @@ public class DissolveFlox : MonoBehaviour
             dissolveState = 1 - (tempTime / dissolveTime);
             if (flox == null)
                 break;
-            flox.GetPropertyBlock(propBlock);
-            propBlock.SetFloat("dissolveNoiseAmplitude", dissolveState);
-            flox.SetPropertyBlock(propBlock);
+            flox.GetPropertyBlock(grabable.propBlock);
+            grabable.propBlock.SetFloat("dissolveNoiseAmplitude", dissolveState);
+            flox.SetPropertyBlock(grabable.propBlock);
            
             yield return new WaitForSeconds(0.01f);
         }
@@ -72,18 +72,19 @@ public class DissolveFlox : MonoBehaviour
         {
             grabManager.ResetInInventory(obj, pos, isGrab);
             flox.material = floxMaterial;
-            propBlock = new MaterialPropertyBlock();
-            flox.GetPropertyBlock(propBlock);
-            flox.SetPropertyBlock(propBlock);
+            grabable.propBlock.Clear();
+            grabable.propBlock = new MaterialPropertyBlock();
+            flox.GetPropertyBlock(grabable.propBlock);
+            flox.SetPropertyBlock(grabable.propBlock);
             dissolveState = 0;
             yield break ;
         }
+        grabable.propBlock.Clear();
         flox.material = floxMaterial;
-        propBlock = new MaterialPropertyBlock();
-        flox.GetPropertyBlock(propBlock);
-        flox.SetPropertyBlock(propBlock);
+        flox.GetPropertyBlock(grabable.propBlock);
+        flox.SetPropertyBlock(grabable.propBlock);
         gameObject.SetActive(false);
-            dissolveState = 0;
+        dissolveState = 0;
         
     }
 
