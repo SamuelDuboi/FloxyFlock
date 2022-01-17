@@ -261,7 +261,7 @@ public class GrabManager : MonoBehaviour
         sound.ThirdClipName = "FloxMachineGood";
         sound.PlayThird();
     }
-    private void Freez(int previousPool)
+    protected void Freez(int previousPool)
     {
         FreezOfList(mainPool[previousPool].floxes, previousPool);
         FreezOfList(mainPool[previousPool].bonus, previousPool);
