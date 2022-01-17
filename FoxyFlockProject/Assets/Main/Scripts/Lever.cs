@@ -33,9 +33,14 @@ public class Lever : MonoBehaviour
 
     private float GetValue()
     {
-        if (transform.localEulerAngles.x > joint.limits.max)
+        float tempAngle=0;
+        if (transform.localEulerAngles.x > 190)
+            tempAngle = 360 - transform.eulerAngles.x;
+        else
+            tempAngle = transform.eulerAngles.x;
+        if (tempAngle > joint.limits.max)
             return 0.5f;
-        var value = transform.localEulerAngles.x / Mathf.Abs(joint.limits.max);
+        var value = tempAngle / Mathf.Abs(joint.limits.max);
 
         if (Mathf.Abs(value) < deadzone)
             value = 0;

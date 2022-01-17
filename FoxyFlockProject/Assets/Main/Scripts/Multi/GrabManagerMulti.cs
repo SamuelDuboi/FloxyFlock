@@ -17,6 +17,7 @@ public class GrabManagerMulti : GrabManager
     public bool nextIsFireBallBatche;
     [HideInInspector] public int playerNumber;
     public MultiUIHandler multiUI;
+    public Transform lever;
     // Start is called before the first frame update
     public override IEnumerator Start()
     {
@@ -96,6 +97,13 @@ public class GrabManagerMulti : GrabManager
         }
         player.InitFireBall(authority, fireBallPrefab, fireBallPrefabOut);
         numberOfPool = 1;
+        if (v == 1)
+        {
+            transform.localPosition = new Vector3(-transform.localPosition.x, transform.localPosition.y,transform.localPosition.z);
+            transform.localRotation = Quaternion.Euler(0, -90, 0);
+            lever.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            lever.localPosition = new Vector3(-0.424f, -0.051f, 0.04f);
+        }
 /*        for (int i = 0; i < positiveModifiers.Count; i++)
         {
             Type type = positiveModifiers[i].actions.GetType();

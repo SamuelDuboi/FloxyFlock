@@ -833,6 +833,7 @@ MonoBehaviour:
   nextIsFireBallBatche: 0
   playerNumber: 0
   multiUI: {fileID: 0}
+  lever: {fileID: 1839268920764673071}
 --- !u!114 &5136891162510553805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2306,6 +2307,10 @@ PrefabInstance:
     - target: {fileID: 1941986840936408990, guid: 9d2d50e6bc754094c83f0c38f4d80968, type: 3}
       propertyPath: m_CastShadows
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941986841211585313, guid: 9d2d50e6bc754094c83f0c38f4d80968, type: 3}
+      propertyPath: m_Limits.min
+      value: -65.06009
       objectReference: {fileID: 0}
     - target: {fileID: 1941986841211585313, guid: 9d2d50e6bc754094c83f0c38f4d80968, type: 3}
       propertyPath: m_ConnectedAnchor.y
