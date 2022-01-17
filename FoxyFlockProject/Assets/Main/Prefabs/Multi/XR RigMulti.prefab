@@ -721,6 +721,7 @@ MonoBehaviour:
   vrHeadSett: {fileID: 3059216092818332027}
   tableRenderer: {fileID: 0}
   tableTransform: {fileID: 0}
+  testMic: {fileID: 0}
   zClampMin: {fileID: 0}
   zClampMax: {fileID: 0}
   upClamp: {fileID: 0}
@@ -1783,7 +1784,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.02
       inSlope: 0
       outSlope: 0
       tangentMode: 0
