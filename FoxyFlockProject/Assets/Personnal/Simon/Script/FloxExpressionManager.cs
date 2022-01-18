@@ -14,7 +14,9 @@ public class FloxExpressionManager : MonoBehaviour
     public bool baseFace;
     public bool sleepFace;
     public bool panicFace;
-    public List<AudioClip> floxReactions;
+    public List<AudioClip> floxBase;
+    public List<AudioClip> sleepBase;
+    public List<AudioClip> fearBase;
 
 
     void Start()
