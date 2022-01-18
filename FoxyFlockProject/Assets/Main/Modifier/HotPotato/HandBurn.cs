@@ -113,7 +113,7 @@ public class HandBurn : MonoBehaviour
             {
                 if (!playOnceCool)
                 {
-                    playOnceCool = false;
+                    playOnceCool = true;
                     soundReader.ThirdClipName = "HotCool";
                     soundReader.source.loop = true;
                     soundReader.PlayThird();
@@ -124,7 +124,7 @@ public class HandBurn : MonoBehaviour
                 {
                     if (heatState == HeatState.burned)
                         interactor.allowSelect = true;
-
+                    soundReader.source.Stop();
                     heatState = HeatState.cool;
                 }
             }  
