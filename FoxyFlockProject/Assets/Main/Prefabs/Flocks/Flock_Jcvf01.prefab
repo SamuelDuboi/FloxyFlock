@@ -833,8 +833,27 @@ MonoBehaviour:
   rb: {fileID: 8772928365314318003}
   GrabbableFlox: {fileID: 8270085541661880438}
   floxanimator: {fileID: 641606428382363688}
+  floxReader: {fileID: 0}
   isFrozen: 0
   baseFace: 0
   sleepFace: 0
   panicFace: 0
-  floxReactions: []
+  floxBase:
+  - SFX_JCVF_Base 01
+  - SFX_JCVF_Base 02
+  - SFX_JCVF_Base 03
+  - SFX_JCVF_Base 04
+  - SFX_JCVF_Base 05
+  sleepBase:
+  - SFX_JCVF_Sleep 01
+  - SFX_JCVF_Sleep 02
+  - SFX_JCVF_Sleep 03
+  - SFX_JCVF_Sleep 04
+  - SFX_JCVF_Sleep 05
+  fearBase:
+  - SFX_JCVF_Fear 01
+  - SFX_JCVF_Fear 02
+  - SFX_JCVF_Fear 03
+  - SFX_JCVF_Fear 04
+  - SFX_JCVF_Fear 05
+  _tempInt: 0

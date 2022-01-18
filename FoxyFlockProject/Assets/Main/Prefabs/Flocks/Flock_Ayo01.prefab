@@ -576,11 +576,30 @@ MonoBehaviour:
   rb: {fileID: 3769740337178434335}
   GrabbableFlox: {fileID: 7608741055610583529}
   floxanimator: {fileID: 7907176707206923985}
+  floxReader: {fileID: 1153344942567290252}
   isFrozen: 0
   baseFace: 0
   sleepFace: 0
   panicFace: 0
-  floxReactions: []
+  floxBase:
+  - SFX_Ayo_Base 01
+  - SFX_Ayo_Base 02
+  - SFX_Ayo_Base 03
+  - SFX_Ayo_Base 04
+  - SFX_Ayo_Base 05
+  sleepBase:
+  - SFX_Ayo_Sleep 01
+  - SFX_Ayo_Sleep 02
+  - SFX_Ayo_Sleep 03
+  - SFX_Ayo_Sleep 04
+  - SFX_Ayo_Sleep 05
+  fearBase:
+  - SFX_Ayo_Fear 01
+  - SFX_Ayo_Fear 02
+  - SFX_Ayo_Fear 03
+  - SFX_Ayo_Fear 04
+  - SFX_Ayo_Fear 05
+  _tempInt: 0
 --- !u!1 &4323605721872298282
 GameObject:
   m_ObjectHideFlags: 0

@@ -666,11 +666,30 @@ MonoBehaviour:
   rb: {fileID: 3286799318257116221}
   GrabbableFlox: {fileID: 2454482396839849466}
   floxanimator: {fileID: 907465211597312272}
+  floxReader: {fileID: 0}
   isFrozen: 0
   baseFace: 0
   sleepFace: 0
   panicFace: 0
-  floxReactions: []
+  floxBase:
+  - SFX_Beanie_Base 01
+  - SFX_Beanie_Base 02
+  - SFX_Beanie_Base 03
+  - SFX_Beanie_Base 04
+  - SFX_Beanie_Base 05
+  sleepBase:
+  - SFX_Beanie_Sleep 01
+  - SFX_Beanie_Sleep 02
+  - SFX_Beanie_Sleep 03
+  - SFX_Beanie_Sleep 04
+  - SFX_Beanie_Sleep 05
+  fearBase:
+  - SFX_Beanie_Fear 01
+  - SFX_Beanie_Fear 02
+  - SFX_Beanie_Fear 03
+  - SFX_Beanie_Fear 04
+  - SFX_Beanie_Fear 05
+  _tempInt: 0
 --- !u!1 &5919269660546504398
 GameObject:
   m_ObjectHideFlags: 0
