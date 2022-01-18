@@ -129,6 +129,7 @@ public class HandBurn : MonoBehaviour
                     if (heatState == HeatState.burned)
                     {
                         interactor.allowHover = true;
+                        soundReader.source.Stop();
                     }
 
                     heatState = HeatState.cool;
