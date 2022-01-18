@@ -890,11 +890,30 @@ MonoBehaviour:
   rb: {fileID: 8453840498622398709}
   GrabbableFlox: {fileID: 4273169358947583073}
   floxanimator: {fileID: 4938457617406079435}
+  floxReader: {fileID: 0}
   isFrozen: 0
   baseFace: 0
   sleepFace: 0
   panicFace: 0
-  floxReactions: []
+  floxBase:
+  - SFX_Garry_Base 01
+  - SFX_Garry_Base 02
+  - SFX_Garry_Base 03
+  - SFX_Garry_Base 04
+  - SFX_Garry_Base 05
+  sleepBase:
+  - SFX_Garry_Sleep 01
+  - SFX_Garry_Sleep 02
+  - SFX_Garry_Sleep 03
+  - SFX_Garry_Sleep 04
+  - SFX_Garry_Sleep 05
+  fearBase:
+  - SFX_Garry_Fear 01
+  - SFX_Garry_Fear 02
+  - SFX_Garry_Fear 03
+  - SFX_Garry_Fear 04
+  - SFX_Garry_Fear 05
+  _tempInt: 0
 --- !u!1 &8252363230305660045
 GameObject:
   m_ObjectHideFlags: 0

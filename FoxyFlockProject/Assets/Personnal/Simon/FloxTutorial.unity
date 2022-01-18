@@ -872,7 +872,7 @@ PrefabInstance:
     - target: {fileID: 512951843046324273, guid: d4e78c349c2ac9f4fa479c262584774c, type: 3}
       propertyPath: grabManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1222786017}
     - target: {fileID: 512951843046324273, guid: d4e78c349c2ac9f4fa479c262584774c, type: 3}
       propertyPath: startBubble
       value: 
@@ -1899,6 +1899,31 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 512951843046324267, guid: 113ba0c55595639459c49b2260b75b12, type: 3}
   m_PrefabInstance: {fileID: 1365620368}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &154721847 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 5504134613387574004, guid: 113ba0c55595639459c49b2260b75b12, type: 3}
+  m_PrefabInstance: {fileID: 1365620368}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &154721848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154721846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157913a59960cab4d99cd4a789cd7961, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spherCollider: {fileID: 154721847}
+  m_transform: {fileID: 402651161}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  radius: 0
+  grabManager: {fileID: 1222786017}
+  tutoMana: {fileID: 402651160}
 --- !u!4 &154721851 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 512951843046324268, guid: 113ba0c55595639459c49b2260b75b12, type: 3}
@@ -2255,6 +2280,31 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 512951843046324267, guid: d4e78c349c2ac9f4fa479c262584774c, type: 3}
   m_PrefabInstance: {fileID: 81654095}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &198453421 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 3422838345643164012, guid: d4e78c349c2ac9f4fa479c262584774c, type: 3}
+  m_PrefabInstance: {fileID: 81654095}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &198453422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198453420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157913a59960cab4d99cd4a789cd7961, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spherCollider: {fileID: 198453421}
+  m_transform: {fileID: 198453425}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  radius: 0
+  grabManager: {fileID: 1222786017}
+  tutoMana: {fileID: 402651160}
 --- !u!4 &198453425 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 512951843046324268, guid: d4e78c349c2ac9f4fa479c262584774c, type: 3}
@@ -3643,7 +3693,12 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
+  batchToFinish: 0
   batcheIdMax: 0
+  orbs: {fileID: 0}
+  batchManage: {fileID: 0}
+  bubbleToFinish: 0
+  canGoNextBatch: 0
 --- !u!4 &402651161
 Transform:
   m_ObjectHideFlags: 0
@@ -7216,7 +7271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &966186227
 Transform:
   m_ObjectHideFlags: 0
@@ -8626,6 +8681,31 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 512951843046324268, guid: 113ba0c55595639459c49b2260b75b12, type: 3}
   m_PrefabInstance: {fileID: 2115586544}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &1164103784 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 5504134613387574004, guid: 113ba0c55595639459c49b2260b75b12, type: 3}
+  m_PrefabInstance: {fileID: 2115586544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1164103785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164103782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157913a59960cab4d99cd4a789cd7961, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spherCollider: {fileID: 1164103784}
+  m_transform: {fileID: 1164103783}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  radius: 0
+  grabManager: {fileID: 1222786017}
+  tutoMana: {fileID: 402651160}
 --- !u!1001 &1177353631
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9235,7 +9315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 863004727521189138, guid: ca332e322304c0144a5871af477b0bd9, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.6999999
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 863004727521189138, guid: ca332e322304c0144a5871af477b0bd9, type: 3}
       propertyPath: m_LocalScale.y
@@ -9243,7 +9323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 863004727521189138, guid: ca332e322304c0144a5871af477b0bd9, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.6999999
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 863004727521189138, guid: ca332e322304c0144a5871af477b0bd9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10686,6 +10766,31 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 512951843046324267, guid: d4e78c349c2ac9f4fa479c262584774c, type: 3}
   m_PrefabInstance: {fileID: 2005907725}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &1328887644 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 3422838345643164012, guid: d4e78c349c2ac9f4fa479c262584774c, type: 3}
+  m_PrefabInstance: {fileID: 2005907725}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1328887645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328887643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157913a59960cab4d99cd4a789cd7961, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spherCollider: {fileID: 1328887644}
+  m_transform: {fileID: 1328887648}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  radius: 0
+  grabManager: {fileID: 1222786017}
+  tutoMana: {fileID: 402651160}
 --- !u!4 &1328887648 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 512951843046324268, guid: d4e78c349c2ac9f4fa479c262584774c, type: 3}
@@ -11057,7 +11162,7 @@ PrefabInstance:
     - target: {fileID: 512951843046324273, guid: 113ba0c55595639459c49b2260b75b12, type: 3}
       propertyPath: grabManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1222786017}
     - target: {fileID: 512951843046324273, guid: 113ba0c55595639459c49b2260b75b12, type: 3}
       propertyPath: startBubble
       value: 
@@ -15412,7 +15517,7 @@ PrefabInstance:
     - target: {fileID: 512951843046324273, guid: d4e78c349c2ac9f4fa479c262584774c, type: 3}
       propertyPath: grabManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1222786017}
     - target: {fileID: 512951843046324273, guid: d4e78c349c2ac9f4fa479c262584774c, type: 3}
       propertyPath: startBubble
       value: 
@@ -16557,7 +16662,7 @@ PrefabInstance:
     - target: {fileID: 512951843046324273, guid: 113ba0c55595639459c49b2260b75b12, type: 3}
       propertyPath: grabManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1222786017}
     - target: {fileID: 512951843046324273, guid: 113ba0c55595639459c49b2260b75b12, type: 3}
       propertyPath: startBubble
       value: 
@@ -16970,6 +17075,7 @@ MonoBehaviour:
   player1fireBallOn: {fileID: 0}
   player1Position: {fileID: 0}
   player1table: {fileID: 0}
+  player1FireBallIncoming: {fileID: 0}
   player2Images: {fileID: 268462326}
   player2Validation: {fileID: 1271022596}
   player2Clock: {fileID: 2027784064}
@@ -16979,6 +17085,7 @@ MonoBehaviour:
   player2fireBallOn: {fileID: 0}
   player2Position: {fileID: 0}
   player2table: {fileID: 0}
+  player2FireBallIncoming: {fileID: 0}
   sprites:
   - {fileID: 21300000, guid: 7077e445741c0594790710643ae1316d, type: 3}
   - {fileID: 21300000, guid: b39fc0698b0e0a240a381a02a6d0e4c6, type: 3}

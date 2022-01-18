@@ -11,9 +11,10 @@ public class TutorialBatchManager : GrabManager
 
     private void Update()
     {
-        if(batches.Count == tutoManager.batcheIdMax && tutoManager.batchToFinish)
+        if(batches.Count == tutoManager.batcheIdMax && tutoManager.batchToFinish && tutoManager.canGoNextBatch)
         {
             tutoManager.tutorialStage++;
+            tutoManager.canGoNextBatch = false;
         }
     }
     public override void UpdateBatche()

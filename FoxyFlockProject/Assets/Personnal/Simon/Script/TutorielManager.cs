@@ -17,6 +17,10 @@ public class TutorielManager : MonoBehaviour
     public int batcheIdMax;
     public GameObject orbs;
     public TutorialBatchManager batchManage;
+    public GameObject ennemiTable;
+
+    [HideInInspector] public bool bubbleToFinish;
+    [HideInInspector] public bool canGoNextBatch;
 
     private void Start()
     {
@@ -77,49 +81,54 @@ public class TutorielManager : MonoBehaviour
             case 7:
                 currentAdvice1 = "Each time you move to another batch new bubbles appears around your tower. Green bubbles gives bonus flox and the red ones gives malus flox. \n\n Try to freeze flox in the bubbles to earn special flox for your next batch.";
                 sentance.text = currentAdvice1;
+                orbs.SetActive(true);
                 batcheIdMax = 2;
                 batchToFinish = true;
+                if (bubbleToFinish)
+                    canGoNextBatch = true;
+
                 break;
             #endregion
             #region 8Adversity
             case 8:
                 currentAdvice1 = "You can play against your friends in a race to the limit. Look left to see the ennemi tower. \n You can consult this Board Info at any time to get informations about the current state of the game.";
                 sentance.text = currentAdvice1;
+                ennemiTable.SetActive(true); // regarder tour autre joueur
                 break;
             #endregion
             #region 9MoveAroundUp
             case 9:
                 currentAdvice1 = "Now let's even the play. Here is your new Tower. \n\n Use the Move Around Mode to climb up and build on the top.";
-                sentance.text = currentAdvice1;
+                sentance.text = currentAdvice1; //atteindre certaine jhauteur
                 break;
             #endregion
             #region 10FireBallBubble
             case 10:
                 currentAdvice1 = "Sometimes a purpple bubble appears. \n Get it and you'll get access to a new power, the Fireball !";
-                sentance.text = currentAdvice1;
+                sentance.text = currentAdvice1; //get une certaine bubble
                 break;
             #endregion
             #region 11FireBallLaunch
             case 11:
                 currentAdvice1 = "Grab the Fireball in the Dispenser. \n Throw it into the portal that appears and watch the ennemi tower to enjoy the results.";
-                sentance.text = currentAdvice1;
+                sentance.text = currentAdvice1; //lancer la FireBall dans le portail et attendre les effets
                 break;
             #endregion
             #region 12FireBallDefense
             case 12:
                 currentAdvice1 = "But you're ennemy can also access to a Fireball and use it against you. \n When the alerte for an incoming Fireball appears, get ready to parry it with your own hands !";
-                sentance.text = currentAdvice1;
+                sentance.text = currentAdvice1; // passer à la suite une fois la Fireball reçu peu importe le resulatat git gud lol
                 break;
             #endregion
             #region 13FinishTheTuto
             case 13 :
-                currentAdvice1 = "You know now everything you need to know to play Foxy Flox.";
+                currentAdvice1 = "You know now everything you need to know to play Foxy Flox."; //attendre un peu
                 sentance.text = currentAdvice1;
                 break;
             #endregion
             #region 14End
             case 14:
-                currentAdvice1 = "This is the end of this Tutorial. \n Good luck and Have fun playing Foxy Flox !";
+                currentAdvice1 = "This is the end of this Tutorial. \n Good luck and Have fun playing Foxy Flox !"; // ouvrir le menu pause et forcer
                 sentance.text = currentAdvice1;
                 break;
                 #endregion
