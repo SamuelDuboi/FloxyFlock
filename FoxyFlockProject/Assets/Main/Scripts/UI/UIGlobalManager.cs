@@ -37,7 +37,7 @@ public class UIGlobalManager : MonoBehaviour
     [HideInInspector] public RawImage player2table;
     public GameObject player2FireBallIncoming;
 
-
+    private bool cantPlayTime;
     private float timer;
     public Sprite[] sprites;
     private void Awake()
@@ -61,9 +61,11 @@ public class UIGlobalManager : MonoBehaviour
     }
     private void Update()
     {
-
-        timer += Time.deltaTime;
-        stopWatch.text = ConvertToHourMinSec(timer);
+        if (!cantPlayTime)
+        {
+            timer += Time.deltaTime;
+            stopWatch.text = ConvertToHourMinSec(timer);
+        }
     }
 
     private string ConvertToHourMinSec(float timer)
@@ -107,6 +109,7 @@ public class UIGlobalManager : MonoBehaviour
     /// <param name="indexOfWinner"></param>
     public void Win(int indexOfWinner)
     {
+        cantPlayTime = true;
         if (indexOfWinner == 1)
         {
             winPlayer2.SetActive(true);

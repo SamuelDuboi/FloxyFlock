@@ -122,7 +122,6 @@ public class GrabManagerMulti : GrabManager
                 Destroy(_object);
             }
         }*/
-        inputManager.OnSpawn.AddListener(UpdateBatche);
 
         multiUI.CmdInitManagers(NetworkManagerRace.instance.players);
     }

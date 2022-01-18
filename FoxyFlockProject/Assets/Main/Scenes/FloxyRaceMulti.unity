@@ -2203,6 +2203,10 @@ PrefabInstance:
       propertyPath: particuleBubble
       value: 
       objectReference: {fileID: 3929481734691323050}
+    - target: {fileID: 4225439315084102143, guid: 9f2d327942e8b9c4aa8a55094de8a1d1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f2d327942e8b9c4aa8a55094de8a1d1, type: 3}
 --- !u!4 &327073742 stripped
@@ -2310,6 +2314,10 @@ PrefabInstance:
       propertyPath: particuleBubble
       value: 
       objectReference: {fileID: 967534573}
+    - target: {fileID: 4225439315084102143, guid: 9f2d327942e8b9c4aa8a55094de8a1d1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f2d327942e8b9c4aa8a55094de8a1d1, type: 3}
 --- !u!4 &339907302 stripped
@@ -4733,6 +4741,14 @@ PrefabInstance:
     - target: {fileID: 7660934569922615317, guid: c2302b7969f605a4d85173ee8d6e5e95, type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7660934569922615317, guid: c2302b7969f605a4d85173ee8d6e5e95, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7660934569922615317, guid: c2302b7969f605a4d85173ee8d6e5e95, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 7660934569922615317, guid: c2302b7969f605a4d85173ee8d6e5e95, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9365,7 +9381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7660934569922615317, guid: c2302b7969f605a4d85173ee8d6e5e95, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 7660934569922615317, guid: c2302b7969f605a4d85173ee8d6e5e95, type: 3}
       propertyPath: m_LocalScale.y
@@ -9373,7 +9389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7660934569922615317, guid: c2302b7969f605a4d85173ee8d6e5e95, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 7660934569922615317, guid: c2302b7969f605a4d85173ee8d6e5e95, type: 3}
       propertyPath: m_LocalPosition.x
