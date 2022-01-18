@@ -70,7 +70,7 @@ public class MultiUIHandler : NetworkBehaviour
     public void CmdSelectFireBall()
     {
         UIGlobalManager.instance.CanSelectFireBall(grabManager.playerNumber-1);
-        RpcUnSelectFireBall();
+        //RpcUnSelectFireBall();
     }
     [ClientRpc]
     public void RpcSelectFireBall()
@@ -94,6 +94,36 @@ public class MultiUIHandler : NetworkBehaviour
             UIGlobalManager.instance.UnSelectFireBall(1);
         else
             UIGlobalManager.instance.UnSelectFireBall(0);
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdFireBallIncoming()
+    {
+        UIGlobalManager.instance.FireBallIncoming(grabManager.playerNumber - 1);
+        RpcFireBallIncoming();
+    }
+    [ClientRpc]
+    public void RpcFireBallIncoming()
+    {
+        if (grabManager.playerNumber - 1 == 0)
+            UIGlobalManager.instance.FireBallIncoming(1);
+        else
+            UIGlobalManager.instance.FireBallIncoming(0);
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdFireBallNotIncoming()
+    {
+        UIGlobalManager.instance.FireBallNotIncoming(grabManager.playerNumber - 1);
+        RpcFireBallNotIncoming();
+    }
+    [ClientRpc]
+    public void RpcFireBallNotIncoming()
+    {
+        if (grabManager.playerNumber - 1 == 0)
+            UIGlobalManager.instance.FireBallNotIncoming(1);
+        else
+            UIGlobalManager.instance.FireBallNotIncoming(0);
     }
 
     [Command(requiresAuthority = false)]

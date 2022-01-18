@@ -21,7 +21,8 @@ public class UIGlobalManager : MonoBehaviour
     public GameObject winPlayer1;
     public GameObject player1fireBallOn;
     public TextMeshProUGUI player1Position;
-    public RawImage player1table;
+  [HideInInspector]  public RawImage player1table;
+    public GameObject player1FireBallIncoming;
 
     [Header("Player 2")]
 
@@ -33,8 +34,8 @@ public class UIGlobalManager : MonoBehaviour
     public GameObject winPlayer2;
     public GameObject player2fireBallOn;
     public TextMeshProUGUI player2Position;
-    public RawImage player2table;
-
+    [HideInInspector] public RawImage player2table;
+    public GameObject player2FireBallIncoming;
 
 
     private float timer;
@@ -196,7 +197,9 @@ public class UIGlobalManager : MonoBehaviour
             player1fireBallOn.SetActive(true);
         }
         else
+        {
             player2fireBallOn.SetActive(true);
+        }
     }
     public void UnSelectFireBall(int index)
     {
@@ -205,7 +208,31 @@ public class UIGlobalManager : MonoBehaviour
             player1fireBallOn.SetActive(false);
         }
         else
+        {
             player2fireBallOn.SetActive(false);
+        }
     }
 
+    public void FireBallIncoming(int index)
+    {
+        if (index == 0)
+        {
+            player2FireBallIncoming.SetActive(true);
+        }
+        else
+        {
+            player1FireBallIncoming.SetActive(true);
+        }
+    }
+    public void FireBallNotIncoming(int index)
+    {
+        if (index == 0)
+        {
+            player1FireBallIncoming.SetActive(false);
+        }
+        else
+        {
+            player2FireBallIncoming.SetActive(false);
+        }
+    }
 }

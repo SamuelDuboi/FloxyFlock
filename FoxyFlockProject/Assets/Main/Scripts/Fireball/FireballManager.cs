@@ -45,6 +45,7 @@ public class FireballManager : MonoBehaviour
 
     [SerializeField] private int otherPlayerIndex;
 
+    private MultiUIHandler multiUI;
     private bool canLerp = false;
     private bool canDetectTarget = false;
     private Vector3 fireballSpawnPosition = Vector3.zero;
@@ -91,7 +92,7 @@ public class FireballManager : MonoBehaviour
         if (!isPortalOpen && !isPortalOpenning)
         {
             isPortalOpenning = true;
-
+           
             portalTransform.position = new Vector3(tableCenter.position.x, limite.position.y + portalSpawnHeight, tableCenter.position.z);
             portalRenderer.SetActive(true);
             portalSoundReader.PlaySeconde();
@@ -133,8 +134,11 @@ public class FireballManager : MonoBehaviour
     {
         outFireball.SetActive(false);
         outFireball.transform.position = Vector3.zero; //To avoid triggering the fireball again when regrabbing
+        if (multiUI == null)
+            multiUI = GetComponentInParent<PlayGround>().GetComponentInChildren<GameModeSolo>().playerMovement.grabManager.GetComponent<GrabManagerMulti>().multiUI;
 
-        NetworkManagerRace.instance.playerController.CmdSpawnInFireBall(NetworkManagerRace.instance.players[otherPlayerIndex]);
+        multiUI.CmdFireBallIncoming();
+        multiUI.GetComponentInParent<PlayerMovementMulti>().CmdSpawnInFireBall(NetworkManagerRace.instance.players[otherPlayerIndex]);
 
         StartCoroutine(TryClosePortal());
     }
@@ -159,7 +163,9 @@ public class FireballManager : MonoBehaviour
         inFireball.transform.position = fireballSpawnPosition;
         inFireball.SetActive(true);
         portalSoundReader.Play();
-        GetComponentInParent<PlayGround>().GetComponentInChildren<GameModeSolo>().playerMovement.grabManager.GetComponent<GrabManagerMulti>().multiUI.CmdUnSelectFireBall();
+        if (multiUI == null)
+            multiUI = GetComponentInParent<PlayGround>().GetComponentInChildren<GameModeSolo>().playerMovement.grabManager.GetComponent<GrabManagerMulti>().multiUI;
+       multiUI.CmdUnSelectFireBall();
         if (grabManager.positionOfMilestoneIntersection != Vector3.zero)
             fireballTargetPosition = grabManager.positionOfMilestoneIntersection;
         else
@@ -210,7 +216,10 @@ public class FireballManager : MonoBehaviour
     {
         Collider[] explosionHits = Physics.OverlapSphere(inFireball.transform.position, explosionRadius, explosionLayer);
         List<GameObject> floxesHit = new List<GameObject>();
+        if (multiUI == null)
+            multiUI = GetComponentInParent<PlayGround>().GetComponentInChildren<GameModeSolo>().playerMovement.grabManager.GetComponent<GrabManagerMulti>().multiUI;
 
+        multiUI.CmdFireBallNotIncoming();
         explosionTransform.position = inFireball.transform.position;
         explosionVFX.Play();
         explosionSFX.Play();
