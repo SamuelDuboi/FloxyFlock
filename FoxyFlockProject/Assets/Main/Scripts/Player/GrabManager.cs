@@ -35,7 +35,7 @@ public class GrabManager : MonoBehaviour
     protected int numberOfMilestones;
     public int weightOfBasicInRandom = 1;
     protected MaterialPropertyBlock propBlock;
-
+    protected int number = 1;
     // public Buble[] bubles;
 #if UNITY_EDITOR
     public bool modifierFoldout;
@@ -491,9 +491,9 @@ public class GrabManager : MonoBehaviour
     public void GetPiece(XRBaseInteractor baseInteractor, int index)
     {
             
-        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.RightHand && !isGrabRight)
+        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.RightHand && !isGrabRight && baseInteractor.allowHover )
             return;
-        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.LeftHand && !isGrabLeft)
+        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.LeftHand && !isGrabLeft && baseInteractor.allowHover )
             return;
         representations[index].gameObject.SetActive(false);
 
@@ -535,9 +535,9 @@ public class GrabManager : MonoBehaviour
 
     public void GetPieceModifier(XRBaseInteractor baseInteractor, int index, bool isMalus, int indexInList)
     {
-        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.RightHand && !isGrabRight)
+        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.RightHand && !isGrabRight && baseInteractor.allowHover && baseInteractor.allowSelect)
             return;
-        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.LeftHand && !isGrabLeft)
+        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.LeftHand && !isGrabLeft && baseInteractor.allowHover && baseInteractor.allowSelect)
             return;
         representationsModifiers[index].gameObject.SetActive(false);
         if (isMalus)
@@ -598,47 +598,49 @@ public class GrabManager : MonoBehaviour
     }
     private bool IsInCurrentPool(GrabbableObject coll)
     {
-        for (int i = 0; i < mainPool[currentPool].floxes.Count; i++)
+        for (int x = 0; x < mainPool[currentPool].floxes.Count; x++)
         {
-            if (mainPool[currentPool].floxes[i] == coll.gameObject && !coll.isGrab)
+            if (mainPool[currentPool].floxes[x] == coll.gameObject && !coll.isGrab)
             {
-                mainPool[currentPool].isSelected[i] = false;
+                mainPool[currentPool].isSelected[x] = false;
                 mainPool[currentPool].isEmpty = false;
-                representations[i].gameObject.SetActive(true);
+                representations[x].gameObject.SetActive(true);
                 coll.GetComponent<Rigidbody>().useGravity = false;
                 coll.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                coll.GetComponent<Rigidbody>().angularVelocity= Vector3.zero;
                 coll.transform.rotation = Quaternion.identity;
-                coll.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
+                coll.transform.position = new Vector3(-300 + (x + 6) * 20 * +currentPool * 5, 300 + (x + 6) * 20 + currentPool * 5, 300 + (x + 6) * 20 + currentPool * 5);
                 return true;
             }
         }
         if(mainPool[currentPool].bonusSelected != null)
-        for (int i = 0; i < mainPool[currentPool].bonusSelected.Count; i++)
+        for (int x = 0; x < mainPool[currentPool].bonusSelected.Count; x++)
         {
-            if (mainPool[currentPool].bonusSelected[i] == coll.gameObject && !coll.isGrab)
+            if (mainPool[currentPool].bonusSelected[x] == coll.gameObject && !coll.isGrab)
             {
-                mainPool[currentPool].isSelectedModifier[mainPool[currentPool].bonusIndex[i]] = false;
+                mainPool[currentPool].isSelectedModifier[mainPool[currentPool].bonusIndex[x]] = false;
                 mainPool[currentPool].isEmptyModifier = false;
-                representationsModifiers[mainPool[currentPool].bonusIndex[i]].gameObject.SetActive(true);
+                representationsModifiers[mainPool[currentPool].bonusIndex[x]].gameObject.SetActive(true);
                 coll.GetComponent<Rigidbody>().useGravity = false;
                 coll.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 coll.transform.rotation = Quaternion.identity;
-                coll.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
+                coll.GetComponent<Rigidbody>().angularVelocity= Vector3.zero;
+                coll.transform.position = new Vector3(-300 + (x + 6) * 20 * +currentPool * 5, 300 + (x + 6) * 20 + currentPool * 5, 300 + (x + 6) * 20 + currentPool * 5);
                 return true;
             }
         }
         if (mainPool[currentPool].malusSeletcted != null)
-            for (int i = 0; i < mainPool[currentPool].malusSeletcted.Count; i++)
+            for (int x = 0; x < mainPool[currentPool].malusSeletcted.Count; x++)
         {
-            if (mainPool[currentPool].malusSeletcted[i] == coll.gameObject && !coll.isGrab)
+            if (mainPool[currentPool].malusSeletcted[x] == coll.gameObject && !coll.isGrab)
             {
-                mainPool[currentPool].isSelectedModifier[mainPool[currentPool].malusIndex[i]] = false;
+                mainPool[currentPool].isSelectedModifier[mainPool[currentPool].malusIndex[x]] = false;
                 mainPool[currentPool].isEmptyModifier = false;
-                representationsModifiers[mainPool[currentPool].malusIndex[i]].gameObject.SetActive(true);
+                representationsModifiers[mainPool[currentPool].malusIndex[x]].gameObject.SetActive(true);
                 coll.GetComponent<Rigidbody>().useGravity = false;
                 coll.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 coll.transform.rotation = Quaternion.identity;
-                coll.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
+                coll.transform.position = new Vector3(-300 + (x + 8) * 20 * +currentPool * 5, 300 + (x + 8) * 20 + currentPool * 5, 300 + (x + 8) * 20 + currentPool * 5);
                 return true;
             }
         }
@@ -696,8 +698,10 @@ public class GrabManager : MonoBehaviour
                             mainPool[i].isEmpty = true;
                             _object.GetComponent<Rigidbody>().useGravity = false;
                             _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                            _object.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+
                             _object.transform.rotation = Quaternion.identity;
-                            _object.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
+                            _object.transform.position = new Vector3(300 + (x * 5 + 1) * 20 * (i * 5 + 1), 300 + x * 20, 300 + x);
                         }
 
                         //find a way to add recreat a bacth with only one piece and nee to add this piece with others
@@ -722,6 +726,7 @@ public class GrabManager : MonoBehaviour
                             mainPool[i].isSelected[x] = false;
                             batches[i].isEmpty = false;
                             mainPool[i].isEmpty = true;
+                            _object.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
                             _object.GetComponent<Rigidbody>().useGravity = false;
                             _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
                             _object.transform.rotation = Quaternion.identity;
@@ -740,6 +745,7 @@ public class GrabManager : MonoBehaviour
                             {
                                 mainPool[i].isSelectedModifier[mainPool[i].bonusIndex[i]] = false;
                                 mainPool[i].isEmptyModifier = false;
+                            _object.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
                                 _object.GetComponent<Rigidbody>().useGravity = false;
                                 _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
                                 _object.transform.rotation = Quaternion.identity;
@@ -757,6 +763,7 @@ public class GrabManager : MonoBehaviour
                             {
                                 mainPool[i].isSelectedModifier[mainPool[i].malusIndex[i]] = false;
                                 mainPool[i].isEmptyModifier = false;
+                            _object.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
                                 _object.GetComponent<Rigidbody>().useGravity = false;
                                 _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
                                 _object.transform.rotation = Quaternion.identity;
