@@ -685,7 +685,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 3
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -833,7 +833,7 @@ MonoBehaviour:
   rb: {fileID: 8772928365314318003}
   GrabbableFlox: {fileID: 8270085541661880438}
   floxanimator: {fileID: 641606428382363688}
-  floxReader: {fileID: 0}
+  floxReader: {fileID: 242778693032338398}
   isFrozen: 0
   baseFace: 0
   sleepFace: 0
