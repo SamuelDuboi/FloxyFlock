@@ -231,11 +231,11 @@ public class UIGlobalManager : MonoBehaviour
     {
         if (index == 0)
         {
-            player1FireBallIncoming.SetActive(false);
+            player2FireBallIncoming.SetActive(false);
         }
         else
         {
-            player2FireBallIncoming.SetActive(false);
+            player1FireBallIncoming.SetActive(false);
         }
     }
 }

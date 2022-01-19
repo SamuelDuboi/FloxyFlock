@@ -2048,6 +2048,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3727896624638508634, guid: ecc77d2d2314a05419bc2069bca098d9, type: 3}
+      propertyPath: portalSpawnHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3727896624638508634, guid: ecc77d2d2314a05419bc2069bca098d9, type: 3}
       propertyPath: explosionLayer.m_Bits
       value: 16448
       objectReference: {fileID: 0}
@@ -4269,7 +4273,7 @@ GameObject:
   - component: {fileID: 798099347}
   m_Layer: 14
   m_Name: CenterBase
-  m_TagString: Untagged
+  m_TagString: TagDestroyed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10442,7 +10446,7 @@ GameObject:
   - component: {fileID: 1520363358376355928}
   m_Layer: 14
   m_Name: CenterBase
-  m_TagString: Untagged
+  m_TagString: TagDestroyed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

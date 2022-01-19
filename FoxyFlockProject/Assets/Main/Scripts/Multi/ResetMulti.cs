@@ -47,6 +47,7 @@ public class ResetMulti : NetworkBehaviour
         freezedFlocks.Clear();
         freezdFlockPoolIndex.Clear();
         freezdFlockIndex.Clear();
+
     }
     [Command]
     public void CmdDestroyFlock(GameObject flock, int indexOfPool)
@@ -90,5 +91,6 @@ public class ResetMulti : NetworkBehaviour
         yield return new WaitForSeconds(dissolveFlox.dissolveTime);
         soundReader.ThirdClipName = "EndReset";
         soundReader.PlayThird();
+        grabManager.UpdateIntersectionPos();
     }
 }

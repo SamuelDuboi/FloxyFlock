@@ -78,8 +78,6 @@ public class GrabManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         Vector3 headSettPos = inputManager.GetComponent<XRRig>().cameraFloorOffsetObject.transform.localPosition;
         transform.localPosition += headSettPos;
-        reset.AddFreezFlock(mainPool[0].floxes[0], 0, 0);
-        reset.ResetEvent();
     }
     public virtual void InitPool()
     {
@@ -277,6 +275,10 @@ public class GrabManager : MonoBehaviour
             reset.AddFreezFlock(flocksToFreez[i],indexOfPool,i);
         }
         playGround.soundReader.Play("Freez");
+    }
+    public void UpdateIntersectionPos()
+    {
+        currentMilestone = playGround.CheckMilestones(out positionOfMilestoneIntersection, out numberOfMilestones, out nextMilestonePos);
     }
     protected virtual void UpdateMilestone()
     {
@@ -836,6 +838,7 @@ public class GrabManager : MonoBehaviour
             mainPool[indexOfPool].malus[indexOfFlock] = _flock;
             mainPool[indexOfPool].isEmptyModifier = false;
         }
+
     }
 
 

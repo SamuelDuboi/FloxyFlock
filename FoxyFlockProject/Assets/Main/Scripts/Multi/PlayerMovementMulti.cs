@@ -598,7 +598,6 @@ public class PlayerMovementMulti : NetworkBehaviour
     {
        // moveBubble.MoveBubbles(_playgroundRayon, tposition, pPos, bonus, malus, fireball, direction);
         RcpMoveBubble( _playgroundRayon, tposition,pPos, bonus, malus, fireball, direction);
-        print(gameObject);
     }
 
 

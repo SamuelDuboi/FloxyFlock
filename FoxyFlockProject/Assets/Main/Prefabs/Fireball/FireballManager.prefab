@@ -51,6 +51,7 @@ MonoBehaviour:
   portalCollider: {fileID: 8564632299931074551}
   portalTransform: {fileID: 8564632299931074554}
   portalSoundReader: {fileID: 8228122798586205812}
+  limite: {fileID: 0}
   explosionTransform: {fileID: 2204208453182698985}
   explosionSFX: {fileID: 4585581830670016338}
   managerSoundReader: {fileID: 4058919738120999657}
@@ -65,7 +66,7 @@ MonoBehaviour:
   grabManager: {fileID: 0}
   portalOpeningDuration: 1
   portalClosingDuration: 0.5
-  portalSpawnHeight: 1.5
+  portalSpawnHeight: 0.5
   timeBeforeFireballSpawn: 3
   fireballMinSpawnDistance: 0.5
   fireballMaxSpawnDistance: 1.5

@@ -8,7 +8,7 @@ public class InFireball : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 11 || other.tag == "Piece")
+        if (other.gameObject.layer == 11 || other.tag == "Piece" || other.tag == "TagDestroyed")
         {
             print("Fireball collided with : " + other.gameObject.name);
             fireballManager.Explosion();
