@@ -21,7 +21,7 @@ public class MilestoneManager : MonoBehaviour
     {
         numberOfMilestones = milestones.Count;
 
-            for (int i = 0; i < milestones.Count; i++)
+            for (int i = 1; i < milestones.Count; i++)
             {
                 if (milestones[i].CheckCollision(out point))
                 {
