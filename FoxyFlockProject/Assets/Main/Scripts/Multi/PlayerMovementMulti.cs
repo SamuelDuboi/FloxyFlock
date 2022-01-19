@@ -553,7 +553,7 @@ public class PlayerMovementMulti : NetworkBehaviour
         NetworkServer.Destroy(bubble);
     }
 
-    [Command]
+    [Command(requiresAuthority =false)]
     public void CmdSpawnInFireBall(GameObject target)
     {
         NetworkIdentity opponentIdentity = target.GetComponent<NetworkIdentity>();
