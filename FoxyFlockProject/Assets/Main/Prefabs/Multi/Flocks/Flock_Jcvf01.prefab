@@ -367,6 +367,8 @@ GameObject:
   - component: {fileID: -2289989997524008654}
   - component: {fileID: -7436676605910627837}
   - component: {fileID: 797799922423293675}
+  - component: {fileID: 1308904596852808638}
+  - component: {fileID: 4659046697029823428}
   m_Layer: 6
   m_Name: Flock_Jcvf01
   m_TagString: Piece
@@ -882,3 +884,63 @@ MonoBehaviour:
   dissolveTime: 0.5
   isDissolving: 0
   grabable: {fileID: 3771844744046925093}
+--- !u!95 &1308904596852808638
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7455921705368196685}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a606763c62b6fe5408937bb4cc0e071c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4659046697029823428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7455921705368196685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6279a1836e8854fa72bbc0d12e8768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMat: {fileID: 2100000, guid: 5cdf2bc5a33f3d04694374c32a02f631, type: 2}
+  flox: {fileID: 8968985975199315864}
+  rb: {fileID: 8772928365314318003}
+  GrabbableFlox: {fileID: 8270085541661880438}
+  floxanimator: {fileID: 1308904596852808638}
+  floxReader: {fileID: 242778693032338398}
+  isFrozen: 0
+  baseFace: 0
+  sleepFace: 0
+  panicFace: 0
+  floxBase:
+  - SFX_JCVF_Base 01
+  - SFX_JCVF_Base 02
+  - SFX_JCVF_Base 03
+  - SFX_JCVF_Base 04
+  - SFX_JCVF_Base 05
+  sleepBase:
+  - SFX_JCVF_Sleep 01
+  - SFX_JCVF_Sleep 02
+  - SFX_JCVF_Sleep 03
+  - SFX_JCVF_Sleep 04
+  - SFX_JCVF_Sleep 05
+  fearBase:
+  - SFX_JCVF_Fear 01
+  - SFX_JCVF_Fear 02
+  - SFX_JCVF_Fear 03
+  - SFX_JCVF_Fear 04
+  - SFX_JCVF_Fear 05
+  _tempInt: 0

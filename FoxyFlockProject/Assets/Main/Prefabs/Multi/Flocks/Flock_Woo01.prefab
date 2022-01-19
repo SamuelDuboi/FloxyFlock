@@ -325,6 +325,8 @@ GameObject:
   - component: {fileID: -1215791277210997927}
   - component: {fileID: -3097298920462803334}
   - component: {fileID: 4005380154798680185}
+  - component: {fileID: 911067215951889686}
+  - component: {fileID: 3438715356973824614}
   m_Layer: 6
   m_Name: Flock_Woo01
   m_TagString: Piece
@@ -842,6 +844,66 @@ MonoBehaviour:
   dissolveTime: 0.5
   isDissolving: 0
   grabable: {fileID: 5405273097183659040}
+--- !u!95 &911067215951889686
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6861033994696840683}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 84b4becda050d81418c1cf716efcd11c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3438715356973824614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6861033994696840683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6279a1836e8854fa72bbc0d12e8768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMat: {fileID: 2100000, guid: 1cd20da9089c8044d90b516d2301613d, type: 2}
+  flox: {fileID: 4915598046754468926}
+  rb: {fileID: 4751359757918559509}
+  GrabbableFlox: {fileID: 8205663842681309537}
+  floxanimator: {fileID: 911067215951889686}
+  floxReader: {fileID: -4454221789294313736}
+  isFrozen: 0
+  baseFace: 0
+  sleepFace: 0
+  panicFace: 0
+  floxBase:
+  - SFX_Woo_Base 01
+  - SFX_Woo_Base 02
+  - SFX_Woo_Base 03
+  - SFX_Woo_Base 04
+  - SFX_Woo_Base 05
+  sleepBase:
+  - SFX_Woo_Sleep 01
+  - SFX_Woo_Sleep 02
+  - SFX_Woo_Sleep 03
+  - SFX_Woo_Sleep 04
+  - SFX_Woo_Sleep 05
+  fearBase:
+  - SFX_Woo_Fear 01
+  - SFX_Woo_Fear 02
+  - SFX_Woo_Fear 03
+  - SFX_Woo_Fear 04
+  - SFX_Woo_Fear 05
+  _tempInt: 0
 --- !u!1 &7854602573912081745
 GameObject:
   m_ObjectHideFlags: 0
