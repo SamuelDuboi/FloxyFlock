@@ -19,11 +19,14 @@ public class FloxExpressionManager : MonoBehaviour
     public List<string> sleepBase;
     public List<string> fearBase;
 
+    public float moveThreshold;
+
     [HideInInspector] public int _tempInt;
 
     void Start()
     {
         baseFace = true;
+        moveThreshold = 0.1f;
     }
 
     void Update()
@@ -48,7 +51,7 @@ public class FloxExpressionManager : MonoBehaviour
 
         }
 
-        else if ((isFrozen == false && (GrabbableFlox != null && GrabbableFlox.isGrab == true)) || (isFrozen == false && (rb!= null && rb.velocity != Vector3.zero)) && panicFace == false)
+        else if (panicFace == false && isFrozen == false && ((GrabbableFlox != null && GrabbableFlox.isGrab == true) ||  (rb!= null && rb.velocity.magnitude >= moveThreshold)) )
         {
 
             _tempInt = Random.Range(0, 5);
@@ -62,7 +65,7 @@ public class FloxExpressionManager : MonoBehaviour
             panicFace = true;
             floxanimator.SetBool("Panic", true);
         }
-        else if (isFrozen == false && (rb != null && rb.velocity == Vector3.zero) && baseFace == false)
+        else if (isFrozen == false && (rb != null && rb.velocity.magnitude <= moveThreshold) && baseFace == false)
         {
             _tempInt = Random.Range(0, 5);
             floxReader.clipName = floxBase[_tempInt];
