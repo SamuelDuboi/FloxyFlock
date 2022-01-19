@@ -367,6 +367,8 @@ GameObject:
   - component: {fileID: -9172004400804475041}
   - component: {fileID: 4319459061004301199}
   - component: {fileID: 5262372581974558827}
+  - component: {fileID: 4897288197822280845}
+  - component: {fileID: 6385701456102539839}
   m_Layer: 6
   m_Name: Flock_Hehe01
   m_TagString: Piece
@@ -882,3 +884,63 @@ MonoBehaviour:
   dissolveTime: 0.5
   isDissolving: 0
   grabable: {fileID: 4497491642748258773}
+--- !u!95 &4897288197822280845
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8274945382952786794}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 24ec163bd1ecebf4b8068e3b8b862419, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6385701456102539839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8274945382952786794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6279a1836e8854fa72bbc0d12e8768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMat: {fileID: 2100000, guid: eef01bd43ab0c884a87999c582f3f907, type: 2}
+  flox: {fileID: 7626422156612041407}
+  rb: {fileID: 7787269577375896468}
+  GrabbableFlox: {fileID: 8357688151850016788}
+  floxanimator: {fileID: 4897288197822280845}
+  floxReader: {fileID: -1479980008408552161}
+  isFrozen: 0
+  baseFace: 0
+  sleepFace: 0
+  panicFace: 0
+  floxBase:
+  - SFX_He he_Base 01
+  - SFX_He he_Base 02
+  - SFX_He he_Base 03
+  - SFX_He he_Base 04
+  - SFX_He he_Base 05
+  sleepBase:
+  - SFX_He he_Sleep 01
+  - SFX_He he_Sleep 02
+  - SFX_He he_Sleep 03
+  - SFX_He he_Sleep 04
+  - SFX_He he_Sleep 05
+  fearBase:
+  - SFX_He he_Fear 01
+  - SFX_He he_Fear 02
+  - SFX_He he_Fear 03
+  - SFX_He he_Fear 04
+  - SFX_He he_Fear 05
+  _tempInt: 0

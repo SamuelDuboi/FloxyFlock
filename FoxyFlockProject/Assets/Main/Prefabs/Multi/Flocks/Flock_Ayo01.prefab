@@ -110,6 +110,8 @@ GameObject:
   - component: {fileID: -7703582252085500798}
   - component: {fileID: -5328694295389966549}
   - component: {fileID: 3717558907243300186}
+  - component: {fileID: 2305402231130327136}
+  - component: {fileID: 5786559703517216154}
   m_Layer: 6
   m_Name: Flock_Ayo01
   m_TagString: Piece
@@ -658,6 +660,66 @@ MonoBehaviour:
   dissolveTime: 0.5
   isDissolving: 0
   grabable: {fileID: -9111260855410012163}
+--- !u!114 &2305402231130327136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069128699973587937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6279a1836e8854fa72bbc0d12e8768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMat: {fileID: 2100000, guid: 8d186f9ce224a684ebd407b52fc2981f, type: 2}
+  flox: {fileID: 3573395449833222708}
+  rb: {fileID: 3769740337178434335}
+  GrabbableFlox: {fileID: 7608741055610583529}
+  floxanimator: {fileID: 5786559703517216154}
+  floxReader: {fileID: 1153344942567290252}
+  isFrozen: 0
+  baseFace: 0
+  sleepFace: 0
+  panicFace: 0
+  floxBase:
+  - SFX_Ayo_Base 01
+  - SFX_Ayo_Base 02
+  - SFX_Ayo_Base 03
+  - SFX_Ayo_Base 04
+  - SFX_Ayo_Base 05
+  sleepBase:
+  - SFX_Ayo_Sleep 01
+  - SFX_Ayo_Sleep 02
+  - SFX_Ayo_Sleep 03
+  - SFX_Ayo_Sleep 04
+  - SFX_Ayo_Sleep 05
+  fearBase:
+  - SFX_Ayo_Fear 01
+  - SFX_Ayo_Fear 02
+  - SFX_Ayo_Fear 03
+  - SFX_Ayo_Fear 04
+  - SFX_Ayo_Fear 05
+  _tempInt: 0
+--- !u!95 &5786559703517216154
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069128699973587937}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 80389ccf1525b4746a9f844137ded912, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4323605721872298282
 GameObject:
   m_ObjectHideFlags: 0

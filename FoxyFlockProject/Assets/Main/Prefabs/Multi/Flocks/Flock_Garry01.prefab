@@ -413,6 +413,8 @@ GameObject:
   - component: {fileID: 2495165188989761832}
   - component: {fileID: 2871317818880934463}
   - component: {fileID: 5296095778878648441}
+  - component: {fileID: 2877421210286838109}
+  - component: {fileID: 7948153405502830300}
   m_Layer: 6
   m_Name: Flock_Garry01
   m_TagString: Piece
@@ -930,6 +932,66 @@ MonoBehaviour:
   dissolveTime: 0.5
   isDissolving: 0
   grabable: {fileID: -5613956910827931864}
+--- !u!95 &2877421210286838109
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7752209755336706059}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b84fe8968f1e25e4ebddbb5a20d0b265, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7948153405502830300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7752209755336706059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6279a1836e8854fa72bbc0d12e8768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMat: {fileID: 2100000, guid: 79a6a2f18c10d4e43b11c56569652cd8, type: 2}
+  flox: {fileID: 8112563765251549662}
+  rb: {fileID: 8453840498622398709}
+  GrabbableFlox: {fileID: 4273169358947583073}
+  floxanimator: {fileID: 2877421210286838109}
+  floxReader: {fileID: -8269979407324070140}
+  isFrozen: 0
+  baseFace: 0
+  sleepFace: 0
+  panicFace: 0
+  floxBase:
+  - SFX_Garry_Base 01
+  - SFX_Garry_Base 02
+  - SFX_Garry_Base 03
+  - SFX_Garry_Base 04
+  - SFX_Garry_Base 05
+  sleepBase:
+  - SFX_Garry_Sleep 01
+  - SFX_Garry_Sleep 02
+  - SFX_Garry_Sleep 03
+  - SFX_Garry_Sleep 04
+  - SFX_Garry_Sleep 05
+  fearBase:
+  - SFX_Garry_Fear 01
+  - SFX_Garry_Fear 02
+  - SFX_Garry_Fear 03
+  - SFX_Garry_Fear 04
+  - SFX_Garry_Fear 05
+  _tempInt: 0
 --- !u!1 &8252363230305660045
 GameObject:
   m_ObjectHideFlags: 0

@@ -198,6 +198,8 @@ GameObject:
   - component: {fileID: 5710802827559990782}
   - component: {fileID: -6811749666005433812}
   - component: {fileID: 1419295045684695702}
+  - component: {fileID: 881274409624924039}
+  - component: {fileID: 382986552142352175}
   m_Layer: 6
   m_Name: Flock_Beanie01
   m_TagString: Piece
@@ -715,6 +717,66 @@ MonoBehaviour:
   dissolveTime: 0.5
   isDissolving: 0
   grabable: {fileID: -62025612058384938}
+--- !u!95 &881274409624924039
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3700406415017159875}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 214ef32f2bdd5f44caba0cdd1f878351, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &382986552142352175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3700406415017159875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6279a1836e8854fa72bbc0d12e8768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMat: {fileID: 2100000, guid: eb5a104b09be4864cb86f87a7d0408ee, type: 2}
+  flox: {fileID: 2907777759436803350}
+  rb: {fileID: 3286799318257116221}
+  GrabbableFlox: {fileID: 2454482396839849466}
+  floxanimator: {fileID: 881274409624924039}
+  floxReader: {fileID: -318872905476620784}
+  isFrozen: 0
+  baseFace: 0
+  sleepFace: 0
+  panicFace: 0
+  floxBase:
+  - SFX_Beanie_Base 01
+  - SFX_Beanie_Base 02
+  - SFX_Beanie_Base 03
+  - SFX_Beanie_Base 04
+  - SFX_Beanie_Base 05
+  sleepBase:
+  - SFX_Beanie_Sleep 01
+  - SFX_Beanie_Sleep 02
+  - SFX_Beanie_Sleep 03
+  - SFX_Beanie_Sleep 04
+  - SFX_Beanie_Sleep 05
+  fearBase:
+  - SFX_Beanie_Fear 01
+  - SFX_Beanie_Fear 02
+  - SFX_Beanie_Fear 03
+  - SFX_Beanie_Fear 04
+  - SFX_Beanie_Fear 05
+  _tempInt: 0
 --- !u!1 &5919269660546504398
 GameObject:
   m_ObjectHideFlags: 0
