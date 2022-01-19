@@ -4970,9 +4970,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 688586330, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
+      propertyPath: rolloffMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 953689678, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
+      propertyPath: rolloffMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 184619146077363865, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
       propertyPath: MaxDistance
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 184619146077363865, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
+      propertyPath: rolloffMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1972585046477117323, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
       propertyPath: m_InteractionManager
@@ -5030,6 +5042,10 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 140003731}
+    - target: {fileID: 5851740290584689345, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
+      propertyPath: rolloffMode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
 --- !u!1 &1302512188
@@ -6563,7 +6579,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
