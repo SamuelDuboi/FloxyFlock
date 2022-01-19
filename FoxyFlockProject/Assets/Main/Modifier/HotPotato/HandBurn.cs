@@ -96,7 +96,11 @@ public class HandBurn : MonoBehaviour
             soundReader.PlayThird();
             doOnce = false;
             InteractionManager.instance.SelectExit(interactor, flockInteractable);
-            interactor.allowSelect = false;
+            flockInteractable.transform.position = interactor.transform.position;
+            flockInteractable.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            flockInteractable.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+       
+            interactor.allowHover = false;
             StartCoroutine(WaitToCoolSound());
         }
     }
@@ -113,7 +117,7 @@ public class HandBurn : MonoBehaviour
             {
                 if (!playOnceCool)
                 {
-                    playOnceCool = false;
+                    playOnceCool = true;
                     soundReader.ThirdClipName = "HotCool";
                     soundReader.source.loop = true;
                     soundReader.PlayThird();
@@ -123,7 +127,10 @@ public class HandBurn : MonoBehaviour
                 if (heatCurrentValue <= 0)
                 {
                     if (heatState == HeatState.burned)
-                        interactor.allowSelect = true;
+                    {
+                        interactor.allowHover = true;
+                        soundReader.source.Stop();
+                    }
 
                     heatState = HeatState.cool;
                 }

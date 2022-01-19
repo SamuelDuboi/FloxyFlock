@@ -99,7 +99,7 @@ public class GrabManagerMulti : GrabManager
         numberOfPool = 1;
         if (v == 1)
         {
-            transform.localPosition = new Vector3(-transform.localPosition.x, transform.localPosition.y,transform.localPosition.z);
+            transform.localPosition = new Vector3(-transform.localPosition.x+0.2f, transform.localPosition.y,transform.localPosition.z);
             transform.localRotation = Quaternion.Euler(0, -90, 0);
             lever.transform.localRotation = Quaternion.Euler(0, 0, 0);
             lever.localPosition = new Vector3(-0.424f, -0.051f, 0.04f);
@@ -122,7 +122,6 @@ public class GrabManagerMulti : GrabManager
                 Destroy(_object);
             }
         }*/
-        inputManager.OnSpawn.AddListener(UpdateBatche);
 
         multiUI.CmdInitManagers(NetworkManagerRace.instance.players);
     }
