@@ -55,5 +55,7 @@ public class Reset : MonoBehaviour
         yield return new WaitForSeconds(dissolveFlox.dissolveTime);
         soundReader.ThirdClipName = "EndReset";
         soundReader.PlayThird();
+        grabManager.UpdateIntersectionPos();
+
     }
 }

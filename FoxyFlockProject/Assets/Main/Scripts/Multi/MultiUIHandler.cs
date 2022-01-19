@@ -26,10 +26,10 @@ public class MultiUIHandler : NetworkBehaviour
             NetworkManagerRace.instance.grabManagers[1] = grabManagers[1].GetComponentInChildren<GrabManagerMulti>();
     }
 
-    [Command(requiresAuthority = false)]
+    [Command(requiresAuthority = true)]
     public void CmdGetFireBall()
     {
-        UIGlobalManager.instance.CanSelectFireBall(grabManager.playerNumber);
+       // UIGlobalManager.instance.CanSelectFireBall(grabManager.playerNumber);
         RpcGetFireBall();
 
     }
@@ -40,10 +40,10 @@ public class MultiUIHandler : NetworkBehaviour
     }
 
 
-    [Command(requiresAuthority = false)]
+    [Command(requiresAuthority = true)]
     public void CmdIsWinning()
     {
-        UIGlobalManager.instance.IsFirst(grabManager.playerNumber-1);
+        //UIGlobalManager.instance.IsFirst(grabManager.playerNumber-1);
         RpcIsWinning(grabManager.playerNumber - 1);
 
     }
@@ -53,10 +53,10 @@ public class MultiUIHandler : NetworkBehaviour
         UIGlobalManager.instance.IsFirst(index);
     }
 
-    [Command(requiresAuthority = false)]
+    [Command(requiresAuthority = true)]
     public void CmdIsATie()
     {
-        UIGlobalManager.instance.IsATie();
+        //UIGlobalManager.instance.IsATie();
         RpcIsATie();
     }
     [ClientRpc]
@@ -66,70 +66,59 @@ public class MultiUIHandler : NetworkBehaviour
     }
 
 
-    [Command(requiresAuthority = false)]
+    [Command(requiresAuthority = true)]
     public void CmdSelectFireBall()
     {
-        UIGlobalManager.instance.CanSelectFireBall(grabManager.playerNumber-1);
-        //RpcUnSelectFireBall();
+       // UIGlobalManager.instance.CanSelectFireBall(grabManager.playerNumber-1);
+        RpcSelectFireBall(grabManager.playerNumber - 1);
     }
     [ClientRpc]
-    public void RpcSelectFireBall()
+    public void RpcSelectFireBall(int index)
     {
-        if (grabManager.playerNumber - 1 == 0)
-            UIGlobalManager.instance.CanSelectFireBall(1);
-        else
-            UIGlobalManager.instance.CanSelectFireBall(0);
+            UIGlobalManager.instance.CanSelectFireBall(index);
     }
 
-    [Command(requiresAuthority = false)]
+    [Command(requiresAuthority = true)]
     public void CmdUnSelectFireBall()
     {
-        UIGlobalManager.instance.UnSelectFireBall(grabManager.playerNumber - 1);
-        RpcUnSelectFireBall();
+        //UIGlobalManager.instance.UnSelectFireBall(grabManager.playerNumber - 1);
+        RpcUnSelectFireBall(grabManager.playerNumber - 1);
     }
     [ClientRpc]
-    public void RpcUnSelectFireBall()
+    public void RpcUnSelectFireBall(int index)
     {
-        if (grabManager.playerNumber - 1 == 0)
-            UIGlobalManager.instance.UnSelectFireBall(1);
-        else
-            UIGlobalManager.instance.UnSelectFireBall(0);
+       
+            UIGlobalManager.instance.UnSelectFireBall(index);
     }
 
-    [Command(requiresAuthority = false)]
+    [Command(requiresAuthority = true)]
     public void CmdFireBallIncoming()
     {
-        UIGlobalManager.instance.FireBallIncoming(grabManager.playerNumber - 1);
-        RpcFireBallIncoming();
+        //UIGlobalManager.instance.FireBallIncoming(grabManager.playerNumber - 1);
+        RpcFireBallIncoming(grabManager.playerNumber - 1);
     }
     [ClientRpc]
-    public void RpcFireBallIncoming()
+    public void RpcFireBallIncoming(int index)
     {
-        if (grabManager.playerNumber - 1 == 0)
-            UIGlobalManager.instance.FireBallIncoming(1);
-        else
-            UIGlobalManager.instance.FireBallIncoming(0);
+            UIGlobalManager.instance.FireBallIncoming(index);
     }
 
-    [Command(requiresAuthority = false)]
+    [Command(requiresAuthority = true)]
     public void CmdFireBallNotIncoming()
     {
-        UIGlobalManager.instance.FireBallNotIncoming(grabManager.playerNumber - 1);
-        RpcFireBallNotIncoming();
+        //UIGlobalManager.instance.FireBallNotIncoming(grabManager.playerNumber - 1);
+        RpcFireBallNotIncoming(grabManager.playerNumber - 1);
     }
     [ClientRpc]
-    public void RpcFireBallNotIncoming()
+    public void RpcFireBallNotIncoming(int index)
     {
-        if (grabManager.playerNumber - 1 == 0)
-            UIGlobalManager.instance.FireBallNotIncoming(1);
-        else
-            UIGlobalManager.instance.FireBallNotIncoming(0);
+            UIGlobalManager.instance.FireBallNotIncoming(index);
     }
 
-    [Command(requiresAuthority = false)]
+    [Command(requiresAuthority = true)]
     public void CmdValidate(int indexOfWinner, bool isHandInZone, float timer, float maxTimer)
     {
-        UIGlobalManager.instance.Validation(indexOfWinner,isHandInZone,timer,maxTimer);
+        //UIGlobalManager.instance.Validation(indexOfWinner,isHandInZone,timer,maxTimer);
         RpcValidate(indexOfWinner,isHandInZone,timer,maxTimer);
     }
     [ClientRpc]
