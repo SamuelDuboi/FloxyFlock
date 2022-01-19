@@ -12,7 +12,7 @@ public class FloxRaceSolo : GameModeSolo
     [HideInInspector] public Vector3 p;
     private MaterialPropertyBlock propBlock;
     [SerializeField] private MeshRenderer meshRenderer;
-
+    public InputManager inputManager;
     void Start()
     {
         p = winLimit.transform.position;
@@ -67,16 +67,24 @@ public class FloxRaceSolo : GameModeSolo
                     playerMovement.CmdWin1();
                 else
                     playerMovement.CmdWin2();
+                Destroy(this);
             }
             else
             {
                 UIGlobalManager.instance.Win(0);
+                StartCoroutine(WaitToCallMenu());
             }
            
-            Destroy(this);
+            
         }
     }
 
+    IEnumerator WaitToCallMenu()
+    {
+        yield return new WaitForSeconds(5.0f);
+        inputManager.OnMenuPressed.Invoke();
+        Destroy(this);
+    }
     private void UpdateLimitMat(int index)
     {
         //Recup Data

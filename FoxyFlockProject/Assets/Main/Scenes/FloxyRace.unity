@@ -5950,8 +5950,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.076, y: -0.657}
-  m_SizeDelta: {x: 93.777, y: 55.121}
+  m_AnchoredPosition: {x: 10.08, y: 186}
+  m_SizeDelta: {x: 290.21, y: 119.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &372742213
 MonoBehaviour:
@@ -5973,7 +5973,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You Won
+  m_text: Winner
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6000,7 +6000,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24.3
+  m_fontSize: 72
   m_fontSizeBase: 7
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7850,6 +7850,7 @@ MonoBehaviour:
   player1ClockTimer: {fileID: 129180460}
   player1HandsText: {fileID: 85446858}
   winPlayer1: {fileID: 1288855794}
+  LosePlayer1: {fileID: 0}
   player1fireBallOn: {fileID: 0}
   player1Position: {fileID: 0}
   player1table: {fileID: 0}
@@ -7860,6 +7861,7 @@ MonoBehaviour:
   player2ClockTimer: {fileID: 0}
   player2HandsText: {fileID: 0}
   winPlayer2: {fileID: 0}
+  losePlayer2: {fileID: 0}
   player2fireBallOn: {fileID: 0}
   player2Position: {fileID: 0}
   player2table: {fileID: 0}
@@ -8219,7 +8221,7 @@ RectTransform:
   m_GameObject: {fileID: 1288855794}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5.8741, y: 4.6715, z: 1}
   m_Children:
   - {fileID: 372742212}
   - {fileID: 4091390469580407090}
@@ -8230,7 +8232,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 1}
-  m_SizeDelta: {x: 100, y: 60}
+  m_SizeDelta: {x: 617, y: 733}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1288855796
 MonoBehaviour:
@@ -8245,15 +8247,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15274009, g: 0.5377358, b: 0.12936096, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 118dee867b6f02945a2fd08e283a60f9, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -21759,3 +21761,4 @@ MonoBehaviour:
   winLimit: {fileID: 5625922142582474050}
   p: {x: 0, y: 0, z: 0}
   meshRenderer: {fileID: 8560942895967921924}
+  inputManager: {fileID: 1972585046622904621}

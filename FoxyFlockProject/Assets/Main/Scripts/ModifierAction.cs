@@ -67,7 +67,7 @@ public class ModifierAction : MonoBehaviour
             OnStarted(_object);
         if (!cantPlaySound && !isGrab)
         {
-            if(collision.tag == "Table"    || collision.tag == "TableComponent" || collision.tag == "Table2" || collision.tag == "Piece")
+            if(collision.tag == "Table"    || collision.tag == "TagDestroyed" || collision.tag == "Table2" || collision.tag == "Piece")
             {
                 cantPlaySound = true;
                 sound.ThirdClipName = collisionSound;

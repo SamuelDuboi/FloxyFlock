@@ -96,7 +96,7 @@ public class HandBurn : MonoBehaviour
             soundReader.PlayThird();
             doOnce = false;
             InteractionManager.instance.SelectExit(interactor, flockInteractable);
-            flockInteractable.transform.position = interactor.transform.position;
+            //flockInteractable.transform.position = interactor.transform.position;
             flockInteractable.GetComponent<Rigidbody>().velocity = Vector3.zero;
             flockInteractable.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
        

@@ -19,6 +19,7 @@ public class UIGlobalManager : MonoBehaviour
     public TextMeshProUGUI player1ClockTimer;
     public GameObject player1HandsText;
     public GameObject winPlayer1;
+    public GameObject LosePlayer1;
     public GameObject player1fireBallOn;
     public TextMeshProUGUI player1Position;
   [HideInInspector]  public RawImage player1table;
@@ -32,6 +33,7 @@ public class UIGlobalManager : MonoBehaviour
     public TextMeshProUGUI player2ClockTimer;
     public GameObject player2HandsText;
     public GameObject winPlayer2;
+    public GameObject losePlayer2;
     public GameObject player2fireBallOn;
     public TextMeshProUGUI player2Position;
     [HideInInspector] public RawImage player2table;
@@ -113,10 +115,16 @@ public class UIGlobalManager : MonoBehaviour
         if (indexOfWinner == 1)
         {
             winPlayer2.SetActive(true);
+            LosePlayer1.SetActive(true);
+            player2Validation.SetActive(false);
         }
         else
+        {
             winPlayer1.SetActive(true);
-
+            player1Validation.SetActive(false);
+            if (losePlayer2!= null)
+            losePlayer2.SetActive(true);
+        }
     }
     public void Validation(int indexOfWinner, bool isHandInZone, float timer = 0, float maxTimer =0)
     {
@@ -161,7 +169,6 @@ public class UIGlobalManager : MonoBehaviour
         }
 
     }
-
     public void IsFirst(int index)
     {
         if(index == 0)

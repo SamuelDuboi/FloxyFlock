@@ -517,11 +517,20 @@ public class PlayerMovementMulti : NetworkBehaviour
     void RcpWin1()
     {
         UIGlobalManager.instance.Win(0);
+        StartCoroutine(WaitToCallMenu());
+
     }
     [ClientRpc]
     void RcpWin2()
     {  
         UIGlobalManager.instance.Win(1);
+        StartCoroutine(WaitToCallMenu());
+    }
+
+    IEnumerator WaitToCallMenu()
+    {
+        yield return new WaitForSeconds(5.0f);
+        inputManager.OnMenuPressed.Invoke();
     }
 
     [Command(requiresAuthority = false)]
