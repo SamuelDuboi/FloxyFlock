@@ -556,12 +556,11 @@ public class PlayerMovementMulti : NetworkBehaviour
     [Command(requiresAuthority =false)]
     public void CmdSpawnInFireBall(GameObject target)
     {
-        NetworkIdentity opponentIdentity = target.GetComponent<NetworkIdentity>();
-        TargetGetFireBall(opponentIdentity.connectionToClient);
+        RpcGetFireBall();
     }
 
-    [TargetRpc]
-    private void TargetGetFireBall(NetworkConnection target)
+    [ClientRpc(includeOwner =false)]
+    private void RpcGetFireBall()
     {
         StartCoroutine(tableTransform.GetComponentInChildren<FireballManager>().FireballIncoming());
     }
@@ -608,4 +607,5 @@ public class PlayerMovementMulti : NetworkBehaviour
    
 
     }
+
 }
