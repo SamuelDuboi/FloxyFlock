@@ -36,8 +36,8 @@ public class FloxExpressionManager : MonoBehaviour
         if (isFrozen && sleepFace==false)
         {
             _tempInt = Random.Range(0, 5);
-          //  floxReader.clipName = sleepBase[_tempInt];
-          //  floxReader.Play();
+            floxReader.clipName = sleepBase[_tempInt];
+            floxReader.Play();
 
             baseFace = false;
             floxanimator.SetBool("Base", false);
@@ -52,8 +52,8 @@ public class FloxExpressionManager : MonoBehaviour
         {
 
             _tempInt = Random.Range(0, 5);
-          //  floxReader.clipName = fearBase[_tempInt];
-           // floxReader.Play();
+            floxReader.clipName = fearBase[_tempInt];
+            floxReader.Play();
 
             baseFace = false;
             floxanimator.SetBool("Base", false);
@@ -62,11 +62,11 @@ public class FloxExpressionManager : MonoBehaviour
             panicFace = true;
             floxanimator.SetBool("Panic", true);
         }
-        else if (isFrozen == false && baseFace == false)
+        else if (isFrozen == false && (rb != null && rb.velocity == Vector3.zero) && baseFace == false)
         {
             _tempInt = Random.Range(0, 5);
-         //   floxReader.clipName = floxBase[_tempInt];
-         //   floxReader.Play();
+            floxReader.clipName = floxBase[_tempInt];
+            floxReader.Play();
             panicFace = false;
             floxanimator.SetBool("Panic", false);
             sleepFace = false;
