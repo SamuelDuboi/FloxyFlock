@@ -567,7 +567,6 @@ public class PlayerMovementMulti : NetworkBehaviour
     {
         RpcGetFireBall();
     }
-
     [ClientRpc(includeOwner =false)]
     private void RpcGetFireBall()
     {

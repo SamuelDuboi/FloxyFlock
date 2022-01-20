@@ -53,7 +53,8 @@ public class FireballManager : MonoBehaviour
     private Vector3 baseFireballScale;
     private Vector3 startLerpPosition;
     private Vector3 endLerpPosition;
-
+    private Vector3 inFireballInitPos;
+    private Vector3 outFireballInitPos;
     public void Initialize()
     {
         inFireball.GetComponent<InFireball>().fireballManager = this;
@@ -61,7 +62,8 @@ public class FireballManager : MonoBehaviour
 
         ParticleSystem.MainModule main = explosionVFX.main;
         main.startSize = explosionRadius * 2;
-
+        inFireballInitPos = inFireball.transform.position;
+        outFireballInitPos = outFireball.transform.position;
         baseFireballScale = inFireball.transform.localScale;
     }
 
@@ -132,8 +134,7 @@ public class FireballManager : MonoBehaviour
     }
     public void FireballHitPortal()
     {
-        outFireball.SetActive(false);
-        outFireball.transform.position = Vector3.zero; //To avoid triggering the fireball again when regrabbing
+        outFireball.transform.position = outFireballInitPos;
         if (multiUI == null)
             multiUI = GetComponentInParent<PlayGround>().GetComponentInChildren<GameModeSolo>().playerMovement.grabManager.GetComponent<GrabManagerMulti>().multiUI;
 
@@ -224,7 +225,7 @@ public class FireballManager : MonoBehaviour
         explosionVFX.Play();
         explosionSFX.Play();
 
-        inFireball.SetActive(false);
+        inFireball.transform.position = inFireballInitPos;
 
         //Go through each colliders and add the corresponding flox to a list
         foreach (Collider collider in explosionHits)
