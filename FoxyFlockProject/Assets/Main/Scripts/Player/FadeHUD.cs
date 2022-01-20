@@ -8,13 +8,24 @@ public class FadeHUD : MonoBehaviour
     [SerializeField] private Image image; //Set in hierarchy
     [SerializeField] private float fadeDuration = 1f;
     [SerializeField] private float timeBeforeFade = 1.5f;
+    [SerializeField] private float timeBeforeFadeScaleOnGameplay = 2f;
+    [SerializeField] private SoundReader soundReader;
 
     private bool canLerp = false;
     private float startTime;
+    private bool canPlaySoundOnStart = false;
 
     private void Start()
     {
         image.color = Color.black;
+
+        if (!ScenesManager.instance.IsLobbyScene() && !ScenesManager.instance.IsMenuScene())
+        {
+            timeBeforeFade *= timeBeforeFadeScaleOnGameplay;
+            
+            int random = Random.Range(1, 4);
+            canPlaySoundOnStart = true;
+        }
 
         Invoke("StartFade", timeBeforeFade);
     }
@@ -31,6 +42,26 @@ public class FadeHUD : MonoBehaviour
     {
         canLerp = true;
         startTime = (float)AudioSettings.dspTime;
+
+        if (canPlaySoundOnStart)
+        {
+            int random = Random.Range(1, 4);
+
+            switch (random)
+            {
+                case 1:
+                    soundReader.Play();
+                    break;
+                case 2:
+                    soundReader.PlaySeconde();
+                    break;
+                case 3:
+                    soundReader.PlayThird();
+                    break;
+            }
+
+            canPlaySoundOnStart = false;
+        }
     }
 
     private void AlphaLerp()
