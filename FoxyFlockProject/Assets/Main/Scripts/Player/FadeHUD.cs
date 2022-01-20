@@ -8,6 +8,7 @@ public class FadeHUD : MonoBehaviour
     [SerializeField] private Image image; //Set in hierarchy
     [SerializeField] private float fadeDuration = 1f;
     [SerializeField] private float timeBeforeFade = 1.5f;
+    [SerializeField] private float timeBeforeFadeScaleOnGameplay = 2f;
 
     private bool canLerp = false;
     private float startTime;
@@ -15,6 +16,11 @@ public class FadeHUD : MonoBehaviour
     private void Start()
     {
         image.color = Color.black;
+
+        if (!ScenesManager.instance.IsLobbyScene() && !ScenesManager.instance.IsMenuScene())
+        {
+            timeBeforeFade *= timeBeforeFadeScaleOnGameplay;
+        }
 
         Invoke("StartFade", timeBeforeFade);
     }
