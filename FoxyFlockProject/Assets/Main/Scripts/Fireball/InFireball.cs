@@ -11,7 +11,7 @@ public class InFireball : MonoBehaviour
         if (other.gameObject.layer == 11 || other.tag == "Piece" || other.tag == "TagDestroyed")
         {
             print("Fireball collided with : " + other.gameObject.name);
-            fireballManager.Explosion();
+            fireballManager.LunchExplosion();
         }
     }
 }

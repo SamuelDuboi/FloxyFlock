@@ -165,7 +165,6 @@ public class MoveBubble : MonoBehaviour
     }
     public void MoveBubbles(float _playgroundRayon, float Tposition, Vector3 pPos, List<GameObject> bonus, List<GameObject> malus,GameObject fireball, List<Vector3> position)
     {
-        moveFireBall = true;
         playgroundRayon = _playgroundRayon;
         rayonBuble = bonus[0].GetComponent<Bubble>().radius;
         J = Mathf.Abs(Vector3.Distance(Vector3.up * Tposition, pPos));

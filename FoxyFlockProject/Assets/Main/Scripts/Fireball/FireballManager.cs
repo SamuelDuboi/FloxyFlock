@@ -215,7 +215,12 @@ public class FireballManager : MonoBehaviour
         return fireballSpawnPoint;
     }
 
-    public void Explosion()
+    public void LunchExplosion()
+    {
+        playerMovement.CmdExplosion(inFireball.transform.position);
+    }
+
+    public void Explosion(Vector3 position)
     {
         Collider[] explosionHits = Physics.OverlapSphere(inFireball.transform.position, explosionRadius, explosionLayer);
         List<GameObject> floxesHit = new List<GameObject>();
@@ -223,7 +228,7 @@ public class FireballManager : MonoBehaviour
             multiUI = GetComponentInParent<PlayGround>().GetComponentInChildren<GameModeSolo>().playerMovement.grabManager.GetComponent<GrabManagerMulti>().multiUI;
 
         multiUI.CmdFireBallNotIncoming();
-        explosionTransform.position = inFireball.transform.position;
+        explosionTransform.position =position;
         explosionVFX.Play();
         explosionSFX.Play();
 

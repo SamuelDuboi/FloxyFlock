@@ -136,4 +136,6 @@ public class MultiUIHandler : NetworkBehaviour
     {
         UIGlobalManager.instance.CloseValidation(indexOfWinner);
     }
+
+
 }
