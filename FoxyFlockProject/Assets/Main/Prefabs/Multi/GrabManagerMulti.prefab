@@ -470,6 +470,7 @@ MonoBehaviour:
     - {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
     - {fileID: 8274945382952786794, guid: 6139c7ec78f01774ca4847805eaa8686, type: 3}
     - {fileID: 7455921705368196685, guid: d0994b81ade92a44fa5cb462dd5e6111, type: 3}
+    - {fileID: 6861033994696840683, guid: 54ae48e3f84a0ed498df6e496cb746fb, type: 3}
     weight: 5
     batchModifier:
       positiveModifiers:
@@ -482,6 +483,7 @@ MonoBehaviour:
   - pieces:
     - {fileID: 8274945382952786794, guid: 6139c7ec78f01774ca4847805eaa8686, type: 3}
     - {fileID: 7455921705368196685, guid: d0994b81ade92a44fa5cb462dd5e6111, type: 3}
+    - {fileID: 5191685301571692960, guid: 56e697f9b9272064fa0181851504e790, type: 3}
     weight: 5
     batchModifier:
       positiveModifiers:
@@ -494,6 +496,7 @@ MonoBehaviour:
   - pieces:
     - {fileID: 5191685301571692960, guid: 56e697f9b9272064fa0181851504e790, type: 3}
     - {fileID: 6861033994696840683, guid: 54ae48e3f84a0ed498df6e496cb746fb, type: 3}
+    - {fileID: 3069128699973587937, guid: 3c41f42781104f44d9d751dce56df977, type: 3}
     weight: 5
     batchModifier:
       positiveModifiers:
@@ -610,9 +613,9 @@ MonoBehaviour:
   minValue: 0.01
   hm: 0.14
   hmPrime: 0.25
-  cf: 0.12
-  cfPrime: 0.28
-  cfMin: 0.075
+  cf: 0.25
+  cfPrime: 0.4
+  cfMin: 0.05
   hf: 0.14
   hfPrime: 0.24
   offset: 0.025
