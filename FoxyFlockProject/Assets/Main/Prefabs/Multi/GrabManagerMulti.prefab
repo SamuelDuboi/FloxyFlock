@@ -569,6 +569,8 @@ MonoBehaviour:
   playerNumber: 0
   multiUI: {fileID: 0}
   lever: {fileID: 1839268920764673071}
+  pos1: {fileID: 0}
+  pos2: {fileID: 0}
 --- !u!114 &5136891162510553805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -603,12 +605,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnMax: 0.38
   cb: 0.07
-  cbPrime: 0.3
+  cbPrime: 0.25
   cbMin: 0
   hb: 0.12
   hbPrime: 0.22
   cm: 0.15
-  cmPrime: 0.22
+  cmPrime: 0.2
   cmMin: 0
   minValue: 0.01
   hm: 0.14
@@ -617,7 +619,7 @@ MonoBehaviour:
   cfPrime: 0.4
   cfMin: 0.05
   hf: 0.14
-  hfPrime: 0.24
+  hfPrime: 0.25
   offset: 0.025
 --- !u!1 &5700175993521880236
 GameObject:

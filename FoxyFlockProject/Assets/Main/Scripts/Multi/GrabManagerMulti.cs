@@ -18,6 +18,8 @@ public class GrabManagerMulti : GrabManager
     [HideInInspector] public int playerNumber;
     public MultiUIHandler multiUI;
     public Transform lever;
+    public Transform pos1;
+    public Transform pos2;
     // Start is called before the first frame update
     public override IEnumerator Start()
     {
@@ -45,7 +47,9 @@ public class GrabManagerMulti : GrabManager
         currentMilestone = playGround.CheckMilestones(out positionOfMilestoneIntersection, out numberOfMilestones, out nextMilestonePos);
         playerMovement.CmdMoveBubble(playGround.radius, nextMilestonePos.y,positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes,playGround.fireBallOrbe, directionForBubble);
         Vector3 headSettPos = inputManager.GetComponent<XRRig>().cameraFloorOffsetObject.transform.localPosition;
-        transform.localPosition += headSettPos;
+        pos2.localPosition += headSettPos;
+        pos1.localPosition += headSettPos;
+        transform.localPosition += pos1.localPosition;
 
         yield return new WaitForSeconds(5f);
         multiUI.grabManager = this;
@@ -99,8 +103,8 @@ public class GrabManagerMulti : GrabManager
         numberOfPool = 1;
         if (v == 1)
         {
-            transform.localPosition = new Vector3(-transform.localPosition.x+0.2f, transform.localPosition.y,transform.localPosition.z);
-            transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x , -90, transform.localEulerAngles.z);
+            transform.localPosition = pos2.transform.localPosition;
+            transform.localRotation = pos2.transform.localRotation;
             lever.transform.localRotation = Quaternion.Euler(0, 0, 0);
             lever.localPosition = new Vector3(-0.424f, -0.051f, 0.04f);
         }
