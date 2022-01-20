@@ -62,7 +62,7 @@ public class InputManager : MonoBehaviour
     protected SoundReader sound;
     public bool isMenuPressed;
     public bool isMenuPressing;
-
+    private bool isOnMenu;
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -111,19 +111,19 @@ public class InputManager : MonoBehaviour
         InputHelpers.IsPressed(rightHand.inputDevice, characterStats.gripBtton, out rightHandIsGrab);
         InputHelpers.IsPressed(leftHand.inputDevice, characterStats.gripBtton, out leftHandIsGrab);
 
-        if(rightHandIsGrabRelease && rightHandIsGrab)
+        if(rightHandIsGrabRelease && rightHandIsGrab && !isOnMenu)
         {
             OnRightGrab.Invoke();
         }
-        if (leftHandIsGrabRelease && leftHandIsGrab)
+        if (leftHandIsGrabRelease && leftHandIsGrab&& !isOnMenu)
         {
             OnLeftGrab.Invoke();
         }
-        if (!leftHandIsGrabRelease && !leftHandIsGrab)
+        if (!leftHandIsGrabRelease && !leftHandIsGrab && !isOnMenu)
         {
             OnLeftGrabRelease.Invoke();
         }
-        if (!rightHandIsGrabRelease && !rightHandIsGrabRelease)
+        if (!rightHandIsGrabRelease && !rightHandIsGrabRelease && !isOnMenu)
         {
             OnRightGrabRelease.Invoke();
         }
@@ -133,25 +133,25 @@ public class InputManager : MonoBehaviour
         InputHelpers.IsPressed(leftHand.inputDevice, characterStats.moveTrigger, out leftHandIsTrigger, triggerMinTreshold);
 
         //if right trigger is press, only call once like a press enter
-        if (rightHandIsTriggerRelease && rightHandIsTrigger )
+        if (rightHandIsTriggerRelease && rightHandIsTrigger && !isOnMenu)
         {
             seeTable = playerMovement.SeeTable();
             OnRightTrigger.Invoke(seeTable);
         }
         //if left trigger is press, only call once like a press enter
-        if (leftHandIsTriggerRelease && leftHandIsTrigger )
+        if (leftHandIsTriggerRelease && leftHandIsTrigger && !isOnMenu)
         {
             seeTable = playerMovement.SeeTable();
             OnLeftTrigger.Invoke(seeTable);
         }
         //if right trigger is reales, only call once like a press exit
-        if (!rightHandIsTriggerRelease && !rightHandIsTrigger )
+        if (!rightHandIsTriggerRelease && !rightHandIsTrigger && !isOnMenu)
         {
             OnRightTriggerRelease.Invoke();
 
         }
         //if right trigger is reales, only call once like a press exit
-        if (!leftHandIsTriggerRelease && !leftHandIsTrigger )
+        if (!leftHandIsTriggerRelease && !leftHandIsTrigger && !isOnMenu)
         {
             OnLeftTriggerRelease.Invoke();
         }
@@ -165,7 +165,7 @@ public class InputManager : MonoBehaviour
         if (isMenuPressed && !isMenuPressing)
         {
             isMenuPressing = true;
-            Debug.Log("menusPressed");
+            isOnMenu = !isOnMenu;
             OnMenuPressed.Invoke();
         }
         if (!isMenuPressed && isMenuPressing)
