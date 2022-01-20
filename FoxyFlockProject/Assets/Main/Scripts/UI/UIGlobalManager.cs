@@ -167,7 +167,19 @@ public class UIGlobalManager : MonoBehaviour
                 player1ClockTimer.text = ((int)(maxTimer - timer)).ToString();
             }
         }
+    }
 
+    public void CloseValidation(int indexOfWinner)
+    {
+
+        if (indexOfWinner == 1)
+        {
+                player2Validation.SetActive(false);
+        }
+        else
+        {
+                player1Validation.SetActive(false);
+        }
     }
     public void IsFirst(int index)
     {

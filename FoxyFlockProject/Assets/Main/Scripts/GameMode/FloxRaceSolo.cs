@@ -54,6 +54,10 @@ public class FloxRaceSolo : GameModeSolo
         }
         else
         {
+            if (playerMovement == null)
+                UIGlobalManager.instance.CloseValidation(number);
+            else
+                playerMovement.grabManager.GetComponent<GrabManagerMulti>().multiUI.CmdValidate(number, true, 0, 0);
             tip = "try too reach height";
             timeAboveHeight = 0;
 

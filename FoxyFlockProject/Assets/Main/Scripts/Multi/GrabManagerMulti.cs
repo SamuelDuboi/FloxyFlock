@@ -150,6 +150,16 @@ public class GrabManagerMulti : GrabManager
         }
         nextIsFireBallBatche = !nextIsFireBallBatche;
     }
+    protected override IEnumerator ResetModifierCount()
+    {
+        yield return new WaitForSeconds(1.6f);
+        if (malusNumber != null && malusNumber.Count != 0)
+            malusNumber.Clear();
+        if (bonusNumber != null && bonusNumber.Count != 0)
+            bonusNumber.Clear();
+        if (fireBallNumber != null && fireBallNumber.Count != 0)
+            fireBallNumber.Clear();
+    }
     public void GetPieceFireball(XRBaseInteractor baseInteractor)
     {
         if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.RightHand && !isGrabRight)

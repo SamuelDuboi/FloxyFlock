@@ -38,6 +38,7 @@ public class FloxExpressionManager : MonoBehaviour
 
         if (isFrozen && sleepFace==false)
         {
+            Debug.Log("freez");
             _tempInt = Random.Range(0, 5);
             floxReader.clipName = sleepBase[_tempInt];
             floxReader.Play();

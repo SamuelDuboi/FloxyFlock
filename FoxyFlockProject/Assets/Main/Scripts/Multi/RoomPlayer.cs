@@ -54,9 +54,19 @@ public class RoomPlayer : MonoBehaviour
 
     public void Menu()
     {
+   
         if (index != 0)
             NetworkManagerRace.instance.StopClient();
         else
             NetworkManagerRace.instance.StopHost();
+    }
+
+    public void Host()
+    {
+        NetworkManagerRace.instance.StartHost();
+    }
+    public void StartClient()
+    {
+        NetworkManagerRace.instance.StartClient();
     }
 }

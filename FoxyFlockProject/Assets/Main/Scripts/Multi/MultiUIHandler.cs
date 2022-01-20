@@ -126,4 +126,14 @@ public class MultiUIHandler : NetworkBehaviour
     {
             UIGlobalManager.instance.Validation(indexOfWinner, isHandInZone, timer, maxTimer);
     }
+    [Command(requiresAuthority = true)]
+    public void CmdCloseValidate(int indexOfWinner)
+    {
+        RpcCloseValidate(indexOfWinner);
+    }
+    [ClientRpc]
+    public void RpcCloseValidate(int indexOfWinner)
+    {
+        UIGlobalManager.instance.CloseValidation(indexOfWinner);
+    }
 }

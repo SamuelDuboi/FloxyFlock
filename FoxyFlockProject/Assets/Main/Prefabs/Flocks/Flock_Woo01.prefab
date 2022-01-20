@@ -185,6 +185,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6892673235062350981}
+  - component: {fileID: 7803486231887741583}
+  - component: {fileID: 1687392769895886439}
+  - component: {fileID: 6087668754667412768}
   m_Layer: 6
   m_Name: Colliders
   m_TagString: Untagged
@@ -215,6 +218,164 @@ Transform:
   m_Father: {fileID: 6087910935110389585}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7803486231887741583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4320950919040735494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6279a1836e8854fa72bbc0d12e8768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMat: {fileID: 2100000, guid: 1cd20da9089c8044d90b516d2301613d, type: 2}
+  flox: {fileID: 4915598046754468926}
+  rb: {fileID: 4751359757918559509}
+  GrabbableFlox: {fileID: 8205663842681309537}
+  floxanimator: {fileID: 1866046006022971697}
+  floxReader: {fileID: 6087668754667412768}
+  isFrozen: 0
+  baseFace: 0
+  sleepFace: 0
+  panicFace: 0
+  floxBase:
+  - SFX_Woo_Base 01
+  - SFX_Woo_Base 02
+  - SFX_Woo_Base 03
+  - SFX_Woo_Base 04
+  - SFX_Woo_Base 05
+  sleepBase:
+  - SFX_Woo_Sleep 01
+  - SFX_Woo_Sleep 02
+  - SFX_Woo_Sleep 03
+  - SFX_Woo_Sleep 04
+  - SFX_Woo_Sleep 05
+  fearBase:
+  - SFX_Woo_Fear 01
+  - SFX_Woo_Fear 02
+  - SFX_Woo_Fear 03
+  - SFX_Woo_Fear 04
+  - SFX_Woo_Fear 05
+  moveThreshold: 0.1
+  _tempInt: 0
+--- !u!82 &1687392769895886439
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4320950919040735494}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -8634683232827515855, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 3
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &6087668754667412768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4320950919040735494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bad389ad0edad47a6f2ef5e9498ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clipName: 
+  secondClipName: 
+  ThirdClipName: 
+  ForthClipName: 
+  source: {fileID: 0}
+  applyAudioOnStart: 0
+  randomSelectionOnStart: 0
+  doOnce: 0
 --- !u!1 &4487923286532648934
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,7 +483,6 @@ GameObject:
   - component: {fileID: -4454221789294313736}
   - component: {fileID: 2995284451584579155}
   - component: {fileID: 1866046006022971697}
-  - component: {fileID: 1474685933516089311}
   m_Layer: 6
   m_Name: Flock_Woo01
   m_TagString: Piece
@@ -633,7 +793,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -776,47 +936,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1474685933516089311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6861033994696840683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb6279a1836e8854fa72bbc0d12e8768, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floxMat: {fileID: 2100000, guid: 1cd20da9089c8044d90b516d2301613d, type: 2}
-  flox: {fileID: 4915598046754468926}
-  rb: {fileID: 4751359757918559509}
-  GrabbableFlox: {fileID: 8205663842681309537}
-  floxanimator: {fileID: 1866046006022971697}
-  floxReader: {fileID: -4454221789294313736}
-  isFrozen: 0
-  baseFace: 0
-  sleepFace: 0
-  panicFace: 0
-  floxBase:
-  - SFX_Woo_Base 01
-  - SFX_Woo_Base 02
-  - SFX_Woo_Base 03
-  - SFX_Woo_Base 04
-  - SFX_Woo_Base 05
-  sleepBase:
-  - SFX_Woo_Sleep 01
-  - SFX_Woo_Sleep 02
-  - SFX_Woo_Sleep 03
-  - SFX_Woo_Sleep 04
-  - SFX_Woo_Sleep 05
-  fearBase:
-  - SFX_Woo_Fear 01
-  - SFX_Woo_Fear 02
-  - SFX_Woo_Fear 03
-  - SFX_Woo_Fear 04
-  - SFX_Woo_Fear 05
-  _tempInt: 0
 --- !u!1 &7854602573912081745
 GameObject:
   m_ObjectHideFlags: 0

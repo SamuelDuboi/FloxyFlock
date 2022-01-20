@@ -9,6 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8234402162002356740}
+  - component: {fileID: 4811798370368930073}
+  - component: {fileID: 9066997727235497550}
+  - component: {fileID: 9096750010355096295}
   m_Layer: 6
   m_Name: Colliders
   m_TagString: Untagged
@@ -37,6 +40,164 @@ Transform:
   m_Father: {fileID: 8763250984288289232}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4811798370368930073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591689440910251911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6279a1836e8854fa72bbc0d12e8768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMat: {fileID: 2100000, guid: eef01bd43ab0c884a87999c582f3f907, type: 2}
+  flox: {fileID: 7626422156612041407}
+  rb: {fileID: 7787269577375896468}
+  GrabbableFlox: {fileID: 8357688151850016788}
+  floxanimator: {fileID: 4897288197822280845}
+  floxReader: {fileID: 9096750010355096295}
+  isFrozen: 0
+  baseFace: 0
+  sleepFace: 0
+  panicFace: 0
+  floxBase:
+  - SFX_He he_Base 01
+  - SFX_He he_Base 02
+  - SFX_He he_Base 03
+  - SFX_He he_Base 04
+  - SFX_He he_Base 05
+  sleepBase:
+  - SFX_He he_Sleep 01
+  - SFX_He he_Sleep 02
+  - SFX_He he_Sleep 03
+  - SFX_He he_Sleep 04
+  - SFX_He he_Sleep 05
+  fearBase:
+  - SFX_He he_Fear 01
+  - SFX_He he_Fear 02
+  - SFX_He he_Fear 03
+  - SFX_He he_Fear 04
+  - SFX_He he_Fear 05
+  moveThreshold: 0.1
+  _tempInt: 0
+--- !u!82 &9066997727235497550
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591689440910251911}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -8634683232827515855, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 3
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &9096750010355096295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591689440910251911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bad389ad0edad47a6f2ef5e9498ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clipName: 
+  secondClipName: 
+  ThirdClipName: 
+  ForthClipName: 
+  source: {fileID: 0}
+  applyAudioOnStart: 0
+  randomSelectionOnStart: 0
+  doOnce: 0
 --- !u!1 &1674424653969122663
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +529,6 @@ GameObject:
   - component: {fileID: 4319459061004301199}
   - component: {fileID: 5262372581974558827}
   - component: {fileID: 4897288197822280845}
-  - component: {fileID: 6385701456102539839}
   m_Layer: 6
   m_Name: Flock_Hehe01
   m_TagString: Piece
@@ -677,7 +837,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -903,44 +1063,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6385701456102539839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8274945382952786794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb6279a1836e8854fa72bbc0d12e8768, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floxMat: {fileID: 2100000, guid: eef01bd43ab0c884a87999c582f3f907, type: 2}
-  flox: {fileID: 7626422156612041407}
-  rb: {fileID: 7787269577375896468}
-  GrabbableFlox: {fileID: 8357688151850016788}
-  floxanimator: {fileID: 4897288197822280845}
-  floxReader: {fileID: -1479980008408552161}
-  isFrozen: 0
-  baseFace: 0
-  sleepFace: 0
-  panicFace: 0
-  floxBase:
-  - SFX_He he_Base 01
-  - SFX_He he_Base 02
-  - SFX_He he_Base 03
-  - SFX_He he_Base 04
-  - SFX_He he_Base 05
-  sleepBase:
-  - SFX_He he_Sleep 01
-  - SFX_He he_Sleep 02
-  - SFX_He he_Sleep 03
-  - SFX_He he_Sleep 04
-  - SFX_He he_Sleep 05
-  fearBase:
-  - SFX_He he_Fear 01
-  - SFX_He he_Fear 02
-  - SFX_He he_Fear 03
-  - SFX_He he_Fear 04
-  - SFX_He he_Fear 05
-  _tempInt: 0

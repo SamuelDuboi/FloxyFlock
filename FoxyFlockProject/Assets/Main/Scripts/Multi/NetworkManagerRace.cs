@@ -36,7 +36,7 @@ public class NetworkManagerRace : NetworkRoomManager
         if (instance == null)
             instance = this;
         else
-            Destroy(instance.gameObject);
+            Destroy(gameObject);
     }
     public override void OnStopClient()
     {

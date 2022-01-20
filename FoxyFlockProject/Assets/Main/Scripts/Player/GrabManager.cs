@@ -353,7 +353,7 @@ public class GrabManager : MonoBehaviour
 
     }
     #endregion
-    IEnumerator ResetModifierCount()
+    protected virtual  IEnumerator ResetModifierCount()
     {
         yield return new WaitForSeconds(1.6f);
         if (malusNumber != null && malusNumber.Count != 0)
