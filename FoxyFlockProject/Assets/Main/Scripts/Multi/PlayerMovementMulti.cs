@@ -414,6 +414,7 @@ public class PlayerMovementMulti : NetworkBehaviour
             NetworkServer.Spawn(tempFlock, authority);
             NetworkIdentity opponentIdentity = authority.GetComponent<NetworkIdentity>();
             TargetGetFireBallSpawn(opponentIdentity.connectionToClient, tempFlock, authority, i);
+
         }
         else
         {
@@ -616,4 +617,17 @@ public class PlayerMovementMulti : NetworkBehaviour
 
     }
 
+    [Command(requiresAuthority =false)]
+    public void CmdMoveObject(GameObject objectToMove, Vector3 newPos)
+    {
+        objectToMove.transform.position = newPos;
+        RpcMoveObject(objectToMove, newPos);
+    }
+
+    [ClientRpc]
+    private void RpcMoveObject(GameObject objectToMove, Vector3 newPos)
+    {
+        objectToMove.transform.position = newPos;
+
+    }
 }

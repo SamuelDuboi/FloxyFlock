@@ -245,16 +245,17 @@ public class UIGlobalManager : MonoBehaviour
         {
             player1FireBallIncoming.SetActive(true);
         }
+        UnSelectFireBall(index);
     }
     public void FireBallNotIncoming(int index)
     {
         if (index == 0)
         {
-            player2FireBallIncoming.SetActive(false);
+            player1FireBallIncoming.SetActive(false);
         }
         else
         {
-            player1FireBallIncoming.SetActive(false);
+            player2FireBallIncoming.SetActive(false);
         }
     }
 }

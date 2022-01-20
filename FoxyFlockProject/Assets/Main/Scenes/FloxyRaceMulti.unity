@@ -2294,9 +2294,13 @@ PrefabInstance:
       propertyPath: secondClipName
       value: PortalOpen
       objectReference: {fileID: 0}
+    - target: {fileID: 8564632299931074554, guid: ecc77d2d2314a05419bc2069bca098d9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -210
+      objectReference: {fileID: 0}
     - target: {fileID: 9152202077964541903, guid: ecc77d2d2314a05419bc2069bca098d9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecc77d2d2314a05419bc2069bca098d9, type: 3}
@@ -2324,7 +2328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 0
+  clientAuthority: 1
   sendInterval: 0.05
   syncPosition: 1
   syncRotation: 1
@@ -17787,6 +17791,14 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+    - target: {fileID: 8564632299931074554, guid: ecc77d2d2314a05419bc2069bca098d9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -210
+      objectReference: {fileID: 0}
+    - target: {fileID: 9152202077964541903, guid: ecc77d2d2314a05419bc2069bca098d9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecc77d2d2314a05419bc2069bca098d9, type: 3}
 --- !u!4 &1301274704 stripped
@@ -17813,7 +17825,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 0
+  clientAuthority: 1
   sendInterval: 0.05
   syncPosition: 1
   syncRotation: 1

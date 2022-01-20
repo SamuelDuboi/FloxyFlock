@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.XR.Interaction.Toolkit;
+using Mirror;
 
 public class FireballManager : MonoBehaviour
 {
     [Header("Set in hierarchy")]
-    public GameObject portalRenderer;
     public Collider portalCollider;
-    [SerializeField] private Transform portalTransform;
+    
+    public Transform portalTransform;
     [SerializeField] private SoundReader portalSoundReader;
     public Transform limite;
     [SerializeField] private Transform explosionTransform;
@@ -24,6 +25,7 @@ public class FireballManager : MonoBehaviour
     public GameObject inFireball;
     public DetectionHUD detectionHUD;
     public GrabManager grabManager;
+    public PlayerMovementMulti playerMovement;
 
     [Header("Balancing")]
     [SerializeField] private float portalOpeningDuration = 1f;
@@ -55,6 +57,7 @@ public class FireballManager : MonoBehaviour
     private Vector3 endLerpPosition;
     private Vector3 inFireballInitPos;
     private Vector3 outFireballInitPos;
+    private Vector3 initPortalPos;
     public void Initialize()
     {
         inFireball.GetComponent<InFireball>().fireballManager = this;
@@ -65,10 +68,12 @@ public class FireballManager : MonoBehaviour
         inFireballInitPos = inFireball.transform.position;
         outFireballInitPos = outFireball.transform.position;
         baseFireballScale = inFireball.transform.localScale;
+        initPortalPos = portalTransform.position;
+        playerMovement = grabManager.GetComponentInParent<PlayerMovementMulti>();
     }
 
     private void Update()
-    {
+    {/*
         if (canDetectTarget)
         {
             if (inFireball.activeSelf)
@@ -76,7 +81,7 @@ public class FireballManager : MonoBehaviour
             else if (isFireballArriving)
                 detectionHUD.CheckAndDisplayTargetDirection(fireballSpawnPosition);
         }
-
+*/
         if (canLerp)
         {
             LerpFireballScale();
@@ -94,9 +99,8 @@ public class FireballManager : MonoBehaviour
         if (!isPortalOpen && !isPortalOpenning)
         {
             isPortalOpenning = true;
-           
-            portalTransform.position = new Vector3(tableCenter.position.x, limite.position.y + portalSpawnHeight, tableCenter.position.z);
-            portalRenderer.SetActive(true);
+
+            playerMovement.CmdMoveObject(portalTransform.gameObject, new Vector3(tableCenter.position.x, limite.position.y + portalSpawnHeight, tableCenter.position.z));
             portalSoundReader.PlaySeconde();
 
             yield return new WaitForSeconds(portalOpeningDuration);
@@ -125,9 +129,7 @@ public class FireballManager : MonoBehaviour
             //TODO : Add portal closing effect here
 
             yield return new WaitForSeconds(portalClosingDuration);
-
-            portalRenderer.SetActive(false);
-
+            playerMovement.CmdMoveObject(portalTransform.gameObject, initPortalPos);
             isPortalClosing = false;
             isPortalOpen = false;
         }
@@ -254,8 +256,8 @@ public class FireballManager : MonoBehaviour
             }
             flox.GetComponent<FloxBurn>().BurnEvent();
         }
-
-        TryClosePortal();
+        isFireballArriving = false;
+       StartCoroutine( TryClosePortal());
         canDetectTarget = false;
 
     }
