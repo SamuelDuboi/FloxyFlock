@@ -100,7 +100,7 @@ public class GrabManagerMulti : GrabManager
         if (v == 1)
         {
             transform.localPosition = new Vector3(-transform.localPosition.x+0.2f, transform.localPosition.y,transform.localPosition.z);
-            transform.localRotation = Quaternion.Euler(0, -90, 0);
+            transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x , -90, transform.localEulerAngles.z);
             lever.transform.localRotation = Quaternion.Euler(0, 0, 0);
             lever.localPosition = new Vector3(-0.424f, -0.051f, 0.04f);
         }

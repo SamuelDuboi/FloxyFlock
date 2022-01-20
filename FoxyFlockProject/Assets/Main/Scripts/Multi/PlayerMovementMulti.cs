@@ -630,4 +630,15 @@ public class PlayerMovementMulti : NetworkBehaviour
         objectToMove.transform.position = newPos;
 
     }
+
+    [Command(requiresAuthority = false)]
+    public void CmdExplosion(Vector3 position)
+    {
+        RpcExplosion(position);
+    }
+    [ClientRpc]
+    public void RpcExplosion(Vector3 position)
+    {
+        tableTransform.GetComponentInChildren<FireballManager>().Explosion(position);
+    }
 }
