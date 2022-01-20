@@ -209,8 +209,11 @@ public class MoveBubble : MonoBehaviour
             fireball.SetActive(true);
             if (fireball.GetComponent<Bubble>().OnDestroyed())
             {
-                fireball.GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
-                index++;
+                if (position.Count!= index)
+                {
+                    fireball.GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
+                    index++;
+                }
             }
         }
    

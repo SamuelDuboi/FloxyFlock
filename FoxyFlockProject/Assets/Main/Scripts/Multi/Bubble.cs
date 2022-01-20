@@ -74,7 +74,10 @@ public class Bubble : MonoBehaviour
         meshRenderer.enabled = false;
         bubbleCore.SetActive(false);
         StartCoroutine(WaitForDestroy ());
-        return hasFlocks;
+        if (!hasFlocks)
+            return false;
+        hasFlocks = false;
+        return true;
     }
     IEnumerator WaitForDestroy()
     {

@@ -407,7 +407,7 @@ public class GrabManager : MonoBehaviour
                 bonusNumber.Remove(bubble);
         }
     }
-    private void AllowMalus()
+    protected void AllowMalus()
     {
 
         if (mainPool[currentPool].numberOfModifiersActivated >= representationsModifiers.Length)
@@ -462,7 +462,7 @@ public class GrabManager : MonoBehaviour
         mainPool[currentPool].isSelectedModifier.Add(false);
     }
 
-    private void AllowBonus()
+    protected void AllowBonus()
     {
         if (mainPool[currentPool].numberOfModifiersActivated > representationsModifiers.Length)
             return;

@@ -613,8 +613,6 @@ public class PlayerMovementMulti : NetworkBehaviour
     void RcpMoveBubble(float _playgroundRayon, float tposition, Vector3 pPos, List<GameObject> bonus, List<GameObject> malus, GameObject fireball, List<Vector3> direction)
     {
         moveBubble.GetComponent<MoveBubble>().MoveBubbles(_playgroundRayon, tposition,pPos, bonus, malus, fireball,direction);
-   
-
     }
 
     [Command(requiresAuthority =false)]

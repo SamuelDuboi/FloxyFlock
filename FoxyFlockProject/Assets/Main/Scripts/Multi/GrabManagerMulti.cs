@@ -134,7 +134,34 @@ public class GrabManagerMulti : GrabManager
     }
     protected override void UpdateSpecial()
     {
-        base.UpdateSpecial();
+        directionForBubble = new List<Vector3>();
+        if (bonusNumber != null && bonusNumber.Count > 0)
+        {
+
+            for (int i = 0; i < bonusNumber.Count; i++)
+            {
+
+                if (bonusNumber[i] != null)
+                {
+                    AllowBonus();
+                    bonusNumber[i].GetComponent<SoundReader>().Play();
+                }
+            }
+        }
+        if (malusNumber != null && malusNumber.Count > 0)
+        {
+
+            for (int i = 0; i < malusNumber.Count; i++)
+            {
+                if (malusNumber[i] != null)
+                {
+                    AllowMalus();
+                    malusNumber[i].GetComponent<SoundReader>().Play();
+                }
+            }
+
+        }
+        nextIsFireBallBatche = !nextIsFireBallBatche;
         if (fireBallNumber != null && fireBallNumber.Count > 0)
         {
             if(nextIsFireBallBatche)
@@ -148,7 +175,8 @@ public class GrabManagerMulti : GrabManager
             }
 
         }
-        nextIsFireBallBatche = !nextIsFireBallBatche;
+        StartCoroutine(ResetModifierCount());
+     
     }
     protected override IEnumerator ResetModifierCount()
     {
@@ -209,7 +237,8 @@ public class GrabManagerMulti : GrabManager
             doOnce = true;
             return;
         }
-
+        if(directionForBubble ==null || directionForBubble.Count== 0)
+            directionForBubble = new List<Vector3>();
         playerMovement.CmdMoveBubble( playGround.radius, nextMilestonePos.y,positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes, playGround.fireBallOrbe, directionForBubble); 
     }
     private void RespawnFireball(GameObject _object, Vector3 initPos, bool isGrab)
