@@ -182,6 +182,8 @@ public class GrabManager : MonoBehaviour
         }
         for (int i = 0; i < mainPool[currentPool].floxes.Count; i++)
         {
+            if (!mainPool[currentPool].floxes[i])
+                continue;
             if (mainPool[currentPool].floxes[i].GetComponent<Rigidbody>().velocity.magnitude > 0.1f)
             {
                 sound.clipName = "FloxMachineBad";

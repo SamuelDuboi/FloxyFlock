@@ -519,7 +519,6 @@ GameObject:
   - component: {fileID: 6157933936243060304}
   - component: {fileID: 9098278592043845671}
   - component: {fileID: 2915741205809194163}
-  - component: {fileID: 8711256320359128603}
   - component: {fileID: 7073711491164106312}
   m_Layer: 0
   m_Name: XR RigMulti
@@ -667,7 +666,6 @@ MonoBehaviour:
   vrHeadSett: {fileID: 3059216092818332027}
   tableRenderer: {fileID: 0}
   tableTransform: {fileID: 0}
-  testMic: {fileID: 0}
   zClampMin: {fileID: 0}
   zClampMax: {fileID: 0}
   upClamp: {fileID: 0}
@@ -1066,36 +1064,6 @@ MonoBehaviour:
   - {fileID: 2065403762178136810}
   - {fileID: 5027220773342468118}
   - {fileID: 5027220771438954988}
---- !u!114 &8711256320359128603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3059216092012026247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 734b48bea0b204338958ee3d885e11f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  clientAuthority: 0
-  sendInterval: 0.05
-  syncPosition: 1
-  syncRotation: 1
-  syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
-  bufferTimeMultiplier: 3
-  bufferSizeLimit: 64
-  catchupThreshold: 6
-  catchupMultiplier: 0.1
-  showGizmos: 0
-  showOverlay: 0
-  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  target: {fileID: 0}
 --- !u!114 &7073711491164106312
 MonoBehaviour:
   m_ObjectHideFlags: 0

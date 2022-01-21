@@ -44,7 +44,9 @@ public class Bubble : MonoBehaviour
             {
                 if (grabManager == null)
                 {
+                    if(GetComponentInParent<PlayGround>().GetComponentInChildren<GameModeSolo>().playerMovement!= null)
                     grabManager = GetComponentInParent<PlayGround>().GetComponentInChildren<GameModeSolo>().playerMovement.GetComponentInChildren<GrabManager>();
+                    return;
                 }
                 if(isFireBall)
                     grabManager.AddFireBall(gameObject);

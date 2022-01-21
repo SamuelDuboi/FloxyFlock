@@ -49,7 +49,8 @@ public class GrabManagerMulti : GrabManager
         Vector3 headSettPos = inputManager.GetComponent<XRRig>().cameraFloorOffsetObject.transform.localPosition;
         pos2.localPosition += headSettPos;
         pos1.localPosition += headSettPos;
-        transform.localPosition += pos1.localPosition + Vector3.up*pos1.localPosition.y;
+        transform.localPosition += pos1.localPosition + Vector3.up;
+        transform.localPosition -= Vector3.up;
         transform.localRotation = pos1.transform.localRotation;
         yield return new WaitForSeconds(5f);
         multiUI.grabManager = this;
@@ -278,8 +279,8 @@ public class GrabManagerMulti : GrabManager
             var _object = GetComponent(type);
 
             playerMovement.InitBacth(playerMovement.gameObject, playerNumber, indexOfPool, indexOfFlock, batches, _modifier, _object, basicMats, mainPool, out mainPool);
+            mainPool[indexOfPool].floxes.Remove(flock);
         }
-
         else if (mainPool[indexOfPool].bonus.Contains(flock))
         {
             int indexOfFlock = mainPool[indexOfPool].bonus.IndexOf(flock);
@@ -309,6 +310,20 @@ public class GrabManagerMulti : GrabManager
     public void Destroy(GameObject flock)
     {
         resetMulti.GetComponent<ResetMulti>().StopAllCoroutines();
-        resetMulti.CmdDestroy(flock);
+        if (!flock)
+            return;
+        if (mainPool[currentPool].floxes.Contains(flock))
+        {
+            mainPool[currentPool].floxes.Remove(flock);
+        }
+        else if (mainPool[currentPool].bonus.Contains(flock))
+        {
+            mainPool[currentPool].malus.Remove(flock);
+        }
+        else if (mainPool[currentPool].malus.Contains(flock))
+        {
+            mainPool[currentPool].bonus.Remove(flock);
+        }
+        resetMulti.CmdDestroy(gameObject);
     }
 }

@@ -9,7 +9,6 @@ public class PlayerMovementMulti : NetworkBehaviour
     public Transform vrHeadSett;
     public Renderer tableRenderer;
     public Transform tableTransform;
-    public GameObject testMic;
     [HideInInspector] public Transform zClampMin;
     [HideInInspector] public Transform zClampMax;
     [HideInInspector] public Transform upClamp;
@@ -40,13 +39,11 @@ public class PlayerMovementMulti : NetworkBehaviour
         {
             tableTransform = GameObject.FindGameObjectWithTag("Table2").transform;
             tableTransform.GetComponentInChildren<GameModeSolo>().number = 1;
-            testMic.transform.position = GameObject.FindGameObjectWithTag("Table").transform.position;
         }
         else
         {
             tableTransform = GameObject.FindGameObjectWithTag("Table").transform;
             tableTransform.GetComponentInChildren<GameModeSolo>().number = 0;
-            testMic.transform.position = GameObject.FindGameObjectWithTag("Table2").transform.position;
         }
         if (isLocalPlayer)
         {

@@ -257,7 +257,7 @@ public class FireballManager : MonoBehaviour
                     InteractionManager.instance.SelectExit(floxInteractable.currentInteractor, floxInteractable);
                 }
             }
-            flox.GetComponent<FloxBurn>().BurnEvent();
+            flox.GetComponent<FloxBurn>().BurnEvent((GrabManagerMulti) grabManager);
         }
 
         isFireballArriving = false;

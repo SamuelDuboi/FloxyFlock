@@ -11,6 +11,7 @@ public class HotPotatoV2 : ModifierAction
     {
         if (isGrab)
         {
+            if(currentInteractor)
             currentInteractor.GetComponent<HandBurn>().BurnEvent(flockInteractable);
         }
     }
@@ -27,6 +28,7 @@ public class HotPotatoV2 : ModifierAction
     {
         grabSound = "HotGrab";
         base.OnGrabed(_object);
+        if(currentInteractor)
         currentInteractor.GetComponent<HandBurn>().doOnce = false;
     }
     public override void OnHitGround(GameObject _object, Vector3 initPos, bool isGrab)
@@ -42,6 +44,7 @@ public class HotPotatoV2 : ModifierAction
     public override void OnReleased(GameObject _object)
     {
         base.OnReleased(_object);
+        if(currentInteractor)
         currentInteractor.GetComponent<HandBurn>().DropEvent();
     }
 }

@@ -64,7 +64,10 @@ public class DissolveFlox : MonoBehaviour
         if (isDestroy)
         {
             if (grabManagerMulti != default && gameObject != null)
+            {
                 grabManagerMulti.Destroy(gameObject);
+               yield break;
+            }
             else
                 Destroy(gameObject);
         }

@@ -85,8 +85,8 @@ public class ResetMulti : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void CmdDestroy(GameObject flock)
     {
-        flock.transform.position = Vector3.one *3650;
-        RpcFreezFlock(flock);
+        if (flock)
+        flock.transform.position+=Vector3.up*250*(Random.Range(1,250));
     }
     IEnumerator LastFlockIsDestroy(DissolveFlox dissolveFlox)
     {
