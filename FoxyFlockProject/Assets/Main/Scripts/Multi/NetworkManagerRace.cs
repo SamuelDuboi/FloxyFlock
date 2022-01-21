@@ -88,7 +88,6 @@ public class NetworkManagerRace : NetworkRoomManager
             roomPlayers.Add(  newRoomGameObject);
             
             NetworkServer.AddPlayerForConnection(conn, newRoomGameObject);
-            
         }
         else
             OnRoomServerAddPlayer(conn);
@@ -113,6 +112,7 @@ public class NetworkManagerRace : NetworkRoomManager
             index = 1;
         }
         player.name = "player " + index;
+        player.GetComponent<PlayerMovementMulti>().intOfPlayer = index;
         players[numberOfPlayer] = player;
         numberOfPlayer++;
         // player.GetComponent<ControllerKeyBoard>().playerId = numberOfPlayer;
@@ -152,6 +152,7 @@ public class NetworkManagerRace : NetworkRoomManager
             if (i == InitNumberOfPlayer-1)
                 InitNumberOfPlayer = 0;
         }
+           
             roomPlayers.Clear();
     }
 

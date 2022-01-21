@@ -290,6 +290,7 @@ public class MoveBubble : MonoBehaviour
         }
         #endregion
         #region fireBall
+        iterationNumber = 0;
         if (moveFireBall)
         {
             do
@@ -301,6 +302,9 @@ public class MoveBubble : MonoBehaviour
                 r3 = Random.Range(hf, hfPrime);
                 c = new Vector3(Mathf.Cos(angleInDegrees2) * x * fireball.transform.lossyScale.x, Tposition, Mathf.Sin(angleInDegrees2) * x * fireball.transform.lossyScale.z);
                 c += Vector3.up * r3 * fireball.transform.lossyScale.y;
+                iterationNumber++;
+                if (iterationNumber > 20)
+                    break;
             }
             while (IsInContact(c, bonus, malus));
             fireball.transform.localPosition = c;

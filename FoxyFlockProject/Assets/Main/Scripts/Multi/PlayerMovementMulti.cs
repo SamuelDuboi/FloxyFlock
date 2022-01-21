@@ -32,6 +32,7 @@ public class PlayerMovementMulti : NetworkBehaviour
     private GameObject tempFlock2;
     bool doOnce;
     public MoveBubble moveBubble;
+    public int intOfPlayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -555,6 +556,24 @@ public class PlayerMovementMulti : NetworkBehaviour
             Destroy(roomPLayer2);
         var assigntToUi = player.GetComponentInChildren<AssignToUI>();
         UIGlobalManager.instance.PlayerImage(index, indexOFSprite);
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdInitGrabManager( GameObject grabManager, int index)
+    {
+        if (index == 0)
+            NetworkManagerRace.instance.grabManagers = new GrabManagerMulti[2];
+        NetworkManagerRace.instance.grabManagers[index] = grabManager.GetComponentInChildren<GrabManagerMulti>();
+        RcpInitGrabManager(grabManager, index);
+    }
+
+
+    [ClientRpc]
+    void RcpInitGrabManager(GameObject grabManager, int index)
+    {
+        if(index ==0)
+            NetworkManagerRace.instance.grabManagers = new GrabManagerMulti[2];
+        NetworkManagerRace.instance.grabManagers[index] = grabManager.GetComponentInChildren<GrabManagerMulti>();
     }
 
     [Command(requiresAuthority = false)]

@@ -50,7 +50,7 @@ public class GrabManagerMulti : GrabManager
         pos2.localPosition += headSettPos;
         pos1.localPosition += headSettPos;
         transform.localPosition += pos1.localPosition;
-
+        transform.localRotation = pos1.transform.localRotation;
         yield return new WaitForSeconds(5f);
         multiUI.grabManager = this;
         
@@ -127,7 +127,9 @@ public class GrabManagerMulti : GrabManager
             }
         }*/
 
-        multiUI.CmdInitManagers(NetworkManagerRace.instance.players);
+         playerMovement.CmdInitGrabManager(playerMovement.gameObject, playerNumber-1);
+
+       //multiUI.CmdInitManagers(NetworkManagerRace.instance.players);
     }
 
     protected override void UpdateMilestone()
