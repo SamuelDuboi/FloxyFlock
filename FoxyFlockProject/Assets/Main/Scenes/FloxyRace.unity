@@ -337,6 +337,10 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+    - target: {fileID: 3592268391959826341, guid: d4e78c349c2ac9f4fa479c262584774c, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7868546901152459597, guid: d4e78c349c2ac9f4fa479c262584774c, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.1
@@ -876,7 +880,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5823,6 +5827,10 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+    - target: {fileID: 90405762073266714, guid: 34a7fcef33af31b4e81654da49c8d759, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7976848945701037304, guid: 34a7fcef33af31b4e81654da49c8d759, type: 3}
       propertyPath: m_Name
       value: BubbleSpawn
@@ -6169,7 +6177,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -6358,6 +6366,10 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+    - target: {fileID: 90405762073266714, guid: 34a7fcef33af31b4e81654da49c8d759, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7976848945701037304, guid: 34a7fcef33af31b4e81654da49c8d759, type: 3}
       propertyPath: m_Name
       value: BubbleSpawn (1)
@@ -6441,6 +6453,10 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+    - target: {fileID: 4944701611989482104, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6576508662175088817, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -6666,6 +6682,10 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+    - target: {fileID: 4944701611989482104, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6576508662175088817, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -7573,6 +7593,10 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+    - target: {fileID: 90405762073266714, guid: 34a7fcef33af31b4e81654da49c8d759, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7976848945701037304, guid: 34a7fcef33af31b4e81654da49c8d759, type: 3}
       propertyPath: m_Name
       value: BubbleSpawn (3)
@@ -7647,6 +7671,10 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+    - target: {fileID: 90405762073266714, guid: 34a7fcef33af31b4e81654da49c8d759, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7976848945701037304, guid: 34a7fcef33af31b4e81654da49c8d759, type: 3}
       propertyPath: m_Name
       value: BubbleSpawn (2)
@@ -7949,6 +7977,10 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+    - target: {fileID: 3592268391959826341, guid: d4e78c349c2ac9f4fa479c262584774c, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4e78c349c2ac9f4fa479c262584774c, type: 3}
 --- !u!4 &1226064150 stripped
@@ -8468,6 +8500,10 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+    - target: {fileID: 4944701611989482104, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6576508662175088817, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -13888,6 +13924,10 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+    - target: {fileID: 6117914578734096546, guid: 113ba0c55595639459c49b2260b75b12, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 113ba0c55595639459c49b2260b75b12, type: 3}
 --- !u!4 &1736959216 stripped
@@ -14321,6 +14361,10 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+    - target: {fileID: 6117914578734096546, guid: 113ba0c55595639459c49b2260b75b12, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 113ba0c55595639459c49b2260b75b12, type: 3}
 --- !u!4 &1971841981 stripped
@@ -14546,6 +14590,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3952706059049276121, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201929114489854988, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+    - target: {fileID: 5201929114489854988, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5174db0054709fa4f8b40e4dac7d988e, type: 3}
 --- !u!224 &2038744502 stripped
@@ -14572,6 +14628,10 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+    - target: {fileID: 4944701611989482104, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6576508662175088817, guid: 8e8f80e7daa0faa47982784fc1284d67, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -14871,6 +14931,10 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+    - target: {fileID: 268304276428659261, guid: b384fbe0379810344b24bf520b847674, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 782646045809197696, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -16556,7 +16620,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -21613,6 +21677,10 @@ PrefabInstance:
       propertyPath: rolloffMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8699509123311434387, guid: 2d29c347be913374180603bf19c8f66b, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8699509123311434396, guid: 2d29c347be913374180603bf19c8f66b, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -21805,7 +21873,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

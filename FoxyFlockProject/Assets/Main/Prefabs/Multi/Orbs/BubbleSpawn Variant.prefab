@@ -62,9 +62,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 90405762073266714, guid: 34a7fcef33af31b4e81654da49c8d759, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 90405762073266714, guid: 34a7fcef33af31b4e81654da49c8d759, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+    - target: {fileID: 90405762073266714, guid: 34a7fcef33af31b4e81654da49c8d759, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7976848945701037304, guid: 34a7fcef33af31b4e81654da49c8d759, type: 3}
       propertyPath: m_Name
       value: BubbleSpawn Variant
