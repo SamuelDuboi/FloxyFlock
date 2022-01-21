@@ -18,9 +18,16 @@ public class TutorielManager : MonoBehaviour
     public GameObject orbs;
     public TutorialBatchManager batchManage;
     public GameObject ennemiTable;
+    public Renderer ennemiTableRenderer;
+    public GameObject playerTable;
+    public Camera vrHeadset;
+    public BoxCollider heightRange;
+
+    public GameObject fireBallBubble;
 
     [HideInInspector] public bool bubbleToFinish;
     [HideInInspector] public bool canGoNextBatch;
+    [HideInInspector] public float timerLookEnnemi;
 
     private void Start()
     {
@@ -50,19 +57,20 @@ public class TutorielManager : MonoBehaviour
                 currentAdvice1 = "You can grab objects if your hand is close enough. Hold the grab button to manipulate objects. \n\n Pull the lever to get your first batch of Floxes.";
                 batcheIdMax = 1;
                 sentance.text = currentAdvice1;
-                batchToFinish =true;
+                batchToFinish = true;
+                tableRange.enabled = false;
                 break;
             #endregion
             #region 4FloxManip
             case 4:
                 currentAdvice1 = "Grab the flox and place them on the table. \n\n Once all the flox are placed as you want in the playground, pull the lever to access the next batch of floxes.";
                 batcheIdMax = 2;
-                sentance.text = currentAdvice1; 
+                sentance.text = currentAdvice1;
                 batchToFinish = true;
                 break;
             #endregion
             #region 5Freeze
-            case 5 : 
+            case 5:
                 currentAdvice1 = "Once you pulled the lever, all the flox you placed on the table are Freezed and can't be moved again. \n\n You can continu building on the flox you just placed.";
                 sentance.text = currentAdvice1;
                 batcheIdMax = 3;
@@ -89,23 +97,38 @@ public class TutorielManager : MonoBehaviour
 
                 break;
             #endregion
-            #region 8Adversity
+            /*#region 8Adversity
             case 8:
                 currentAdvice1 = "You can play against your friends in a race to the limit. Look left to see the ennemi tower. \n You can consult this Board Info at any time to get informations about the current state of the game.";
                 sentance.text = currentAdvice1;
-                ennemiTable.SetActive(true); // regarder tour autre joueur
+                ennemiTable.SetActive(true);
+                canGoNextBatch = false;
+                if (SeeTable())
+                    timerLookEnnemi += Time.deltaTime;
+                if (timerLookEnnemi > 4)
+                {
+                    currentAdvice1 = "Reset your tower before getting to the next Step.";
+                    if (batchManage.batches.Count == 1)
+                        tutorialStage++;
+                }
+
                 break;
             #endregion
             #region 9MoveAroundUp
             case 9:
                 currentAdvice1 = "Now let's even the play. Here is your new Tower. \n\n Use the Move Around Mode to climb up and build on the top.";
-                sentance.text = currentAdvice1; //atteindre certaine jhauteur
+                sentance.text = currentAdvice1;
+                playerTable.SetActive(true);
+                heightRange.enabled =true;
+
                 break;
             #endregion
             #region 10FireBallBubble
             case 10:
                 currentAdvice1 = "Sometimes a purpple bubble appears. \n Get it and you'll get access to a new power, the Fireball !";
                 sentance.text = currentAdvice1; //get une certaine bubble
+                fireBallBubble.SetActive(true);
+
                 break;
             #endregion
             #region 11FireBallLaunch
@@ -119,9 +142,9 @@ public class TutorielManager : MonoBehaviour
                 currentAdvice1 = "But you're ennemy can also access to a Fireball and use it against you. \n When the alerte for an incoming Fireball appears, get ready to parry it with your own hands !";
                 sentance.text = currentAdvice1; // passer à la suite une fois la Fireball reçu peu importe le resulatat git gud lol
                 break;
-            #endregion
+            #endregion*/
             #region 13FinishTheTuto
-            case 13 :
+            case 8 :
                 currentAdvice1 = "You know now everything you need to know to play Foxy Flox."; //attendre un peu
                 sentance.text = currentAdvice1;
                 break;
@@ -148,9 +171,27 @@ public class TutorielManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-       if (other.gameObject.layer == playerLayer)
+       if (tutorialStage == 2 && other.gameObject.layer == playerLayer)
+       {
+            tutorialStage++;
+       }
+       else if (tutorialStage == 9 && other.gameObject.layer == playerLayer)
+       {
+            tutorialStage++;
+       }
+    }
+    public bool SeeTable()
+    {
+        Vector3 pointOnScreen = vrHeadset.GetComponent<Camera>().WorldToScreenPoint(ennemiTableRenderer.bounds.center);
+        if ((pointOnScreen.x < 0) || (pointOnScreen.x > Screen.width) ||
+            (pointOnScreen.y < 0) || (pointOnScreen.y > Screen.height))
         {
-            tutorialStage = 3;
+            return false;
         }
+        if (pointOnScreen.z < 0)
+        {
+            return false;
+        }
+        return true;
     }
 }
