@@ -13,7 +13,7 @@ public class TestMic : MonoBehaviour
         {
             if(Microphone.devices[i].Contains("Oculus"))
             {
-                audioSource.clip = Microphone.Start(Microphone.devices[i], true, 1000, 44100);
+                audioSource.clip = Microphone.Start(Microphone.devices[i], true, 3599, 44100);
                 audioSource.Play();
                 if (Microphone.IsRecording(Microphone.devices[i]))
                 {

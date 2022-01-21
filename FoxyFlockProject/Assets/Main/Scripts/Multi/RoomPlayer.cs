@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class RoomPlayer : MonoBehaviour
 {
+    public GameObject mic;
     public List<Sprite> avatars;
     private Sprite thisAvatar;
     private int index;
@@ -25,7 +26,15 @@ public class RoomPlayer : MonoBehaviour
         avatartImage.sprite = thisAvatar;
         show.CmdChangeUi(index);
     }
-
+    private void Start()
+    {
+        if (mic == null)
+            return;
+        if (number == 0)
+            mic.transform.localPosition = Vector3.right * 10;
+        else
+            mic.transform.localPosition = Vector3.left * 10;
+    }
     public void RightAvatar()
     {
         if (index == avatars.Count - 1)
