@@ -755,7 +755,7 @@ MonoBehaviour:
   vrHeadSett: {fileID: 3059216092818332027}
   tableRenderer: {fileID: 0}
   tableTransform: {fileID: 0}
-  testMic: {fileID: 3844858158747901619}
+  testMic: {fileID: 0}
   zClampMin: {fileID: 0}
   zClampMax: {fileID: 0}
   upClamp: {fileID: 0}
@@ -848,7 +848,7 @@ MonoBehaviour:
   - {fileID: 4754747057396679119}
   - {fileID: 1544454070466990995}
   - {fileID: 7626029887164073445}
-  - {fileID: 9092891414420399081}
+  - {fileID: 0}
   isRoomPlayer: 0
 --- !u!82 &3059216092012026237
 AudioSource:
@@ -1855,8 +1855,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8067304368686089763}
-  - component: {fileID: 9092891414420399081}
   - component: {fileID: 3935508110391046377}
+  - component: {fileID: 3286959834140021569}
   m_Layer: 0
   m_Name: TestMic
   m_TagString: Untagged
@@ -1878,7 +1878,19 @@ Transform:
   m_Father: {fileID: 3059216092012026241}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &9092891414420399081
+--- !u!114 &3935508110391046377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3844858158747901619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9b57c9bbe28ea1489ca2b3017af4bae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!82 &3286959834140021569
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1887,7 +1899,7 @@ AudioSource:
   m_GameObject: {fileID: 3844858158747901619}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+  OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -1899,9 +1911,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 5
+  MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -1909,32 +1921,23 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.25
+      time: 0
       value: 1
-      inSlope: -4.0016
-      outSlope: -4.0016
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.5034027
-      value: 0.4698639
-      inSlope: -1.0004
-      outSlope: -1.0004
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.95214844
+      time: 1
       value: 0
-      inSlope: -0.2501
-      outSlope: -0.2501
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -1943,7 +1946,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1983,18 +1986,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3935508110391046377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3844858158747901619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9b57c9bbe28ea1489ca2b3017af4bae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4745147256219171187
 GameObject:
   m_ObjectHideFlags: 0
