@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd274c6ba137d0e469e71acccdf1d236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portalRenderer: {fileID: 9152202077964541903}
   portalCollider: {fileID: 8564632299931074551}
   portalTransform: {fileID: 8564632299931074554}
   portalSoundReader: {fileID: 8228122798586205812}
@@ -64,16 +63,17 @@ MonoBehaviour:
   inFireball: {fileID: 0}
   detectionHUD: {fileID: 0}
   grabManager: {fileID: 0}
+  playerMovement: {fileID: 0}
   portalOpeningDuration: 1
   portalClosingDuration: 0.5
   portalSpawnHeight: 0.5
   timeBeforeFireballSpawn: 3
-  fireballMinSpawnDistance: 0.5
-  fireballMaxSpawnDistance: 1.5
+  fireballMinSpawnDistance: 0.45
+  fireballMaxSpawnDistance: 1.25
   fireballSpeed: 0.25
   fireballMaxScaleMultiply: 10
   fireballMaxLerpDistance: 0.7
-  explosionRadius: 0.8
+  explosionRadius: 0.25
   isPortalOpen: 0
   isPortalOpenning: 0
   isPortalClosing: 0
@@ -24795,8 +24795,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68bad389ad0edad47a6f2ef5e9498ad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &9152202077964541903 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3195306124044489455, guid: abb2c30472d72af4d8ccc327adbf0e8e, type: 3}
-  m_PrefabInstance: {fileID: 6006437070248496416}
-  m_PrefabAsset: {fileID: 0}

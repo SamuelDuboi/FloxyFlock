@@ -176,7 +176,7 @@ public class FireballManager : MonoBehaviour
 
         Vector3 fireballToTarget = fireballTargetPosition - inFireball.transform.position;
         inFireball.GetComponent<Rigidbody>().AddForce(fireballToTarget * fireballSpeed, ForceMode.Impulse);
-        StartFireballLerp();
+        //StartFireballLerp();
     }
 
     private void StartFireballLerp()
@@ -208,9 +208,7 @@ public class FireballManager : MonoBehaviour
         float fireballSpawnDistance = Random.Range(fireballMinSpawnDistance, fireballMaxSpawnDistance);
         float fireballSpawnAngle = Random.Range(0f, 2 * Mathf.PI);
 
-        Vector3 fireballSpawnPoint = tableCenter.transform.right; 
-        fireballSpawnPoint = new Vector3((fireballSpawnPoint.x * Mathf.Cos(fireballSpawnAngle) - fireballSpawnPoint.z * Mathf.Sin(fireballSpawnAngle)), tableCenter.transform.position.y + portalSpawnHeight, (fireballSpawnPoint.x * Mathf.Cos(fireballSpawnAngle) - fireballSpawnPoint.z * Mathf.Sin(fireballSpawnAngle)));
-        fireballSpawnPoint *= fireballSpawnDistance;
+        Vector3 fireballSpawnPoint = new Vector3(tableCenter.transform.position.x + Mathf.Cos(fireballSpawnAngle) * fireballSpawnDistance, portalTransform.position.y, tableCenter.transform.position.z + Mathf.Sin(fireballSpawnDistance) * fireballSpawnDistance);
 
         return fireballSpawnPoint;
     }
@@ -261,11 +259,19 @@ public class FireballManager : MonoBehaviour
             }
             flox.GetComponent<FloxBurn>().BurnEvent();
         }
+
         isFireballArriving = false;
-       StartCoroutine( TryClosePortal());
+        StartCoroutine( TryClosePortal());
         canDetectTarget = false;
 
     }
+
+    [ContextMenu("Call Fireball To Self")]
+    public void CallFireballInEditor()
+    {
+        StartCoroutine(FireballIncoming());
+    }
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
