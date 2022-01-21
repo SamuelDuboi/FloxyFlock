@@ -10,7 +10,7 @@ public class OutFireball : MonoBehaviour
     {
         if (fireballManager == null)
             return;
-        if (  other == fireballManager.portalCollider)
+        if (other == fireballManager.portalCollider)
         {
             print(this + " as hit " + other.gameObject);
             fireballManager.FireballHitPortal();

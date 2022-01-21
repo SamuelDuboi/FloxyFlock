@@ -5015,14 +5015,14 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 15
+  MaxDistance: 3
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -5057,7 +5057,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5114,7 +5114,7 @@ MonoBehaviour:
   ThirdClipName: 
   ForthClipName: 
   source: {fileID: 0}
-  applyAudioOnStart: 0
+  applyAudioOnStart: 1
   randomSelectionOnStart: 0
   doOnce: 0
 --- !u!114 &-896477228234636948
