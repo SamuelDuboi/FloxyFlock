@@ -45,6 +45,7 @@ public class MoveBubble : MonoBehaviour
     public float hfPrime;
     public float offset;
     private bool moveFireBall;
+    private bool isNotFirstBacth;
    public void MoveBubbles(float _playgroundRayon, float Tposition, Vector3 pPos, List<GameObject> bonus, List<GameObject> malus, List<Vector3> position)
     {
         playgroundRayon = _playgroundRayon;
@@ -74,17 +75,19 @@ public class MoveBubble : MonoBehaviour
         int index = 0;
         for (int i = 0; i < bonus.Count; i++)
         {
-            if (bonus[i].GetComponent<Bubble>().OnDestroyed()) 
+            if (bonus[i].GetComponent<Bubble>().OnDestroyed(isNotFirstBacth)) 
             {
+                if(isNotFirstBacth)
                 bonus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
                 index++;
             }
         }
         for (int i = 0; i < malus.Count; i++)
         {
-            if (malus[i].GetComponent<Bubble>().OnDestroyed())
+            if (malus[i].GetComponent<Bubble>().OnDestroyed(isNotFirstBacth))
             {
-                malus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
+                if (isNotFirstBacth)
+                    malus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
                 index++;
             }
         }
@@ -160,7 +163,8 @@ public class MoveBubble : MonoBehaviour
         {
             Vector3.MoveTowards(malus[i].transform.position, Vector3.up * Tposition - pPos, J);
         }
-
+        if (!isNotFirstBacth)
+            isNotFirstBacth = true;
         #endregion
     }
     public void MoveBubbles(float _playgroundRayon, float Tposition, Vector3 pPos, List<GameObject> bonus, List<GameObject> malus,GameObject fireball, List<Vector3> position)
@@ -190,28 +194,31 @@ public class MoveBubble : MonoBehaviour
         int index = 0;
         for (int i = 0; i < bonus.Count; i++)
         {
-            if (bonus[i].GetComponent<Bubble>().OnDestroyed())
+            if (bonus[i].GetComponent<Bubble>().OnDestroyed(isNotFirstBacth))
             {
-                bonus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
+                if (isNotFirstBacth)
+                    bonus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
                 index++;
             }
         }
         for (int i = 0; i < malus.Count; i++)
         {
-            if (malus[i].GetComponent<Bubble>().OnDestroyed())
+            if (malus[i].GetComponent<Bubble>().OnDestroyed(isNotFirstBacth))
             {
-                malus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
+                if (isNotFirstBacth)
+                    malus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
                 index++;
             }
         }
         if (moveFireBall)
         {
             fireball.SetActive(true);
-            if (fireball.GetComponent<Bubble>().OnDestroyed())
+            if (fireball.GetComponent<Bubble>().OnDestroyed(isNotFirstBacth))
             {
                 if (position.Count!= index)
                 {
-                    fireball.GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
+                    if (isNotFirstBacth)
+                        fireball.GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
                     index++;
                 }
             }
@@ -302,6 +309,8 @@ public class MoveBubble : MonoBehaviour
             fireball.SetActive(false);
         }
         moveFireBall = !moveFireBall;
+        if(!isNotFirstBacth)
+        isNotFirstBacth = true;
         #endregion
     }
     private bool IsInContact(Vector3 pos, List<GameObject> bonus, List<GameObject> malus)

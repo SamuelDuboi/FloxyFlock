@@ -67,28 +67,37 @@ public class Bubble : MonoBehaviour
         }
     }
 
-    public bool OnDestroyed()
+    public bool OnDestroyed(bool isFirst)
     {
-        destroyBubble.transform.position = m_transform.position;
-        destroyBubble.SetActive(true);
-        meshRenderer.enabled = false;
-        bubbleCore.SetActive(false);
-        StartCoroutine(WaitForDestroy ());
+        if (isFirst)
+        {
+            destroyBubble.transform.position = m_transform.position;
+            destroyBubble.SetActive(true);
+            meshRenderer.enabled = false;
+            bubbleCore.SetActive(false);
+        }
+        //sound.Play();
+        StartCoroutine(WaitForDestroy (isFirst));
         if (!hasFlocks)
             return false;
         hasFlocks = false;
         return true;
     }
-    IEnumerator WaitForDestroy()
+    IEnumerator WaitForDestroy(bool isFirst)
     {
         yield return new WaitForSeconds(1.0f);
-        OnSpawn();
+        OnSpawn(isFirst);
     }
-    private void OnSpawn()
+    private void OnSpawn(bool isFirst)
     {
-        destroyBubble.SetActive(false);
+        if (isFirst)
+        {
+            destroyBubble.SetActive(false);
+            startBubble.SetActive(true);
+            startBubble.GetComponent<SoundReader>().Play();
+
+        }
         startBubble.transform.position = transform.position;
-        startBubble.SetActive(true);
         StartCoroutine(WaitForSpawn());
 
     }

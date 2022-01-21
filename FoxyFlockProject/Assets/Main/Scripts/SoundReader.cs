@@ -11,10 +11,11 @@ public class SoundReader : MonoBehaviour
     public bool applyAudioOnStart;
     public bool randomSelectionOnStart;
     public bool doOnce;
+    public bool doTwice;
     private bool cantPLay;
     private void Start()
     {
-        source = GetComponent<AudioSource>();
+         source = GetComponent<AudioSource>();
         if (SoundManager.instance != null )
         {
             if(clipName == string.Empty || clipName == null)
@@ -74,6 +75,11 @@ public class SoundReader : MonoBehaviour
             SoundManager.instance.ApplyAudioClip(clipName, source);
             if (applyAudioOnStart)
             {
+                if (doOnce)
+                {
+                    doOnce = false;
+                    return;
+                }
                 if (randomSelectionOnStart)
                 {
 
@@ -107,7 +113,10 @@ public class SoundReader : MonoBehaviour
                     return;
                 }
                 else
+                {
+                   
                     source.Play();
+                }
             }
         }
         else
@@ -122,7 +131,12 @@ public class SoundReader : MonoBehaviour
                 doOnce = false;
                 return;
             }
-            if(!source)
+            if (doTwice)
+            {
+                doTwice = false;
+                return;
+            }
+            if (!source)
             source = GetComponent<AudioSource>();
             SoundManager.instance.ApplyAudioClip(clipName, source);
             source.Play();
@@ -137,6 +151,11 @@ public class SoundReader : MonoBehaviour
                 doOnce = false;
                 return;
             }
+            if (doTwice)
+            {
+                doTwice = false;
+                return;
+            }
             if (!source)
                 source = GetComponent<AudioSource>();
             clipName = name;
@@ -148,6 +167,16 @@ public class SoundReader : MonoBehaviour
     {
         if (!cantPLay)
         {
+            if (doOnce)
+            {
+                doOnce = false;
+                return;
+            }
+            if (doTwice)
+            {
+                doTwice = false;
+                return;
+            }
             if (!source)
                 source = GetComponent<AudioSource>();
             SoundManager.instance.ApplyAudioClip(secondClipName, source);
@@ -158,6 +187,16 @@ public class SoundReader : MonoBehaviour
     {
         if (!cantPLay)
         {
+            if (doOnce)
+            {
+                doOnce = false;
+                return;
+            }
+            if (doTwice)
+            {
+                doTwice = false;
+                return;
+            }
             if (!source)
                 source = GetComponent<AudioSource>();
             SoundManager.instance.ApplyAudioClip(ThirdClipName, source);
@@ -168,6 +207,16 @@ public class SoundReader : MonoBehaviour
     {
         if (!cantPLay)
         {
+            if (doOnce)
+            {
+                doOnce = false;
+                return;
+            }
+            if (doTwice)
+            {
+                doTwice = false;
+                return;
+            }
             if (!source)
                 source = GetComponent<AudioSource>();
             SoundManager.instance.ApplyAudioClip(ForthClipName, source);
