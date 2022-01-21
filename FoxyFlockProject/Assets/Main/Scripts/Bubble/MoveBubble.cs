@@ -46,6 +46,7 @@ public class MoveBubble : MonoBehaviour
     public float offset;
     private bool moveFireBall;
     private bool isNotFirstBacth;
+    private int iterationNumber;
    public void MoveBubbles(float _playgroundRayon, float Tposition, Vector3 pPos, List<GameObject> bonus, List<GameObject> malus, List<Vector3> position)
     {
         playgroundRayon = _playgroundRayon;
@@ -92,7 +93,7 @@ public class MoveBubble : MonoBehaviour
             }
         }
 
-
+        iterationNumber = 0;
 
         #region bonus
         for (int i = 0; i < bonus.Count; i++)
@@ -106,13 +107,15 @@ public class MoveBubble : MonoBehaviour
             bonus[i].transform.localPosition = c + Vector3.up*r3 * bonus[i].transform.lossyScale.y; 
             if(i == 1)
             {
-                if(Mathf.Abs( Vector3.Distance(bonus[i-1].transform.position, bonus[i].transform.position)) < rayonBuble*2)
+                if(Mathf.Abs( Vector3.Distance(bonus[i-1].transform.position, bonus[i].transform.position)) < rayonBuble*2 && iterationNumber<20)
                 {
+                    iterationNumber++;
                     i--;
                 }
             }
         }
         #endregion
+        iterationNumber = 0;
         #region malus
         for (int i = 0; i < malus.Count; i++)
         {
@@ -123,14 +126,15 @@ public class MoveBubble : MonoBehaviour
             c = new Vector3( Mathf.Cos(angleInDegrees2) * x * malus[i].transform.lossyScale.x, Tposition,Mathf.Sin(angleInDegrees2) * x * malus[i].transform.lossyScale.z);
             d = Mathf.Abs(Vector3.Distance(c, Vector3.zero));
             //will never be equal to 0 due to float 32 round, so I added a bit more
-            if (d < 0.1f)
+            if (d < 0.1f && iterationNumber < 20)
             {
+                iterationNumber++;
                 i--;
                 continue;
             }
             r3 = Random.Range(0, Mathf.Abs(Vector3.Distance(c, Vector3.zero)) / 2.0f);
 
-           
+            
             cPrime = Vector3.Lerp(c,new Vector3( 0,Tposition,0), r3 / d);
             d = Mathf.Abs(Vector3.Distance(cPrime, bonus[0].transform.localPosition));
             d1= Mathf.Abs(Vector3.Distance(cPrime, bonus[1].transform.localPosition));
@@ -138,8 +142,9 @@ public class MoveBubble : MonoBehaviour
             {
                 d = d1;
             }
-            if (d < rayonBuble*2)
+            if (d < rayonBuble*2&& iterationNumber < 20)
             {
+                iterationNumber++;
                 i--;
                 continue;
             }
@@ -149,8 +154,9 @@ public class MoveBubble : MonoBehaviour
            
            
             malus[i].transform.localPosition = cPrimePrime + Vector3.up * r5 * malus[i].transform.lossyScale.y;
-            if (IsInContactBonus(malus[i].transform.localPosition, bonus, malus, i))
+            if (IsInContactBonus(malus[i].transform.localPosition, bonus, malus, i) && iterationNumber<20)
             {
+                iterationNumber++;
                 i--;
                 continue;
             }
@@ -174,7 +180,7 @@ public class MoveBubble : MonoBehaviour
         J = Mathf.Abs(Vector3.Distance(Vector3.up * Tposition, pPos));
         minAngle = 0;
         maxAngle = Mathf.PI;
-
+        iterationNumber = 0;
         if (J >= spawnMax)
          {
                     float angleValue = (spawnMax * spawnMax - _playgroundRayon * _playgroundRayon - J * J) / (-2 * _playgroundRayon * J);
@@ -236,14 +242,16 @@ public class MoveBubble : MonoBehaviour
             bonus[i].transform.localPosition = c + Vector3.up * r3 * bonus[i].transform.lossyScale.y;
             if (i == 1)
             {
-                if (Mathf.Abs(Vector3.Distance(bonus[i - 1].transform.position, bonus[i].transform.position)) < rayonBuble * 2)
+                if (Mathf.Abs(Vector3.Distance(bonus[i - 1].transform.position, bonus[i].transform.position)) < rayonBuble * 2 && iterationNumber < 20)
                 {
+                    iterationNumber++;
                     i--;
                 }
             }
         }
         #endregion
         #region malus
+        iterationNumber = 0;
         for (int i = 0; i < malus.Count; i++)
         {
             r1 = Random.Range(0, playgroundRayon - cm );
@@ -253,8 +261,9 @@ public class MoveBubble : MonoBehaviour
             c = new Vector3(Mathf.Cos(angleInDegrees2) * x * malus[i].transform.lossyScale.x, Tposition, Mathf.Sin(angleInDegrees2) * x * malus[i].transform.lossyScale.z);
             d = Mathf.Abs(Vector3.Distance(c, Vector3.zero));
             //will never be equal to 0 due to float 32 round, so I added a bit more
-            if (d < 0.1)
+            if (d < 0.1 && iterationNumber < 20)
             {
+                iterationNumber++;
                 i--;
                 continue;
             }
@@ -272,8 +281,9 @@ public class MoveBubble : MonoBehaviour
 
 
             malus[i].transform.localPosition = cPrimePrime + Vector3.up * r5 * malus[i].transform.lossyScale.y;
-            if (IsInContactBonus(malus[i].transform.localPosition, bonus, malus, i))
+            if (IsInContactBonus(malus[i].transform.localPosition, bonus, malus, i) && iterationNumber < 20)
             {
+                iterationNumber++;
                 i--;
                 continue;
             }
