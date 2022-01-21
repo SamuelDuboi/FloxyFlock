@@ -49,7 +49,7 @@ public class GrabManagerMulti : GrabManager
         Vector3 headSettPos = inputManager.GetComponent<XRRig>().cameraFloorOffsetObject.transform.localPosition;
         pos2.localPosition += headSettPos;
         pos1.localPosition += headSettPos;
-        transform.localPosition += pos1.localPosition;
+        transform.localPosition += pos1.localPosition + Vector3.up*pos1.localPosition.y;
         transform.localRotation = pos1.transform.localRotation;
         yield return new WaitForSeconds(5f);
         multiUI.grabManager = this;
