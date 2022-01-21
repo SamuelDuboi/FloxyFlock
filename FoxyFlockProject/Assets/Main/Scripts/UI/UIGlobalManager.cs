@@ -53,6 +53,7 @@ public class UIGlobalManager : MonoBehaviour
     }
     private IEnumerator Start()
     {
+        cantPlayTime = true;
         yield return new WaitForSeconds(1);
         if (!NetworkManagerRace.instance)
         {
@@ -60,6 +61,8 @@ public class UIGlobalManager : MonoBehaviour
         }
         if (player1Position != null)
             positionSize = player1Position.fontSize;
+        yield return new WaitForSeconds(5.0f);
+        cantPlayTime = false;
     }
     private void Update()
     {

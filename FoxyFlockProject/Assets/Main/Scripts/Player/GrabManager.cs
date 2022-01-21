@@ -78,6 +78,8 @@ public class GrabManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         Vector3 headSettPos = inputManager.GetComponent<XRRig>().cameraFloorOffsetObject.transform.localPosition;
         transform.localPosition += headSettPos;
+        FreezOfList(mainPool[0].floxes, 0);
+
     }
     public virtual void InitPool()
     {

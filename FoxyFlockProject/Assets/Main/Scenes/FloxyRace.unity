@@ -16852,9 +16852,10 @@ MonoBehaviour:
   heatMaxValue: 100
   burningSpeed: 35
   coolingSpeed: 35
-  wiggleCoolingScale: 2
+  wiggleCoolingScale: 50
   heatPourcentage: 0
   doOnce: 0
+  wigglePower: 0
 --- !u!199 &4091390469580407088
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -21948,9 +21949,10 @@ MonoBehaviour:
   heatMaxValue: 100
   burningSpeed: 35
   coolingSpeed: 35
-  wiggleCoolingScale: 2
+  wiggleCoolingScale: 50
   heatPourcentage: 0
   doOnce: 0
+  wigglePower: 0
 --- !u!1 &6443964349262902324 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2154897950616478903, guid: 2d29c347be913374180603bf19c8f66b, type: 3}

@@ -76,6 +76,8 @@ public class ResetMulti : NetworkBehaviour
         Destroy(flock.GetComponent<GrabbableObject>());
         Destroy(flock.GetComponent<GrabablePhysicsHandler>());
         Destroy(flock.GetComponent<Rigidbody>());
+        flock.GetComponentInChildren<FloxExpressionManager>().isFrozen = true;
+
         NetworkRigidbody rgb;
         if (flock.TryGetComponent<NetworkRigidbody>(out rgb))
             Destroy(rgb);

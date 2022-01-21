@@ -20,7 +20,7 @@ public class HandBurn : MonoBehaviour
     private float heatCurrentValue = 0f;
     [HideInInspector] public float heatPourcentage = 0f;
     private float lastFrameHeatPourcentage = 0f;
-    private Transform lastFrameTransform;
+    private Vector3 lastFrameTransform;
 
     private XRDirectInteractor interactor;
     private SkinnedMeshRenderer handRenderer;
@@ -29,10 +29,13 @@ public class HandBurn : MonoBehaviour
     private bool playOnceCool;
     private SoundReader soundReader;
 
+    public float wigglePower;
+
     private HeatState heatState =  HeatState.cool;
 
     private IEnumerator Start()
     {
+        lastFrameTransform = this.transform.localPosition;
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
         yield return new WaitForSeconds(5.0f);
@@ -43,9 +46,11 @@ public class HandBurn : MonoBehaviour
 
         handRenderer = this.GetComponentInChildren<SkinnedMeshRenderer>();
         soundReader = GetComponent<SoundReader>();
+      
+
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         heatPourcentage = heatCurrentValue / heatMaxValue;
 
@@ -55,6 +60,8 @@ public class HandBurn : MonoBehaviour
             CoolEvent();
             lastFrameHeatPourcentage = heatPourcentage;
         }
+
+        wigglePower = wiggleStrengh();
     }
 
     private void UpdateMatBurnValue()
@@ -84,7 +91,7 @@ public class HandBurn : MonoBehaviour
             soundReader.PlaySeconde();
         }
         heatCurrentValue += Time.deltaTime* burningSpeed;
-        lastFrameTransform = this.transform;
+        lastFrameTransform = this.transform.localPosition;
         if (heatCurrentValue >= heatMaxValue)
         {
             heatCurrentValue = heatMaxValue;
@@ -148,15 +155,14 @@ public class HandBurn : MonoBehaviour
 
     private float wiggleStrengh()
     {
-        Vector3 lastFramePosition = lastFrameTransform.position;
-        Quaternion lastFrameRotation = lastFrameTransform.rotation;
+        Vector3 lastFramePosition = lastFrameTransform;
+      //  Quaternion lastFrameRotation = lastFrameTransform;
+         float distanceCheck =Vector3.Distance( transform.localPosition, lastFramePosition);
+     //   float rotationCheck = Mathf.Abs(Quaternion.Angle(transform.localRotation, lastFrameRotation)); //I don't know if quaternion.angle can be negative so i take the absolute as a security
 
-        float distanceCheck = Vector3.Distance(transform.position, lastFramePosition);
-        float rotationCheck = Mathf.Abs(Quaternion.Angle(transform.rotation, lastFrameRotation)); //I don't know if quaternion.angle can be negative so i take the absolute as a security
+        float wiggle = (distanceCheck ) * wiggleCoolingScale;
 
-        float wiggle = (distanceCheck + rotationCheck) * wiggleCoolingScale;
-
-        lastFrameTransform = this.transform;
+            lastFrameTransform = transform.localPosition;
 
         return wiggle;
     }

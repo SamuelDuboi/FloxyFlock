@@ -70,10 +70,10 @@ MonoBehaviour:
   timeBeforeFireballSpawn: 3
   fireballMinSpawnDistance: 0.45
   fireballMaxSpawnDistance: 1.25
-  fireballSpeed: 0.25
+  fireballSpeed: 0.4
   fireballMaxScaleMultiply: 10
   fireballMaxLerpDistance: 0.7
-  explosionRadius: 0.25
+  explosionRadius: 0.15
   isPortalOpen: 0
   isPortalOpenning: 0
   isPortalClosing: 0
@@ -136,7 +136,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -196,6 +196,7 @@ MonoBehaviour:
   applyAudioOnStart: 0
   randomSelectionOnStart: 0
   doOnce: 0
+  doTwice: 0
 --- !u!1 &5385568744381896543
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,6 +377,7 @@ MonoBehaviour:
   applyAudioOnStart: 0
   randomSelectionOnStart: 0
   doOnce: 0
+  doTwice: 0
 --- !u!1 &6439744357457004042
 GameObject:
   m_ObjectHideFlags: 0

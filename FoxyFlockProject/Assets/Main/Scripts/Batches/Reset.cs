@@ -14,7 +14,7 @@ public class Reset : MonoBehaviour
 
         freezdFlockPoolIndex.Add(poolIndex);
         freezdFlockIndex.Add(flockIndex);
-
+        flock.GetComponentInChildren<FloxExpressionManager>().isFrozen = true;
         Destroy(flock.GetComponent<GrabbableObject>());
         Destroy( flock.GetComponent<GrabablePhysicsHandler>());
         Destroy(flock.GetComponent<Rigidbody>());

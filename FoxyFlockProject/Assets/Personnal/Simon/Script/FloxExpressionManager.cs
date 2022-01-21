@@ -20,8 +20,7 @@ public class FloxExpressionManager : MonoBehaviour
     public List<string> fearBase;
 
     public float moveThreshold;
-
-    [HideInInspector] public int _tempInt;
+   [HideInInspector] public int _tempInt;
 
     void Start()
     {
@@ -38,7 +37,7 @@ public class FloxExpressionManager : MonoBehaviour
 
         if (isFrozen && sleepFace == false)
         {
-            Debug.Log("freez");
+            sleepFace = true;
             _tempInt = Random.Range(0, 5);
             floxReader.clipName = sleepBase[_tempInt];
             floxReader.Play();
@@ -47,7 +46,6 @@ public class FloxExpressionManager : MonoBehaviour
             floxanimator.SetBool("Base", false);
             panicFace = false;
             floxanimator.SetBool("Panic", false);
-            sleepFace = true;
             floxanimator.SetBool("Sleep", true);
 
         }
@@ -60,7 +58,6 @@ public class FloxExpressionManager : MonoBehaviour
             floxReader.Play();
             baseFace = false;
             floxanimator.SetBool("Base", false);
-            sleepFace = false;
             floxanimator.SetBool("Sleep", false);
             panicFace = true;
             floxanimator.SetBool("Panic", true);
@@ -73,7 +70,6 @@ public class FloxExpressionManager : MonoBehaviour
             floxReader.Play();
             panicFace = false;
             floxanimator.SetBool("Panic", false);
-            sleepFace = false;
             floxanimator.SetBool("Sleep", false);
             baseFace = true;
             floxanimator.SetBool("Base", true);
