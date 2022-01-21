@@ -259,8 +259,9 @@ public class FireballManager : MonoBehaviour
             }
             flox.GetComponent<FloxBurn>().BurnEvent();
         }
+
         isFireballArriving = false;
-       StartCoroutine( TryClosePortal());
+        StartCoroutine( TryClosePortal());
         canDetectTarget = false;
 
     }
