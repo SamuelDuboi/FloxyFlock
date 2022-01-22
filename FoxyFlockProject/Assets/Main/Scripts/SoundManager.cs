@@ -9,6 +9,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private SoundList soundList;
     private List<AudioSource> sources;
     public List< InputManager> inputManagers;
+    public SoundReader soundReader;
     private void Awake()
     {
         if (instance == null)
@@ -81,5 +82,14 @@ public class SoundManager : MonoBehaviour
     {
         if(sources != null)
         sources.Clear();
+    }
+
+    public void LunchMenu()
+    {
+        soundReader.Play();
+    }
+    public void LunchGame()
+    {
+        soundReader.PlaySeconde();
     }
 }
