@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class SoundManager : MonoBehaviour
     private List<AudioSource> sources;
     public List< InputManager> inputManagers;
     public SoundReader soundReader;
+    private bool isPlaying;
     private void Awake()
     {
         if (instance == null)
@@ -22,7 +24,13 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    private void Update()
+    {
+        if (!isPlaying && SceneManager.GetActiveScene().buildIndex == 3)
+            LunchGame();
+        if (isPlaying && SceneManager.GetActiveScene().buildIndex != 3)
+            LunchMenu();
+    }
     public void AddInputManager(InputManager inputManager)
     {
         if (inputManagers == null)
@@ -87,9 +95,12 @@ public class SoundManager : MonoBehaviour
     public void LunchMenu()
     {
         soundReader.Play();
+        isPlaying = false;
     }
     public void LunchGame()
     {
         soundReader.PlaySeconde();
+        isPlaying = true;
+
     }
 }

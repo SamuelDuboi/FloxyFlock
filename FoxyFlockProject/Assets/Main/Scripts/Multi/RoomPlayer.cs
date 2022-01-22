@@ -35,6 +35,10 @@ public class RoomPlayer : MonoBehaviour
         else
             mic.transform.localPosition = Vector3.left * 10;
     }
+    public void ReturnMenu()
+    {
+        ScenesManagement.instance.LunchScene(0);
+    }
     public void RightAvatar()
     {
         if (index == avatars.Count - 1)

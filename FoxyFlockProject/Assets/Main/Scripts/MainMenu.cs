@@ -16,9 +16,10 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-    public void loadScene()
+    public void loadScene(int index)
     {
-        //loadScene(); // la scène à load
+        ScenesManagement.instance.LunchScene(index);
+        
     }
 
 }

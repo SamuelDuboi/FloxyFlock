@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(!ScenesManager.instance.IsLobbyScene() && !ScenesManager.instance.IsMenuScene())
+        if(!ScenesManagement.instance.IsLobbyScene() && !ScenesManagement.instance.IsMenuScene())
         {
             inputManager.OnCanMove.AddListener(Movement);
             inputManager.OnBothTrigger.AddListener(InitMovement);

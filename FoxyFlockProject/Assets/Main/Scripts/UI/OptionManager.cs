@@ -76,7 +76,10 @@ public class OptionManager : MonoBehaviour
     {
         master.SetFloat("SFXVolume", minSoundValue-  minSoundValue * value / 100);
     }
-
+    public void LunchScene(int index)
+    {
+        ScenesManagement.instance.LunchScene(index);
+    }
     public void OnReturnLobby()
     {
         NetworkManagerRace.instance.OnReset();

@@ -766,17 +766,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c416739003a4b441aa3524825b198e4, type: 3}
---- !u!114 &120853070 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8486065867072294735, guid: 7c416739003a4b441aa3524825b198e4, type: 3}
+--- !u!1 &120853070 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8486065867072294734, guid: 7c416739003a4b441aa3524825b198e4, type: 3}
   m_PrefabInstance: {fileID: 120853069}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+--- !u!114 &120853072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120853070}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 201855b166b95de4d813cd4151420b10, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d74a4a9737017f488053c6a9ad7d757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuScene: 
+  lobbyScene: 
+  numberOfFlocksInScene: 0
 --- !u!1 &148663909
 GameObject:
   m_ObjectHideFlags: 0
@@ -6611,10 +6620,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 120853070}
-        m_TargetAssemblyTypeName: ScenesManager, Assembly-CSharp
-        m_MethodName: LunchScene
-        m_Mode: 5
+      - m_Target: {fileID: 1234367775}
+        m_TargetAssemblyTypeName: RoomPlayer, Assembly-CSharp
+        m_MethodName: ReturnMenu
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

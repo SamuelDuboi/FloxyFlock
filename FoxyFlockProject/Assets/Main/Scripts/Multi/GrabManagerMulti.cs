@@ -59,10 +59,10 @@ public class GrabManagerMulti : GrabManager
     public virtual void InitPool(GameObject authority, PlayerMovementMulti player, int v)
     {
         playerNumber = v;
-        if (ScenesManager.instance.IsLobbyScene() || ScenesManager.instance.IsMenuScene())
+        if (ScenesManagement.instance.IsLobbyScene() || ScenesManagement.instance.IsMenuScene())
             return;
         mainPool = new List<pool>();
-        ScenesManager.instance.numberOfFlocksInScene = 0;
+        ScenesManagement.instance.numberOfFlocksInScene = 0;
         for (int i = 0; i < batches.Count; i++)
         {
             mainPool.Add(new pool());

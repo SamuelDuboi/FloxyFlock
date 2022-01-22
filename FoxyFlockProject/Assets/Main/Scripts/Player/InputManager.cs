@@ -164,9 +164,14 @@ public class InputManager : MonoBehaviour
         InputHelpers.IsPressed(leftHand.inputDevice, InputHelpers.Button.SecondaryButton, out isMenuPressed);
         if (isMenuPressed && !isMenuPressing)
         {
+            if (!ScenesManagement.instance.IsMenuScene())
+            {
+                
             isMenuPressing = true;
             isOnMenu = !isOnMenu;
             OnMenuPressed.Invoke();
+
+            }
         }
         if (!isMenuPressed && isMenuPressing)
         {

@@ -79,7 +79,7 @@ public class HandPresence : MonoBehaviour
 
             handAnimator = spawnedHandModel.GetComponent<Animator>();
             pointerGO = spawnedHandModel.GetComponentInChildren<LineRenderer>().gameObject;
-            isMenu = ScenesManager.instance.IsMenuScene();
+            isMenu = ScenesManagement.instance.IsMenuScene();
             if (isLeft)
                 pointerGO.SetActive(false);
             //if is not menu desable ray track

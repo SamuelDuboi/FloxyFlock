@@ -15,7 +15,7 @@ public class MoveAroundVignette : MonoBehaviour
 
     private void Start()
     {
-        if (!ScenesManager.instance.IsLobbyScene() && !ScenesManager.instance.IsMenuScene())
+        if (!ScenesManagement.instance.IsLobbyScene() && !ScenesManagement.instance.IsMenuScene())
         {
             inputManager.OnBothTrigger.AddListener(OnBothTriggerState);
             inputManager.OnLeftTriggerRelease.AddListener(VignetteFadeOut);

@@ -61,7 +61,7 @@ public class PlayerMovementMulti : NetworkBehaviour
         downClamp = temp.downClamp;
 
 
-        if (!ScenesManager.instance.IsLobbyScene() && !ScenesManager.instance.IsMenuScene())
+        if (!ScenesManagement.instance.IsLobbyScene() && !ScenesManagement.instance.IsMenuScene())
         {
             inputManager.OnCanMove.AddListener(Movement);
             inputManager.OnBothTrigger.AddListener(InitMovement);
@@ -280,7 +280,7 @@ public class PlayerMovementMulti : NetworkBehaviour
         _mainPool1[i].floxes.Add(flock);
         _mainPool1[i].isSelected.Add(false);
         _mainPool1[i].isEmpty = false;
-        ScenesManager.instance.numberOfFlocksInScene++;
+        ScenesManagement.instance.numberOfFlocksInScene++;
         _mainPool = _mainPool1;
         tempFlock = flock;
         int index = 0;
@@ -505,11 +505,13 @@ public class PlayerMovementMulti : NetworkBehaviour
     public void CmdWin1()
     {
         RcpWin1();
+        StartCoroutine(WaitToCallMenu());
     }
     [Command(requiresAuthority = false)]
     public void CmdWin2()
     {
         RcpWin2();
+        StartCoroutine(WaitToCallMenu());
     }
 
     [ClientRpc]

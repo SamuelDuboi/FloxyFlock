@@ -19,7 +19,7 @@ public class FadeHUD : MonoBehaviour
     {
         image.color = Color.black;
 
-        if (!ScenesManager.instance.IsLobbyScene() && !ScenesManager.instance.IsMenuScene())
+        if (!ScenesManagement.instance.IsLobbyScene() && !ScenesManagement.instance.IsMenuScene())
         {
             timeBeforeFade *= timeBeforeFadeScaleOnGameplay;
             

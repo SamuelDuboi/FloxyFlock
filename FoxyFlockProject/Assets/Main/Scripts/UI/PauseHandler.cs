@@ -35,7 +35,7 @@ public class PauseHandler : MonoBehaviour
     public void LoadMenu(int index)
     {
         NetworkManagerRace.instance.StopServer();
-        ScenesManager.instance.LunchScene(0);
+        ScenesManagement.instance.LunchScene(0);
     }
 
 }

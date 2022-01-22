@@ -32,7 +32,7 @@ public class PauseHandlerMulti : NetworkBehaviour
     {
         inputManager.OnMenuPressed.Invoke();
     }
-
+    
  [Command]
  public void CmdReturToLobbye()
     {

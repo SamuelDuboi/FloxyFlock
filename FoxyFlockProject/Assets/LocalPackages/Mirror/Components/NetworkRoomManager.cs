@@ -142,7 +142,7 @@ using System.Collections;
                 //do stuff herer
                 CheckReadyToBegin();
             }
-            else
+        else
                 allPlayersReady = false;
         }
 

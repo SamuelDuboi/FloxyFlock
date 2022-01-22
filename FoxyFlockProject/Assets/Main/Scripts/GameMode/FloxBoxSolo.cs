@@ -23,7 +23,7 @@ public class FloxBoxSolo : GameModeSolo
         box.transform.position = p;
 
         yield return new WaitForEndOfFrame();
-        floxesToPlace = ScenesManager.instance.numberOfFlocksInScene;
+        floxesToPlace = ScenesManagement.instance.numberOfFlocksInScene;
         //UIGlobalManager.instance.SetGameMode("Flock Box", "0");
         //floxesToPlace = batch.l
     }

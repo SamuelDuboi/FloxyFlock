@@ -83,7 +83,7 @@ public class GrabManager : MonoBehaviour
     public virtual void InitPool()
     {
         mainPool = new List<pool>();
-        ScenesManager.instance.numberOfFlocksInScene = 0;
+        ScenesManagement.instance.numberOfFlocksInScene = 0;
         for (int i = 0; i < batches.Count; i++)
         {
             mainPool.Add(new pool());
@@ -108,7 +108,7 @@ public class GrabManager : MonoBehaviour
                 flock.GetComponent<Rigidbody>().useGravity = false;
                 mainPool[i].floxes.Add(flock);
                 mainPool[i].isSelected.Add(false);
-                ScenesManager.instance.numberOfFlocksInScene++;
+                ScenesManagement.instance.numberOfFlocksInScene++;
             }
             for (int x = 0; x < batches[i].batchModifier.negativeModifier.Count; x++)
             {
@@ -828,6 +828,7 @@ public class GrabManager : MonoBehaviour
         {
             StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true));
             int indexOfFlock = mainPool[indexOfPool].malus.IndexOf(flock);
+            ScenesManagement.instance.LunchScene(3, false);
 
             GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], new Vector3(-302 + (indexOfFlock + 8) * 20 * +indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfFlock * 5), Quaternion.identity);
             Modifier _modifer = baseModifier;

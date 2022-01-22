@@ -53,6 +53,7 @@ public class NetworkManagerRace : NetworkRoomManager
         base.OnServerChangeScene(newSceneName);
        if (newSceneName == "Assets/Main/Scenes/FloxyRaceMulti.unity" && numberOfPlayer > 0)
         {
+            ScenesManagement.instance.LunchScene(3, false);
             numberOfPlayer = 0;
         }
     }
