@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MetallicT
-  m_Shader: {fileID: -6465566751694194690, guid: 069a1f7db24c2bf41b29daea7314c1ed, type: 3}
+  m_Name: MatellicT
+  m_Shader: {fileID: -6465566751694194690, guid: 70532b5d7353d5f449a4712d631cf414, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -53,12 +53,12 @@ Material:
     - Vector1_43304801e75f486b8d4c18f6c1f5de2f: 1
     - Vector1_4cfc3f553b2f4ebbb9eee3f04c498d73: 3
     - Vector1_54e9097bc12f4f3293ce16cbec5f0041: 3.37
-    - Vector1_5d8d10022378479fb790b5fef1d564be: 0.05
     - Vector1_5ec55a1520e24d1f9d6ff8cc1ed0db19: 0.5
     - Vector1_688861A9: 4.47
     - Vector1_69521d4303a842c38f64cd1557b3dc6e: 0.464
     - Vector1_721463d982db427e82c97e1d7e5798ed: 0.5
     - Vector1_7c5deabc769748e0b0f48dbdc2759407: 0.3
+    - Vector1_8669fb00635a4854bc2a451f97096315: 0
     - Vector1_870cd5d8dd5a407a8a621a681303639a: 0.9
     - Vector1_88fe92e75e234c19b11c25a4e72c02af: 1.97
     - Vector1_896f8f9e61fc4173a110bfd9cb167496: 2
@@ -78,23 +78,21 @@ Material:
     - Vector1_eb664db73c63482c8dccd8cee349402e_3: -0.55
     - dissolveFloxNoiseScale: 20
     - dissolveNoiseAmplitude: 1
-    - floxFrozen: 0
     - inHand: 0
-    - outlineActivation: 0
+    - outlineActivation: 1
     m_Colors:
     - Color_1: {r: 0, g: 0.7673326, b: 1, a: 1}
-    - Color_2: {r: 0.53773576, g: 0.39822888, b: 0.39822888, a: 1}
+    - Color_2: {r: 0.5377357, g: 0.39822885, b: 0.39822885, a: 1}
     - Color_29366eada27a4b0b9b42de996d4cf1d2: {r: 0, g: 0.7673326, b: 1, a: 1}
-    - Color_3: {r: 0.53773576, g: 0.39822888, b: 0.39822888, a: 1}
+    - Color_3: {r: 0.5377357, g: 0.39822885, b: 0.39822885, a: 1}
     - Color_453aaf4068894b2ba40d9311332b1239: {r: 1, g: 1, b: 1, a: 1}
-    - Color_4efd9c8e6933410f9cdc6afd87d1ebb6: {r: 0, g: 0.49803913, b: 1, a: 1}
+    - Color_4efd9c8e6933410f9cdc6afd87d1ebb6: {r: 0, g: 0.49803907, b: 1, a: 1}
     - Color_664b19e8fad344728067b36c103e6699: {r: 1, g: 0, b: 0, a: 1}
     - Color_902e3bc3ec2948518ce43177568f22a4: {r: 0, g: 0, b: 0, a: 0}
     - Color_a8cbeac0810e45919f25cf579b20221e: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
     - Color_a8cbeac0810e45919f25cf579b20221e_1: {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 1}
     - Color_bb4f32dd151d44c29efa425734db2436: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 0}
     - Color_de329179224d46beba167a94bed7b579: {r: 0.7567195, g: 0.8962264, b: 0.8907641, a: 0}
-    - Color_edf4778a0f1842ce9b1f3c89a8ff1d23: {r: 1, g: 0, b: 0, a: 1}
     - Color_fb464c085df94487801cfdcd1c612dfc: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_6141d7dac06746a08cdc702ae44ca3ab: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_a321f672c3754f3383ff7ba9472c2feb: {r: 0.037, g: -0.13, b: 0, a: 0}
