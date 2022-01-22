@@ -129,7 +129,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh60468
+  m_Name: pb_Mesh29998
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1828,7 +1828,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh60362
+  m_Name: pb_Mesh29892
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2338,6 +2338,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Piece
       objectReference: {fileID: 0}
+    - target: {fileID: 5984279184676194421, guid: 156febf843691c44992cafb366dabc8d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 58e227b68c201264895eeea33311a4f0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 156febf843691c44992cafb366dabc8d, type: 3}
 --- !u!1 &1439412418 stripped
@@ -4756,6 +4760,7 @@ MonoBehaviour:
   wiggleCoolingScale: 2
   heatPourcentage: 0
   doOnce: 0
+  wigglePower: 0
 --- !u!4 &5721291045101049222
 Transform:
   m_ObjectHideFlags: 0
@@ -4884,6 +4889,7 @@ MonoBehaviour:
   wiggleCoolingScale: 2
   heatPourcentage: 0
   doOnce: 0
+  wigglePower: 0
 --- !u!1001 &6291193339659244885
 PrefabInstance:
   m_ObjectHideFlags: 0
