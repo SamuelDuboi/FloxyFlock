@@ -30,6 +30,9 @@ public class FloxExpressionManager : MonoBehaviour
 
     void Update()
     {
+        if (floxReader.source.isPlaying)
+            return;
+
         if (floxMat.GetFloat("IsFrozen") == 1 && isFrozen == false)
         {
             isFrozen = true;
@@ -52,7 +55,7 @@ public class FloxExpressionManager : MonoBehaviour
 
         else if (panicFace == false && isFrozen == false && ((GrabbableFlox != null && GrabbableFlox.isGrab == true) || (rb != null && rb.velocity.magnitude >= moveThreshold)))
         {
-
+            
             _tempInt = Random.Range(0, 5);
             floxReader.clipName = fearBase[_tempInt];
             floxReader.Play();
