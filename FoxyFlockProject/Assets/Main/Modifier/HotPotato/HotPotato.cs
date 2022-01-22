@@ -63,6 +63,7 @@ public class HotPotato : ModifierAction
     }
     public override void OnGrabed(GameObject _object)
     {
+        timerSlow = 0;
         base.OnGrabed(_object);
         isGrab = true;
         mesh = GetComponent<MeshRenderer>();

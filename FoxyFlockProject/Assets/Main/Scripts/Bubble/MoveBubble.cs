@@ -107,7 +107,7 @@ public class MoveBubble : MonoBehaviour
             bonus[i].transform.localPosition = c + Vector3.up*r3 * bonus[i].transform.lossyScale.y; 
             if(i == 1)
             {
-                if(Mathf.Abs( Vector3.Distance(bonus[i-1].transform.position, bonus[i].transform.position)) < rayonBuble*2 && iterationNumber<20)
+                if(Mathf.Abs( Vector3.Distance(bonus[i-1].transform.position, bonus[i].transform.position)) < rayonBuble*2 && iterationNumber<40)
                 {
                     iterationNumber++;
                     i--;
@@ -126,7 +126,7 @@ public class MoveBubble : MonoBehaviour
             c = new Vector3( Mathf.Cos(angleInDegrees2) * x * malus[i].transform.lossyScale.x, Tposition,Mathf.Sin(angleInDegrees2) * x * malus[i].transform.lossyScale.z);
             d = Mathf.Abs(Vector3.Distance(c, Vector3.zero));
             //will never be equal to 0 due to float 32 round, so I added a bit more
-            if (d < 0.1f && iterationNumber < 20)
+            if (d < 0.1f && iterationNumber < 40)
             {
                 iterationNumber++;
                 i--;
@@ -142,7 +142,7 @@ public class MoveBubble : MonoBehaviour
             {
                 d = d1;
             }
-            if (d < rayonBuble*2&& iterationNumber < 20)
+            if (d < rayonBuble*2&& iterationNumber < 40)
             {
                 iterationNumber++;
                 i--;
@@ -154,7 +154,7 @@ public class MoveBubble : MonoBehaviour
            
            
             malus[i].transform.localPosition = cPrimePrime + Vector3.up * r5 * malus[i].transform.lossyScale.y;
-            if (IsInContactBonus(malus[i].transform.localPosition, bonus, malus, i) && iterationNumber<20)
+            if (IsInContactBonus(malus[i].transform.localPosition, bonus, malus, i) && iterationNumber<40)
             {
                 iterationNumber++;
                 i--;
@@ -242,7 +242,7 @@ public class MoveBubble : MonoBehaviour
             bonus[i].transform.localPosition = c + Vector3.up * r3 * bonus[i].transform.lossyScale.y;
             if (i == 1)
             {
-                if (Mathf.Abs(Vector3.Distance(bonus[i - 1].transform.position, bonus[i].transform.position)) < rayonBuble * 2 && iterationNumber < 20)
+                if (Mathf.Abs(Vector3.Distance(bonus[i - 1].transform.position, bonus[i].transform.position)) < rayonBuble * 2 && iterationNumber < 40)
                 {
                     iterationNumber++;
                     i--;
@@ -261,7 +261,7 @@ public class MoveBubble : MonoBehaviour
             c = new Vector3(Mathf.Cos(angleInDegrees2) * x * malus[i].transform.lossyScale.x, Tposition, Mathf.Sin(angleInDegrees2) * x * malus[i].transform.lossyScale.z);
             d = Mathf.Abs(Vector3.Distance(c, Vector3.zero));
             //will never be equal to 0 due to float 32 round, so I added a bit more
-            if (d < 0.1 && iterationNumber < 20)
+            if (d < 0.1 && iterationNumber < 40)
             {
                 iterationNumber++;
                 i--;
@@ -281,7 +281,7 @@ public class MoveBubble : MonoBehaviour
 
 
             malus[i].transform.localPosition = cPrimePrime + Vector3.up * r5 * malus[i].transform.lossyScale.y;
-            if (IsInContactBonus(malus[i].transform.localPosition, bonus, malus, i) && iterationNumber < 20)
+            if (IsInContactBonus(malus[i].transform.localPosition, bonus, malus, i) && iterationNumber < 40)
             {
                 iterationNumber++;
                 i--;
@@ -303,7 +303,7 @@ public class MoveBubble : MonoBehaviour
                 c = new Vector3(Mathf.Cos(angleInDegrees2) * x * fireball.transform.lossyScale.x, Tposition, Mathf.Sin(angleInDegrees2) * x * fireball.transform.lossyScale.z);
                 c += Vector3.up * r3 * fireball.transform.lossyScale.y;
                 iterationNumber++;
-                if (iterationNumber > 20)
+                if (iterationNumber > 40f)
                     break;
             }
             while (IsInContact(c, bonus, malus));

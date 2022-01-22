@@ -806,10 +806,10 @@ public class GrabManager : MonoBehaviour
             mainPool[indexOfPool].isSelected[indexOfFlock] = false;
             mainPool[indexOfPool].isEmpty = false;
         }
-        else if (mainPool[indexOfPool].floxes.Contains(flock))
+        else if (mainPool[indexOfPool].bonus.Contains(flock))
         {
             StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true));
-            int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
+            int indexOfFlock = mainPool[indexOfPool].bonus.IndexOf(flock);
 
 
             GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.positiveModifiers[indexOfFlock], new Vector3(-302 + (indexOfFlock + 6) * 20 * +indexOfPool * 5, 300 + (indexOfFlock + 6) * 20 + indexOfPool * 5, 300 + (indexOfFlock + 6) * 20 + indexOfFlock * 5), Quaternion.identity);
@@ -824,10 +824,10 @@ public class GrabManager : MonoBehaviour
             mainPool[indexOfPool].bonus[indexOfFlock] = _flock;
             mainPool[indexOfPool].isEmptyModifier = false;
         }
-        else if (mainPool[indexOfPool].floxes.Contains(flock))
+        else if (mainPool[indexOfPool].malus.Contains(flock))
         {
             StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true));
-            int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
+            int indexOfFlock = mainPool[indexOfPool].malus.IndexOf(flock);
 
             GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], new Vector3(-302 + (indexOfFlock + 8) * 20 * +indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfFlock * 5), Quaternion.identity);
             Modifier _modifer = baseModifier;

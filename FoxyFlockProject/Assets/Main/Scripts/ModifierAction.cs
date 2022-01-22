@@ -41,6 +41,8 @@ public class ModifierAction : MonoBehaviour
         flockInteractable = flox.GetComponent<GrabbableObject>();
         currentInteractor = flockInteractable.currentInteractor;
         timerSlow = 0;
+        if (isOnStasis)
+            isSlowingDown = true;
         StopCoroutine(SlowCoroutine());
         isGrab = true;
         sound.clipName = grabSound;

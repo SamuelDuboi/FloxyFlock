@@ -1212,6 +1212,10 @@ PrefabInstance:
       value: XR Rig
       objectReference: {fileID: 0}
     - target: {fileID: 5851740290584689345, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5851740290584689345, guid: 3932277b4b7cef44392a2567d99c5b45, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
@@ -2738,6 +2742,10 @@ PrefabInstance:
       value: Assets/Main/Scenes/Room.unity
       objectReference: {fileID: 0}
     - target: {fileID: 481560042666465150, guid: 98098487be855744c966bd5aa3482ae1, type: 3}
+      propertyPath: showRoomGUI
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 481560042666465150, guid: 98098487be855744c966bd5aa3482ae1, type: 3}
       propertyPath: offlineScene
       value: Assets/Main/Scenes/Offline.unity
       objectReference: {fileID: 0}
@@ -2769,7 +2777,8 @@ PrefabInstance:
       propertyPath: spawnPrefabs.Array.data[15]
       value: 
       objectReference: {fileID: 5786458945156589222, guid: 842d7540e247fb04c810536c9642f517, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 481560042666465144, guid: 98098487be855744c966bd5aa3482ae1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 98098487be855744c966bd5aa3482ae1, type: 3}
 --- !u!1 &881537346
 GameObject:

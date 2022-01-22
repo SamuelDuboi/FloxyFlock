@@ -26,6 +26,7 @@ public class HotPotatoV2 : ModifierAction
     }
     public override void OnGrabed(GameObject _object)
     {
+        timerSlow = 0;
         grabSound = "HotGrab";
         base.OnGrabed(_object);
         if(currentInteractor)

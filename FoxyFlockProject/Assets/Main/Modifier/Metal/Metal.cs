@@ -35,6 +35,7 @@ public class Metal : ModifierAction
     }
     public override void OnGrabed(GameObject _object)
     {
+        timerSlow = 0;
         grabSound = "MetalGrab";
         base.OnGrabed(_object);
     }

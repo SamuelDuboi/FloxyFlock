@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 481560042666465148}
   - component: {fileID: 481560042666465150}
   - component: {fileID: 481560042666465149}
-  - component: {fileID: 481560042666465144}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -77,7 +76,7 @@ MonoBehaviour:
   - {fileID: 6781183387698269456, guid: 00f2fbf82d5bbe8429fd1c8b67a7b664, type: 3}
   - {fileID: 5686134208185362930, guid: 831eeef21e8beba4699cae132bb46310, type: 3}
   - {fileID: 0}
-  showRoomGUI: 1
+  showRoomGUI: 0
   minPlayers: 1
   roomPlayerPrefab: {fileID: 0}
   RoomScene: 
@@ -85,11 +84,16 @@ MonoBehaviour:
   _allPlayersReady: 0
   roomSlots: []
   clientIndex: 0
+  numberOfPlayer: 0
   firstPlayer: {fileID: 0}
   secondPlayerTransform: {fileID: 0}
   startSpawn: []
+  avatarsSprite: 0000000000000000
   playerController: {fileID: 0}
-  player2Canvas: {fileID: 0}
+  grabManagers: []
+  players:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &481560042666465149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,18 +119,3 @@ MonoBehaviour:
   debugLog: 0
   statisticsGUI: 0
   statisticsLog: 0
---- !u!114 &481560042666465144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 481560042666465139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showGUI: 1
-  offsetX: 0
-  offsetY: 0
