@@ -324,6 +324,16 @@ public class GrabManagerMulti : GrabManager
         {
             mainPool[currentPool].bonus.Remove(flock);
         }
-        resetMulti.CmdDestroy(gameObject);
+        flock.transform.position += Vector3.up * 250 * (UnityEngine.Random.Range(1, 250));
+        var rgb = flock.GetComponent<Rigidbody>();
+        if (rgb)
+        {
+            flock.GetComponent<Rigidbody>().isKinematic = true;
+            flock.GetComponent<Rigidbody>().velocity= Vector3.zero;
+            flock.GetComponent<Rigidbody>().angularVelocity= Vector3.zero;
+        }
+        var grabbable = flock.GetComponent<GrabablePhysicsHandler>();
+        if (grabbable)
+            grabbable.isDestroyed = true;
     }
 }

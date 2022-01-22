@@ -198,7 +198,7 @@ public class GrabManager : MonoBehaviour
                 Debug.Log("grabbed");
                 return;
             }
-            if (mainPool[currentPool].floxes[i].GetComponent<GrabablePhysicsHandler>().enabled && !mainPool[currentPool].floxes[i].GetComponent<GrabablePhysicsHandler>().isOnPlayground)
+            if (mainPool[currentPool].floxes[i].GetComponent<GrabablePhysicsHandler>().enabled && !mainPool[currentPool].floxes[i].GetComponent<GrabablePhysicsHandler>().isDestroyed&& !mainPool[currentPool].floxes[i].GetComponent<GrabablePhysicsHandler>().isOnPlayground)
             {
                 sound.clipName = "FloxMachineBad";
                 sound.Play();

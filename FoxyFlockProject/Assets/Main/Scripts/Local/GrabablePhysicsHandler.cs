@@ -34,6 +34,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
     public MaterialPropertyBlock propBlock;
     public InputManager inputManager;
     public Modifier initialModifier;
+    public bool isDestroyed;
     private void Awake()
     {
         colliders = m_grabbable.colliders;
