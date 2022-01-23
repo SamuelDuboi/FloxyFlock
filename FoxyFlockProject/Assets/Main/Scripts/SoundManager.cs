@@ -12,6 +12,7 @@ public class SoundManager : MonoBehaviour
     public List< InputManager> inputManagers;
     public SoundReader soundReader;
     private bool isPlaying;
+    private bool isMenu;
     private void Awake()
     {
         if (instance == null)
@@ -26,9 +27,9 @@ public class SoundManager : MonoBehaviour
     }
     private void Update()
     {
-        if (!isPlaying && SceneManager.GetActiveScene().buildIndex == 3)
+        if ((!isPlaying || isMenu) && SceneManager.GetActiveScene().buildIndex >= 3)
             LunchGame();
-        if (isPlaying && SceneManager.GetActiveScene().buildIndex != 3)
+        if ((isPlaying || !isMenu) && SceneManager.GetActiveScene().buildIndex < 3)
             LunchMenu();
     }
     public void AddInputManager(InputManager inputManager)
@@ -96,11 +97,12 @@ public class SoundManager : MonoBehaviour
     {
         soundReader.Play();
         isPlaying = false;
+        isMenu = true;
     }
     public void LunchGame()
     {
         soundReader.PlaySeconde();
+        isMenu = false;
         isPlaying = true;
-
     }
 }

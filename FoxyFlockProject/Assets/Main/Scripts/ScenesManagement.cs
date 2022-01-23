@@ -45,40 +45,10 @@ public class ScenesManagement : MonoBehaviour
     }
     public void LunchScene(string sceneToLunch)
     {
-        if ( IsMenuScene())
-        {
-            if(sceneToLunch != "Offline" && sceneToLunch != "MainMenus"&& sceneToLunch != "Room")
-            {
-                SoundManager.instance.LunchGame();
-            }
-        }
-        else
-        {
-            if (sceneToLunch == "Offline" || sceneToLunch == "MainMenus" || sceneToLunch == "Room")
-            {
-                SoundManager.instance.LunchMenu();
-            }
-        }
-
         StartCoroutine(WaitToLunch(sceneToLunch));
     }
     public void LunchScene(int sceneToLunch, bool lunch=true)
     {
-        if (IsMenuScene())
-        {
-            if (sceneToLunch >2)
-            {
-                SoundManager.instance.LunchGame();
-            }
-        }
-        else
-        {
-            if (sceneToLunch <3)
-            {
-                SoundManager.instance.LunchMenu();
-            }
-        }
-        if(lunch)
         StartCoroutine(WaitToLunch(sceneToLunch));
     }
     IEnumerator WaitToLunch(string sceneToLunch)
