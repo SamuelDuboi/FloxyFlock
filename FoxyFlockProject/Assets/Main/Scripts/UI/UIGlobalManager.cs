@@ -55,12 +55,16 @@ public class UIGlobalManager : MonoBehaviour
     {
         cantPlayTime = true;
         yield return new WaitForSeconds(1);
+        StartCoroutine(WaitToLunchRace());
         if (!NetworkManagerRace.instance)
         {
             yield break;
         }
         if (player1Position != null)
             positionSize = player1Position.fontSize;
+    }
+    IEnumerator WaitToLunchRace()
+    {
         yield return new WaitForSeconds(5.0f);
         cantPlayTime = false;
     }
