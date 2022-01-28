@@ -19,6 +19,7 @@ public class Representation : MonoBehaviour
     public bool isModifier;
     public bool isFireBall;
      public int indexInList;
+    [HideInInspector]public GrabbableObject flox;
     private MaterialPropertyBlock propBlock;
     private void Start()
     {
@@ -145,9 +146,9 @@ public class Representation : MonoBehaviour
             propBlock.SetInt("SelectedColorTint", 1);
         meshRenderer.SetPropertyBlock(propBlock);
     }
-    public void ApplyVisual(Mesh _mesh, Material _mat)
+    public void ApplyVisual(Mesh _mesh, Material _mat, GrabbableObject _flox)
     {
-
+        flox = _flox;
         mesh.mesh = _mesh;
         meshMat.material = _mat;
     }

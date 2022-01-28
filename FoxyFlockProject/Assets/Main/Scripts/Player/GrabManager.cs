@@ -431,7 +431,7 @@ public class GrabManager : MonoBehaviour
                     mainPool[currentPool].malusSeletcted = new List<GameObject>();
                 if (mainPool[currentPool].bonusIndex != null)
                 {
-                    representationsModifiers[mainPool[currentPool].bonusIndex[0]].ApplyVisual(mainPool[currentPool].malus[1].GetComponent<MeshForDispenser>().mesh, mainPool[currentPool].malus[1].GetComponent<MeshRenderer>().material);
+                    representationsModifiers[mainPool[currentPool].bonusIndex[0]].ApplyVisual(mainPool[currentPool].malus[1].GetComponent<MeshForDispenser>().mesh, mainPool[currentPool].malus[1].GetComponent<MeshRenderer>().material, mainPool[currentPool].malus[1].GetComponent<GrabbableObject>());
                     mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[1]);
                 }
                 directionForBubble.Add(representationsModifiers[mainPool[currentPool].bonusIndex[0]].transform.position);
@@ -441,18 +441,21 @@ public class GrabManager : MonoBehaviour
                 return;
             }
         }
-
         if (mainPool[currentPool].malusIndex == null)
             mainPool[currentPool].malusIndex = new List<int>();
-        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].ApplyVisual(mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<MeshForDispenser>().mesh,
-                                                                                                    mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<MeshRenderer>().material);
-        
-        mainPool[currentPool].malusIndex.Add(mainPool[currentPool].malusIndex.Count);
         if (mainPool[currentPool].malusSeletcted == null)
             mainPool[currentPool].malusSeletcted = new List<GameObject>();
 
+        mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count]);
 
-        mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count-1]);
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].ApplyVisual(mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<MeshForDispenser>().mesh,
+                                                                                                    mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<MeshRenderer>().material,
+                                                                                                     mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<GrabbableObject>());
+        
+        mainPool[currentPool].malusIndex.Add(mainPool[currentPool].malusIndex.Count);
+
+
+
 
         directionForBubble.Add(representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].transform.position);
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].gameObject.SetActive(true);
@@ -477,7 +480,8 @@ public class GrabManager : MonoBehaviour
         mainPool[currentPool].bonusSelected.Add(mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count]);
 
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].ApplyVisual(mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count].GetComponent<MeshForDispenser>().mesh,
-                                                                                                   mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count].GetComponent<MeshRenderer>().material);
+                                                                                                   mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count].GetComponent<MeshRenderer>().material,
+                                                                                                   mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count].GetComponent<GrabbableObject>());
       
         mainPool[currentPool].bonusIndex.Add(mainPool[currentPool].bonusIndex.Count);
         directionForBubble.Add(representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].transform.position);
@@ -619,13 +623,13 @@ public class GrabManager : MonoBehaviour
             }
         }
         if(mainPool[currentPool].bonusSelected != null)
-        for (int x = 0; x < mainPool[currentPool].bonusSelected.Count; x++)
+        for (int x = 0; x < representationsModifiers.Length; x++)
         {
-            if (mainPool[currentPool].bonusSelected[x] == coll.gameObject && !coll.isGrab)
+            if (representationsModifiers[x].flox == coll && !coll.isGrab)
             {
-                mainPool[currentPool].isSelectedModifier[mainPool[currentPool].bonusIndex[x]] = false;
+                mainPool[currentPool].isSelectedModifier[x] = false;
                 mainPool[currentPool].isEmptyModifier = false;
-                representationsModifiers[mainPool[currentPool].bonusIndex[x]].gameObject.SetActive(true);
+                representationsModifiers[x].gameObject.SetActive(true);
                 coll.GetComponent<Rigidbody>().useGravity = false;
                 coll.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 coll.transform.rotation = Quaternion.identity;
@@ -635,13 +639,13 @@ public class GrabManager : MonoBehaviour
             }
         }
         if (mainPool[currentPool].malusSeletcted != null)
-            for (int x = 0; x < mainPool[currentPool].malusSeletcted.Count; x++)
+            for (int x = 0; x < representationsModifiers.Length; x++)
         {
-            if (mainPool[currentPool].malusSeletcted[x] == coll.gameObject && !coll.isGrab)
-            {
-                mainPool[currentPool].isSelectedModifier[mainPool[currentPool].malusIndex[x]] = false;
+            if (representationsModifiers[x].flox == coll && !coll.isGrab)
+                {
+                mainPool[currentPool].isSelectedModifier[x] = false;
                 mainPool[currentPool].isEmptyModifier = false;
-                representationsModifiers[mainPool[currentPool].malusIndex[x]].gameObject.SetActive(true);
+                representationsModifiers[x].gameObject.SetActive(true);
                 coll.GetComponent<Rigidbody>().useGravity = false;
                 coll.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 coll.transform.rotation = Quaternion.identity;
