@@ -205,36 +205,85 @@ public class GrabManager : MonoBehaviour
                 return;
             }
         }
+        for (int i = 0; i < mainPool[currentPool].bonus.Count; i++)
+        {
+            if (!mainPool[currentPool].bonus[i])
+                continue;
+            if (mainPool[currentPool].bonus[i].GetComponent<Rigidbody>().velocity.magnitude > 0.1f)
+            {
+                sound.clipName = "FloxMachineBad";
+                sound.Play();
+                Debug.LogError("Your floxes bonus are still moving");
+                return;
+            }
+            if (mainPool[currentPool].bonus[i].GetComponent<GrabbableObject>().isGrab)
+            {
+                sound.clipName = "FloxMachineBad";
+                sound.Play();
+                Debug.Log("bonus grabbed");
+                return;
+            }
+            if (mainPool[currentPool].bonus[i].GetComponent<GrabablePhysicsHandler>().enabled && !mainPool[currentPool].bonus[i].GetComponent<GrabablePhysicsHandler>().isDestroyed && !mainPool[currentPool].bonus[i].GetComponent<GrabablePhysicsHandler>().isOnPlayground)
+            {
+                sound.clipName = "FloxMachineBad";
+                sound.Play();
+                Debug.Log("Flox bonus in stasis");
+                return;
+            }
+        }
+        for (int i = 0; i < mainPool[currentPool].malus.Count; i++)
+        {
+            if (!mainPool[currentPool].malus[i])
+                continue;
+            if (mainPool[currentPool].malus[i].GetComponent<Rigidbody>().velocity.magnitude > 0.1f)
+            {
+                sound.clipName = "FloxMachineBad";
+                sound.Play();
+                Debug.LogError("Your floxes malus are still moving");
+                return;
+            }
+            if (mainPool[currentPool].malus[i].GetComponent<GrabbableObject>().isGrab)
+            {
+                sound.clipName = "FloxMachineBad";
+                sound.Play();
+                Debug.Log("malus grabbed");
+                return;
+            }
+            if (mainPool[currentPool].malus[i].GetComponent<GrabablePhysicsHandler>().enabled && !mainPool[currentPool].malus[i].GetComponent<GrabablePhysicsHandler>().isDestroyed && !mainPool[currentPool].malus[i].GetComponent<GrabablePhysicsHandler>().isOnPlayground)
+            {
+                sound.clipName = "FloxMachineBad";
+                sound.Play();
+                Debug.Log("Flox malus in stasis");
+                return;
+            }
+        }
         #endregion
 
         int totalWeight = 0;
-        for (int i = 0; i < batches.Count - 1; i++)
+        for (int i = 0; i < batches.Count ; i++)
         {
             if (batches[i].isEmpty)
                 continue;
             totalWeight += batches[i].weight;
 
         }
-    //  int numberOfRound = 0;
-    //no one need to read that
-    StartLoop:
+  
+            //  int numberOfRound = 0;
+            //no one need to read that
+           
         int random = UnityEngine.Random.Range(0, totalWeight);
         int currentWeight = 0;
         /* numberOfRound++;
          if (numberOfRound > batches.Count)
              return;*/
-        for (int i = 0; i < batches.Count - 1; i++)
+        for (int i = 0; i < batches.Count ; i++)
         {
             if (batches[i].isEmpty)
                 continue;
             currentWeight += batches[i].weight;
             if (currentWeight > random)
             {
-                if (batches[i].isEmpty)
-                {
-                    goto StartLoop;
-                }
-                currentPool = i;
+               currentPool = i;
                 break;
             }
         }
@@ -791,7 +840,7 @@ public class GrabManager : MonoBehaviour
     public virtual void DestroyFlock(GameObject flock, int indexOfPool)
     {
         
-        if(mainPool[indexOfPool].floxes.Contains( flock))
+       if(mainPool[indexOfPool].floxes.Contains( flock))
         {
             int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
             StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true)); 
@@ -809,8 +858,9 @@ public class GrabManager : MonoBehaviour
             mainPool[indexOfPool].floxes[indexOfFlock] = _flock;
             mainPool[indexOfPool].isSelected[indexOfFlock] = false;
             mainPool[indexOfPool].isEmpty = false;
+            batches[indexOfPool].isEmpty = false;
         }
-        else if (mainPool[indexOfPool].bonus.Contains(flock))
+       else if (mainPool[indexOfPool].bonus.Contains(flock))
         {
             StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true));
             int indexOfFlock = mainPool[indexOfPool].bonus.IndexOf(flock);
@@ -826,25 +876,26 @@ public class GrabManager : MonoBehaviour
 
             _flock.GetComponent<Rigidbody>().useGravity = false;
             mainPool[indexOfPool].bonus[indexOfFlock] = _flock;
-            mainPool[indexOfPool].isEmptyModifier = false;
+            mainPool[indexOfPool].isEmptyModifier = true;
         }
-        else if (mainPool[indexOfPool].malus.Contains(flock))
-        {
-            StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true));
-            int indexOfFlock = mainPool[indexOfPool].malus.IndexOf(flock);
-            ScenesManagement.instance.LunchScene(3, false);
+         else if (mainPool[indexOfPool].malus.Contains(flock))
+         {
+             StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true));
+             int indexOfFlock = mainPool[indexOfPool].malus.IndexOf(flock);
+          
 
-            GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], new Vector3(-302 + (indexOfFlock + 8) * 20 * +indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfFlock * 5), Quaternion.identity);
-            Modifier _modifer = baseModifier;
-            Type type = _modifer.actions.GetType();
-            var _object = GetComponent(type);
-            _flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
-            _flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
-            _flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
+             GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], new Vector3(-302 + (indexOfFlock + 8) * 20 * +indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfFlock * 5), Quaternion.identity);
+             Modifier _modifer = baseModifier;
+             Type type = _modifer.actions.GetType();
+             var _object = GetComponent(type);
+             _flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
+             _flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
+             _flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
 
-            _flock.GetComponent<Rigidbody>().useGravity = false;
-            mainPool[indexOfPool].malus[indexOfFlock] = _flock;
-            mainPool[indexOfPool].isEmptyModifier = false;
+             _flock.GetComponent<Rigidbody>().useGravity = false;
+             mainPool[indexOfPool].malus[indexOfFlock] = _flock;
+              mainPool[indexOfPool].isEmptyModifier = true;
+
         }
 
     }

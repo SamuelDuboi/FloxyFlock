@@ -13,11 +13,12 @@ public class ResetMulti : NetworkBehaviour
     private SoundReader soundReader;
     public virtual void AddFreezFlock(GameObject flock, int poolIndex, int flockIndex)
     {
+        if (flock == null)
+            return;
         freezedFlocks.Add(flock);
 
         freezdFlockPoolIndex.Add(poolIndex);
         freezdFlockIndex.Add(flockIndex);
-
         CmdFreezFlock(flock);
     }
     public virtual void RemoveFreezedFlock(GameObject flock, int indexOfPool, int indexOfFLock)

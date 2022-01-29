@@ -341,7 +341,7 @@ public class PlayerMovementMulti : NetworkBehaviour
                 _mainPool1[i].malus = new List<GameObject>();
             _mainPool1[i].malus.Add(flock);
         }
-        _mainPool1[i].isEmptyModifier = false;
+        _mainPool1[i].isEmptyModifier = true;
 
         _mainPool = _mainPool1;
         tempFlock = flock;

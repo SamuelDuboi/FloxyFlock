@@ -277,9 +277,9 @@ public class GrabManagerMulti : GrabManager
             Modifier _modifier = baseModifier;
             Type type = _modifier.actions.GetType();
             var _object = GetComponent(type);
-
-            playerMovement.InitBacth(playerMovement.gameObject, playerNumber, indexOfPool, indexOfFlock, batches, _modifier, _object, basicMats, mainPool, out mainPool);
             mainPool[indexOfPool].floxes.Remove(flock);
+            if(mainPool[indexOfPool].floxes.Count ==0 )
+            playerMovement.InitBacth(playerMovement.gameObject, playerNumber, indexOfPool, indexOfFlock, batches, _modifier, _object, basicMats, mainPool, out mainPool);
         }
         else if (mainPool[indexOfPool].bonus.Contains(flock))
         {
@@ -289,9 +289,11 @@ public class GrabManagerMulti : GrabManager
             Modifier _modifierPiece = negativeModifiers[UnityEngine.Random.Range(0, negativeModifiers.Count)];
             Type typePiece = _modifierPiece.actions.GetType();
             var _objectPiece = GetComponent(typePiece);
-            mainPool[indexOfPool].malus.RemoveAt(indexOfFlock);
+                mainPool[indexOfPool].malus.RemoveAt(indexOfFlock);
 
-            playerMovement.InitModifier(playerMovement.gameObject, playerNumber, indexOfPool,indexOfFlock, _modifierPiece, batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], _objectPiece, basicMats, false, mainPool, out mainPool);
+
+            if ( mainPool[indexOfPool].malus.Count == 0)
+                playerMovement.InitModifier(playerMovement.gameObject, playerNumber, indexOfPool,indexOfFlock, _modifierPiece, batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], _objectPiece, basicMats, false, mainPool, out mainPool);
 
         }
 
@@ -302,8 +304,9 @@ public class GrabManagerMulti : GrabManager
             Modifier _modifierPiece = positiveModifiers[UnityEngine.Random.Range(0, positiveModifiers.Count)];
             Type typePiece = _modifierPiece.actions.GetType();
             var _objectPiece = GetComponent(typePiece);
-            mainPool[indexOfPool].bonus.RemoveAt(indexOfFlock);
-            playerMovement.InitModifier(playerMovement.gameObject, playerNumber,indexOfPool, indexOfFlock+2, _modifierPiece, batches[indexOfPool].batchModifier.positiveModifiers[indexOfFlock], _objectPiece, basicMats, true, mainPool, out mainPool);
+                mainPool[indexOfPool].bonus.RemoveAt(indexOfFlock);
+            if ( mainPool[indexOfPool].malus.Count == 0)
+                playerMovement.InitModifier(playerMovement.gameObject, playerNumber,indexOfPool, indexOfFlock+2, _modifierPiece, batches[indexOfPool].batchModifier.positiveModifiers[indexOfFlock], _objectPiece, basicMats, true, mainPool, out mainPool);
 
         }
     }

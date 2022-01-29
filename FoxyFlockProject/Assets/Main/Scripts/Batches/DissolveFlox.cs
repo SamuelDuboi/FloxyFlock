@@ -69,7 +69,10 @@ public class DissolveFlox : MonoBehaviour
                yield break;
             }
             else
+            {
                 Destroy(gameObject);
+                yield break;
+            }
         }
         if(grabManager != null)
         {
