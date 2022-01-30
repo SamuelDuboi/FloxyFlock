@@ -20,6 +20,8 @@ public class GrabManagerMulti : GrabManager
     public Transform lever;
     public Transform pos1;
     public Transform pos2;
+    private PlayerMovementMulti otherplayer;
+    private GameObject authorityToSpawn;
     // Start is called before the first frame update
     public override IEnumerator Start()
     {
@@ -58,6 +60,8 @@ public class GrabManagerMulti : GrabManager
     }
     public virtual void InitPool(GameObject authority, PlayerMovementMulti player, int v)
     {
+        otherplayer = player;
+        authorityToSpawn = authority;
         playerNumber = v;
         if (ScenesManagement.instance.IsLobbyScene() || ScenesManagement.instance.IsMenuScene())
             return;
@@ -274,39 +278,62 @@ public class GrabManagerMulti : GrabManager
             int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
             StartCoroutine(  flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true, null, false, this));
 
-            Modifier _modifier = baseModifier;
-            Type type = _modifier.actions.GetType();
-            var _object = GetComponent(type);
+
+
+
+            mainPool[indexOfPool].isSelected.RemoveAt(indexOfFlock);
             mainPool[indexOfPool].floxes.Remove(flock);
-            if(mainPool[indexOfPool].floxes.Count ==0 )
-            playerMovement.InitBacth(playerMovement.gameObject, playerNumber, indexOfPool, indexOfFlock, batches, _modifier, _object, basicMats, mainPool, out mainPool);
+            if(mainPool[indexOfPool].floxes.Count ==0)
+            {
+                // temp solution for attribution
+                int random = UnityEngine.Random.Range(0, negativeModifiers.Count + positiveModifiers.Count + weightOfBasicInRandom);
+                Modifier _modifier = baseModifier;
+                if (random > 15 && random <= negativeModifiers.Count + weightOfBasicInRandom)
+                    _modifier = negativeModifiers[random - weightOfBasicInRandom - 1];
+                else if (random > negativeModifiers.Count + weightOfBasicInRandom)
+                    _modifier = positiveModifiers[random - weightOfBasicInRandom - 1 - negativeModifiers.Count];
+                Type type = _modifier.actions.GetType();
+                var _object = GetComponent(type);
+                otherplayer.InitBacth(authorityToSpawn, playerNumber, indexOfPool, indexOfFlock, batches, _modifier, _object, basicMats, mainPool, out mainPool);
+                batches[indexOfPool].isEmpty = false;
+            }
         }
-        else if (mainPool[indexOfPool].bonus.Contains(flock))
+        else if (mainPool[indexOfPool].malus.Contains(flock))
         {
-            int indexOfFlock = mainPool[indexOfPool].bonus.IndexOf(flock);
+            int indexOfFlock = mainPool[indexOfPool].malus.IndexOf(flock);
             StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true,null,false,this));
 
             Modifier _modifierPiece = negativeModifiers[UnityEngine.Random.Range(0, negativeModifiers.Count)];
             Type typePiece = _modifierPiece.actions.GetType();
             var _objectPiece = GetComponent(typePiece);
-                mainPool[indexOfPool].malus.RemoveAt(indexOfFlock);
-
+            mainPool[indexOfPool].malus.RemoveAt(indexOfFlock);
+            if (mainPool[indexOfFlock].isSelectedModifier != null && mainPool[indexOfFlock].isSelectedModifier.Count > 0 && mainPool[indexOfFlock].isSelectedModifier.Count > indexOfFlock)
+                mainPool[indexOfFlock].isSelectedModifier.RemoveAt(indexOfFlock);
 
             if ( mainPool[indexOfPool].malus.Count == 0)
+            {
                 playerMovement.InitModifier(playerMovement.gameObject, playerNumber, indexOfPool,indexOfFlock, _modifierPiece, batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], _objectPiece, basicMats, false, mainPool, out mainPool);
+                mainPool[indexOfPool].isEmptyModifier = true;
+            }
 
         }
 
-        else if (mainPool[indexOfPool].malus.Contains(flock))
+        else if (mainPool[indexOfPool].bonus.Contains(flock))
         {
-            int indexOfFlock = mainPool[indexOfPool].malus.IndexOf(flock);
+            int indexOfFlock = mainPool[indexOfPool].bonus.IndexOf(flock);
             StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true, null, false, this));
             Modifier _modifierPiece = positiveModifiers[UnityEngine.Random.Range(0, positiveModifiers.Count)];
             Type typePiece = _modifierPiece.actions.GetType();
             var _objectPiece = GetComponent(typePiece);
-                mainPool[indexOfPool].bonus.RemoveAt(indexOfFlock);
-            if ( mainPool[indexOfPool].malus.Count == 0)
+            mainPool[indexOfPool].bonus.RemoveAt(indexOfFlock);
+            if(mainPool[indexOfFlock].isSelectedModifier!= null && mainPool[indexOfFlock].isSelectedModifier.Count>0 && mainPool[indexOfFlock].isSelectedModifier.Count>indexOfFlock)
+            mainPool[indexOfFlock].isSelectedModifier.RemoveAt(indexOfFlock);
+
+            if ( mainPool[indexOfPool].bonus.Count == 0)
+            {
                 playerMovement.InitModifier(playerMovement.gameObject, playerNumber,indexOfPool, indexOfFlock+2, _modifierPiece, batches[indexOfPool].batchModifier.positiveModifiers[indexOfFlock], _objectPiece, basicMats, true, mainPool, out mainPool);
+                mainPool[indexOfPool].isEmptyModifier = true;
+            }
 
         }
     }

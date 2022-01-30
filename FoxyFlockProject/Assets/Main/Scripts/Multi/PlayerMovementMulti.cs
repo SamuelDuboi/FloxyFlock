@@ -279,6 +279,7 @@ public class PlayerMovementMulti : NetworkBehaviour
         v++;
         _mainPool1[i].floxes.Add(flock);
         _mainPool1[i].isSelected.Add(false);
+        
         _mainPool1[i].isEmpty = false;
         ScenesManagement.instance.numberOfFlocksInScene++;
         _mainPool = _mainPool1;
