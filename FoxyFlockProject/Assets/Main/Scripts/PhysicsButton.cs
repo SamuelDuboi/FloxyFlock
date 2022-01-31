@@ -5,77 +5,102 @@ using UnityEngine.Events;
 
 public class PhysicsButton : MonoBehaviour
 {
-    [SerializeField] private float detectionThreshold = 0.1f;
-    [SerializeField] private float deadzone = 0.025f;
-    [SerializeField] private bool isRotation = false;
+    [SerializeField] private Transform pressTransform;
+    [SerializeField] private Rigidbody pressRBody;
+    [SerializeField] private Collider pressCollider;
+    [SerializeField] private Transform upLimitTransform;
+    [SerializeField] private Transform lowerLimitTransform;
+    [SerializeField] private Animator buttonAnimator;
 
-    private bool _isPressed;
-    private InputManager inputManager;
-    private Vector3 startPos;
-    private Quaternion startRotation;
+    [SerializeField] private Collider[] collidersToIgnore;
 
-    private ConfigurableJoint joint;
-    private Rigidbody rb;
+    [SerializeField] [Range(0f, 1f)] private float threshold = 0.1f;
+    [SerializeField] private float springForce = 10f;
+
+    private bool isPressed;
+    private float lowerUpDistance;
+
+    private bool handAreInProximity;
 
     public UnityEvent onPressed, onReleased;
 
     private void Start()
     {
-        if (!isRotation)
-            startPos = transform.localPosition;
-        else
-            startRotation = transform.localRotation;
-        inputManager = GetComponentInParent<InputManager>();        
-        joint = GetComponent<ConfigurableJoint>();
-        rb = GetComponent<Rigidbody>();
-    }
-
-    private void Update()
-    {
-        if (!_isPressed && GetValue() + detectionThreshold >= 1) 
-            Pressed();
-        if (_isPressed && GetValue() - detectionThreshold <= 0)
-            Released();
-    }
-
-    private float GetValue()
-    {
-        var value = 0f;
-
-        if (!isRotation)
+        if (collidersToIgnore.Length > 0)
         {
-            value = Vector3.Distance(startPos, transform.localPosition) / joint.linearLimit.limit;
+            foreach (Collider collider in collidersToIgnore)
+            {
+                Physics.IgnoreCollision(pressCollider, collider);
+            }
+        }
+
+        lowerUpDistance = (lowerLimitTransform.position - upLimitTransform.position).magnitude;
+    }
+
+    private void FixedUpdate()
+    {
+        PressMovement();
+    }
+
+    private void PressMovement()
+    {
+        float distance = (lowerLimitTransform.position - pressTransform.position).magnitude;
+
+        if (pressTransform.position.y >= upLimitTransform.position.y)
+        {
+            pressTransform.position = new Vector3(pressTransform.position.x, upLimitTransform.transform.position.y, pressTransform.transform.position.z);
+        }
+        else if (pressTransform.position.y <= lowerLimitTransform.position.y)
+        {
+            pressTransform.position = new Vector3(pressTransform.position.x, lowerLimitTransform.transform.position.y, pressTransform.transform.position.z);
         }
         else
         {
-            value = Quaternion.Angle(startRotation, transform.localRotation) / Mathf.Abs(joint.lowAngularXLimit.limit);
+            pressRBody.AddForce(Vector3.up * springForce * (distance + 0.01f) * Time.fixedDeltaTime);
         }
 
-        if (Mathf.Abs(value) < deadzone)
-            value = 0;
-
-        return Mathf.Clamp(value, -1f, 1f);
+        if (distance < lowerUpDistance * threshold)
+        {
+            if (!isPressed)
+            {
+                Pressed();
+            }
+        }
+        else
+        {
+            if (isPressed)
+            {
+                Released();
+            }
+        }
     }
 
     private void Pressed()
     {
-        _isPressed = true;
-        StartCoroutine(MakeKinematic());
+        isPressed = true;
         onPressed.Invoke();
     }
 
     private void Released()
     {
-        _isPressed = false;
+        isPressed = false;
         onReleased.Invoke();
     }
 
-    private IEnumerator MakeKinematic()
+    private void OnTriggerEnter(Collider other)
     {
-        rb.isKinematic = true;
-
-        yield return new WaitForSeconds(0.5f);
-
-        rb.isKinematic = false;
+        if (other.gameObject.layer == 11)
+        {
+            buttonAnimator.SetBool("IsOpen", true);
+        } 
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 11)
+        {
+            buttonAnimator.SetBool("IsOpen", false);
+        }
+    }
+
 }
