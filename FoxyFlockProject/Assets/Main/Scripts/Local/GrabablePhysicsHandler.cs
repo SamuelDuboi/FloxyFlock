@@ -35,6 +35,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
     public InputManager inputManager;
     public Modifier initialModifier;
     public bool isDestroyed;
+    private bool touchGround;
     private void Awake()
     {
         colliders = m_grabbable.colliders;
@@ -88,11 +89,15 @@ public class GrabablePhysicsHandler : MonoBehaviour
     {
         OnHitSomething.Invoke(gameObject, m_rgb.velocity, collision.gameObject); ;
     }
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 8)
         {
-            OnHitGround.Invoke(gameObject, initPos, m_grabbable.isGrab);
+            if (!touchGround)
+            {
+                OnHitGround.Invoke(gameObject, initPos, m_grabbable.isGrab);
+                touchGround = true;
+            }
 
         }
     }
@@ -108,6 +113,8 @@ public class GrabablePhysicsHandler : MonoBehaviour
     public void InvokeOngrab()
     {
         OnGrabed.Invoke(gameObject);
+        touchGround = false;
+
         ChangePhysicMatsOnDeSelect();
     }
     public void InvokeOnRelease()

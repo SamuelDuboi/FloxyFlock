@@ -299,7 +299,7 @@ public class PlayerMovementMulti : NetworkBehaviour
             components.Add(_object);
             index = components.Count - 1;
         }
-        CmdSpawnPiece(authority,_mainPool1, _object.GetType().ToString(), tempbasicMats,index);
+        CmdSpawnPiece(authority,_mainPool1, _object.GetType().ToString(), tempbasicMats,index,false);
         
     }
     private List<Component> components = new List<Component>();
@@ -346,8 +346,8 @@ public class PlayerMovementMulti : NetworkBehaviour
 
         _mainPool = _mainPool1;
         tempFlock = flock;
-        CmdSpawnPiece(authority, _mainPool1, _tempComponent.ToString(), tempbasicMats, index);
-       
+        CmdSpawnPiece(authority, _mainPool1, _tempComponent.ToString(), tempbasicMats, index, true);
+        
     }
     public void InitFireBall(GameObject authority, GameObject _fireBall, GameObject outFireBall)
     {
@@ -459,18 +459,18 @@ public class PlayerMovementMulti : NetworkBehaviour
 
     }
     [Command]
-    private void CmdSpawnPiece(GameObject authority, List<pool> mainPool, string _tempComponent, PhysicMaterial[] _tempbasicMats, int index)
+    private void CmdSpawnPiece(GameObject authority, List<pool> mainPool, string _tempComponent, PhysicMaterial[] _tempbasicMats, int index, bool isModifier)
     {
         tempFlock.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
         tempFlock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
         //tempFlock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(tempModifier, tempComponent as ModifierAction, tempbasicMats);
         tempFlock.GetComponent<GrabablePhysicsHandler>().enabled = false;
         NetworkServer.Spawn(tempFlock, authority);
-        RpcSyncUnits(tempFlock,mainPool,authority, _tempComponent, tempbasicMats,  index);
+        RpcSyncUnits(tempFlock,mainPool,authority, _tempComponent, tempbasicMats,  index,isModifier);
     }
 
     [ClientRpc]
-    void RpcSyncUnits(GameObject x, List<pool> mainPool, GameObject authority,string _tempComponent,PhysicMaterial[] _tempbasicMats, int index)
+    void RpcSyncUnits(GameObject x, List<pool> mainPool, GameObject authority,string _tempComponent,PhysicMaterial[] _tempbasicMats, int index, bool isModifier)
     {
         bool hasFounded = false;
         components.Add(grabManager.GetComponent( _tempComponent));
@@ -498,7 +498,10 @@ public class PlayerMovementMulti : NetworkBehaviour
         }
 
         tempFlock.GetComponent<GrabablePhysicsHandler>().enabled = false;
+
         authority.GetComponentInChildren<GrabManagerMulti>().mainPool = mainPool;
+        if(!isModifier)
+        authority.GetComponentInChildren<GrabManagerMulti>().AddFlox();
         authority.GetComponentInChildren<GrabManagerMulti>().numberOfPool = mainPool.Count;
     }
 

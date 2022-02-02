@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.XR.Interaction.Toolkit;
+using TMPro;
 using Mirror.Experimental;
 
 public class GrabManager : MonoBehaviour
@@ -36,6 +37,9 @@ public class GrabManager : MonoBehaviour
     public int weightOfBasicInRandom = 1;
     protected MaterialPropertyBlock propBlock;
     protected int number = 1;
+    public TextMeshProUGUI floxCount;
+    protected int floxNumber;
+    protected int currentFloxNumber;
     // public Buble[] bubles;
 #if UNITY_EDITOR
     public bool modifierFoldout;
@@ -93,12 +97,7 @@ public class GrabManager : MonoBehaviour
             for (int x = 0; x < batches[i].pieces.Count; x++)
             {
                 GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + (x * 5 + 1) * 20 * (i * 5 + 1), 300 + x * 20, 300 + x), Quaternion.identity);
-                int random = UnityEngine.Random.Range(0, negativeModifiers.Count + positiveModifiers.Count + weightOfBasicInRandom);
                 Modifier _modifier = baseModifier;
-                if (random > 15 && random <= negativeModifiers.Count + weightOfBasicInRandom)
-                    _modifier = negativeModifiers[random - weightOfBasicInRandom-1];
-                else if (random > negativeModifiers.Count + weightOfBasicInRandom)
-                    _modifier = positiveModifiers[random -( weightOfBasicInRandom+1) - negativeModifiers.Count];
                 Type type = _modifier.actions.GetType();
                 var _object = GetComponent(type);
                 flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifier, _object as ModifierAction, basicMats);
@@ -109,6 +108,7 @@ public class GrabManager : MonoBehaviour
                 mainPool[i].floxes.Add(flock);
                 mainPool[i].isSelected.Add(false);
                 ScenesManagement.instance.numberOfFlocksInScene++;
+                floxNumber++;
             }
             for (int x = 0; x < batches[i].batchModifier.negativeModifier.Count; x++)
             {
@@ -145,6 +145,9 @@ public class GrabManager : MonoBehaviour
             }
             mainPool[i].isEmptyModifier = true;
 
+
+            currentFloxNumber = (int)floxNumber;
+            floxCount.text = currentFloxNumber.ToString()+ " /" + floxNumber.ToString();
 
         }
     }
@@ -354,9 +357,11 @@ public class GrabManager : MonoBehaviour
         {
             if (mainPool[currentPool].isSelected[i])
                 return;
+          
             representations[i].gameObject.SetActive(true);
             representations[i].ApplyVisual(i, this, mainPool[currentPool].floxes[i].GetComponent<MeshForDispenser>().mesh, mainPool[currentPool].floxes[i].GetComponent<MeshRenderer>().material);
         }
+        
     }
     public List<Vector3> directionForBubble;
     protected virtual void UpdateSpecial()
@@ -577,9 +582,10 @@ public class GrabManager : MonoBehaviour
         grabable.enabled = true;
 
         StartCoroutine(WaiToSelect(baseInteractable, baseInteractor, grabable, false));
+        grabable.OnHitGround.RemoveListener(RespawnPiece) ;
         grabable.OnHitGround.AddListener(RespawnPiece);
-
-
+        currentFloxNumber--;
+        floxCount.text = currentFloxNumber.ToString() + " / " + floxNumber.ToString();
         mainPool[currentPool].floxes[index].transform.position = baseInteractor.transform.position;
         mainPool[currentPool].isSelected[index] = true;
         for (int i = 0; i < mainPool[currentPool].isSelected.Count; i++)
@@ -667,6 +673,8 @@ public class GrabManager : MonoBehaviour
                 coll.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 coll.GetComponent<Rigidbody>().angularVelocity= Vector3.zero;
                 coll.transform.rotation = Quaternion.identity;
+                currentFloxNumber++;
+                floxCount.text = currentFloxNumber.ToString() + " / " + floxNumber.ToString();
                 coll.transform.position = new Vector3(-300 + (x + 6) * 20 * +currentPool * 5, 300 + (x + 6) * 20 + currentPool * 5, 300 + (x + 6) * 20 + currentPool * 5);
                 return true;
             }
@@ -735,6 +743,7 @@ public class GrabManager : MonoBehaviour
             _object.GetComponent<Rigidbody>().useGravity = false;
             _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
             _object.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+           
             StartCoroutine( _object.GetComponent<DissolveFlox>().StartDissolve(_object, initPos,false,this,isGrab));
         }
     }
@@ -844,8 +853,6 @@ public class GrabManager : MonoBehaviour
         {
             int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
             StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true)); 
-           
-
             GameObject _flock = Instantiate(batches[indexOfPool].pieces[indexOfFlock], new Vector3(302 + (indexOfFlock * 5 + 1) * 20 * (indexOfPool * 5 + 1), 300 + indexOfFlock * 20, 300 + indexOfFlock), Quaternion.identity);
             Modifier _modifer = baseModifier;
             Type type = _modifer.actions.GetType();
@@ -854,6 +861,8 @@ public class GrabManager : MonoBehaviour
             _flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
             _flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
 
+            currentFloxNumber++;
+            floxCount.text = currentFloxNumber.ToString() + " /" + floxNumber.ToString();
             _flock.GetComponent<Rigidbody>().useGravity = false;
             mainPool[indexOfPool].floxes[indexOfFlock] = _flock;
             mainPool[indexOfPool].isSelected[indexOfFlock] = false;
@@ -868,8 +877,10 @@ public class GrabManager : MonoBehaviour
 
             GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.positiveModifiers[indexOfFlock], new Vector3(-302 + (indexOfFlock + 6) * 20 * +indexOfPool * 5, 300 + (indexOfFlock + 6) * 20 + indexOfPool * 5, 300 + (indexOfFlock + 6) * 20 + indexOfFlock * 5), Quaternion.identity);
             Modifier _modifer = baseModifier;
-            Type type = _modifer.actions.GetType();
-            var _object = GetComponent(type);
+            Modifier _modifierPiece = positiveModifiers[UnityEngine.Random.Range(0, positiveModifiers.Count)];
+            Type typePiece = _modifierPiece.actions.GetType();
+
+            var _object = GetComponent(typePiece);
             _flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
             _flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
             _flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
@@ -882,13 +893,12 @@ public class GrabManager : MonoBehaviour
          {
              StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true));
              int indexOfFlock = mainPool[indexOfPool].malus.IndexOf(flock);
-          
 
-             GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], new Vector3(-302 + (indexOfFlock + 8) * 20 * +indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfFlock * 5), Quaternion.identity);
-             Modifier _modifer = baseModifier;
-             Type type = _modifer.actions.GetType();
-             var _object = GetComponent(type);
-             _flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
+            Modifier _modifierPiece = negativeModifiers[UnityEngine.Random.Range(0, negativeModifiers.Count)];
+            Type typePiece = _modifierPiece.actions.GetType();
+            GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], new Vector3(-302 + (indexOfFlock + 8) * 20 * +indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfFlock * 5), Quaternion.identity);
+             var _object = GetComponent(typePiece);
+             _flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifierPiece, _object as ModifierAction, basicMats);
              _flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
              _flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
 

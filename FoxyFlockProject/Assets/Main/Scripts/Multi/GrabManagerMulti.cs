@@ -85,6 +85,7 @@ public class GrabManagerMulti : GrabManager
                 Type type = _modifier.actions.GetType();
                 var _object = GetComponent(type);
                 player.InitBacth(authority,v, i, x, batches, _modifier, _object, basicMats, mainPool, out mainPool);
+                floxNumber++;
             }
 
             for (int x = 0; x < batches[i].batchModifier.negativeModifier.Count; x++)
@@ -102,8 +103,9 @@ public class GrabManagerMulti : GrabManager
                 player.InitModifier(authority,v, i,x+2, _modifierPiece, batches[i].batchModifier.positiveModifiers[x], _objectPiece, basicMats, true, mainPool, out mainPool);
             }
             mainPool[i].isEmptyModifier = true;
-
+           
         }
+
         player.InitFireBall(authority, fireBallPrefab, fireBallPrefabOut);
         numberOfPool = 1;
         if (v == 1)
@@ -279,8 +281,6 @@ public class GrabManagerMulti : GrabManager
             StartCoroutine(  flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true, null, false, this));
 
 
-
-
             mainPool[indexOfPool].isSelected.RemoveAt(indexOfFlock);
             mainPool[indexOfPool].floxes.Remove(flock);
             if(mainPool[indexOfPool].floxes.Count ==0)
@@ -365,5 +365,18 @@ public class GrabManagerMulti : GrabManager
         var grabbable = flock.GetComponent<GrabablePhysicsHandler>();
         if (grabbable)
             grabbable.isDestroyed = true;
+    }
+
+    public void AddFlox()
+    {
+        if (currentFloxNumber == floxNumber)
+        {
+            floxNumber++;
+            currentFloxNumber = (int)floxNumber;
+        }
+        else
+            currentFloxNumber++;
+
+        floxCount.text = currentFloxNumber.ToString() + " /" + floxNumber.ToString();
     }
 }
