@@ -76,12 +76,7 @@ public class GrabManagerMulti : GrabManager
             for (int x = 0; x < batches[i].pieces.Count; x++)
             {
                 // temp solution for attribution
-                int random = UnityEngine.Random.Range(0, negativeModifiers.Count + positiveModifiers.Count + weightOfBasicInRandom);
                 Modifier _modifier = baseModifier;
-                if (random > 15 && random <= negativeModifiers.Count + weightOfBasicInRandom)
-                    _modifier = negativeModifiers[random - weightOfBasicInRandom-1];
-                else if (random > negativeModifiers.Count + weightOfBasicInRandom)
-                    _modifier = positiveModifiers[random - weightOfBasicInRandom-1 - negativeModifiers.Count];
                 Type type = _modifier.actions.GetType();
                 var _object = GetComponent(type);
                 player.InitBacth(authority,v, i, x, batches, _modifier, _object, basicMats, mainPool, out mainPool);
