@@ -36,6 +36,11 @@ public class ResetMulti : NetworkBehaviour
    
     public virtual void ResetEvent()
     {
+        StartCoroutine(WaitToSeeTable());
+    }
+    IEnumerator WaitToSeeTable()
+    {
+       yield return new WaitUntil(() => grabManager.GetComponentInParent<PlayerMovementMulti>().SeeTable());
         for (int i = 0; i < freezedFlocks.Count; i++)
         {
             CmdDestroyFlock(freezedFlocks[i], freezdFlockPoolIndex[i]);
@@ -43,12 +48,11 @@ public class ResetMulti : NetworkBehaviour
         if (soundReader == null)
             soundReader = grabManager.sound;
         soundReader.secondClipName = "StartReset";
-        if(freezedFlocks != null && freezedFlocks.Count>0)
-        StartCoroutine(LastFlockIsDestroy(freezedFlocks[freezedFlocks.Count - 1].GetComponent<DissolveFlox>()));
+        if (freezedFlocks != null && freezedFlocks.Count > 0)
+            StartCoroutine(LastFlockIsDestroy(freezedFlocks[freezedFlocks.Count - 1].GetComponent<DissolveFlox>()));
         freezedFlocks.Clear();
         freezdFlockPoolIndex.Clear();
         freezdFlockIndex.Clear();
-
     }
     [Command]
     public void CmdDestroyFlock(GameObject flock, int indexOfPool)

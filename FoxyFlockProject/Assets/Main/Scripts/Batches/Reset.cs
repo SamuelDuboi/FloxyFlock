@@ -35,6 +35,11 @@ public class Reset : MonoBehaviour
 
     public virtual void ResetEvent()
     {
+        StartCoroutine(WaitToSeeTable());
+    }
+    IEnumerator WaitToSeeTable()
+    {
+        yield return new WaitUntil(() => grabManager.GetComponentInParent<PlayerMovement>().SeeTable());
         for (int i = 0; i < freezedFlocks.Count; i++)
         {
             grabManager.DestroyFlock(freezedFlocks[i], freezdFlockPoolIndex[i]);

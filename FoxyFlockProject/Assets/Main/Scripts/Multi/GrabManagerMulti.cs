@@ -115,25 +115,6 @@ public class GrabManagerMulti : GrabManager
             lever.transform.localRotation = Quaternion.Euler(0, 0, 0);
             lever.localPosition = new Vector3(-0.424f, -0.051f, 0.04f);
         }
-/*        for (int i = 0; i < positiveModifiers.Count; i++)
-        {
-            Type type = positiveModifiers[i].actions.GetType();
-            var _object = GetComponent(type);
-            if (_object)
-            {
-                Destroy(_object);
-            }
-        }
-        for (int i = 0; i < negativeModifiers.Count; i++)
-        {
-            Type type = negativeModifiers[i].actions.GetType();
-            var _object = GetComponent(type);
-            if (_object)
-            {
-                Destroy(_object);
-            }
-        }*/
-
          playerMovement.CmdInitGrabManager(playerMovement.gameObject, playerNumber-1);
 
        //multiUI.CmdInitManagers(NetworkManagerRace.instance.players);
@@ -283,6 +264,7 @@ public class GrabManagerMulti : GrabManager
 
             mainPool[indexOfPool].isSelected.RemoveAt(indexOfFlock);
             mainPool[indexOfPool].floxes.Remove(flock);
+            AddFlox();
             if(mainPool[indexOfPool].floxes.Count ==0)
             {
                 // temp solution for attribution
