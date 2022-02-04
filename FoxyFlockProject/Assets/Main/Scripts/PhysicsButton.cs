@@ -5,77 +5,155 @@ using UnityEngine.Events;
 
 public class PhysicsButton : MonoBehaviour
 {
-    [SerializeField] private float detectionThreshold = 0.1f;
-    [SerializeField] private float deadzone = 0.025f;
-    [SerializeField] private bool isRotation = false;
+    [SerializeField] private Transform pressTransform;
+    [SerializeField] private Rigidbody pressRBody;
+    [SerializeField] private MeshRenderer pressRenderer;
+    [SerializeField] private Collider pressCollider;
+    [SerializeField] private Transform upLimitTransform;
+    [SerializeField] private Transform lowerLimitTransform;
+    [SerializeField] private Animator buttonAnimator;
 
-    private bool _isPressed;
-    private InputManager inputManager;
-    private Vector3 startPos;
-    private Quaternion startRotation;
+    [SerializeField] private bool hold = true;
+    [SerializeField] private float holdTime = 3f;
 
-    private ConfigurableJoint joint;
-    private Rigidbody rb;
+    [SerializeField] private Collider[] collidersToIgnore;
 
-    public UnityEvent onPressed, onReleased;
+    [SerializeField] [Range(0f, 1f)] private float threshold = 0.1f;
+    [SerializeField] private float springForce = 10f;
+
+    private bool isPressed;
+    private float lowerUpDistance;
+
+    public UnityEvent onPressed, onReleased, onHoldCompleted;
+
+    private float timeSinceBeginHold;
+    private float holdStartTime;
+    private bool canHoldTimer;
+
+    private MaterialPropertyBlock propBlock;
 
     private void Start()
     {
-        if (!isRotation)
-            startPos = transform.localPosition;
-        else
-            startRotation = transform.localRotation;
-        inputManager = GetComponentInParent<InputManager>();        
-        joint = GetComponent<ConfigurableJoint>();
-        rb = GetComponent<Rigidbody>();
-    }
-
-    private void Update()
-    {
-        if (!_isPressed && GetValue() + detectionThreshold >= 1) 
-            Pressed();
-        if (_isPressed && GetValue() - detectionThreshold <= 0)
-            Released();
-    }
-
-    private float GetValue()
-    {
-        var value = 0f;
-
-        if (!isRotation)
+        if (collidersToIgnore.Length > 0)
         {
-            value = Vector3.Distance(startPos, transform.localPosition) / joint.linearLimit.limit;
+            foreach (Collider collider in collidersToIgnore)
+            {
+                Physics.IgnoreCollision(pressCollider, collider);
+            }
+        }
+
+        propBlock = new MaterialPropertyBlock();
+
+        lowerUpDistance = (upLimitTransform.position - lowerLimitTransform.position).magnitude;
+    }
+
+    private void FixedUpdate()
+    {
+        PressMovement();
+    }
+
+    private void PressMovement()
+    {
+        float distance = (pressTransform.position - lowerLimitTransform.position).magnitude;
+
+        if (pressTransform.position.y > upLimitTransform.position.y)
+        {
+            pressTransform.position = new Vector3(pressTransform.position.x, upLimitTransform.transform.position.y, pressTransform.transform.position.z);
+        }
+        else if (pressTransform.position.y < lowerLimitTransform.position.y)
+        {
+            pressTransform.position = new Vector3(pressTransform.position.x, lowerLimitTransform.transform.position.y, pressTransform.transform.position.z);
         }
         else
         {
-            value = Quaternion.Angle(startRotation, transform.localRotation) / Mathf.Abs(joint.lowAngularXLimit.limit);
+            pressRBody.AddForce(pressTransform.up * springForce * (Mathf.Clamp(1f - distance, 0.01f, 1f)) * Time.fixedDeltaTime);
         }
 
-        if (Mathf.Abs(value) < deadzone)
-            value = 0;
 
-        return Mathf.Clamp(value, -1f, 1f);
+        if (distance < lowerUpDistance * threshold)
+        {
+            if (!isPressed)
+            {
+                Pressed();
+                StartHoldTimer();
+            }
+
+            if (hold && canHoldTimer)
+                HoldTimer();
+        }
+
+        else if (pressTransform.position.y > lowerLimitTransform.position.y)
+        {
+            if (isPressed)
+            {
+                Released();
+            }
+        }
     }
 
     private void Pressed()
     {
-        _isPressed = true;
-        StartCoroutine(MakeKinematic());
+        isPressed = true;
         onPressed.Invoke();
+        ChangeMatOnPressState(1f);
+        print("press");
     }
 
     private void Released()
     {
-        _isPressed = false;
+        isPressed = false;
         onReleased.Invoke();
+        ChangeMatOnPressState(0f);
+        Debug.Log(this + " isReleased");
     }
 
-    private IEnumerator MakeKinematic()
+    private void HoldCompleted()
     {
-        rb.isKinematic = true;
+        canHoldTimer = false;
+        onHoldCompleted.Invoke();
+        Debug.Log(this + " isReleased");
+    }
 
-        yield return new WaitForSeconds(0.5f);
 
-        rb.isKinematic = false;
+    private void StartHoldTimer()
+    {
+        holdStartTime = (float)AudioSettings.dspTime;
+        canHoldTimer = true;
+    }
+
+    private void HoldTimer()
+    {
+        timeSinceBeginHold = (float)AudioSettings.dspTime - holdStartTime;
+
+        if (timeSinceBeginHold >= holdTime)
+        {
+            HoldCompleted();
+        }
+    }
+
+    private void ChangeMatOnPressState(float state)
+    {
+        //Recup Data
+        pressRenderer.GetPropertyBlock(propBlock);
+        //EditZone
+        propBlock.SetFloat("SelectedOutlineColor", state);
+        //Push Data
+        pressRenderer.SetPropertyBlock(propBlock);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 11)
+        {
+            buttonAnimator.SetBool("IsOpen", true);
+        } 
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 11)
+        {
+            buttonAnimator.SetBool("IsOpen", false);
+        }
     }
 }
