@@ -424,6 +424,7 @@ MonoBehaviour:
   wiggleCoolingScale: 2
   heatPourcentage: 0
   doOnce: 0
+  wigglePower: 0
 --- !u!1 &1972585046672742331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1247,6 +1248,7 @@ MonoBehaviour:
   wiggleCoolingScale: 2
   heatPourcentage: 0
   doOnce: 0
+  wigglePower: 0
 --- !u!1 &1972585047932625600
 GameObject:
   m_ObjectHideFlags: 0
@@ -1613,6 +1615,22 @@ PrefabInstance:
     - target: {fileID: 4878064583546168965, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.00000006737821
+      objectReference: {fileID: 0}
+    - target: {fileID: 5003738457043694721, guid: b384fbe0379810344b24bf520b847674, type: 3}
+      propertyPath: onHoldCompleted.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5003738457043694721, guid: b384fbe0379810344b24bf520b847674, type: 3}
+      propertyPath: onHoldCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5003738457043694721, guid: b384fbe0379810344b24bf520b847674, type: 3}
+      propertyPath: onHoldCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5003738457043694721, guid: b384fbe0379810344b24bf520b847674, type: 3}
+      propertyPath: onHoldCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9133556912260582695, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_Enabled
