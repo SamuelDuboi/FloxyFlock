@@ -177,19 +177,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pressTransform: {fileID: 4619155194105396977}
   pressRBody: {fileID: 6322106312075706971}
+  pressRenderer: {fileID: 711712466176395829}
   pressCollider: {fileID: 4749938678582215598}
   upLimitTransform: {fileID: 4373088328512017964}
   lowerLimitTransform: {fileID: 9104876195400566536}
-  buttonAnimator: {fileID: 0}
+  buttonAnimator: {fileID: 1199445538176619269}
+  hold: 1
+  holdTime: 3
   collidersToIgnore:
   - {fileID: 3236134367857649898}
   - {fileID: 2166846883454937589}
-  threshold: 0.1
-  springForce: 10
+  threshold: 0.5
+  springForce: 50
   onPressed:
     m_PersistentCalls:
       m_Calls: []
   onReleased:
+    m_PersistentCalls:
+      m_Calls: []
+  onHoldCompleted:
     m_PersistentCalls:
       m_Calls: []
 --- !u!135 &3689319859832732341

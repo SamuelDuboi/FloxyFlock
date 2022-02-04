@@ -7,10 +7,14 @@ public class PhysicsButton : MonoBehaviour
 {
     [SerializeField] private Transform pressTransform;
     [SerializeField] private Rigidbody pressRBody;
+    [SerializeField] private MeshRenderer pressRenderer;
     [SerializeField] private Collider pressCollider;
     [SerializeField] private Transform upLimitTransform;
     [SerializeField] private Transform lowerLimitTransform;
     [SerializeField] private Animator buttonAnimator;
+
+    [SerializeField] private bool hold = true;
+    [SerializeField] private float holdTime = 3f;
 
     [SerializeField] private Collider[] collidersToIgnore;
 
@@ -20,9 +24,13 @@ public class PhysicsButton : MonoBehaviour
     private bool isPressed;
     private float lowerUpDistance;
 
-    private bool handAreInProximity;
+    public UnityEvent onPressed, onReleased, onHoldCompleted;
 
-    public UnityEvent onPressed, onReleased;
+    private float timeSinceBeginHold;
+    private float holdStartTime;
+    private bool canHoldTimer;
+
+    private MaterialPropertyBlock propBlock;
 
     private void Start()
     {
@@ -34,7 +42,9 @@ public class PhysicsButton : MonoBehaviour
             }
         }
 
-        lowerUpDistance = (lowerLimitTransform.position - upLimitTransform.position).magnitude;
+        propBlock = new MaterialPropertyBlock();
+
+        lowerUpDistance = (upLimitTransform.position - lowerLimitTransform.position).magnitude;
     }
 
     private void FixedUpdate()
@@ -44,29 +54,35 @@ public class PhysicsButton : MonoBehaviour
 
     private void PressMovement()
     {
-        float distance = (lowerLimitTransform.position - pressTransform.position).magnitude;
+        float distance = (pressTransform.position - lowerLimitTransform.position).magnitude;
 
-        if (pressTransform.position.y >= upLimitTransform.position.y)
+        if (pressTransform.position.y > upLimitTransform.position.y)
         {
             pressTransform.position = new Vector3(pressTransform.position.x, upLimitTransform.transform.position.y, pressTransform.transform.position.z);
         }
-        else if (pressTransform.position.y <= lowerLimitTransform.position.y)
+        else if (pressTransform.position.y < lowerLimitTransform.position.y)
         {
             pressTransform.position = new Vector3(pressTransform.position.x, lowerLimitTransform.transform.position.y, pressTransform.transform.position.z);
         }
         else
         {
-            pressRBody.AddForce(Vector3.up * springForce * (distance + 0.01f) * Time.fixedDeltaTime);
+            pressRBody.AddForce(pressTransform.up * springForce * (Mathf.Clamp(1f - distance, 0.01f, 1f)) * Time.fixedDeltaTime);
         }
+
 
         if (distance < lowerUpDistance * threshold)
         {
             if (!isPressed)
             {
                 Pressed();
+                StartHoldTimer();
             }
+
+            if (hold && canHoldTimer)
+                HoldTimer();
         }
-        else
+
+        else if (pressTransform.position.y > lowerLimitTransform.position.y)
         {
             if (isPressed)
             {
@@ -79,12 +95,50 @@ public class PhysicsButton : MonoBehaviour
     {
         isPressed = true;
         onPressed.Invoke();
+        ChangeMatOnPressState(1f);
+        print("press");
     }
 
     private void Released()
     {
         isPressed = false;
         onReleased.Invoke();
+        ChangeMatOnPressState(0f);
+        Debug.Log(this + " isReleased");
+    }
+
+    private void HoldCompleted()
+    {
+        canHoldTimer = false;
+        onHoldCompleted.Invoke();
+        Debug.Log(this + " isReleased");
+    }
+
+
+    private void StartHoldTimer()
+    {
+        holdStartTime = (float)AudioSettings.dspTime;
+        canHoldTimer = true;
+    }
+
+    private void HoldTimer()
+    {
+        timeSinceBeginHold = (float)AudioSettings.dspTime - holdStartTime;
+
+        if (timeSinceBeginHold >= holdTime)
+        {
+            HoldCompleted();
+        }
+    }
+
+    private void ChangeMatOnPressState(float state)
+    {
+        //Recup Data
+        pressRenderer.GetPropertyBlock(propBlock);
+        //EditZone
+        propBlock.SetFloat("SelectedOutlineColor", state);
+        //Push Data
+        pressRenderer.SetPropertyBlock(propBlock);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -102,5 +156,4 @@ public class PhysicsButton : MonoBehaviour
             buttonAnimator.SetBool("IsOpen", false);
         }
     }
-
 }

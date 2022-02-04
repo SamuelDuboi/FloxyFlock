@@ -17,6 +17,9 @@ public class Representation : MonoBehaviour
     public MeshRenderer meshMat;
     [HideInInspector] private bool isMalus;
     public bool isModifier;
+    [SerializeField] private int flashNbr = 4;
+    [SerializeField] private float timeBetweenFlashes = 0.15f;
+    [SerializeField] private float timeBetweenFlashesIntervalScale = 3f;
     public bool isFireBall;
      public int indexInList;
     [HideInInspector]public GrabbableObject flox;
@@ -189,5 +192,30 @@ public class Representation : MonoBehaviour
             propBlock.SetInt("SelectedColorTint", 1);
         meshRenderer.SetPropertyBlock(propBlock);
 
+    }
+
+    [ContextMenu("Blink")]
+    public void CallFlashingOrb()
+    {
+        StartCoroutine(FlashingOrb());
+    }
+
+    public IEnumerator FlashingOrb()
+    {
+        for (int i = 0; i < (flashNbr * 2) + 1; i++)
+        {
+            meshRenderer.GetPropertyBlock(propBlock);
+
+            propBlock.SetInt("IsFlash", i%2);
+
+            meshRenderer.SetPropertyBlock(propBlock);
+
+            if (i == flashNbr)
+                yield return new WaitForSeconds(timeBetweenFlashes * timeBetweenFlashesIntervalScale);
+            else if (i == flashNbr * 2)
+                break;
+            else
+                yield return new WaitForSeconds(timeBetweenFlashes);
+        }
     }
 }
