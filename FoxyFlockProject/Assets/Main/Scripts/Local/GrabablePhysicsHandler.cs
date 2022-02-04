@@ -22,7 +22,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
     public UnityEvent<GameObject, Vector3, bool> OnHitGround;
     public UnityEvent<GameObject, bool, Rigidbody> OnEnterStasis;
     public UnityEvent<GameObject> OnExitStasis;
-    private Vector3 initPos;
+    public Vector3 initPos;
     //enter on playgroundValue
     [HideInInspector] public float slowForce;
     [HideInInspector] public float timeToSlow;
@@ -51,9 +51,6 @@ public class GrabablePhysicsHandler : MonoBehaviour
         //overrid mat without creat new instance or modify it
         propBlock = new MaterialPropertyBlock();
 
-        
-       
-        initPos = transform.position;
         InvokeOnStart();
     }
 
@@ -278,6 +275,29 @@ public class GrabablePhysicsHandler : MonoBehaviour
 
         gameObject.layer = 14;
     }
+    public void OnUnFreez() {
+        {
+            if (meshRenderer == null || propBlock == null || initialMat == null)
+            {
+                meshRenderer = GetComponent<MeshRenderer>();
+                initialMat = meshRenderer.material;
+                propBlock = new MaterialPropertyBlock();
+            }
+
+            meshRenderer.material = initialMat;
+            propBlock.Clear();
+
+            //Recup Data
+            meshRenderer.GetPropertyBlock(propBlock);
+            //EditZone
+            propBlock.SetFloat("IsFrozen", 0);
+
+            //Push Data
+            meshRenderer.SetPropertyBlock(propBlock);
+
+            gameObject.layer = 6;
+        }
+    } 
 
     private void ChangePhysicMatsOnSelect()
     {

@@ -57,7 +57,7 @@ public class ResetMulti : NetworkBehaviour
     [Command]
     public void CmdDestroyFlock(GameObject flock, int indexOfPool)
     {
-        grabManager.DestroyFlock(flock, indexOfPool);
+    //    grabManager.DestroyFlock(flock, indexOfPool);
         RpcDestroyFlock(flock, indexOfPool);
 
 
@@ -78,9 +78,10 @@ public class ResetMulti : NetworkBehaviour
     public void RpcFreezFlock(GameObject flock)
     {
         flock.GetComponent<GrabablePhysicsHandler>().OnFreeze();
-        Destroy(flock.GetComponent<GrabbableObject>());
-        Destroy(flock.GetComponent<GrabablePhysicsHandler>());
-        Destroy(flock.GetComponent<Rigidbody>());
+
+        flock.GetComponent<GrabbableObject>().enabled = false;
+        flock.GetComponent<GrabablePhysicsHandler>().enabled= false;
+        flock.GetComponent<Rigidbody>().isKinematic =true;
         flock.GetComponentInChildren<FloxExpressionManager>().isFrozen = true;
 
         NetworkRigidbody rgb;

@@ -80,6 +80,8 @@ public class ModifierAction : MonoBehaviour
 
     public virtual void OnHitGround(GameObject _object, Vector3 initPos, bool isGrab)
     {
+        if (sound == null)
+            sound = GetComponent<SoundReader>();
         sound.ForthClipName = "Dissolve";
         sound.Playforth();
     }

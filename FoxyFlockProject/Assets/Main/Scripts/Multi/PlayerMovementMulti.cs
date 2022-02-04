@@ -275,6 +275,7 @@ public class PlayerMovementMulti : NetworkBehaviour
         flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifier, _object as ModifierAction, basicMats);
 
         flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
+        flock.GetComponent<GrabablePhysicsHandler>().initPos = flock.transform.position;
         flock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
         v++;
         _mainPool1[i].floxes.Add(flock);
@@ -319,6 +320,7 @@ public class PlayerMovementMulti : NetworkBehaviour
                 hasFounded = true;
             }
         }
+        
         if(!hasFounded)
         {
             components.Add(_object);
@@ -326,8 +328,10 @@ public class PlayerMovementMulti : NetworkBehaviour
         }
         _tempComponent = _object.GetType();
         tempbasicMats = basicMats;
+       
         flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(tempModifier, _object as ModifierAction, basicMats);
         flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
+        flock.GetComponent<GrabablePhysicsHandler>().initPos = flock.transform.position;
         flock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
         if (isBonus)
         {
@@ -479,7 +483,9 @@ public class PlayerMovementMulti : NetworkBehaviour
         tempFlock.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
         tempFlock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
         tempFlock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
-       if(_tempComponent == "BasicFloakAction")
+        tempFlock.GetComponent<GrabablePhysicsHandler>().initPos = tempFlock.transform.position;
+
+        if (_tempComponent == "BasicFloakAction")
             tempFlock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(components[components.Count-1] as ModifierAction, _tempbasicMats);
         else
         {
@@ -661,4 +667,7 @@ public class PlayerMovementMulti : NetworkBehaviour
     {
         tableTransform.GetComponentInChildren<FireballManager>().Explosion(position);
     }
+
+    
+  
 }

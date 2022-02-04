@@ -255,43 +255,33 @@ public class GrabManagerMulti : GrabManager
         {
             int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
             StartCoroutine(  flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true, null, false, this));
+            
+            flock.GetComponent<GrabbableObject>().enabled = true;
+            flock.GetComponentInChildren<FloxExpressionManager>().isFrozen = false;
+            flock.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
+            flock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
+            flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
+            currentFloxNumber++;
+            floxCount.text = currentFloxNumber.ToString() + " /" + floxNumber.ToString();
+            flock.GetComponent<Rigidbody>().useGravity = false;
+            mainPool[indexOfPool].isSelected[indexOfFlock] = false;
+            mainPool[indexOfPool].isEmpty = false;
+            batches[indexOfPool].isEmpty = false;
 
-
-            mainPool[indexOfPool].isSelected.RemoveAt(indexOfFlock);
-            mainPool[indexOfPool].floxes.Remove(flock);
-            AddFlox();
-            if(mainPool[indexOfPool].floxes.Count ==0)
-            {
-                // temp solution for attribution
-                int random = UnityEngine.Random.Range(0, negativeModifiers.Count + positiveModifiers.Count + weightOfBasicInRandom);
-                Modifier _modifier = baseModifier;
-                if (random > 15 && random <= negativeModifiers.Count + weightOfBasicInRandom)
-                    _modifier = negativeModifiers[random - weightOfBasicInRandom - 1];
-                else if (random > negativeModifiers.Count + weightOfBasicInRandom)
-                    _modifier = positiveModifiers[random - weightOfBasicInRandom - 1 - negativeModifiers.Count];
-                Type type = _modifier.actions.GetType();
-                var _object = GetComponent(type);
-                otherplayer.InitBacth(authorityToSpawn, playerNumber, indexOfPool, indexOfFlock, batches, _modifier, _object, basicMats, mainPool, out mainPool);
-                batches[indexOfPool].isEmpty = false;
-            }
         }
         else if (mainPool[indexOfPool].malus.Contains(flock))
         {
             int indexOfFlock = mainPool[indexOfPool].malus.IndexOf(flock);
             StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true,null,false,this));
-
-            Modifier _modifierPiece = negativeModifiers[UnityEngine.Random.Range(0, negativeModifiers.Count)];
-            Type typePiece = _modifierPiece.actions.GetType();
-            var _objectPiece = GetComponent(typePiece);
-            mainPool[indexOfPool].malus.RemoveAt(indexOfFlock);
-            if (mainPool[indexOfFlock].isSelectedModifier != null && mainPool[indexOfFlock].isSelectedModifier.Count > 0 && mainPool[indexOfFlock].isSelectedModifier.Count > indexOfFlock)
-                mainPool[indexOfFlock].isSelectedModifier.RemoveAt(indexOfFlock);
-
-            if ( mainPool[indexOfPool].malus.Count == 0)
-            {
-                playerMovement.InitModifier(playerMovement.gameObject, playerNumber, indexOfPool,indexOfFlock, _modifierPiece, batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], _objectPiece, basicMats, false, mainPool, out mainPool);
-                mainPool[indexOfPool].isEmptyModifier = true;
-            }
+            flock.GetComponent<GrabbableObject>().enabled = true;
+            flock.GetComponentInChildren<FloxExpressionManager>().isFrozen = false;
+            flock.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
+            flock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
+            flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
+            if (mainPool[indexOfPool].isSelectedModifier != null)
+                mainPool[indexOfPool].isSelectedModifier[indexOfFlock] = false;
+            mainPool[indexOfPool].isEmptyModifier = true;
+            batches[indexOfPool].isEmpty = false;
 
         }
 
@@ -299,18 +289,16 @@ public class GrabManagerMulti : GrabManager
         {
             int indexOfFlock = mainPool[indexOfPool].bonus.IndexOf(flock);
             StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true, null, false, this));
-            Modifier _modifierPiece = positiveModifiers[UnityEngine.Random.Range(0, positiveModifiers.Count)];
-            Type typePiece = _modifierPiece.actions.GetType();
-            var _objectPiece = GetComponent(typePiece);
-            mainPool[indexOfPool].bonus.RemoveAt(indexOfFlock);
-            if(mainPool[indexOfFlock].isSelectedModifier!= null && mainPool[indexOfFlock].isSelectedModifier.Count>0 && mainPool[indexOfFlock].isSelectedModifier.Count>indexOfFlock)
-            mainPool[indexOfFlock].isSelectedModifier.RemoveAt(indexOfFlock);
+            flock.GetComponent<GrabbableObject>().enabled = true;
+            flock.GetComponentInChildren<FloxExpressionManager>().isFrozen = false;
+            flock.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
+            flock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
+            flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
 
-            if ( mainPool[indexOfPool].bonus.Count == 0)
-            {
-                playerMovement.InitModifier(playerMovement.gameObject, playerNumber,indexOfPool, indexOfFlock+2, _modifierPiece, batches[indexOfPool].batchModifier.positiveModifiers[indexOfFlock], _objectPiece, basicMats, true, mainPool, out mainPool);
-                mainPool[indexOfPool].isEmptyModifier = true;
-            }
+            if (mainPool[indexOfPool].isSelectedModifier!= null)
+            mainPool[indexOfPool].isSelectedModifier[indexOfFlock] = false;
+            mainPool[indexOfPool].isEmptyModifier = true;
+            batches[indexOfPool].isEmpty = false;
 
         }
     }
@@ -331,17 +319,14 @@ public class GrabManagerMulti : GrabManager
         {
             mainPool[currentPool].bonus.Remove(flock);
         }
-        flock.transform.position += Vector3.up * 250 * (UnityEngine.Random.Range(1, 250));
+        flock.transform.position = flock.GetComponent<GrabablePhysicsHandler>().initPos;
         var rgb = flock.GetComponent<Rigidbody>();
-        if (rgb)
-        {
             flock.GetComponent<Rigidbody>().isKinematic = true;
             flock.GetComponent<Rigidbody>().velocity= Vector3.zero;
             flock.GetComponent<Rigidbody>().angularVelocity= Vector3.zero;
-        }
-        var grabbable = flock.GetComponent<GrabablePhysicsHandler>();
-        if (grabbable)
-            grabbable.isDestroyed = true;
+            flock.GetComponent<Rigidbody>().useGravity= false;
+            flock.GetComponent<Rigidbody>().isKinematic = false;
+        flock.GetComponent<GrabablePhysicsHandler>().OnUnFreez();
     }
 
     public void AddFlox()
@@ -356,4 +341,6 @@ public class GrabManagerMulti : GrabManager
 
         floxCount.text = currentFloxNumber.ToString() + " /" + floxNumber.ToString();
     }
+
+ 
 }
