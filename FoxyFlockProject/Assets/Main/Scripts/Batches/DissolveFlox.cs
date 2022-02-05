@@ -82,7 +82,7 @@ public class DissolveFlox : MonoBehaviour
             grabable.propBlock = new MaterialPropertyBlock();
             flox.GetPropertyBlock(grabable.propBlock);
             flox.SetPropertyBlock(grabable.propBlock);
-            dissolveState = 0;
+            dissolveState = 1;
             yield break ;
         }
         grabable.propBlock.Clear();
@@ -90,7 +90,7 @@ public class DissolveFlox : MonoBehaviour
         flox.GetPropertyBlock(grabable.propBlock);
         flox.SetPropertyBlock(grabable.propBlock);
         gameObject.SetActive(false);
-        dissolveState = 0;
+        dissolveState = 1;
         
     }
 

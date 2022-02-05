@@ -341,6 +341,14 @@ public class GrabManagerMulti : GrabManager
 
         floxCount.text = currentFloxNumber.ToString() + " /" + floxNumber.ToString();
     }
+    public override void FreezHotPotato(GameObject flox)
+    {
+        int value = 100;
+        value = mainPool[currentPool].malus.IndexOf(flox);
+        if (value != 100)
+            resetMulti.AddFreezFlock(flox, currentPool, value);
+        else
+            Debug.Log("its a bug");
+    }
 
- 
 }

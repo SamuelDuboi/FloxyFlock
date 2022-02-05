@@ -15951,7 +15951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2759863809716346480, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.00000014901161
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2759863809716346480, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_ConnectedAnchor.y
@@ -15959,7 +15959,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2759863809716346480, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: 0
+      value: 0.000000059604645
       objectReference: {fileID: 0}
     - target: {fileID: 3082567298000976554, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: cb
@@ -16012,6 +16012,10 @@ PrefabInstance:
     - target: {fileID: 3684319852757998129, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257602159681210121, guid: b384fbe0379810344b24bf520b847674, type: 3}
+      propertyPath: timeToWaitBeforFreez
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4306156208288560172, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_IsActive
@@ -17504,6 +17508,7 @@ MonoBehaviour:
   heatPourcentage: 0
   doOnce: 0
   wigglePower: 0
+  heatState: 0
 --- !u!199 &4091390469580407088
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -22624,6 +22629,7 @@ MonoBehaviour:
   heatPourcentage: 0
   doOnce: 0
   wigglePower: 0
+  heatState: 0
 --- !u!1 &6443964349262902324 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2154897950616478903, guid: 2d29c347be913374180603bf19c8f66b, type: 3}

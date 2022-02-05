@@ -553,7 +553,8 @@ public class GrabManager : MonoBehaviour
     public bool isOnCollision;
     public void GetPiece(XRBaseInteractor baseInteractor, int index)
     {
-            
+        if (baseInteractor.GetComponent<HandBurn>().heatState != HeatState.cool)
+            return;
         if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.RightHand && !isGrabRight && baseInteractor.allowHover )
             return;
         if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.LeftHand && !isGrabLeft && baseInteractor.allowHover )
@@ -845,7 +846,6 @@ public class GrabManager : MonoBehaviour
         }
     }
 
-
     public virtual void DestroyFlock(GameObject flock, int indexOfPool)
     {
         
@@ -910,7 +910,15 @@ public class GrabManager : MonoBehaviour
 
     }
 
-
+    public virtual void FreezHotPotato(GameObject flox)
+    {
+        int value = 100;
+       value =  mainPool[currentPool].malus.IndexOf(flox);
+        if (value != 100)
+            reset.AddFreezFlock(flox, currentPool, value);
+        else
+            Debug.Log("its a bug");
+    }
 }
 
 public class pool

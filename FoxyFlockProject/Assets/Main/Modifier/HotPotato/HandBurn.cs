@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-enum HeatState
+public enum HeatState
 {
     cool,
     burning,
@@ -28,10 +28,10 @@ public class HandBurn : MonoBehaviour
     [HideInInspector] public bool doOnce;
     private bool playOnceCool;
     private SoundReader soundReader;
-
+    private HandController handController;
     public float wigglePower;
 
-    private HeatState heatState =  HeatState.cool;
+    public HeatState heatState =  HeatState.cool;
 
     private IEnumerator Start()
     {
@@ -41,7 +41,7 @@ public class HandBurn : MonoBehaviour
         yield return new WaitForSeconds(5.0f);
 
         propBlock = new MaterialPropertyBlock();
-
+        handController = GetComponent<HandController>();
         interactor = this.GetComponent<XRDirectInteractor>();
 
         handRenderer = this.GetComponentInChildren<SkinnedMeshRenderer>();
@@ -95,7 +95,6 @@ public class HandBurn : MonoBehaviour
         if (heatCurrentValue >= heatMaxValue)
         {
             heatCurrentValue = heatMaxValue;
-
             heatState = HeatState.burned;
             soundReader.source.loop = false;
             soundReader.StopSound();
@@ -106,8 +105,9 @@ public class HandBurn : MonoBehaviour
             //flockInteractable.transform.position = interactor.transform.position;
             flockInteractable.GetComponent<Rigidbody>().velocity = Vector3.zero;
             flockInteractable.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-       
+            interactor.allowSelect = false;
             interactor.allowHover = false;
+            handController.enableInputActions = false;
             StartCoroutine(WaitToCoolSound());
         }
     }
@@ -140,6 +140,9 @@ public class HandBurn : MonoBehaviour
                     }
 
                     heatState = HeatState.cool;
+                    handController.enableInputActions = true;
+                    interactor.allowSelect = true;
+                    interactor.allowHover = true;
                 }
             }  
         }

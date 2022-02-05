@@ -10,6 +10,8 @@ public class Reset : MonoBehaviour
     private SoundReader soundReader;
    public virtual void AddFreezFlock(GameObject flock, int poolIndex, int flockIndex)
     {
+        if (freezedFlocks.Contains(flock))
+            return;
         flock.GetComponent<GrabablePhysicsHandler>().OnFreeze();
 
         freezdFlockPoolIndex.Add(poolIndex);

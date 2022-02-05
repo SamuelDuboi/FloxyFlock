@@ -316,6 +316,7 @@ MonoBehaviour:
   timeBeforeAutoRelease: 0
   collisionClipName: 
   idleClipName: 
+  timeToWaitBeforFreez: 5
 --- !u!114 &1897938308515805257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1035,8 +1036,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 1897938308515805256}
     m_Modifications:
     - target: {fileID: 4619937109803672083, guid: d0d47dbad1a2e764c980f3b439e29201, type: 3}
+      propertyPath: onPressed.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619937109803672083, guid: d0d47dbad1a2e764c980f3b439e29201, type: 3}
       propertyPath: onHoldCompleted.m_PersistentCalls.m_Calls.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619937109803672083, guid: d0d47dbad1a2e764c980f3b439e29201, type: 3}
+      propertyPath: onPressed.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619937109803672083, guid: d0d47dbad1a2e764c980f3b439e29201, type: 3}
+      propertyPath: onPressed.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4619937109803672083, guid: d0d47dbad1a2e764c980f3b439e29201, type: 3}
       propertyPath: onHoldCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
