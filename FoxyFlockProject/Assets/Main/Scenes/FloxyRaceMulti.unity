@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 453999492}
-  m_IndirectSpecularColor: {r: 0.39712277, g: 0.42016074, b: 0.4594335, a: 1}
+  m_IndirectSpecularColor: {r: 0.3971174, g: 0.42016065, b: 0.45942938, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -359,7 +359,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910762, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_Name
-      value: Floor_Disc (2)
+      value: Floor_Disc_P2
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910762, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_Layer
@@ -371,15 +371,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d94face24f821aa4fab5ccf97a253fcd, type: 2}
     - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_LocalScale.z
@@ -387,7 +387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: 3.42
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_LocalPosition.y
@@ -865,7 +865,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910762, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_Name
-      value: Floor_Disc (1)
+      value: Floor_Disc_P1
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910762, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_Layer
@@ -877,15 +877,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d94face24f821aa4fab5ccf97a253fcd, type: 2}
     - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_LocalScale.z
@@ -893,7 +893,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.74
+      value: -3.42
       objectReference: {fileID: 0}
     - target: {fileID: 9192220744790910766, guid: 49d38d97c5b99c9409fbd71871d57901, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1258,6 +1258,10 @@ PrefabInstance:
     - target: {fileID: 5625922142415559253, guid: 7cd4fb575f0277346b659ae319a4b775, type: 3}
       propertyPath: detectionLayer.m_Bits
       value: 2112
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560942896136550419, guid: 7cd4fb575f0277346b659ae319a4b775, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9214305646552678340, guid: 7cd4fb575f0277346b659ae319a4b775, type: 3}
       propertyPath: limitHeight
@@ -10852,7 +10856,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 884307121}
   m_LocalRotation: {x: 0, y: 0.2840153, z: 0, w: 0.95881975}
-  m_LocalPosition: {x: -4.65, y: 0.716, z: -1.3}
+  m_LocalPosition: {x: -4.33, y: 0.716, z: -1.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -18500,7 +18504,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372567734}
   m_LocalRotation: {x: 0, y: -0.43523106, z: 0, w: 0.9003188}
-  m_LocalPosition: {x: 4.48, y: 0.716, z: -1.13}
+  m_LocalPosition: {x: 3.9, y: 0.716, z: -1.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -18540,8 +18544,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1093}
-  m_SizeDelta: {x: 500, y: 600}
+  m_AnchoredPosition: {x: 876, y: 1459}
+  m_SizeDelta: {x: 750, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1374758436
 CanvasRenderer:
@@ -29996,7 +30000,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1825756045}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.8179998, y: 0.9, z: 0}
+  m_LocalPosition: {x: 3.238, y: 0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 798099346}
@@ -31125,7 +31129,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2438865839756169261}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.85, y: 0.9, z: 0}
+  m_LocalPosition: {x: -3.53, y: 0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1149330689722018548}
@@ -32429,8 +32433,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1093}
-  m_SizeDelta: {x: 500, y: 600}
+  m_AnchoredPosition: {x: -873, y: 1459}
+  m_SizeDelta: {x: 750, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6919671423432195157
 GameObject:
@@ -32939,7 +32943,7 @@ GameObject:
   - component: {fileID: 6919671423837020013}
   - component: {fileID: 6919671423837019984}
   m_Layer: 5
-  m_Name: WordlSpaceCanvas (1)
+  m_Name: WorldSpaceCanvas (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

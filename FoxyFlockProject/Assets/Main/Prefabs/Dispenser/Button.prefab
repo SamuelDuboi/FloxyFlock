@@ -183,11 +183,11 @@ MonoBehaviour:
   lowerLimitTransform: {fileID: 9104876195400566536}
   buttonAnimator: {fileID: 1199445538176619269}
   hold: 1
-  holdTime: 3
+  holdTime: 1.5
   collidersToIgnore:
   - {fileID: 3236134367857649898}
   - {fileID: 2166846883454937589}
-  threshold: 0.5
+  threshold: 0.4
   springForce: 50
   onPressed:
     m_PersistentCalls:

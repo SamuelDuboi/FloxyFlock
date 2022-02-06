@@ -59,14 +59,18 @@ public class PhysicsButton : MonoBehaviour
         if (pressTransform.position.y > upLimitTransform.position.y)
         {
             pressTransform.position = new Vector3(pressTransform.position.x, upLimitTransform.transform.position.y, pressTransform.transform.position.z);
+            pressRBody.isKinematic = true;
         }
         else if (pressTransform.position.y < lowerLimitTransform.position.y)
         {
             pressTransform.position = new Vector3(pressTransform.position.x, lowerLimitTransform.transform.position.y, pressTransform.transform.position.z);
+            pressCollider.isTrigger = true;
         }
         else
         {
             pressRBody.AddForce(pressTransform.up * springForce * (Mathf.Clamp(1f - distance, 0.01f, 1f)) * Time.fixedDeltaTime);
+            pressCollider.isTrigger = false;
+            pressRBody.isKinematic = false;
         }
 
 
