@@ -165,6 +165,17 @@ public class GrabManager : MonoBehaviour
                 
                 sound.clipName = "FloxMachineNotEmpty";
                 sound.Play();
+
+                foreach (Representation displayOrb in representations)
+                {
+                    displayOrb.CallFlashingOrb();
+                }
+                foreach (Representation displayOrb in representationsModifiers)
+                {
+                    displayOrb.CallFlashingOrb();
+                }
+
+
                 Debug.LogError("There are still flock on the dispenser");
                 return;
             }
@@ -172,6 +183,16 @@ public class GrabManager : MonoBehaviour
             {
                 sound.clipName = "FloxMachineNotEmpty";
                 sound.Play();
+
+                foreach (Representation displayOrb in representations)
+                {
+                    displayOrb.CallFlashingOrb();
+                }
+                foreach (Representation displayOrb in representationsModifiers)
+                {
+                    displayOrb.CallFlashingOrb();
+                }
+
                 Debug.LogError("There are still bonus or malus on the dispenser");
                 return;
             }
