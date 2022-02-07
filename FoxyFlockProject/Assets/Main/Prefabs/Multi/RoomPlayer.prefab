@@ -122,8 +122,12 @@ MonoBehaviour:
   mesh: {fileID: 0}
   meshMat: {fileID: 0}
   isModifier: 0
+  flashNbr: 4
+  timeBetweenFlashes: 0.15
+  timeBetweenFlashesIntervalScale: 3
   isFireBall: 0
   indexInList: 0
+  flox: {fileID: 0}
 --- !u!1 &970108615
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,8 +250,12 @@ MonoBehaviour:
   mesh: {fileID: 0}
   meshMat: {fileID: 0}
   isModifier: 0
+  flashNbr: 4
+  timeBetweenFlashes: 0.15
+  timeBetweenFlashesIntervalScale: 3
   isFireBall: 0
   indexInList: 0
+  flox: {fileID: 0}
 --- !u!1 &1333512955
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,8 +378,12 @@ MonoBehaviour:
   mesh: {fileID: 0}
   meshMat: {fileID: 0}
   isModifier: 0
+  flashNbr: 4
+  timeBetweenFlashes: 0.15
+  timeBetweenFlashesIntervalScale: 3
   isFireBall: 0
   indexInList: 0
+  flox: {fileID: 0}
 --- !u!1 &1492900453
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,8 +506,12 @@ MonoBehaviour:
   mesh: {fileID: 0}
   meshMat: {fileID: 0}
   isModifier: 0
+  flashNbr: 4
+  timeBetweenFlashes: 0.15
+  timeBetweenFlashesIntervalScale: 3
   isFireBall: 0
   indexInList: 0
+  flox: {fileID: 0}
 --- !u!1 &1650846656
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,8 +739,12 @@ MonoBehaviour:
   mesh: {fileID: 0}
   meshMat: {fileID: 0}
   isModifier: 0
+  flashNbr: 4
+  timeBetweenFlashes: 0.15
+  timeBetweenFlashesIntervalScale: 3
   isFireBall: 0
   indexInList: 0
+  flox: {fileID: 0}
 --- !u!1 &2069778611
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,8 +867,12 @@ MonoBehaviour:
   mesh: {fileID: 0}
   meshMat: {fileID: 0}
   isModifier: 0
+  flashNbr: 4
+  timeBetweenFlashes: 0.15
+  timeBetweenFlashesIntervalScale: 3
   isFireBall: 0
   indexInList: 0
+  flox: {fileID: 0}
 --- !u!1 &566700099451089043
 GameObject:
   m_ObjectHideFlags: 0
@@ -3119,7 +3143,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8bf37c0609f11df48a6237f0ee217121, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7077e445741c0594790710643ae1316d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4683,7 +4707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2163274710560696460, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3684319852757998133, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_RootOrder
@@ -4708,6 +4732,10 @@ PrefabInstance:
     - target: {fileID: 5403105511365400172, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6177056191839131477, guid: b384fbe0379810344b24bf520b847674, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 6950851045832976970, guid: b384fbe0379810344b24bf520b847674, type: 3}
       propertyPath: m_RootOrder

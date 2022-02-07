@@ -274,7 +274,7 @@ public class PlayerMovementMulti : NetworkBehaviour
         tempbasicMats = basicMats;
         flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifier, _object as ModifierAction, basicMats);
 
-        flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
+       
         flock.GetComponent<GrabablePhysicsHandler>().initPos = flock.transform.position;
         flock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
         v++;
@@ -482,7 +482,7 @@ public class PlayerMovementMulti : NetworkBehaviour
         tempFlock = x;
         tempFlock.GetComponent<GrabablePhysicsHandler>().m_rgb.useGravity = false;
         tempFlock.GetComponent<GrabablePhysicsHandler>().m_rgb.velocity = Vector3.zero;
-        tempFlock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
+        tempFlock.GetComponent<GrabablePhysicsHandler>().inputManager =  authority.GetComponent<InputManagerMulti>(); ;
         tempFlock.GetComponent<GrabablePhysicsHandler>().initPos = tempFlock.transform.position;
 
         if (_tempComponent == "BasicFloakAction")

@@ -253,6 +253,21 @@ public class GrabablePhysicsHandler : MonoBehaviour
         //Push Data
         meshRenderer.SetPropertyBlock(propBlock);
     }
+    IEnumerator Freez()
+    {
+        for (float i = 0; i < 100; i++)
+        {
+            //Recup Data
+            meshRenderer.GetPropertyBlock(propBlock);
+            //EditZone
+            propBlock.SetFloat("IsFrozen", i/100);
+
+            //Push Data
+            meshRenderer.SetPropertyBlock(propBlock);
+            yield return new WaitForSeconds(0.01f);
+        }
+        gameObject.layer = 14;
+    }
     public void OnFreeze()
     {
         if(meshRenderer == null || propBlock == null || initialMat ==  null)
@@ -265,15 +280,8 @@ public class GrabablePhysicsHandler : MonoBehaviour
         meshRenderer.material = initialMat;
         propBlock.Clear();
 
-        //Recup Data
-        meshRenderer.GetPropertyBlock(propBlock);
-        //EditZone
-        propBlock.SetFloat("IsFrozen", 1);
-
-        //Push Data
-        meshRenderer.SetPropertyBlock(propBlock);
-
-        gameObject.layer = 14;
+        StartCoroutine(Freez());
+       
     }
     public void OnUnFreez() {
         {
