@@ -21,6 +21,7 @@ public class HotPotatoV2 : ModifierAction
         if(hasDoneFirstGrab &&!isGrab && grabablePhysicsHandler && grabablePhysicsHandler.enabled && dissolveFlox.dissolveState ==1 && flockInteractable.enabled && rgb.velocity.magnitude < 0.1f)
         {
             currentTimeBeforFreez += Time.deltaTime;
+            grabablePhysicsHandler.SetFreezValue(currentTimeBeforFreez, timeToWaitBeforFreez);
             if(currentTimeBeforFreez>= timeToWaitBeforFreez)
             {
                 if (inputManager)
@@ -33,6 +34,7 @@ public class HotPotatoV2 : ModifierAction
         else if(currentTimeBeforFreez != 0)
         {
             currentTimeBeforFreez = 0;
+            grabablePhysicsHandler.SetFreezValue(currentTimeBeforFreez, timeToWaitBeforFreez);
         }
     }
     public override void OnStarted(GameObject _object)

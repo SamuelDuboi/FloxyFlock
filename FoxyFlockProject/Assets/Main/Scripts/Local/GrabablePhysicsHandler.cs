@@ -253,36 +253,39 @@ public class GrabablePhysicsHandler : MonoBehaviour
         //Push Data
         meshRenderer.SetPropertyBlock(propBlock);
     }
-    IEnumerator Freez()
-    {
-        for (float i = 0; i < 100; i++)
-        {
-            //Recup Data
-            meshRenderer.GetPropertyBlock(propBlock);
-            //EditZone
-            propBlock.SetFloat("IsFrozen", i/100);
 
-            //Push Data
-            meshRenderer.SetPropertyBlock(propBlock);
-            yield return new WaitForSeconds(0.01f);
-        }
-        gameObject.layer = 14;
-    }
-    public void OnFreeze()
+   public IEnumerator Freez()
     {
-        if(meshRenderer == null || propBlock == null || initialMat ==  null)
+        gameObject.layer = 14;
+
+        if (meshRenderer == null || propBlock == null || initialMat == null)
         {
             meshRenderer = GetComponent<MeshRenderer>();
             initialMat = meshRenderer.material;
             propBlock = new MaterialPropertyBlock();
         }
+        for (int i = 0; i < 101; i++)
+        {
+            //Recup Data
+            meshRenderer.GetPropertyBlock(propBlock);
+            //EditZone
+            propBlock.SetFloat("IsFrozen", (float)i/100);
+            Debug.Log(i);
+            //Push Data
+            meshRenderer.SetPropertyBlock(propBlock);
+            yield return new WaitForSeconds(0.01f);
+        }
 
-        meshRenderer.material = initialMat;
-        propBlock.Clear();
-
-        StartCoroutine(Freez());
-       
     }
+    public void SetFreezValue(float i, float maxValue)
+    {
+        meshRenderer.GetPropertyBlock(propBlock);
+        //EditZone
+        propBlock.SetFloat("IsFrozen", i / maxValue);
+        //Push Data
+        meshRenderer.SetPropertyBlock(propBlock);
+    }
+
     public void OnUnFreez() {
         {
             if (meshRenderer == null || propBlock == null || initialMat == null)

@@ -82,7 +82,6 @@ public class GrabManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         Vector3 headSettPos = inputManager.GetComponent<XRRig>().cameraFloorOffsetObject.transform.localPosition;
         transform.localPosition += headSettPos;
-
     }
     public virtual void InitPool()
     {
@@ -936,7 +935,7 @@ public class GrabManager : MonoBehaviour
         int value = 100;
        value =  mainPool[currentPool].malus.IndexOf(flox);
         if (value != 100)
-            reset.AddFreezFlock(flox, currentPool, value);
+            reset.AddFreezFlock(flox, currentPool, value, true);
         else
             Debug.Log("its a bug");
     }

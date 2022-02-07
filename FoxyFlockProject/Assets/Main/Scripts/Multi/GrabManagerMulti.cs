@@ -346,7 +346,7 @@ public class GrabManagerMulti : GrabManager
         int value = 100;
         value = mainPool[currentPool].malus.IndexOf(flox);
         if (value != 100)
-            resetMulti.AddFreezFlock(flox, currentPool, value);
+            resetMulti.AddFreezFlock(flox, currentPool, value, true);
         else
             Debug.Log("its a bug");
     }

@@ -11,7 +11,7 @@ public class ResetMulti : NetworkBehaviour
     public GrabManager grabManager;
     public InputManager inputManager;
     private SoundReader soundReader;
-    public virtual void AddFreezFlock(GameObject flock, int poolIndex, int flockIndex)
+    public virtual void AddFreezFlock(GameObject flock, int poolIndex, int flockIndex, bool isHotFlox = false)
     {
         if (flock == null)
             return;
@@ -19,7 +19,7 @@ public class ResetMulti : NetworkBehaviour
 
         freezdFlockPoolIndex.Add(poolIndex);
         freezdFlockIndex.Add(flockIndex);
-        CmdFreezFlock(flock);
+        CmdFreezFlock(flock, isHotFlox);
     }
     public virtual void RemoveFreezedFlock(GameObject flock, int indexOfPool, int indexOfFLock)
     {
@@ -70,14 +70,15 @@ public class ResetMulti : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    public void CmdFreezFlock(GameObject flock)
+    public void CmdFreezFlock(GameObject flock, bool isHotFlox)
     {
-        RpcFreezFlock(flock);
+        RpcFreezFlock(flock, isHotFlox);
     }
     [ClientRpc]
-    public void RpcFreezFlock(GameObject flock)
+    public void RpcFreezFlock(GameObject flock, bool isHotFlox)
     {
-        flock.GetComponent<GrabablePhysicsHandler>().OnFreeze();
+        if(!isHotFlox)
+       StartCoroutine( flock.GetComponent<GrabablePhysicsHandler>().Freez());
 
         flock.GetComponent<GrabbableObject>().enabled = false;
         flock.GetComponent<GrabablePhysicsHandler>().enabled= false;

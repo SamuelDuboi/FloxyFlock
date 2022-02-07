@@ -12,13 +12,27 @@ public class Reset : MonoBehaviour
     {
         if (freezedFlocks.Contains(flock))
             return;
-        flock.GetComponent<GrabablePhysicsHandler>().OnFreeze();
+        StartCoroutine( flock.GetComponent<GrabablePhysicsHandler>().Freez());
 
         freezdFlockPoolIndex.Add(poolIndex);
         freezdFlockIndex.Add(flockIndex);
         flock.GetComponentInChildren<FloxExpressionManager>().isFrozen = true;
         Destroy(flock.GetComponent<GrabbableObject>());
         Destroy( flock.GetComponent<GrabablePhysicsHandler>());
+        Destroy(flock.GetComponent<Rigidbody>());
+
+        freezedFlocks.Add(flock);
+    }
+    public virtual void AddFreezFlock(GameObject flock, int poolIndex, int flockIndex, bool isHotPotato)
+    {
+        if (freezedFlocks.Contains(flock))
+            return;
+
+        freezdFlockPoolIndex.Add(poolIndex);
+        freezdFlockIndex.Add(flockIndex);
+        flock.GetComponentInChildren<FloxExpressionManager>().isFrozen = true;
+        Destroy(flock.GetComponent<GrabbableObject>());
+        Destroy(flock.GetComponent<GrabablePhysicsHandler>());
         Destroy(flock.GetComponent<Rigidbody>());
 
         freezedFlocks.Add(flock);
