@@ -37,6 +37,7 @@ public class RoomPlayer : MonoBehaviour
     }
     public void ReturnMenu()
     {
+        Destroy(NetworkManagerRace.instance.gameObject);
         ScenesManagement.instance.LunchScene(0);
     }
     public void RightAvatar()

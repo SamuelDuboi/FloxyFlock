@@ -471,6 +471,7 @@ MonoBehaviour:
   OnExitStasis:
     m_PersistentCalls:
       m_Calls: []
+  initPos: {x: 0, y: 0, z: 0}
   slowForce: 0
   timeToSlow: 0
   physicMaterials:
@@ -481,6 +482,7 @@ MonoBehaviour:
   timerToExit: 0
   inputManager: {fileID: 0}
   initialModifier: {fileID: 0}
+  isDestroyed: 0
 --- !u!114 &-4113844584321132887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,6 +612,7 @@ MonoBehaviour:
   applyAudioOnStart: 0
   randomSelectionOnStart: 0
   doOnce: 0
+  doTwice: 0
 --- !u!114 &7170730315736735085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,7 +629,7 @@ MonoBehaviour:
   floxMaterialT: {fileID: 2100000, guid: 234aa76443e986347a2ab08487891cc5, type: 2}
   flox: {fileID: 2907777759436803350}
   dissolveState: 1
-  dissolveTime: 5
+  dissolveTime: 0.5
   isDissolving: 0
   grabable: {fileID: -62025612058384938}
 --- !u!95 &907465211597312272
@@ -892,6 +895,7 @@ MonoBehaviour:
   applyAudioOnStart: 0
   randomSelectionOnStart: 0
   doOnce: 0
+  doTwice: 0
 --- !u!1 &6805212700368918712
 GameObject:
   m_ObjectHideFlags: 0

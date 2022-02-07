@@ -270,7 +270,6 @@ public class GrabablePhysicsHandler : MonoBehaviour
             meshRenderer.GetPropertyBlock(propBlock);
             //EditZone
             propBlock.SetFloat("IsFrozen", (float)i/100);
-            Debug.Log(i);
             //Push Data
             meshRenderer.SetPropertyBlock(propBlock);
             yield return new WaitForSeconds(0.01f);

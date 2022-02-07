@@ -167,11 +167,18 @@ public class GrabManager : MonoBehaviour
 
                 foreach (Representation displayOrb in representations)
                 {
-                    displayOrb.CallFlashingOrb();
+                    if (displayOrb.gameObject.activeSelf)
+                    {
+                        displayOrb.CallFlashingOrb();
+                    }
+                    
                 }
                 foreach (Representation displayOrb in representationsModifiers)
                 {
-                    displayOrb.CallFlashingOrb();
+                    if (displayOrb.gameObject.activeSelf)
+                    {
+                        displayOrb.CallFlashingOrb();
+                    }
                 }
 
 
@@ -185,11 +192,18 @@ public class GrabManager : MonoBehaviour
 
                 foreach (Representation displayOrb in representations)
                 {
-                    displayOrb.CallFlashingOrb();
+                    if (displayOrb.gameObject.activeSelf)
+                    {
+                        displayOrb.CallFlashingOrb();
+                    }
+
                 }
                 foreach (Representation displayOrb in representationsModifiers)
                 {
-                    displayOrb.CallFlashingOrb();
+                    if (displayOrb.gameObject.activeSelf)
+                    {
+                        displayOrb.CallFlashingOrb();
+                    }
                 }
 
                 Debug.LogError("There are still bonus or malus on the dispenser");

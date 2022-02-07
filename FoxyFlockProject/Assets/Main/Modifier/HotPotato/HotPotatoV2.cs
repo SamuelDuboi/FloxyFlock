@@ -18,7 +18,7 @@ public class HotPotatoV2 : ModifierAction
             if(currentInteractor)
             currentInteractor.GetComponent<HandBurn>().BurnEvent(flockInteractable);
         }
-        if(hasDoneFirstGrab &&!isGrab && grabablePhysicsHandler && grabablePhysicsHandler.enabled && dissolveFlox.dissolveState ==1 && flockInteractable.enabled && rgb.velocity.magnitude < 0.1f)
+        if(hasDoneFirstGrab &&!isGrab && grabablePhysicsHandler && !isOnStasis&& grabablePhysicsHandler.enabled && dissolveFlox.dissolveState ==1 && flockInteractable.enabled && rgb.velocity.magnitude < 0.1f)
         {
             currentTimeBeforFreez += Time.deltaTime;
             grabablePhysicsHandler.SetFreezValue(currentTimeBeforFreez, timeToWaitBeforFreez);

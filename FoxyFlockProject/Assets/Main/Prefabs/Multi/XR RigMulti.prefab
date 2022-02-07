@@ -463,6 +463,7 @@ MonoBehaviour:
   heatPourcentage: 0
   doOnce: 0
   wigglePower: 0
+  heatState: 0
 --- !u!1 &3059216091834231811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,7 +1079,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 0
+  clientAuthority: 1
   sendInterval: 0.05
   syncPosition: 1
   syncRotation: 1
@@ -1452,6 +1453,7 @@ MonoBehaviour:
   heatPourcentage: 0
   doOnce: 0
   wigglePower: 0
+  heatState: 0
 --- !u!1 &3059216092818332024
 GameObject:
   m_ObjectHideFlags: 0
