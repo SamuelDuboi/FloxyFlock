@@ -44,6 +44,7 @@ public class MultiUIHandler : NetworkBehaviour
     public void CmdIsWinning()
     {
         //UIGlobalManager.instance.IsFirst(grabManager.playerNumber-1);
+        if(grabManager!= null)
         RpcIsWinning(grabManager.playerNumber - 1);
 
     }

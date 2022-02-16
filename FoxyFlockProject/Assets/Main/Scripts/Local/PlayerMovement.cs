@@ -54,9 +54,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isntLobby)
             return false;
+
         Vector3 pointOnScreen = vrHeadSett.GetComponent<Camera>().WorldToScreenPoint(tableRenderer.bounds.center);
-        if ((pointOnScreen.x < 0) || (pointOnScreen.x > Screen.width) ||
-            (pointOnScreen.y < 0) || (pointOnScreen.y > Screen.height))
+        if ((pointOnScreen.x < 0) || (pointOnScreen.x > Screen.width*1.2f) ||
+            (pointOnScreen.y > Screen.height * 1.2f))
         {
             InitMovement();
             return false;

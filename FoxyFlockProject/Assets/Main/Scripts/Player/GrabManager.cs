@@ -514,7 +514,7 @@ public class GrabManager : MonoBehaviour
                 
                 if (mainPool[currentPool].malusIndex == null)
                     mainPool[currentPool].malusIndex = new List<int>();
-                mainPool[currentPool].malusIndex.Add(mainPool[currentPool].bonusIndex[0]);
+                mainPool[currentPool].malusIndex.Add(mainPool[currentPool].malusIndex.Count);
                 if (mainPool[currentPool].malusSeletcted == null)
                     mainPool[currentPool].malusSeletcted = new List<GameObject>();
                 if (mainPool[currentPool].bonusIndex != null)
@@ -523,7 +523,7 @@ public class GrabManager : MonoBehaviour
                     mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[1]);
                 }
                 directionForBubble.Add(representationsModifiers[mainPool[currentPool].bonusIndex[0]].transform.position);
-                representationsModifiers[mainPool[currentPool].bonusIndex[0]].ApplyVisual(mainPool[currentPool].malusIndex[mainPool[currentPool].malusIndex.Count - 1],true);
+                representationsModifiers[mainPool[currentPool].bonusIndex[0]].ApplyVisual(mainPool[currentPool].malusIndex[mainPool[currentPool].malusIndex.Count-1],true);
                 mainPool[currentPool].bonusIndex.RemoveAt(0);
                 mainPool[currentPool].bonusSelected.RemoveAt(0);
                 return;

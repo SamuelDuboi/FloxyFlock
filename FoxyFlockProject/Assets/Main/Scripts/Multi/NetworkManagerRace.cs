@@ -87,7 +87,10 @@ public class NetworkManagerRace : NetworkRoomManager
                 number++;
             }
             roomPlayers.Add(  newRoomGameObject);
-            
+            foreach (var player in roomPlayers)
+            {
+                player.GetComponentInChildren<RoomPlayer>().show.CmdChangeUi(player.GetComponentInChildren<RoomPlayer>().index);
+            }
             NetworkServer.AddPlayerForConnection(conn, newRoomGameObject);
         }
         else
@@ -164,11 +167,11 @@ public class NetworkManagerRace : NetworkRoomManager
         if (grabManagers[1] == null)
             return;
         grabManagers[index].currentMilestone = value;
-        if (grabManagers[0].currentMilestone > grabManagers[1].currentMilestone)
+        if (grabManagers[0].currentMilestone < grabManagers[1].currentMilestone)
         {
             grabManagers[0].multiUI.CmdIsWinning();
         }
-        else if (grabManagers[0].currentMilestone < grabManagers[1].currentMilestone)
+        else if (grabManagers[0].currentMilestone > grabManagers[1].currentMilestone)
         {
             grabManagers[1].multiUI.CmdIsWinning();
         }

@@ -7,7 +7,7 @@ public class RoomPlayer : MonoBehaviour
     public GameObject mic;
     public List<Sprite> avatars;
     private Sprite thisAvatar;
-    private int index;
+   [HideInInspector] public int index;
     public Image avatartImage;
     public int number;
     public NetworkRoomPlayerGamr networkRoom;
@@ -50,6 +50,7 @@ public class RoomPlayer : MonoBehaviour
         }
         thisAvatar = avatars[index];
         avatartImage.sprite = thisAvatar;
+        show.CmdChangeUi(index);
     }
   
 
@@ -61,6 +62,7 @@ public class RoomPlayer : MonoBehaviour
             readyButton.color = Color.green;
         else
             readyButton.color = Color.white;
+        show.CmdChangeUi(index);
         networkRoom.CmdChangeReadyState(isReady);
         networkRoom.CmdSetIndex(networkRoom.index, index);
       //  GetComponentInParent<InputManager>().gameObject.SetActive(false);
