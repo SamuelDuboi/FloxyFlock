@@ -250,7 +250,7 @@ public class InputManager : MonoBehaviour
     }
     protected virtual void OnRightHandGrabReleaseListener()
     {
-        rightHandIsGrabRelease = false;
+        rightHandIsGrabRelease = true;
     }
     #endregion
     #region SnapeTurnListener

@@ -22,7 +22,7 @@ public class HandBurn : MonoBehaviour
     private float lastFrameHeatPourcentage = 0f;
     private Vector3 lastFrameTransform;
 
-    private XRDirectInteractor interactor;
+    private HandsDirectInteractor interactor;
     private SkinnedMeshRenderer handRenderer;
     private MaterialPropertyBlock propBlock;
     [HideInInspector] public bool doOnce;
@@ -30,9 +30,9 @@ public class HandBurn : MonoBehaviour
     private SoundReader soundReader;
     private HandController handController;
     public float wigglePower;
-
+    InputManager inputManager;
     public HeatState heatState =  HeatState.cool;
-
+    private bool isGrabing;
     private IEnumerator Start()
     {
         lastFrameTransform = this.transform.localPosition;
@@ -42,11 +42,20 @@ public class HandBurn : MonoBehaviour
 
         propBlock = new MaterialPropertyBlock();
         handController = GetComponent<HandController>();
-        interactor = this.GetComponent<XRDirectInteractor>();
-
+        interactor = this.GetComponent<HandsDirectInteractor>();
+        inputManager = handController.inputManager;
         handRenderer = this.GetComponentInChildren<SkinnedMeshRenderer>();
         soundReader = GetComponent<SoundReader>();
-      
+      if(handController.controllerNode == UnityEngine.XR.XRNode.LeftHand)
+        {
+            inputManager.OnGrabbingLeft.AddListener(OnGrabe);
+            inputManager.OnLeftGrabRelease.AddListener(Release);
+        }
+        else
+        {
+            inputManager.OnGrabbingRight.AddListener(OnGrabe);
+            inputManager.OnRightGrabRelease.AddListener(Release);
+        }
 
     }
 
@@ -101,7 +110,14 @@ public class HandBurn : MonoBehaviour
             soundReader.ThirdClipName = "HotForceRelease";
             soundReader.PlayThird();
             doOnce = false;
-            InteractionManager.instance.SelectExit(interactor, flockInteractable);
+            //flockInteractable.CustomForceDrop(flockInteractable.selectingInteractor);
+            //
+            InteractionManager.instance.HoverExit(interactor, flockInteractable);
+            interactor.Reset(flockInteractable.gameObject);
+            List<XRBaseInteractable> targets = new List<XRBaseInteractable>();
+            InteractionManager.instance.GetValidTargets(interactor, targets);
+            
+            Debug.Log(targets.Count);
             //flockInteractable.transform.position = interactor.transform.position;
             flockInteractable.GetComponent<Rigidbody>().velocity = Vector3.zero;
             flockInteractable.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
@@ -115,6 +131,17 @@ public class HandBurn : MonoBehaviour
     {
         yield return new WaitForSeconds(0.4f);
         playOnceCool = false;
+    }
+
+    public void Release()
+    {
+        isGrabing = false;
+    }
+    public void OnGrabe()
+    {
+        isGrabing = true;
+
+       
     }
     private void CoolEvent()
     {
@@ -141,11 +168,17 @@ public class HandBurn : MonoBehaviour
 
                     heatState = HeatState.cool;
                     handController.enableInputActions = true;
-                    interactor.allowSelect = true;
-                    interactor.allowHover = true;
+                    StartCoroutine(WaitToGrab());
                 }
             }  
         }
+    }
+    IEnumerator WaitToGrab()
+    {
+        yield return new WaitUntil(() => isGrabing == false);
+        interactor.allowHover = true;
+        interactor.allowSelect = true;
+        yield return new WaitUntil(() => isGrabing == true);
     }
     public void DropEvent()
     {

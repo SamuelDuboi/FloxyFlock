@@ -14,4 +14,16 @@ public class InteractionManager : XRInteractionManager
         }
         instance = this;
     }
+    public override void HoverEnter(XRBaseInteractor interactor, XRBaseInteractable interactable)
+    {
+        if (Mathf.Abs(Vector3.Distance(interactable.transform.position, interactor.transform.position)) > 1f)
+            return;
+        base.HoverEnter(interactor, interactable);
+    }
+    public override void SelectEnter(XRBaseInteractor interactor, XRBaseInteractable interactable)
+    {
+        if (Mathf.Abs(Vector3.Distance(interactable.transform.position, interactor.transform.position)) > 1f)
+            return;
+        base.SelectEnter(interactor, interactable);
+    }
 }
