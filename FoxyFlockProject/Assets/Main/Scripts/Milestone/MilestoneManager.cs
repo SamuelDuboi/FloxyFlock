@@ -20,36 +20,18 @@ public class MilestoneManager : MonoBehaviour
     public int CheckMilestones(out Vector3 point, out int numberOfMilestones, out Vector3 nextMilestonePos)
     {
         numberOfMilestones = milestones.Count;
-       if (milestones[currenMilestonIndex].CheckCollision(out point))
-        {
-            for (int i = currenMilestonIndex; i > 0; i--)
+
+            for (int i = 1; i < milestones.Count; i++)
             {
                 if (milestones[i].CheckCollision(out point))
                 {
                     currenMilestonIndex = i;
-                    nextMilestonePos = milestones[i - 1].transform.localPosition + transform.localPosition;
+                    nextMilestonePos = milestones[i - 1].transform.localPosition - milestones[milestones.Count-1].transform.localPosition+Vector3.up* distance / (float)numberOfMilestones;
                     return currenMilestonIndex;
                 }
             }
-            if (currenMilestonIndex != 0)
-                nextMilestonePos = milestones[currenMilestonIndex - 1].transform.localPosition + transform.localPosition;
-            else
-                nextMilestonePos = transform.localPosition + Vector3.up * distance;
-            return currenMilestonIndex;
-        }
-        else
-        {
-            for (int i = currenMilestonIndex; i < milestones.Count; i++)
-            {
-                if (milestones[i].CheckCollision(out point))
-                {
-                    currenMilestonIndex = i;
-                    nextMilestonePos = milestones[i - 1].transform.localPosition + transform.localPosition;
-                    return currenMilestonIndex;
-                }
-            }
-        }
-       
+
+        point = Vector3.zero;
         //nextMilestonePos = transform.localPosition + Vector3.up * distance;
         nextMilestonePos = Vector3.zero;
         return 0;

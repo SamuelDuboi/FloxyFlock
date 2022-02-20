@@ -17,14 +17,24 @@ public class Representation : MonoBehaviour
     public MeshRenderer meshMat;
     [HideInInspector] private bool isMalus;
     public bool isModifier;
+    [SerializeField] private int flashNbr = 4;
+    [SerializeField] private float timeBetweenFlashes = 0.15f;
+    [SerializeField] private float timeBetweenFlashesIntervalScale = 3f;
     public bool isFireBall;
      public int indexInList;
+    [HideInInspector]public GrabbableObject flox;
     private MaterialPropertyBlock propBlock;
     private void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
         meshFilter = GetComponentInChildren<MeshFilter>();
         propBlock = new MaterialPropertyBlock();
+        if (isFireBall)
+        {
+            meshRenderer.GetPropertyBlock(propBlock);
+            propBlock.SetInt("SelectedColorTint", 3);
+            meshRenderer.SetPropertyBlock(propBlock);
+        }
     }
 
     private void Update()
@@ -61,13 +71,23 @@ public class Representation : MonoBehaviour
             manager.isOnCollision = true;
         if (isFireBall)
         {
+            if (!collision.gameObject.GetComponentInParent<XRDirectInteractor>())
+                Debug.Log(collision.gameObject);
             ((GrabManagerMulti)manager).GetPieceFireball(collision.gameObject.GetComponentInParent<XRDirectInteractor>());
             return;
         }
         if (!isModifier)
+        {
+            if (!collision.gameObject.GetComponentInParent<XRDirectInteractor>())
+                Debug.Log(collision.gameObject);
             manager.GetPiece(collision.gameObject.GetComponentInParent<XRDirectInteractor>(), index);
+        }
         else
+        {
+            if (!collision.gameObject.GetComponentInParent<XRDirectInteractor>())
+                Debug.Log(collision.gameObject);
             manager.GetPieceModifier(collision.gameObject.GetComponentInParent<XRDirectInteractor>(), index, isMalus, indexInList);
+        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -100,8 +120,16 @@ public class Representation : MonoBehaviour
         meshMat.material = _mat;
         if (propBlock == null)
             propBlock = new MaterialPropertyBlock();
-        meshRenderer.GetPropertyBlock(propBlock);
-        propBlock.SetInt("SelectedColorTint", 3);
+            meshRenderer.GetPropertyBlock(propBlock);
+        if (isFireBall)
+        {
+            propBlock.SetInt("SelectedColorTint", 3);
+        }
+        else
+        {
+            propBlock.SetInt("SelectedColorTint", 0);
+
+        }
         meshRenderer.SetPropertyBlock(propBlock);
     }
     public void ApplyVisual(int _index, GrabManager grabManager,int _indexInList, bool _isMalus)
@@ -121,9 +149,9 @@ public class Representation : MonoBehaviour
             propBlock.SetInt("SelectedColorTint", 1);
         meshRenderer.SetPropertyBlock(propBlock);
     }
-    public void ApplyVisual(Mesh _mesh, Material _mat)
+    public void ApplyVisual(Mesh _mesh, Material _mat, GrabbableObject _flox)
     {
-
+        flox = _flox;
         mesh.mesh = _mesh;
         meshMat.material = _mat;
     }
@@ -149,6 +177,7 @@ public class Representation : MonoBehaviour
     }
     public void ApplyVisual(int _indexInList, GrabManager grabManager, bool _malus)
     {
+        index= _indexInList;
         indexInList= _indexInList;
         isMalus = _malus;
         manager = grabManager;
@@ -163,5 +192,30 @@ public class Representation : MonoBehaviour
             propBlock.SetInt("SelectedColorTint", 1);
         meshRenderer.SetPropertyBlock(propBlock);
 
+    }
+
+    [ContextMenu("Blink")]
+    public void CallFlashingOrb()
+    {
+        StartCoroutine(FlashingOrb());
+    }
+
+    public IEnumerator FlashingOrb()
+    {
+        for (int i = 0; i < (flashNbr * 2) + 1; i++)
+        {
+            meshRenderer.GetPropertyBlock(propBlock);
+
+            propBlock.SetInt("IsFlash", i%2);
+
+            meshRenderer.SetPropertyBlock(propBlock);
+
+            if (i == flashNbr)
+                yield return new WaitForSeconds(timeBetweenFlashes * timeBetweenFlashesIntervalScale);
+            else if (i == flashNbr * 2)
+                break;
+            else
+                yield return new WaitForSeconds(timeBetweenFlashes);
+        }
     }
 }

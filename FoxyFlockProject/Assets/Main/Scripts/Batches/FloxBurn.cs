@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FloxBurn : MonoBehaviour
@@ -15,9 +13,9 @@ public class FloxBurn : MonoBehaviour
         soundReader.clipName = burnClipName;
     }
 
-    public void BurnEvent()
+    public void BurnEvent(GrabManagerMulti grabManager= null)
     {
-       StartCoroutine( dissolveFlox.StartDissolve(default, Vector3.zero, false));
+       StartCoroutine(dissolveFlox.StartDissolve(default, Vector3.zero, true,null,false,grabManager));
     }
 
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class Bubble : MonoBehaviour
 {
     public SphereCollider spherCollider;
@@ -18,6 +19,8 @@ public class Bubble : MonoBehaviour
     public GameObject particuleBubble;
     public MeshRenderer meshRenderer;
     public GameObject bubbleCore;
+    private MaterialPropertyBlock propBlock;
+
     private void Start()
     {
         radius = spherCollider.radius *m_transform.lossyScale.x;
@@ -25,7 +28,10 @@ public class Bubble : MonoBehaviour
         spherCollider.enabled = false;
         int rand = Random.Range(1, 5);
         sound.clipName = "OrbPop" + rand.ToString();
+
+        propBlock = new MaterialPropertyBlock();
     }
+
     private void Update()
     {
         var collidiers = Physics.OverlapSphere(m_transform.position, radius, layerMask);
@@ -33,16 +39,22 @@ public class Bubble : MonoBehaviour
        
         for (int i = 0; i < collidiers.Length; i++)
         {
-           
             _temp = collidiers[i].GetComponentInParent<GrabablePhysicsHandler>();
             if (_temp && !hasFlocks)
             {
                 if (grabManager == null)
+                {
+                    if(GetComponentInParent<PlayGround>().GetComponentInChildren<GameModeSolo>().playerMovement!= null)
                     grabManager = GetComponentInParent<PlayGround>().GetComponentInChildren<GameModeSolo>().playerMovement.GetComponentInChildren<GrabManager>();
+                    return;
+                }
                 if(isFireBall)
                     grabManager.AddFireBall(gameObject);
                  else
                     grabManager.AddBubble(isMalus, gameObject);
+
+                UpdateBubbleMat(1);
+
                 hasFlocks = true;
             }
         }
@@ -50,29 +62,44 @@ public class Bubble : MonoBehaviour
         if(collidiers.Length == 0 && grabManager != null && hasFlocks)
         {
             grabManager.RemoveBubble(isMalus, gameObject);
+
+            UpdateBubbleMat(0);
+
             hasFlocks = false;
         }
     }
 
-    public bool OnDestroyed()
+    public bool OnDestroyed(bool isFirst)
     {
-        destroyBubble.transform.position = m_transform.position;
-        destroyBubble.SetActive(true);
-        meshRenderer.enabled = false;
-        bubbleCore.SetActive(false);
-        StartCoroutine(WaitForDestroy ());
-        return hasFlocks;
+        if (isFirst)
+        {
+            destroyBubble.transform.position = m_transform.position;
+            destroyBubble.SetActive(true);
+            meshRenderer.enabled = false;
+            bubbleCore.SetActive(false);
+        }
+        //sound.Play();
+        StartCoroutine(WaitForDestroy (isFirst));
+        if (!hasFlocks)
+            return false;
+        hasFlocks = false;
+        return true;
     }
-    IEnumerator WaitForDestroy()
+    IEnumerator WaitForDestroy(bool isFirst)
     {
         yield return new WaitForSeconds(1.0f);
-        OnSpawn();
+        OnSpawn(isFirst);
     }
-    private void OnSpawn()
+    private void OnSpawn(bool isFirst)
     {
-        destroyBubble.SetActive(false);
+        if (isFirst)
+        {
+            destroyBubble.SetActive(false);
+            startBubble.SetActive(true);
+            startBubble.GetComponent<SoundReader>().Play();
+
+        }
         startBubble.transform.position = transform.position;
-        startBubble.SetActive(true);
         StartCoroutine(WaitForSpawn());
 
     }
@@ -83,5 +110,15 @@ public class Bubble : MonoBehaviour
         startBubble.SetActive(false);
         meshRenderer.enabled = true;
         bubbleCore.SetActive(true);
+    }
+
+    private void UpdateBubbleMat(int index)
+    {
+        //Recup Data
+        meshRenderer.GetPropertyBlock(propBlock);
+        //EditZone
+        propBlock.SetFloat("State", index);
+        //Push Data
+        meshRenderer.SetPropertyBlock(propBlock);
     }
 }

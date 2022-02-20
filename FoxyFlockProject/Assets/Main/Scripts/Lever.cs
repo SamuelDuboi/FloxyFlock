@@ -5,8 +5,11 @@ using UnityEngine.Events;
 
 public class Lever : MonoBehaviour
 {
+    [SerializeField] private MeshRenderer handleRenderer;
     [SerializeField] private float detectionThreshold = 0.1f;
     [SerializeField] private float deadzone = 0.025f;
+
+    private MaterialPropertyBlock propBlock;
 
     private bool _isPressed;
     private bool canPress;
@@ -18,7 +21,7 @@ public class Lever : MonoBehaviour
 
     private void Start()
     {
-
+        propBlock = new MaterialPropertyBlock();
         joint = GetComponent<HingeJoint>();
         rb = GetComponent<Rigidbody>();
     }
@@ -33,9 +36,14 @@ public class Lever : MonoBehaviour
 
     private float GetValue()
     {
-        if (transform.localEulerAngles.x > joint.limits.max)
+        float tempAngle=0;
+        if (transform.localEulerAngles.x > 190)
+            tempAngle = 360 - transform.eulerAngles.x;
+        else
+            tempAngle = transform.eulerAngles.x;
+        if (tempAngle > joint.limits.max)
             return 0.5f;
-        var value = transform.localEulerAngles.x / Mathf.Abs(joint.limits.max);
+        var value = tempAngle / Mathf.Abs(joint.limits.max);
 
         if (Mathf.Abs(value) < deadzone)
             value = 0;
@@ -65,5 +73,15 @@ public class Lever : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         
         rb.isKinematic = false;
+    }
+
+    public void ChangeMatOnHover(float state)
+    {
+        //Recup Data
+        handleRenderer.GetPropertyBlock(propBlock);
+        //EditZone
+        propBlock.SetFloat("SelectedOutlineColor", state);
+        //Push Data
+        handleRenderer.SetPropertyBlock(propBlock);
     }
 }

@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(!ScenesManager.instance.IsLobbyScene() && !ScenesManager.instance.IsMenuScene())
+        if(!ScenesManagement.instance.IsLobbyScene() && !ScenesManagement.instance.IsMenuScene())
         {
             inputManager.OnCanMove.AddListener(Movement);
             inputManager.OnBothTrigger.AddListener(InitMovement);
@@ -49,15 +49,15 @@ public class PlayerMovement : MonoBehaviour
         tempRighttHand.position = inputManager.rightHand.transform.position;
         
         initMidle = Vector3.Lerp(tempLeftHand.localPosition, tempRighttHand.localPosition, 0.5f);
-        Debug.Log(initMidle);
     }
     public bool SeeTable()
     {
         if (!isntLobby)
             return false;
+
         Vector3 pointOnScreen = vrHeadSett.GetComponent<Camera>().WorldToScreenPoint(tableRenderer.bounds.center);
-        if ((pointOnScreen.x < 0) || (pointOnScreen.x > Screen.width) ||
-            (pointOnScreen.y < 0) || (pointOnScreen.y > Screen.height))
+        if ((pointOnScreen.x < 0) || (pointOnScreen.x > Screen.width*1.2f) ||
+            (pointOnScreen.y > Screen.height * 1.2f))
         {
             InitMovement();
             return false;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private SoundList soundList;
     private List<AudioSource> sources;
     public List< InputManager> inputManagers;
+    public SoundReader soundReader;
+    private bool isPlaying;
+    private bool isMenu;
     private void Awake()
     {
         if (instance == null)
@@ -21,7 +25,13 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    private void Update()
+    {
+        if ((!isPlaying || isMenu) && SceneManager.GetActiveScene().buildIndex >= 3)
+            LunchGame();
+        if ((isPlaying || !isMenu) && SceneManager.GetActiveScene().buildIndex < 3)
+            LunchMenu();
+    }
     public void AddInputManager(InputManager inputManager)
     {
         if (inputManagers == null)
@@ -81,5 +91,18 @@ public class SoundManager : MonoBehaviour
     {
         if(sources != null)
         sources.Clear();
+    }
+
+    public void LunchMenu()
+    {
+        soundReader.Play();
+        isPlaying = false;
+        isMenu = true;
+    }
+    public void LunchGame()
+    {
+        soundReader.PlaySeconde();
+        isMenu = false;
+        isPlaying = true;
     }
 }

@@ -9,6 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7487298777043937059}
+  - component: {fileID: 6249469165733636113}
+  - component: {fileID: 7267329384195550447}
+  - component: {fileID: 5707473781087840852}
   m_Layer: 6
   m_Name: Colliders
   m_TagString: Untagged
@@ -37,6 +40,165 @@ Transform:
   m_Father: {fileID: 7796595055877737719}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6249469165733636113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268125458162408096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6279a1836e8854fa72bbc0d12e8768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floxMat: {fileID: 2100000, guid: 5cdf2bc5a33f3d04694374c32a02f631, type: 2}
+  flox: {fileID: 8968985975199315864}
+  rb: {fileID: 8772928365314318003}
+  GrabbableFlox: {fileID: 8270085541661880438}
+  floxanimator: {fileID: 641606428382363688}
+  floxReader: {fileID: 5707473781087840852}
+  isFrozen: 0
+  baseFace: 0
+  sleepFace: 0
+  panicFace: 0
+  floxBase:
+  - SFX_JCVF_Base 01
+  - SFX_JCVF_Base 02
+  - SFX_JCVF_Base 03
+  - SFX_JCVF_Base 04
+  - SFX_JCVF_Base 05
+  sleepBase:
+  - SFX_JCVF_Sleep 01
+  - SFX_JCVF_Sleep 02
+  - SFX_JCVF_Sleep 03
+  - SFX_JCVF_Sleep 04
+  - SFX_JCVF_Sleep 05
+  fearBase:
+  - SFX_JCVF_Fear 01
+  - SFX_JCVF_Fear 02
+  - SFX_JCVF_Fear 03
+  - SFX_JCVF_Fear 04
+  - SFX_JCVF_Fear 05
+  moveThreshold: 0.1
+  _tempInt: 0
+--- !u!82 &7267329384195550447
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268125458162408096}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -8634683232827515855, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 2
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &5707473781087840852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268125458162408096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bad389ad0edad47a6f2ef5e9498ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clipName: 
+  secondClipName: 
+  ThirdClipName: 
+  ForthClipName: 
+  source: {fileID: 0}
+  applyAudioOnStart: 0
+  randomSelectionOnStart: 0
+  doOnce: 0
+  doTwice: 0
 --- !u!1 &434532681106795584
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,6 +525,7 @@ GameObject:
   - component: {fileID: 7676341196238999949}
   - component: {fileID: 242778693032338398}
   - component: {fileID: 1636700812146750779}
+  - component: {fileID: 641606428382363688}
   m_Layer: 6
   m_Name: Flock_Jcvf01
   m_TagString: Piece
@@ -637,13 +800,18 @@ MonoBehaviour:
   OnExitStasis:
     m_PersistentCalls:
       m_Calls: []
+  initPos: {x: 0, y: 0, z: 0}
   slowForce: 0
   timeToSlow: 0
+  physicMaterials:
+  - {fileID: 13400000, guid: 0ec93648bcb5b33408f6d7c3e1badb68, type: 2}
+  - {fileID: 13400000, guid: f49b989612fc3e34f8e1d4904afb1022, type: 2}
   isOnPlayground: 0
   isOnStasisOnce: 0
   timerToExit: 0
   inputManager: {fileID: 0}
   initialModifier: {fileID: 0}
+  isDestroyed: 0
 --- !u!114 &2133001481415139540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -666,9 +834,9 @@ AudioSource:
   m_GameObject: {fileID: 7455921705368196685}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4297251459588079151, guid: 0f63005d62a1d53458dd329f85d3c18d, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -678,9 +846,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 3
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -769,8 +937,11 @@ MonoBehaviour:
   secondClipName: 
   ThirdClipName: 
   ForthClipName: 
+  source: {fileID: 0}
   applyAudioOnStart: 0
+  randomSelectionOnStart: 0
   doOnce: 0
+  doTwice: 0
 --- !u!114 &1636700812146750779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -787,6 +958,25 @@ MonoBehaviour:
   floxMaterialT: {fileID: 2100000, guid: 7e5532ca07f12364582c60b8a7325954, type: 2}
   flox: {fileID: 8968985975199315864}
   dissolveState: 1
-  dissolveTime: 5
+  dissolveTime: 0.5
   isDissolving: 0
   grabable: {fileID: 3771844744046925093}
+--- !u!95 &641606428382363688
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7455921705368196685}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a606763c62b6fe5408937bb4cc0e071c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

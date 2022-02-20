@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-enum HeatState
+public enum HeatState
 {
     cool,
     burning,
@@ -20,32 +20,46 @@ public class HandBurn : MonoBehaviour
     private float heatCurrentValue = 0f;
     [HideInInspector] public float heatPourcentage = 0f;
     private float lastFrameHeatPourcentage = 0f;
-    private Transform lastFrameTransform;
+    private Vector3 lastFrameTransform;
 
-    private XRDirectInteractor interactor;
+    private HandsDirectInteractor interactor;
     private SkinnedMeshRenderer handRenderer;
     private MaterialPropertyBlock propBlock;
     [HideInInspector] public bool doOnce;
     private bool playOnceCool;
     private SoundReader soundReader;
-
-    private HeatState heatState =  HeatState.cool;
-
+    private HandController handController;
+    public float wigglePower;
+    InputManager inputManager;
+    public HeatState heatState =  HeatState.cool;
+    private bool isGrabing;
     private IEnumerator Start()
     {
+        lastFrameTransform = this.transform.localPosition;
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
         yield return new WaitForSeconds(5.0f);
 
         propBlock = new MaterialPropertyBlock();
-
-        interactor = this.GetComponent<XRDirectInteractor>();
-
+        handController = GetComponent<HandController>();
+        interactor = this.GetComponent<HandsDirectInteractor>();
+        inputManager = handController.inputManager;
         handRenderer = this.GetComponentInChildren<SkinnedMeshRenderer>();
         soundReader = GetComponent<SoundReader>();
+      if(handController.controllerNode == UnityEngine.XR.XRNode.LeftHand)
+        {
+            inputManager.OnGrabbingLeft.AddListener(OnGrabe);
+            inputManager.OnLeftGrabRelease.AddListener(Release);
+        }
+        else
+        {
+            inputManager.OnGrabbingRight.AddListener(OnGrabe);
+            inputManager.OnRightGrabRelease.AddListener(Release);
+        }
+
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         heatPourcentage = heatCurrentValue / heatMaxValue;
 
@@ -55,6 +69,8 @@ public class HandBurn : MonoBehaviour
             CoolEvent();
             lastFrameHeatPourcentage = heatPourcentage;
         }
+
+        wigglePower = wiggleStrengh();
     }
 
     private void UpdateMatBurnValue()
@@ -84,19 +100,30 @@ public class HandBurn : MonoBehaviour
             soundReader.PlaySeconde();
         }
         heatCurrentValue += Time.deltaTime* burningSpeed;
-        lastFrameTransform = this.transform;
+        lastFrameTransform = this.transform.localPosition;
         if (heatCurrentValue >= heatMaxValue)
         {
             heatCurrentValue = heatMaxValue;
-
             heatState = HeatState.burned;
             soundReader.source.loop = false;
             soundReader.StopSound();
             soundReader.ThirdClipName = "HotForceRelease";
             soundReader.PlayThird();
             doOnce = false;
-            InteractionManager.instance.SelectExit(interactor, flockInteractable);
+            //flockInteractable.CustomForceDrop(flockInteractable.selectingInteractor);
+            //
+            InteractionManager.instance.HoverExit(interactor, flockInteractable);
+            interactor.Reset(flockInteractable.gameObject);
+            List<XRBaseInteractable> targets = new List<XRBaseInteractable>();
+            InteractionManager.instance.GetValidTargets(interactor, targets);
+            
+            Debug.Log(targets.Count);
+            //flockInteractable.transform.position = interactor.transform.position;
+            flockInteractable.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            flockInteractable.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             interactor.allowSelect = false;
+            interactor.allowHover = false;
+            handController.enableInputActions = false;
             StartCoroutine(WaitToCoolSound());
         }
     }
@@ -104,6 +131,17 @@ public class HandBurn : MonoBehaviour
     {
         yield return new WaitForSeconds(0.4f);
         playOnceCool = false;
+    }
+
+    public void Release()
+    {
+        isGrabing = false;
+    }
+    public void OnGrabe()
+    {
+        isGrabing = true;
+
+       
     }
     private void CoolEvent()
     {
@@ -113,7 +151,7 @@ public class HandBurn : MonoBehaviour
             {
                 if (!playOnceCool)
                 {
-                    playOnceCool = false;
+                    playOnceCool = true;
                     soundReader.ThirdClipName = "HotCool";
                     soundReader.source.loop = true;
                     soundReader.PlayThird();
@@ -123,12 +161,24 @@ public class HandBurn : MonoBehaviour
                 if (heatCurrentValue <= 0)
                 {
                     if (heatState == HeatState.burned)
-                        interactor.allowSelect = true;
+                    {
+                        interactor.allowHover = true;
+                        soundReader.source.Stop();
+                    }
 
                     heatState = HeatState.cool;
+                    handController.enableInputActions = true;
+                    StartCoroutine(WaitToGrab());
                 }
             }  
         }
+    }
+    IEnumerator WaitToGrab()
+    {
+        yield return new WaitUntil(() => isGrabing == false);
+        interactor.allowHover = true;
+        interactor.allowSelect = true;
+        yield return new WaitUntil(() => isGrabing == true);
     }
     public void DropEvent()
     {
@@ -141,15 +191,14 @@ public class HandBurn : MonoBehaviour
 
     private float wiggleStrengh()
     {
-        Vector3 lastFramePosition = lastFrameTransform.position;
-        Quaternion lastFrameRotation = lastFrameTransform.rotation;
+        Vector3 lastFramePosition = lastFrameTransform;
+      //  Quaternion lastFrameRotation = lastFrameTransform;
+         float distanceCheck =Vector3.Distance( transform.localPosition, lastFramePosition);
+     //   float rotationCheck = Mathf.Abs(Quaternion.Angle(transform.localRotation, lastFrameRotation)); //I don't know if quaternion.angle can be negative so i take the absolute as a security
 
-        float distanceCheck = Vector3.Distance(transform.position, lastFramePosition);
-        float rotationCheck = Mathf.Abs(Quaternion.Angle(transform.rotation, lastFrameRotation)); //I don't know if quaternion.angle can be negative so i take the absolute as a security
+        float wiggle = (distanceCheck ) * wiggleCoolingScale;
 
-        float wiggle = (distanceCheck + rotationCheck) * wiggleCoolingScale;
-
-        lastFrameTransform = this.transform;
+            lastFrameTransform = transform.localPosition;
 
         return wiggle;
     }

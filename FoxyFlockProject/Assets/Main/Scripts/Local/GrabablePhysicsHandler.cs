@@ -22,21 +22,27 @@ public class GrabablePhysicsHandler : MonoBehaviour
     public UnityEvent<GameObject, Vector3, bool> OnHitGround;
     public UnityEvent<GameObject, bool, Rigidbody> OnEnterStasis;
     public UnityEvent<GameObject> OnExitStasis;
-    private Vector3 initPos;
+    public Vector3 initPos;
     //enter on playgroundValue
     [HideInInspector] public float slowForce;
     [HideInInspector] public float timeToSlow;
-    private PhysicMaterial[] physicMaterials;
+    public PhysicMaterial[] physicMaterials;
     public bool isOnPlayground;
     public bool isOnStasisOnce;
     public float timerToExit;
     private ModifierAction[] actions = new ModifierAction[1];
-    MaterialPropertyBlock propBlock;
+    public MaterialPropertyBlock propBlock;
     public InputManager inputManager;
     public Modifier initialModifier;
+    public bool isDestroyed;
+    private bool touchGround;
+    private void Awake()
+    {
+        colliders = m_grabbable.colliders;
+
+    }
     public IEnumerator Start()
     {
-
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
         meshRenderer = GetComponent<MeshRenderer>();
@@ -45,9 +51,6 @@ public class GrabablePhysicsHandler : MonoBehaviour
         //overrid mat without creat new instance or modify it
         propBlock = new MaterialPropertyBlock();
 
-        
-        colliders = m_grabbable.colliders;
-        initPos = transform.position;
         InvokeOnStart();
     }
 
@@ -83,11 +86,15 @@ public class GrabablePhysicsHandler : MonoBehaviour
     {
         OnHitSomething.Invoke(gameObject, m_rgb.velocity, collision.gameObject); ;
     }
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 8)
         {
-            OnHitGround.Invoke(gameObject, initPos, m_grabbable.isGrab);
+            if (!touchGround)
+            {
+                OnHitGround.Invoke(gameObject, initPos, m_grabbable.isGrab);
+                touchGround = true;
+            }
 
         }
     }
@@ -103,6 +110,8 @@ public class GrabablePhysicsHandler : MonoBehaviour
     public void InvokeOngrab()
     {
         OnGrabed.Invoke(gameObject);
+        touchGround = false;
+
         ChangePhysicMatsOnDeSelect();
     }
     public void InvokeOnRelease()
@@ -211,6 +220,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
     
     private void OnHover()
     {
+        propBlock.Clear();
         //Recup Data
         meshRenderer.GetPropertyBlock(propBlock);
         //EditZone
@@ -221,6 +231,8 @@ public class GrabablePhysicsHandler : MonoBehaviour
     }
     private void OnHoverExit()
     {
+        propBlock.Clear();
+
         //Recup Data
         meshRenderer.GetPropertyBlock(propBlock);
         //EditZone
@@ -232,6 +244,7 @@ public class GrabablePhysicsHandler : MonoBehaviour
 
     private void OnSelect()
     {
+        propBlock.Clear();
         //Recup Data
         meshRenderer.GetPropertyBlock(propBlock);
         //EditZone
@@ -240,23 +253,61 @@ public class GrabablePhysicsHandler : MonoBehaviour
         //Push Data
         meshRenderer.SetPropertyBlock(propBlock);
     }
-    public void OnFreeze()
+
+   public IEnumerator Freez()
     {
-        if(meshRenderer == null || propBlock == null || initialMat ==  null)
+        gameObject.layer = 14;
+
+        if (meshRenderer == null || propBlock == null || initialMat == null)
         {
             meshRenderer = GetComponent<MeshRenderer>();
             initialMat = meshRenderer.material;
             propBlock = new MaterialPropertyBlock();
         }
+        for (int i = 0; i < 101; i++)
+        {
+            //Recup Data
+            meshRenderer.GetPropertyBlock(propBlock);
+            //EditZone
+            propBlock.SetFloat("IsFrozen", (float)i/100);
+            //Push Data
+            meshRenderer.SetPropertyBlock(propBlock);
+            yield return new WaitForSeconds(0.01f);
+        }
 
-        //Recup Data
+    }
+    public void SetFreezValue(float i, float maxValue)
+    {
         meshRenderer.GetPropertyBlock(propBlock);
         //EditZone
-        propBlock.SetFloat("IsFrozen", 1);
-
+        propBlock.SetFloat("IsFrozen", i / maxValue);
         //Push Data
         meshRenderer.SetPropertyBlock(propBlock);
     }
+
+    public void OnUnFreez() {
+        {
+            if (meshRenderer == null || propBlock == null || initialMat == null)
+            {
+                meshRenderer = GetComponent<MeshRenderer>();
+                initialMat = meshRenderer.material;
+                propBlock = new MaterialPropertyBlock();
+            }
+
+            meshRenderer.material = initialMat;
+            propBlock.Clear();
+
+            //Recup Data
+            meshRenderer.GetPropertyBlock(propBlock);
+            //EditZone
+            propBlock.SetFloat("IsFrozen", 0);
+
+            //Push Data
+            meshRenderer.SetPropertyBlock(propBlock);
+
+            gameObject.layer = 6;
+        }
+    } 
 
     private void ChangePhysicMatsOnSelect()
     {
@@ -278,7 +329,6 @@ public class GrabablePhysicsHandler : MonoBehaviour
     }
     private void ChangeMat(Material _mat, Material _matT, PhysicMaterial[] _physicMaterial)
     {
-        physicMaterials = _physicMaterial;
         mats = _mat;
         if(_matT != null)
         {
@@ -293,7 +343,6 @@ public class GrabablePhysicsHandler : MonoBehaviour
     }
     private void ChangeMat( PhysicMaterial[] _physicMaterial)
     {
-        physicMaterials = _physicMaterial;
         if (!meshRenderer)
             meshRenderer = GetComponent<MeshRenderer>();
         if (!initialMat)

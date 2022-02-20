@@ -10,13 +10,29 @@ public class Reset : MonoBehaviour
     private SoundReader soundReader;
    public virtual void AddFreezFlock(GameObject flock, int poolIndex, int flockIndex)
     {
-        flock.GetComponent<GrabablePhysicsHandler>().OnFreeze();
+        if (freezedFlocks.Contains(flock))
+            return;
+        StartCoroutine( flock.GetComponent<GrabablePhysicsHandler>().Freez());
 
         freezdFlockPoolIndex.Add(poolIndex);
         freezdFlockIndex.Add(flockIndex);
-
+        flock.GetComponentInChildren<FloxExpressionManager>().isFrozen = true;
         Destroy(flock.GetComponent<GrabbableObject>());
         Destroy( flock.GetComponent<GrabablePhysicsHandler>());
+        Destroy(flock.GetComponent<Rigidbody>());
+
+        freezedFlocks.Add(flock);
+    }
+    public virtual void AddFreezFlock(GameObject flock, int poolIndex, int flockIndex, bool isHotPotato)
+    {
+        if (freezedFlocks.Contains(flock))
+            return;
+
+        freezdFlockPoolIndex.Add(poolIndex);
+        freezdFlockIndex.Add(flockIndex);
+        flock.GetComponentInChildren<FloxExpressionManager>().isFrozen = true;
+        Destroy(flock.GetComponent<GrabbableObject>());
+        Destroy(flock.GetComponent<GrabablePhysicsHandler>());
         Destroy(flock.GetComponent<Rigidbody>());
 
         freezedFlocks.Add(flock);
@@ -35,6 +51,11 @@ public class Reset : MonoBehaviour
 
     public virtual void ResetEvent()
     {
+        StartCoroutine(WaitToSeeTable());
+    }
+    IEnumerator WaitToSeeTable()
+    {
+        yield return new WaitUntil(() => grabManager.GetComponentInParent<PlayerMovement>().SeeTable());
         for (int i = 0; i < freezedFlocks.Count; i++)
         {
             grabManager.DestroyFlock(freezedFlocks[i], freezdFlockPoolIndex[i]);
@@ -55,5 +76,7 @@ public class Reset : MonoBehaviour
         yield return new WaitForSeconds(dissolveFlox.dissolveTime);
         soundReader.ThirdClipName = "EndReset";
         soundReader.PlayThird();
+        grabManager.UpdateIntersectionPos();
+
     }
 }

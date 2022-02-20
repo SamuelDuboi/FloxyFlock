@@ -137,12 +137,12 @@ using System.Collections;
                 }
             }
 
-            if (CurrentPlayers == ReadyPlayers)
+            if (ReadyPlayers==2)
             {
                 //do stuff herer
                 CheckReadyToBegin();
             }
-            else
+        else
                 allPlayersReady = false;
         }
 

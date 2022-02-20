@@ -24,10 +24,20 @@ public class GrabbableObject : XRGrabInteractable
         public Vector3 OriginalPosition;
         public Quaternion OriginalRotation;
     }
+
+    
     Dictionary<XRBaseInteractor, SavedTransform> m_SavedTransforms = new Dictionary<XRBaseInteractor, SavedTransform>();
 
 #pragma warning disable CS0672 // Un membre se substitue au membre obsolète
 #pragma warning disable CS0618 // Le type ou le membre est obsolète
+    /// <summary>This method was added by ian to enable dropping of objects 
+    /// when we need to do it in code (e.g. at level end or when exhausted)
+    /// </summary>
+    /// <param name="interactor">Usually the player's hand</param>
+    public void CustomForceDrop(XRBaseInteractor interactor)
+    {
+        onSelectExit.Invoke(interactor);
+    }
 
     protected override void OnSelectEntering(XRBaseInteractor interactor)
     {
@@ -51,6 +61,7 @@ public class GrabbableObject : XRGrabInteractable
         if(OnSelect !=null)
         OnSelect.Invoke();
     }
+ 
     protected override void OnSelectExited(XRBaseInteractor interactor)
     {
         base.OnSelectExited(interactor);
@@ -73,8 +84,11 @@ public class GrabbableObject : XRGrabInteractable
     }
     protected override void OnHoverEntered(XRBaseInteractor interactor)
     {
+        if (Mathf.Abs( Vector3.Distance(interactor.transform.position, transform.position)) > 1f)
+            return;
         base.OnHoverEntered(interactor);
         OnHover.Invoke();
+        Debug.Log("OnHoverFlox");
 
     }
     protected override void OnHoverExited(XRBaseInteractor interactor)

@@ -58,7 +58,7 @@ void Face_float(float2 UV, float2 offsetUV, float outlineSize, float4 outlineCol
 	float topEyelid, float bottomEyelid, bool rings, bool straightEyelid,
 	bool mouthOpen, float mouthWidth, float mouthHeight, float mouthThickness, float smile,
 	float openMouthSize, float openMouthShapeX, float openMouthShapeY, float tongueSize, float tonguePositionY, float straightMouth, float topLips, float bottomLips, float lipsShapeX, 
-	bool withTeeth, float teethWidth, float teethHeight, float teethCorners,
+	bool withTeeth, float teethWidth, float teethHeight, float teethCorners, float teethOffsetY,
 	out float alpha, out float4 Out)
 {
 	UV += offsetUV;
@@ -122,7 +122,7 @@ void Face_float(float2 UV, float2 offsetUV, float outlineSize, float4 outlineCol
 			: step(distance(float2(0.5, mouthHeight), openMouthUV), mouthWidth + outlineSize) * step(mouthWidth * 2.0 - outlineSize, distance(float2(0.5, mouthHeight + topLips), lipsUV)) * step(mouthWidth * 2.0 - outlineSize, distance(float2(0.5, mouthHeight - bottomLips), lipsUV))
 		: mouth;
 
-	float teeth = withTeeth ? RoundedRectangle(UV, teethWidth, teethHeight, teethCorners, float2(0.0,0.5-mouthHeight)) : 0.0;
+	float teeth = withTeeth ? RoundedRectangle(UV, teethWidth, teethHeight, teethCorners, float2(0.0, 0.5 - mouthHeight + teethOffsetY)) : 0.0;
 
 	alpha = outlineEyes + outlineMouth;
 

@@ -21,7 +21,9 @@ public class ClampObejct : MonoBehaviour
                 if (isMin)
                 {
                     sphere.radius = distance;
-                    zone.transform.localScale = Vector3.one*distance;
+                    float value = zone.transform.localScale.y;
+                    zone.transform.localScale = new Vector3(1,0,1)*distance * 2;
+                    zone.transform.localScale += Vector3.up *value;
                 }
             }
             if (UpDownClamp)

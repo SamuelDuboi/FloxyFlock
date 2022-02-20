@@ -15,7 +15,7 @@ MonoBehaviour:
   music:
   - name: BasicCollisionTable
     clip: {fileID: 8300000, guid: 162557a2aebc5e442812243251e8978e, type: 3}
-    volume: 0.5
+    volume: 0.2
   - name: BasicGrab
     clip: {fileID: 8300000, guid: 7a71bc45bd34f25468c2081dbc1f4c7d, type: 3}
     volume: 0.5
@@ -30,16 +30,16 @@ MonoBehaviour:
     volume: 0.5
   - name: OrbPop1
     clip: {fileID: 8300000, guid: 36cd50cb731c2e84e8289f6ddaa358cf, type: 3}
-    volume: 0.5
+    volume: 0.2
   - name: OrbPop2
     clip: {fileID: 8300000, guid: caa2837639de5674d9f1a07e2034361a, type: 3}
-    volume: 0.5
+    volume: 0.2
   - name: OrbPop3
     clip: {fileID: 8300000, guid: fdce2131bcb40de49914408c9a1502d4, type: 3}
-    volume: 0.5
+    volume: 0.2
   - name: OrbPop4
     clip: {fileID: 8300000, guid: 01925b8302103504b901d8a80137a729, type: 3}
-    volume: 0.5
+    volume: 0.2
   - name: FloxMachineBad
     clip: {fileID: 8300000, guid: 452226a57191cee4d843c91b7f5332d4, type: 3}
     volume: 0.5
@@ -57,31 +57,25 @@ MonoBehaviour:
     volume: 0.5
   - name: BubbleSpawn
     clip: {fileID: 8300000, guid: 44e775d0e5ef3f249b5ffca317d35169, type: 3}
-    volume: 0.5
-  - name: NotUsed
+    volume: 0.3
+  - name: FloxMachineEmpty
     clip: {fileID: 8300000, guid: cffd6b8044d3d334bb47698da2bc3e46, type: 3}
     volume: 0.5
   - name: EndReset
     clip: {fileID: 8300000, guid: 5b50e1b60813a1d42947ad20ec674f5e, type: 3}
-    volume: 0.5
+    volume: 0.15
   - name: StartReset
     clip: {fileID: 8300000, guid: dc0a3c200cf23d54a8cac3913db9e043, type: 3}
-    volume: 0.5
-  - name: NoteUsed
-    clip: {fileID: 8300000, guid: c6501b46d7c9c064a84d45002c36b201, type: 3}
-    volume: 0.5
-  - name: FireBallAlert
-    clip: {fileID: 8300000, guid: 80cc58ee4ed35284a90fd5afd5350e0d, type: 3}
-    volume: 0.5
+    volume: 0.15
   - name: FireBallCollision
     clip: {fileID: 8300000, guid: 451d517bc29ee05439ad11abbe837dc2, type: 3}
     volume: 0.5
   - name: FireBallGrab
     clip: {fileID: 8300000, guid: 425d3ce7b62a08b4189bb2b56c7c0efa, type: 3}
-    volume: 0.5
+    volume: 0.2
   - name: FireBallIncoming
     clip: {fileID: 8300000, guid: f70f20331f3ce824baf9c7e590db27bc, type: 3}
-    volume: 0.5
+    volume: 0.8
   - name: FireBallLoop
     clip: {fileID: 8300000, guid: 178c0a17de426d341a0b8ac9cd7bc346, type: 3}
     volume: 0.5
@@ -96,7 +90,7 @@ MonoBehaviour:
     volume: 0.5
   - name: HotCollision
     clip: {fileID: 8300000, guid: f50f0b96deda8ae44a8f267012313963, type: 3}
-    volume: 0.5
+    volume: 0.2
   - name: HotCool
     clip: {fileID: 8300000, guid: cb683401e17f6e24387e70b19db1f88f, type: 3}
     volume: 0.5
@@ -114,7 +108,7 @@ MonoBehaviour:
     volume: 0.5
   - name: MetalGrab
     clip: {fileID: 8300000, guid: 4d277c855f43c7a44afb88f51d169cf5, type: 3}
-    volume: 0.5
+    volume: 0.2
   - name: 
     clip: {fileID: 8300000, guid: 4ca54e3eebcec2e43ba04b03176df7fc, type: 3}
     volume: 0.5
@@ -169,6 +163,366 @@ MonoBehaviour:
   - name: PointCollision
     clip: {fileID: 8300000, guid: 390b9b842855aa440826f9ff541e17aa, type: 3}
     volume: 0.5
-  - name: 
-    clip: {fileID: 0}
+  - name: FireballAlarm
+    clip: {fileID: 8300000, guid: 83ba8652c8cbba44784c4639be3225f2, type: 3}
     volume: 0.5
+  - name: PortalOpen
+    clip: {fileID: 8300000, guid: b14287bada730c847b957f8907b34474, type: 3}
+    volume: 0.5
+  - name: FireballSpawn
+    clip: {fileID: 8300000, guid: 2bf5f0ff74ae88e409be3d5d923ca89e, type: 3}
+    volume: 0.5
+  - name: SFX_Ayo_Base 01
+    clip: {fileID: 8300000, guid: 017fb6bd662df5e46a8cd10fafe986d4, type: 3}
+    volume: 0.5
+  - name: SFX_Ayo_Base 02
+    clip: {fileID: 8300000, guid: ec808e95bf4b5184a81efdd4f1f57cd4, type: 3}
+    volume: 0.5
+  - name: SFX_Ayo_Base 03
+    clip: {fileID: 8300000, guid: 2f30982b34614154ea6845620b4fdf49, type: 3}
+    volume: 0.5
+  - name: SFX_Ayo_Base 04
+    clip: {fileID: 8300000, guid: 9e72b4d99745fb344990ea9c276ed869, type: 3}
+    volume: 0.5
+  - name: SFX_Ayo_Base 05
+    clip: {fileID: 8300000, guid: 847228cd5a9bfee45a169894a0228e14, type: 3}
+    volume: 0.5
+  - name: SFX_Ayo_Fear 01
+    clip: {fileID: 8300000, guid: cca2477b33b52b243a4e4cf656c9f21b, type: 3}
+    volume: 0.5
+  - name: SFX_Ayo_Fear 02
+    clip: {fileID: 8300000, guid: 47c12b9dffc3ab9478d4a3bcc410a67e, type: 3}
+    volume: 0.5
+  - name: SFX_Ayo_Fear 03
+    clip: {fileID: 8300000, guid: 19bbecae230f895488ccce2c21d39440, type: 3}
+    volume: 0.5
+  - name: SFX_Ayo_Fear 04
+    clip: {fileID: 8300000, guid: 679f652be9644b340af47b5471578a62, type: 3}
+    volume: 0.5
+  - name: SFX_Ayo_Fear 05
+    clip: {fileID: 8300000, guid: 494afce5a888cab48af6f320965821d9, type: 3}
+    volume: 0.5
+  - name: SFX_Ayo_Sleep 01
+    clip: {fileID: 8300000, guid: 51ec26faf9150d5468e8960bb67b9568, type: 3}
+    volume: 0.5
+  - name: SFX_Ayo_Sleep 02
+    clip: {fileID: 8300000, guid: b0dfbecbdc6eebe41a8d71826f54e23d, type: 3}
+    volume: 0.5
+  - name: SFX_Ayo_Sleep 03
+    clip: {fileID: 8300000, guid: c70bde3fb5b89c3409026acc55d9b71b, type: 3}
+    volume: 0.5
+  - name: SFX_Ayo_Sleep 04
+    clip: {fileID: 8300000, guid: 8674f4d2097420a498a2d96409e7746a, type: 3}
+    volume: 0.5
+  - name: SFX_Ayo_Sleep 05
+    clip: {fileID: 8300000, guid: c606f3cdffed106429433b178781acb1, type: 3}
+    volume: 0.5
+  - name: SFX_Beanie_Base 01
+    clip: {fileID: 8300000, guid: 5b12776907609214d853c671d957d04c, type: 3}
+    volume: 0.5
+  - name: SFX_Beanie_Base 02
+    clip: {fileID: 8300000, guid: 5795fd0fd1f21b1428fadb28613ea0e7, type: 3}
+    volume: 0.5
+  - name: SFX_Beanie_Base 03
+    clip: {fileID: 8300000, guid: 25d98cf518616734689e70ab1315d283, type: 3}
+    volume: 0.5
+  - name: SFX_Beanie_Base 04
+    clip: {fileID: 8300000, guid: 7445674dab582a242a3e2b4d7038f5af, type: 3}
+    volume: 0.5
+  - name: SFX_Beanie_Base 05
+    clip: {fileID: 8300000, guid: 13b88bca321f4ff4da9481e89c7386a2, type: 3}
+    volume: 0.5
+  - name: SFX_Beanie_Fear 01
+    clip: {fileID: 8300000, guid: 9393a67e4bfde084bb6a432c9d61be5f, type: 3}
+    volume: 0.5
+  - name: SFX_Beanie_Fear 02
+    clip: {fileID: 8300000, guid: 88c38f469e1137b46afabc65b820f750, type: 3}
+    volume: 0.5
+  - name: SFX_Beanie_Fear 03
+    clip: {fileID: 8300000, guid: 88956cc6192226b41a4b1417745be5c3, type: 3}
+    volume: 0.5
+  - name: SFX_Beanie_Fear 04
+    clip: {fileID: 8300000, guid: a74a90186bc4dc444804be0812f9f258, type: 3}
+    volume: 0.5
+  - name: SFX_Beanie_Fear 05
+    clip: {fileID: 8300000, guid: f4e05e1cbcacded4595b83d59505e0c3, type: 3}
+    volume: 0.5
+  - name: SFX_Beanie_Sleep 01
+    clip: {fileID: 8300000, guid: 06504726ff353b94d8e760d6ca00c033, type: 3}
+    volume: 0.5
+  - name: SFX_Beanie_Sleep 02
+    clip: {fileID: 8300000, guid: d66309801dc804e4b80856b6563f1a1d, type: 3}
+    volume: 0.5
+  - name: SFX_Beanie_Sleep 03
+    clip: {fileID: 8300000, guid: 7f0fd78e0ce128148a479e89db11c408, type: 3}
+    volume: 0.5
+  - name: SFX_Beanie_Sleep 04
+    clip: {fileID: 8300000, guid: ed49d515c562af245840c815b33d45e4, type: 3}
+    volume: 0.5
+  - name: SFX_Beanie_Sleep 05
+    clip: {fileID: 8300000, guid: c922b44bfe929f94e95d43c5973331fe, type: 3}
+    volume: 0.5
+  - name: SFX_Garry_Base 01
+    clip: {fileID: 8300000, guid: 2e81c9c8105248e4d97b883e0d7f9dfa, type: 3}
+    volume: 0.5
+  - name: SFX_Garry_Base 02
+    clip: {fileID: 8300000, guid: d69eaace88e444844bff0c4d4fc61fb2, type: 3}
+    volume: 0.5
+  - name: SFX_Garry_Base 03
+    clip: {fileID: 8300000, guid: f78465615d92eec4a86424cbbfb5604c, type: 3}
+    volume: 0.5
+  - name: SFX_Garry_Base 04
+    clip: {fileID: 8300000, guid: 4137a83670eedd04899b297b937ea464, type: 3}
+    volume: 0.5
+  - name: SFX_Garry_Base 05
+    clip: {fileID: 8300000, guid: 29b831cd14a621c4b8a72f27855236fd, type: 3}
+    volume: 0.5
+  - name: SFX_Garry_Fear 01
+    clip: {fileID: 8300000, guid: 2aaa4c602b9fa204f8380b7f95f48a8a, type: 3}
+    volume: 0.5
+  - name: SFX_Garry_Fear 02
+    clip: {fileID: 8300000, guid: 149d612b7287ae846a6eb61cd30b0975, type: 3}
+    volume: 0.5
+  - name: SFX_Garry_Fear 03
+    clip: {fileID: 8300000, guid: 465fc7a3cf25b4348a75d20486e9bbaa, type: 3}
+    volume: 0.5
+  - name: SFX_Garry_Fear 04
+    clip: {fileID: 8300000, guid: 5fa8ee248da7ee746b3cad2f5a127bdd, type: 3}
+    volume: 0.5
+  - name: SFX_Garry_Fear 05
+    clip: {fileID: 8300000, guid: 0ee50e643a5528741a2ccb81f211193c, type: 3}
+    volume: 0.5
+  - name: SFX_Garry_Sleep 01
+    clip: {fileID: 8300000, guid: c543e530d9979b940bcdcba25435871b, type: 3}
+    volume: 0.5
+  - name: SFX_Garry_Sleep 02
+    clip: {fileID: 8300000, guid: 4b3d081907ce46f4cb19d59eabd171be, type: 3}
+    volume: 0.5
+  - name: SFX_Garry_Sleep 03
+    clip: {fileID: 8300000, guid: 542a77c0bc08457488b163e492a24e16, type: 3}
+    volume: 0.5
+  - name: SFX_Garry_Sleep 04
+    clip: {fileID: 8300000, guid: 18426a78e5914cb47b71b3f92a534c6a, type: 3}
+    volume: 0.5
+  - name: SFX_Garry_Sleep 05
+    clip: {fileID: 8300000, guid: 8d20dcebf0c545e428adfcb9841ab08d, type: 3}
+    volume: 0.5
+  - name: SFX_He he_Base 01
+    clip: {fileID: 8300000, guid: fe2635b29b670484096a784dc942bffc, type: 3}
+    volume: 0.5
+  - name: SFX_He he_Base 02
+    clip: {fileID: 8300000, guid: 57b0637f053def34daa981c12ee59f79, type: 3}
+    volume: 0.5
+  - name: SFX_He he_Base 03
+    clip: {fileID: 8300000, guid: 9482e2abaa7050045b399a892c955c5b, type: 3}
+    volume: 0.5
+  - name: SFX_He he_Base 04
+    clip: {fileID: 8300000, guid: 720f5cdb6f9c6aa4fbefbcb22c4e0eef, type: 3}
+    volume: 0.5
+  - name: SFX_He he_Base 05
+    clip: {fileID: 8300000, guid: 8834ed7b3c27e894bb74dc6b4951efd2, type: 3}
+    volume: 0.5
+  - name: SFX_He he_Fear 01
+    clip: {fileID: 8300000, guid: c22f35eccbc60ce47937d5ff172fc97b, type: 3}
+    volume: 0.5
+  - name: SFX_He he_Fear 02
+    clip: {fileID: 8300000, guid: 24431092fb4973e4f9be81503c2cac4f, type: 3}
+    volume: 0.5
+  - name: SFX_He he_Fear 03
+    clip: {fileID: 8300000, guid: 2a858321a3cac5149bc1de6ca5185aa2, type: 3}
+    volume: 0.5
+  - name: SFX_He he_Fear 04
+    clip: {fileID: 8300000, guid: 8f1439cbdb2245b4d8b8c2049995093a, type: 3}
+    volume: 0.5
+  - name: SFX_He he_Fear 05
+    clip: {fileID: 8300000, guid: 3fe794f73090ab0478294d4e3474aaaf, type: 3}
+    volume: 0.5
+  - name: SFX_He he_Sleep 01
+    clip: {fileID: 8300000, guid: 1e87349ca726f3a4bb1493609eb93c4c, type: 3}
+    volume: 0.5
+  - name: SFX_He he_Sleep 02
+    clip: {fileID: 8300000, guid: 7d12856126b02674988508eaaf64a62e, type: 3}
+    volume: 0.5
+  - name: SFX_He he_Sleep 03
+    clip: {fileID: 8300000, guid: cb51a1d12433b324480a4e821014a0e0, type: 3}
+    volume: 0.5
+  - name: SFX_He he_Sleep 04
+    clip: {fileID: 8300000, guid: 6aead82b388f12442a923b15ddd07bbd, type: 3}
+    volume: 0.5
+  - name: SFX_He he_Sleep 05
+    clip: {fileID: 8300000, guid: 0d6f50a6153a8bb4587aa1fc13c90b7b, type: 3}
+    volume: 0.5
+  - name: SFX_JCVF_Base 01
+    clip: {fileID: 8300000, guid: 0a931ec6f0b199b48b9ca326ee93238e, type: 3}
+    volume: 0.5
+  - name: SFX_JCVF_Base 02
+    clip: {fileID: 8300000, guid: 14ab44a6c7df10b498726403d41a4565, type: 3}
+    volume: 0.5
+  - name: SFX_JCVF_Base 03
+    clip: {fileID: 8300000, guid: fcb4e066d1b8ff74a8f686ad79303eb4, type: 3}
+    volume: 0.5
+  - name: SFX_JCVF_Base 04
+    clip: {fileID: 8300000, guid: 3e5c84bec33a1124c965ecde72412f3d, type: 3}
+    volume: 0.5
+  - name: SFX_JCVF_Base 05
+    clip: {fileID: 8300000, guid: d7ab2e3b7af112a4098d1c648ba38079, type: 3}
+    volume: 0.5
+  - name: SFX_JCVF_Fear 01
+    clip: {fileID: 8300000, guid: 4668a7a9bf02257469641a73c8a6432e, type: 3}
+    volume: 0.5
+  - name: SFX_JCVF_Fear 02
+    clip: {fileID: 8300000, guid: dd87435d06d8a154ab191a5cc73d5d86, type: 3}
+    volume: 0.5
+  - name: SFX_JCVF_Fear 03
+    clip: {fileID: 8300000, guid: 886b756ddcbeac141a8e323ecb5532ed, type: 3}
+    volume: 0.5
+  - name: SFX_JCVF_Fear 04
+    clip: {fileID: 8300000, guid: ecb5912916d10d547a548c8beac0af2a, type: 3}
+    volume: 0.5
+  - name: SFX_JCVF_Fear 05
+    clip: {fileID: 8300000, guid: 15af7ff5cfbcf6c4faccf409e15cc24d, type: 3}
+    volume: 0.5
+  - name: SFX_JCVF_Sleep 01
+    clip: {fileID: 8300000, guid: e6a0a433164b1fe4484e54d7625902b9, type: 3}
+    volume: 0.5
+  - name: SFX_JCVF_Sleep 02
+    clip: {fileID: 8300000, guid: e201ef94cc892804a90a7467385f980b, type: 3}
+    volume: 0.5
+  - name: SFX_JCVF_Sleep 03
+    clip: {fileID: 8300000, guid: 7b227006481a1fc4cb563bc28b3a99da, type: 3}
+    volume: 0.5
+  - name: SFX_JCVF_Sleep 04
+    clip: {fileID: 8300000, guid: c1c5a9cd2e9feb74eae4543e6baa1638, type: 3}
+    volume: 0.5
+  - name: SFX_JCVF_Sleep 05
+    clip: {fileID: 8300000, guid: 858083cf235f9cb41bbbd3a3ee671ab6, type: 3}
+    volume: 0.5
+  - name: SFX_Jit_Base 01
+    clip: {fileID: 8300000, guid: cc4cd326b2a7436498c581c83a841072, type: 3}
+    volume: 0.5
+  - name: SFX_Jit_Base 02
+    clip: {fileID: 8300000, guid: e0a6a4f0c2b0b904da237b5661849afb, type: 3}
+    volume: 0.5
+  - name: SFX_Jit_Base 03
+    clip: {fileID: 8300000, guid: b21cb9db031ecc14090b5218fb2661e7, type: 3}
+    volume: 0.5
+  - name: SFX_Jit_Base 04
+    clip: {fileID: 8300000, guid: 39d63e79014d67b4296e30f96668feda, type: 3}
+    volume: 0.5
+  - name: SFX_Jit_Base 05
+    clip: {fileID: 8300000, guid: 4f27504d9361369429c7794daa246147, type: 3}
+    volume: 0.5
+  - name: SFX_Jit_Fear 01
+    clip: {fileID: 8300000, guid: 2ce62610c775ee44b8100ae9b98d041d, type: 3}
+    volume: 0.5
+  - name: SFX_Jit_Fear 02
+    clip: {fileID: 8300000, guid: ddbf9997cbf602348b47fe0c8d5a5c41, type: 3}
+    volume: 0.5
+  - name: SFX_Jit_Fear 03
+    clip: {fileID: 8300000, guid: d4b99457d876e7a409a3d0d58e447f75, type: 3}
+    volume: 0.5
+  - name: SFX_Jit_Fear 04
+    clip: {fileID: 8300000, guid: 8d6ceea8ab198864e957e96d04666cb9, type: 3}
+    volume: 0.5
+  - name: SFX_Jit_Fear 05
+    clip: {fileID: 8300000, guid: e6e0e9f50b34e7f4982eef546c87a4f4, type: 3}
+    volume: 0.5
+  - name: SFX_Jit_Sleep 01
+    clip: {fileID: 8300000, guid: 6c006961d3042274ea757f0de3405ef4, type: 3}
+    volume: 0.5
+  - name: SFX_Jit_Sleep 02
+    clip: {fileID: 8300000, guid: ccff521f96ca07942ae9f6a4e0987ee8, type: 3}
+    volume: 0.5
+  - name: SFX_Jit_Sleep 03
+    clip: {fileID: 8300000, guid: a76cba3b7e4198c49bddd3ed5b94ebcc, type: 3}
+    volume: 0.5
+  - name: SFX_Jit_Sleep 04
+    clip: {fileID: 8300000, guid: 706b26ae460e1bc41938e0e9bca00aa1, type: 3}
+    volume: 0.5
+  - name: SFX_Jit_Sleep 05
+    clip: {fileID: 8300000, guid: 3285020994b724c488e6a26af71ab6e0, type: 3}
+    volume: 0.5
+  - name: SFX_Woo_Base 01
+    clip: {fileID: 8300000, guid: c42d1fde0e6cfc14abd4fb0a56279ff4, type: 3}
+    volume: 0.5
+  - name: SFX_Woo_Base 02
+    clip: {fileID: 8300000, guid: 0db0576906c3ef842a2761c787eaa9a7, type: 3}
+    volume: 0.5
+  - name: SFX_Woo_Base 03
+    clip: {fileID: 8300000, guid: 7451de4c9d63a004ba32cd6a1807c03f, type: 3}
+    volume: 0.5
+  - name: SFX_Woo_Base 04
+    clip: {fileID: 8300000, guid: 33e8d771a2c063d4e8bec5ef46875c2c, type: 3}
+    volume: 0.5
+  - name: SFX_Woo_Base 05
+    clip: {fileID: 8300000, guid: 287696f941d7b1345a2e34c23499c69e, type: 3}
+    volume: 0.5
+  - name: SFX_Woo_Fear 01
+    clip: {fileID: 8300000, guid: 32937752be4e9014bbc07734ca8fea9b, type: 3}
+    volume: 0.5
+  - name: SFX_Woo_Fear 02
+    clip: {fileID: 8300000, guid: 0dee8dd8f7f13a0429ea3c67853b3723, type: 3}
+    volume: 0.5
+  - name: SFX_Woo_Fear 03
+    clip: {fileID: 8300000, guid: 0ba0daa9d7bce694e8c1b5a4315b780b, type: 3}
+    volume: 0.5
+  - name: SFX_Woo_Fear 04
+    clip: {fileID: 8300000, guid: be47aa468c26f3b459c8b1c059976a91, type: 3}
+    volume: 0.5
+  - name: SFX_Woo_Fear 05
+    clip: {fileID: 8300000, guid: da31b67e9aff3764eb88a2e85f45b536, type: 3}
+    volume: 0.5
+  - name: SFX_Woo_Sleep 01
+    clip: {fileID: 8300000, guid: 65882cf85dbc57148943d611fc21de0d, type: 3}
+    volume: 0.5
+  - name: SFX_Woo_Sleep 02
+    clip: {fileID: 8300000, guid: ab70c2ef839f2ab46a55869af1c1e9f9, type: 3}
+    volume: 0.5
+  - name: SFX_Woo_Sleep 03
+    clip: {fileID: 8300000, guid: 6fac98d6f6bd83840b437f74cb6fb0c0, type: 3}
+    volume: 0.5
+  - name: SFX_Woo_Sleep 04
+    clip: {fileID: 8300000, guid: f3420b7cae0aba948bbf439f0d6da0bd, type: 3}
+    volume: 0.5
+  - name: SFX_Woo_Sleep 05
+    clip: {fileID: 8300000, guid: ffb7fb30d5394a74d9094c13315b7eec, type: 3}
+    volume: 0.5
+  - name: 321Go01
+    clip: {fileID: 8300000, guid: 5e4e4cfe5ac57854c97e27ceb9ff00a3, type: 3}
+    volume: 0.7
+  - name: 321Go02
+    clip: {fileID: 8300000, guid: 3cae795a6626a7f409564351dbaf91fd, type: 3}
+    volume: 0.7
+  - name: 321Go03
+    clip: {fileID: 8300000, guid: a793ccc1172843a4fb07c023e231f8e1, type: 3}
+    volume: 0.7
+  - name: Game1
+    clip: {fileID: 8300000, guid: 8ca18f3a2bd92564f87c7caf7762ec05, type: 3}
+    volume: 0.7
+  - name: Game2
+    clip: {fileID: 8300000, guid: 4279d21289a482a48b789c84f2debd24, type: 3}
+    volume: 0.7
+  - name: Game3
+    clip: {fileID: 8300000, guid: 7be1e7e923800884eb586f0289038c94, type: 3}
+    volume: 0.7
+  - name: Victory1
+    clip: {fileID: 8300000, guid: f513d7ee22a6cde4b9f6743c7207ca19, type: 3}
+    volume: 0.7
+  - name: Victory2
+    clip: {fileID: 8300000, guid: 04813d1d654da644bb802ef577119524, type: 3}
+    volume: 0.7
+  - name: Victory3
+    clip: {fileID: 8300000, guid: f70a4e483521fe54fa64981f32f96e75, type: 3}
+    volume: 0.7
+  - name: FloxVictory1
+    clip: {fileID: 8300000, guid: 190bf974b982b3d44a0ddf96a0ca8c36, type: 3}
+    volume: 0.7
+  - name: FloxVictory2
+    clip: {fileID: 8300000, guid: 0a0fecc61c09e564495ba27c4bb31da8, type: 3}
+    volume: 0.5
+  - name: MenuMusic
+    clip: {fileID: 8300000, guid: 5978bae839b5fb348981920f33822a65, type: 3}
+    volume: 0.5
+  - name: GameMusic
+    clip: {fileID: 8300000, guid: fc3bcf150a58b2c4785d3bb26304f9b3, type: 3}
+    volume: 0.3

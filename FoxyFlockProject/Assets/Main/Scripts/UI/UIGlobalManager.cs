@@ -1,26 +1,46 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 public class UIGlobalManager : MonoBehaviour
 {
     public static UIGlobalManager instance;
+    public TextMeshProUGUI stopWatch;
+    public TextMeshProUGUI gameModeRules;
+    public Color firstPositionColor;
+    public Color secondPositionColor;
+    public float firstPositionScaleUp= 50;
+    private float positionSize;
 
-    public List< TextMeshProUGUI> stopWatch = new List<TextMeshProUGUI>();
-    public List<TextMeshProUGUI> gameModeNames = new List<TextMeshProUGUI>();
-    public List<TextMeshProUGUI> gameModeRules = new List<TextMeshProUGUI>();
-    public List<TextMeshProUGUI> flockNumbers = new List<TextMeshProUGUI>();
-    public List<Image> player1Images = new List<Image>();
-    public List<Image> player2Images = new List<Image>();
-    public List<GameObject> winPlayer1 = new List<GameObject>();
-    public List<GameObject> winPlayer2 = new List<GameObject>();
-    public List<GameObject> losePlayer1 = new List<GameObject>();
-    public List<GameObject> losePlayer2 = new List<GameObject>();
-    public bool playeTimer;
+    [Header("Player 1")]
+    public Image player1Images;
+    public GameObject player1Validation;
+    public Image player1Clock;
+    public TextMeshProUGUI player1ClockTimer;
+    public GameObject player1HandsText;
+    public GameObject winPlayer1;
+    public GameObject LosePlayer1;
+    public GameObject player1fireBallOn;
+    public TextMeshProUGUI player1Position;
+  [HideInInspector]  public RawImage player1table;
+    public GameObject player1FireBallIncoming;
+
+    [Header("Player 2")]
+
+    public Image player2Images;
+    public GameObject player2Validation;
+    public Image player2Clock;
+    public TextMeshProUGUI player2ClockTimer;
+    public GameObject player2HandsText;
+    public GameObject winPlayer2;
+    public GameObject losePlayer2;
+    public GameObject player2fireBallOn;
+    public TextMeshProUGUI player2Position;
+    [HideInInspector] public RawImage player2table;
+    public GameObject player2FireBallIncoming;
+
+    private bool cantPlayTime;
     private float timer;
-    private int flockNumber;
-    public GameObject canvasPlayer2;
     public Sprite[] sprites;
     private void Awake()
     {
@@ -33,108 +53,63 @@ public class UIGlobalManager : MonoBehaviour
     }
     private IEnumerator Start()
     {
+        cantPlayTime = true;
         yield return new WaitForSeconds(1);
+        StartCoroutine(WaitToLunchRace());
         if (!NetworkManagerRace.instance)
         {
             yield break;
         }
-        if(NetworkManagerRace.instance.numberOfPlayer == 1)
-        {
-            NetworkManagerRace.instance.player2Canvas = canvasPlayer2;
-        }
+        if (player1Position != null)
+            positionSize = player1Position.fontSize;
+    }
+    IEnumerator WaitToLunchRace()
+    {
+        yield return new WaitForSeconds(5.0f);
+        cantPlayTime = false;
     }
     private void Update()
     {
-        if (playeTimer)
+        if (!cantPlayTime)
         {
             timer += Time.deltaTime;
-            for (int i = 0; i < stopWatch.Count; i++)
-            {
-                stopWatch[i].text =ConvertToHourMinSec(timer);
-            }
-            Win(1);
+            stopWatch.text = ConvertToHourMinSec(timer);
         }
     }
 
-    public void StartTimer()
-    {
-        playeTimer = true;
-
-    }
     private string ConvertToHourMinSec(float timer)
     {
-        string tempString = "";
-        int hour = Mathf.FloorToInt(timer) /3600;
-        int min = (Mathf.FloorToInt(timer) - hour * 3600) / 60;
-        int s = Mathf.FloorToInt(timer) - hour * 3600 - min * 60;
+        //int hour = Mathf.FloorToInt(timer) / 3600;
+        int min = (Mathf.FloorToInt(timer)) / 60;
+        int s = Mathf.FloorToInt(timer) - min * 60;
         string secString = s.ToString();
         if (s < 10)
             secString = " 0" + s.ToString();
         string minString = min.ToString();
-        if (min < 10)
-            minString = " 0" + min.ToString();
-            return tempString ="Timer\n"+ hour.ToString() + " :" + minString + " :" + secString;
+        
+        //return tempString = "Timer\n" + hour.ToString() + " :" + minString + " :" + secString;
+        return  $"{minString} : {secString}";
     }
-    public void SetGameMode(string name, string rule)
-    {
-        for (int i = 0; i < gameModeNames.Count; i++)
-        {
-            gameModeNames[i].text = name;
-        }
-        for (int i = 0; i < gameModeRules.Count; i++)
-        {
-            gameModeRules[i].text = rule;
-        }
-    }
+
     public void SetRulesMode(string rule)
     {
-        
-        for (int i = 0; i < gameModeRules.Count; i++)
-        {
-            gameModeRules[i].text = rule;
-        }
-    }
-    public void ChangeFlockNumner(int add)
-    {
-        flockNumber += add;
-        for (int i = 0; i < flockNumbers.Count; i++)
-        {
-            if (flockNumber > 1)
-                flockNumbers[i].text = "Floxes :" + flockNumber.ToString();
-            else
-                flockNumbers[i].text = "Flox :" + flockNumber.ToString();
+        gameModeRules.text = rule;
 
-        }
     }
-    public void ResetFlockNumber()
-    {
-        flockNumber = 0;
-        for (int i = 0; i < flockNumbers.Count; i++)
-        {
-            if (flockNumber > 1)
-                flockNumbers[i].text = "Floxes :" + flockNumber.ToString();
-            else
-                flockNumbers[i].text = "Flox :" + flockNumber.ToString();
 
-        }
-    }
     public void PlayerImage(int index, int indexOfSprite)
     {
-        if(index == 0)
+        if (index == 0)
         {
-            for (int i = 0; i < player1Images.Count; i++)
-            {
-                player1Images[i].sprite = sprites[indexOfSprite];
-            }
+            player1Images.sprite = sprites[indexOfSprite];
+
         }
         else
         {
             if (player2Images == null)
                 return;
-            for (int i = 0; i < player2Images.Count; i++)
-            {
-                player2Images[i].sprite = sprites[indexOfSprite];
-            }
+            player2Images.sprite = sprites[indexOfSprite];
+
         }
     }
     /// <summary>
@@ -143,57 +118,151 @@ public class UIGlobalManager : MonoBehaviour
     /// <param name="indexOfWinner"></param>
     public void Win(int indexOfWinner)
     {
-        if(indexOfWinner == 1)
+        cantPlayTime = true;
+        if (indexOfWinner == 1)
         {
-            for (int i = 0; i < winPlayer2.Count; i++)
-            {
-                winPlayer2[i].SetActive(true);
-            }
-            for (int i = 0; i < losePlayer1.Count; i++)
-            {
-                losePlayer1[i].SetActive(true);
-            }
+            winPlayer2.SetActive(true);
+            LosePlayer1.SetActive(true);
+            player2Validation.SetActive(false);
         }
-        else if(winPlayer2 != null && winPlayer2.Count > 0)
+        else
         {
-            for (int i = 0; i < winPlayer1.Count; i++)
+            winPlayer1.SetActive(true);
+            player1Validation.SetActive(false);
+            if (losePlayer2!= null)
+            losePlayer2.SetActive(true);
+        }
+    }
+    public void Validation(int indexOfWinner, bool isHandInZone, float timer = 0, float maxTimer =0)
+    {
+        if (indexOfWinner == 1)
+        {
+            if (!player2Validation.activeSelf)
+                player2Validation.SetActive(true);
+            if (isHandInZone)
             {
-                winPlayer1[i].SetActive(true);
+                player2HandsText.SetActive(true);
+                if (player2Clock.gameObject.activeSelf)
+                    player2Clock.gameObject.SetActive(false);
+                
             }
-            for (int i = 0; i < losePlayer2.Count; i++)
+            else
             {
-                losePlayer2[i].SetActive(true);
+                if (player2HandsText.gameObject.activeSelf)
+                    player2HandsText.gameObject.SetActive(false);
+                player2Clock.fillAmount = timer / maxTimer;
+                player2ClockTimer.text = (maxTimer - timer).ToString();
             }
         }
         else
         {
-            for (int i = 0; i < winPlayer1.Count; i++)
+            if(!player1Validation.activeSelf)
+                player1Validation.SetActive(true);
+            if (isHandInZone)
             {
-                winPlayer1[i].SetActive(true);
+                player1HandsText.SetActive(true);
+                if (player1Clock.gameObject.activeSelf)
+                    player1Clock.gameObject.SetActive(false);
+
+            }
+            else
+            {
+                if (player1HandsText.gameObject.activeSelf)
+                    player1HandsText.gameObject.SetActive(false);
+                player1Clock.gameObject.SetActive(true);
+                player1Clock.fillAmount = timer / maxTimer;
+                player1ClockTimer.text = ((int)(maxTimer - timer)).ToString();
             }
         }
-
     }
 
-    public void AddPlayer(int index, TextMeshProUGUI _stopwatch, TextMeshProUGUI _gameModeNames, TextMeshProUGUI _gameModeRules, TextMeshProUGUI _flockNumbers, Image _playerImages,GameObject _winPlayer, GameObject _losePlayer, GameObject winParticules)
+    public void CloseValidation(int indexOfWinner)
     {
-        stopWatch.Add(_stopwatch);
-        gameModeNames.Add(_gameModeNames);
-        gameModeRules.Add(_gameModeRules);
-        flockNumbers.Add(_flockNumbers);
-        if(index == 0)
+
+        if (indexOfWinner == 1)
         {
-            player1Images.Add(_playerImages);
-            winPlayer1.Add(_winPlayer);
-            winPlayer1.Add(winParticules);
-            losePlayer1.Add(_losePlayer);
+                player2Validation.SetActive(false);
         }
         else
         {
-            player2Images.Add(_playerImages);
-            winPlayer2.Add(_winPlayer);
-            winPlayer2.Add(winParticules);
-            losePlayer2.Add(_losePlayer);
+                player1Validation.SetActive(false);
+        }
+    }
+    public void IsFirst(int index)
+    {
+        if(index == 0)
+        {
+            player1Position.text = "1er";
+            player1Position.fontSize+= firstPositionScaleUp;
+            player1Position.color = firstPositionColor;
+            player2Position.text = "2nd";
+            player2Position.fontSize = positionSize;
+            player2Position.color = secondPositionColor;
+        }
+        else
+        {
+            player2Position.text = "1er";
+            player2Position.fontSize += firstPositionScaleUp;
+            player2Position.color = firstPositionColor;
+            player1Position.text = "2nd";
+            player1Position.fontSize = positionSize;
+            player1Position.color = secondPositionColor;
+        }
+    }
+    public void IsATie()
+    {
+        player1Position.text = "2nd";
+        player1Position.fontSize = positionSize;
+        player1Position.color = secondPositionColor;
+        player2Position.text = "2nd";
+        player2Position.fontSize = positionSize;
+        player2Position.color = secondPositionColor;
+        
+    }
+    public void CanSelectFireBall(int index)
+    {
+        if (index == 0)
+        {
+            player1fireBallOn.SetActive(true);
+        }
+        else
+        {
+            player2fireBallOn.SetActive(true);
+        }
+    }
+    public void UnSelectFireBall(int index)
+    {
+        if (index == 0)
+        {
+            player1fireBallOn.SetActive(false);
+        }
+        else
+        {
+            player2fireBallOn.SetActive(false);
+        }
+    }
+
+    public void FireBallIncoming(int index)
+    {
+        if (index == 0)
+        {
+            player2FireBallIncoming.SetActive(true);
+        }
+        else
+        {
+            player1FireBallIncoming.SetActive(true);
+        }
+        UnSelectFireBall(index);
+    }
+    public void FireBallNotIncoming(int index)
+    {
+        if (index == 0)
+        {
+            player1FireBallIncoming.SetActive(false);
+        }
+        else
+        {
+            player2FireBallIncoming.SetActive(false);
         }
     }
 }

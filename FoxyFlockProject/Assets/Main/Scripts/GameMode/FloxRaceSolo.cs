@@ -10,14 +10,19 @@ public class FloxRaceSolo : GameModeSolo
     private float timeAboveHeight;
     public Limits winLimit;
     [HideInInspector] public Vector3 p;
+    private MaterialPropertyBlock propBlock;
+    [SerializeField] private MeshRenderer meshRenderer;
+    public InputManager inputManager;
     void Start()
     {
         p = winLimit.transform.position;
         p.y = tableTransform.position.y + limitHeight;
         winLimit.transform.position = p;
-        UIGlobalManager.instance.SetGameMode("Flock Race","0");
+        //UIGlobalManager.instance.SetGameMode("Flock Race","0");
         //winLimit.gameObject.diameter = limitDiameter;
         //winLimit.gameObject.diameter = limitDiameter;
+
+        propBlock = new MaterialPropertyBlock();
 
     }
 
@@ -27,21 +32,36 @@ public class FloxRaceSolo : GameModeSolo
         if (winLimit.triggered && hands.inPlayground == false)
         {
             tip = "can win";
-            winLimit.GetComponent<MeshRenderer>().material = winLimit.winMat;
+
+            UpdateLimitMat(2);
+
             timeAboveHeight += Time.deltaTime;
-        } else if (winLimit.triggered && hands.inPlayground == true)
+            if (playerMovement == null)
+                UIGlobalManager.instance.Validation(number, false, timeAboveHeight, timeToWin);
+            else
+                playerMovement.grabManager.GetComponent<GrabManagerMulti>().multiUI.CmdValidate(number, false, timeAboveHeight, timeToWin);
+        } 
+        else if (winLimit.triggered && hands.inPlayground == true)
         {
             tip = "hands out";
-            UIGlobalManager.instance.SetRulesMode(tip);
+            if (playerMovement == null)
+                UIGlobalManager.instance.Validation(number, true);
+            else
+                playerMovement.grabManager.GetComponent<GrabManagerMulti>().multiUI.CmdValidate(number, true,0,0);
             timeAboveHeight = 0;
-            winLimit.GetComponent<MeshRenderer>().material = winLimit.defeatMat;
+
+            UpdateLimitMat(1);
         }
         else
         {
+            if (playerMovement == null)
+                UIGlobalManager.instance.CloseValidation(number);
+            else
+                playerMovement.grabManager.GetComponent<GrabManagerMulti>().multiUI.CmdCloseValidate(number);
             tip = "try too reach height";
-          //  UIGlobalManager.instance.SetRulesMode(tip);
             timeAboveHeight = 0;
-            winLimit.GetComponent<MeshRenderer>().material = winLimit.baseMat;
+
+            UpdateLimitMat(0);
         }
         if (timeAboveHeight >= timeToWin)
         {
@@ -51,13 +71,31 @@ public class FloxRaceSolo : GameModeSolo
                     playerMovement.CmdWin1();
                 else
                     playerMovement.CmdWin2();
+                Destroy(this);
             }
             else
             {
                 UIGlobalManager.instance.Win(0);
+                StartCoroutine(WaitToCallMenu());
             }
            
-            Destroy(this);
+            
         }
+    }
+
+    IEnumerator WaitToCallMenu()
+    {
+        yield return new WaitForSeconds(5.0f);
+        inputManager.OnMenuPressed.Invoke();
+        Destroy(this);
+    }
+    private void UpdateLimitMat(int index)
+    {
+        //Recup Data
+        meshRenderer.GetPropertyBlock(propBlock);
+        //EditZone
+        propBlock.SetFloat("SelectedTint", index);
+        //Push Data
+        meshRenderer.GetComponent<MeshRenderer>().SetPropertyBlock(propBlock);
     }
 }

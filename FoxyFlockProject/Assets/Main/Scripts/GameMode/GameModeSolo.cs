@@ -34,7 +34,6 @@ public class GameModeSolo : MonoBehaviour
 
     public IEnumerator EndGameMode()
     {
-        Debug.Log(player + " win !");
         yield return null;
     }
 

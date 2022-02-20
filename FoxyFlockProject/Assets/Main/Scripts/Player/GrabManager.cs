@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.XR.Interaction.Toolkit;
+using TMPro;
 using Mirror.Experimental;
 
 public class GrabManager : MonoBehaviour
@@ -35,7 +36,10 @@ public class GrabManager : MonoBehaviour
     protected int numberOfMilestones;
     public int weightOfBasicInRandom = 1;
     protected MaterialPropertyBlock propBlock;
-
+    protected int number = 1;
+    public TextMeshProUGUI floxCount;
+    protected int floxNumber;
+    protected int currentFloxNumber;
     // public Buble[] bubles;
 #if UNITY_EDITOR
     public bool modifierFoldout;
@@ -71,7 +75,6 @@ public class GrabManager : MonoBehaviour
             
         }
         InitPool();
-        moveBubble.MoveBubbles(playGround.radius, 0.0f, positionOfMilestoneIntersection, playGround.bonusOrbes, playGround.malusOrbes, directionForBubble);
         inputManager.OnGrabbingLeft.AddListener(OnGrabLeft);
         inputManager.OnGrabbingReleaseLeft.AddListener(OnRealeseLeft);
         inputManager.OnGrabbingRight.AddListener(OnGrabRight);
@@ -79,13 +82,11 @@ public class GrabManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         Vector3 headSettPos = inputManager.GetComponent<XRRig>().cameraFloorOffsetObject.transform.localPosition;
         transform.localPosition += headSettPos;
-        reset.AddFreezFlock(mainPool[0].floxes[0], 0, 0);
-        reset.ResetEvent();
     }
     public virtual void InitPool()
     {
         mainPool = new List<pool>();
-        ScenesManager.instance.numberOfFlocksInScene = 0;
+        ScenesManagement.instance.numberOfFlocksInScene = 0;
         for (int i = 0; i < batches.Count; i++)
         {
             mainPool.Add(new pool());
@@ -95,12 +96,7 @@ public class GrabManager : MonoBehaviour
             for (int x = 0; x < batches[i].pieces.Count; x++)
             {
                 GameObject flock = Instantiate(batches[i].pieces[x], new Vector3(300 + (x * 5 + 1) * 20 * (i * 5 + 1), 300 + x * 20, 300 + x), Quaternion.identity);
-                int random = UnityEngine.Random.Range(0, negativeModifiers.Count + positiveModifiers.Count + weightOfBasicInRandom);
                 Modifier _modifier = baseModifier;
-                if (random > 15 && random <= negativeModifiers.Count + weightOfBasicInRandom)
-                    _modifier = negativeModifiers[random - weightOfBasicInRandom-1];
-                else if (random > negativeModifiers.Count + weightOfBasicInRandom)
-                    _modifier = positiveModifiers[random -( weightOfBasicInRandom+1) - negativeModifiers.Count];
                 Type type = _modifier.actions.GetType();
                 var _object = GetComponent(type);
                 flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifier, _object as ModifierAction, basicMats);
@@ -110,7 +106,8 @@ public class GrabManager : MonoBehaviour
                 flock.GetComponent<Rigidbody>().useGravity = false;
                 mainPool[i].floxes.Add(flock);
                 mainPool[i].isSelected.Add(false);
-                ScenesManager.instance.numberOfFlocksInScene++;
+                ScenesManagement.instance.numberOfFlocksInScene++;
+                floxNumber++;
             }
             for (int x = 0; x < batches[i].batchModifier.negativeModifier.Count; x++)
             {
@@ -148,12 +145,15 @@ public class GrabManager : MonoBehaviour
             mainPool[i].isEmptyModifier = true;
 
 
+            currentFloxNumber = (int)floxNumber;
+            floxCount.text = currentFloxNumber.ToString()+ " /" + floxNumber.ToString();
+
         }
     }
 
 
     #region Update
-    public void UpdateBatche()
+    public virtual void UpdateBatche()
     {
         int previousPool = currentPool;
         #region security test
@@ -164,6 +164,24 @@ public class GrabManager : MonoBehaviour
                 
                 sound.clipName = "FloxMachineNotEmpty";
                 sound.Play();
+
+                foreach (Representation displayOrb in representations)
+                {
+                    if (displayOrb.gameObject.activeSelf)
+                    {
+                        displayOrb.CallFlashingOrb();
+                    }
+                    
+                }
+                foreach (Representation displayOrb in representationsModifiers)
+                {
+                    if (displayOrb.gameObject.activeSelf)
+                    {
+                        displayOrb.CallFlashingOrb();
+                    }
+                }
+
+
                 Debug.LogError("There are still flock on the dispenser");
                 return;
             }
@@ -171,6 +189,23 @@ public class GrabManager : MonoBehaviour
             {
                 sound.clipName = "FloxMachineNotEmpty";
                 sound.Play();
+
+                foreach (Representation displayOrb in representations)
+                {
+                    if (displayOrb.gameObject.activeSelf)
+                    {
+                        displayOrb.CallFlashingOrb();
+                    }
+
+                }
+                foreach (Representation displayOrb in representationsModifiers)
+                {
+                    if (displayOrb.gameObject.activeSelf)
+                    {
+                        displayOrb.CallFlashingOrb();
+                    }
+                }
+
                 Debug.LogError("There are still bonus or malus on the dispenser");
                 return;
             }
@@ -183,6 +218,8 @@ public class GrabManager : MonoBehaviour
         }
         for (int i = 0; i < mainPool[currentPool].floxes.Count; i++)
         {
+            if (!mainPool[currentPool].floxes[i])
+                continue;
             if (mainPool[currentPool].floxes[i].GetComponent<Rigidbody>().velocity.magnitude > 0.1f)
             {
                 sound.clipName = "FloxMachineBad";
@@ -197,7 +234,7 @@ public class GrabManager : MonoBehaviour
                 Debug.Log("grabbed");
                 return;
             }
-            if (mainPool[currentPool].floxes[i].GetComponent<GrabablePhysicsHandler>().enabled && !mainPool[currentPool].floxes[i].GetComponent<GrabablePhysicsHandler>().isOnPlayground)
+            if (mainPool[currentPool].floxes[i].GetComponent<GrabablePhysicsHandler>().enabled && !mainPool[currentPool].floxes[i].GetComponent<GrabablePhysicsHandler>().isDestroyed&& !mainPool[currentPool].floxes[i].GetComponent<GrabablePhysicsHandler>().isOnPlayground)
             {
                 sound.clipName = "FloxMachineBad";
                 sound.Play();
@@ -205,36 +242,85 @@ public class GrabManager : MonoBehaviour
                 return;
             }
         }
+        for (int i = 0; i < mainPool[currentPool].bonus.Count; i++)
+        {
+            if (!mainPool[currentPool].bonus[i])
+                continue;
+            if (mainPool[currentPool].bonus[i].GetComponent<Rigidbody>().velocity.magnitude > 0.1f)
+            {
+                sound.clipName = "FloxMachineBad";
+                sound.Play();
+                Debug.LogError("Your floxes bonus are still moving");
+                return;
+            }
+            if (mainPool[currentPool].bonus[i].GetComponent<GrabbableObject>().isGrab)
+            {
+                sound.clipName = "FloxMachineBad";
+                sound.Play();
+                Debug.Log("bonus grabbed");
+                return;
+            }
+            if (mainPool[currentPool].bonus[i].GetComponent<GrabablePhysicsHandler>().enabled && !mainPool[currentPool].bonus[i].GetComponent<GrabablePhysicsHandler>().isDestroyed && !mainPool[currentPool].bonus[i].GetComponent<GrabablePhysicsHandler>().isOnPlayground)
+            {
+                sound.clipName = "FloxMachineBad";
+                sound.Play();
+                Debug.Log("Flox bonus in stasis");
+                return;
+            }
+        }
+        for (int i = 0; i < mainPool[currentPool].malus.Count; i++)
+        {
+            if (!mainPool[currentPool].malus[i])
+                continue;
+            if (mainPool[currentPool].malus[i].GetComponent<Rigidbody>().velocity.magnitude > 0.1f)
+            {
+                sound.clipName = "FloxMachineBad";
+                sound.Play();
+                Debug.LogError("Your floxes malus are still moving");
+                return;
+            }
+            if (mainPool[currentPool].malus[i].GetComponent<GrabbableObject>().isGrab)
+            {
+                sound.clipName = "FloxMachineBad";
+                sound.Play();
+                Debug.Log("malus grabbed");
+                return;
+            }
+            if (mainPool[currentPool].malus[i].GetComponent<GrabablePhysicsHandler>().enabled && !mainPool[currentPool].malus[i].GetComponent<GrabablePhysicsHandler>().isDestroyed && !mainPool[currentPool].malus[i].GetComponent<GrabablePhysicsHandler>().isOnPlayground)
+            {
+                sound.clipName = "FloxMachineBad";
+                sound.Play();
+                Debug.Log("Flox malus in stasis");
+                return;
+            }
+        }
         #endregion
 
         int totalWeight = 0;
-        for (int i = 0; i < batches.Count - 1; i++)
+        for (int i = 0; i < batches.Count ; i++)
         {
             if (batches[i].isEmpty)
                 continue;
             totalWeight += batches[i].weight;
 
         }
-    //  int numberOfRound = 0;
-    //no one need to read that
-    StartLoop:
+  
+            //  int numberOfRound = 0;
+            //no one need to read that
+           
         int random = UnityEngine.Random.Range(0, totalWeight);
         int currentWeight = 0;
         /* numberOfRound++;
          if (numberOfRound > batches.Count)
              return;*/
-        for (int i = 0; i < batches.Count - 1; i++)
+        for (int i = 0; i < batches.Count ; i++)
         {
             if (batches[i].isEmpty)
                 continue;
             currentWeight += batches[i].weight;
             if (currentWeight > random)
             {
-                if (batches[i].isEmpty)
-                {
-                    goto StartLoop;
-                }
-                currentPool = i;
+               currentPool = i;
                 break;
             }
         }
@@ -248,26 +334,21 @@ public class GrabManager : MonoBehaviour
         if (previousPool < 5000)
             Freez(previousPool);
 
-        //In testing
         UpdateMilestone();
 
-        //need to be done
         UpdateBoard();
 
-        //done
         UpdateInventory();
 
-        //In testing
         UpdateSpecial();
 
-        //In testing
         UpdateBubble();
 
 
         sound.ThirdClipName = "FloxMachineGood";
         sound.PlayThird();
     }
-    private void Freez(int previousPool)
+    protected void Freez(int previousPool)
     {
         FreezOfList(mainPool[previousPool].floxes, previousPool);
         FreezOfList(mainPool[previousPool].bonus, previousPool);
@@ -283,6 +364,10 @@ public class GrabManager : MonoBehaviour
             reset.AddFreezFlock(flocksToFreez[i],indexOfPool,i);
         }
         playGround.soundReader.Play("Freez");
+    }
+    public void UpdateIntersectionPos()
+    {
+        currentMilestone = playGround.CheckMilestones(out positionOfMilestoneIntersection, out numberOfMilestones, out nextMilestonePos);
     }
     protected virtual void UpdateMilestone()
     {
@@ -306,9 +391,11 @@ public class GrabManager : MonoBehaviour
         {
             if (mainPool[currentPool].isSelected[i])
                 return;
+          
             representations[i].gameObject.SetActive(true);
             representations[i].ApplyVisual(i, this, mainPool[currentPool].floxes[i].GetComponent<MeshForDispenser>().mesh, mainPool[currentPool].floxes[i].GetComponent<MeshRenderer>().material);
         }
+        
     }
     public List<Vector3> directionForBubble;
     protected virtual void UpdateSpecial()
@@ -357,7 +444,7 @@ public class GrabManager : MonoBehaviour
 
     }
     #endregion
-    IEnumerator ResetModifierCount()
+    protected virtual  IEnumerator ResetModifierCount()
     {
         yield return new WaitForSeconds(1.6f);
         if (malusNumber != null && malusNumber.Count != 0)
@@ -398,20 +485,20 @@ public class GrabManager : MonoBehaviour
     {
         if (isMalus)
         {
-            if (malusNumber.Count == 0)
+            if (malusNumber == null || malusNumber.Count == 0)
                 return;
             if (malusNumber.Contains(bubble))
                 malusNumber.Remove(bubble);
         }
         else
         {
-            if (bonusNumber.Count == 0)
+            if (bonusNumber == null ||  bonusNumber.Count == 0)
                 return;
             if (bonusNumber.Contains(bubble))
                 bonusNumber.Remove(bubble);
         }
     }
-    private void AllowMalus()
+    protected void AllowMalus()
     {
 
         if (mainPool[currentPool].numberOfModifiersActivated >= representationsModifiers.Length)
@@ -427,33 +514,36 @@ public class GrabManager : MonoBehaviour
                 
                 if (mainPool[currentPool].malusIndex == null)
                     mainPool[currentPool].malusIndex = new List<int>();
-                mainPool[currentPool].malusIndex.Add(mainPool[currentPool].bonusIndex[0]);
+                mainPool[currentPool].malusIndex.Add(mainPool[currentPool].malusIndex.Count);
                 if (mainPool[currentPool].malusSeletcted == null)
                     mainPool[currentPool].malusSeletcted = new List<GameObject>();
                 if (mainPool[currentPool].bonusIndex != null)
                 {
-                    representationsModifiers[mainPool[currentPool].bonusIndex[0]].ApplyVisual(mainPool[currentPool].malus[1].GetComponent<MeshForDispenser>().mesh, mainPool[currentPool].malus[1].GetComponent<MeshRenderer>().material);
+                    representationsModifiers[mainPool[currentPool].bonusIndex[0]].ApplyVisual(mainPool[currentPool].malus[1].GetComponent<MeshForDispenser>().mesh, mainPool[currentPool].malus[1].GetComponent<MeshRenderer>().material, mainPool[currentPool].malus[1].GetComponent<GrabbableObject>());
                     mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[1]);
                 }
                 directionForBubble.Add(representationsModifiers[mainPool[currentPool].bonusIndex[0]].transform.position);
-                representationsModifiers[mainPool[currentPool].bonusIndex[0]].ApplyVisual(mainPool[currentPool].malusIndex[mainPool[currentPool].malusIndex.Count - 1],true);
+                representationsModifiers[mainPool[currentPool].bonusIndex[0]].ApplyVisual(mainPool[currentPool].malusIndex[mainPool[currentPool].malusIndex.Count-1],true);
                 mainPool[currentPool].bonusIndex.RemoveAt(0);
                 mainPool[currentPool].bonusSelected.RemoveAt(0);
                 return;
             }
         }
-
         if (mainPool[currentPool].malusIndex == null)
             mainPool[currentPool].malusIndex = new List<int>();
-        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].ApplyVisual(mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<MeshForDispenser>().mesh,
-                                                                                                    mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<MeshRenderer>().material);
-        
-        mainPool[currentPool].malusIndex.Add(mainPool[currentPool].malusIndex.Count);
         if (mainPool[currentPool].malusSeletcted == null)
             mainPool[currentPool].malusSeletcted = new List<GameObject>();
 
+        mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count]);
 
-        mainPool[currentPool].malusSeletcted.Add(mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count-1]);
+        representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].ApplyVisual(mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<MeshForDispenser>().mesh,
+                                                                                                    mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<MeshRenderer>().material,
+                                                                                                     mainPool[currentPool].malus[mainPool[currentPool].malusIndex.Count].GetComponent<GrabbableObject>());
+        
+        mainPool[currentPool].malusIndex.Add(mainPool[currentPool].malusIndex.Count);
+
+
+
 
         directionForBubble.Add(representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].transform.position);
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].gameObject.SetActive(true);
@@ -466,7 +556,7 @@ public class GrabManager : MonoBehaviour
         mainPool[currentPool].isSelectedModifier.Add(false);
     }
 
-    private void AllowBonus()
+    protected void AllowBonus()
     {
         if (mainPool[currentPool].numberOfModifiersActivated > representationsModifiers.Length)
             return;
@@ -478,7 +568,8 @@ public class GrabManager : MonoBehaviour
         mainPool[currentPool].bonusSelected.Add(mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count]);
 
         representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].ApplyVisual(mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count].GetComponent<MeshForDispenser>().mesh,
-                                                                                                   mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count].GetComponent<MeshRenderer>().material);
+                                                                                                   mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count].GetComponent<MeshRenderer>().material,
+                                                                                                   mainPool[currentPool].bonus[mainPool[currentPool].bonusIndex.Count].GetComponent<GrabbableObject>());
       
         mainPool[currentPool].bonusIndex.Add(mainPool[currentPool].bonusIndex.Count);
         directionForBubble.Add(representationsModifiers[mainPool[currentPool].numberOfModifiersActivated].transform.position);
@@ -496,9 +587,11 @@ public class GrabManager : MonoBehaviour
     public bool isOnCollision;
     public void GetPiece(XRBaseInteractor baseInteractor, int index)
     {
-        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.RightHand && !isGrabRight)
+        if (baseInteractor.GetComponent<HandBurn>().heatState != HeatState.cool)
             return;
-        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.LeftHand && !isGrabLeft)
+        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.RightHand && !isGrabRight && baseInteractor.allowHover )
+            return;
+        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.LeftHand && !isGrabLeft && baseInteractor.allowHover )
             return;
         representations[index].gameObject.SetActive(false);
 
@@ -524,9 +617,10 @@ public class GrabManager : MonoBehaviour
         grabable.enabled = true;
 
         StartCoroutine(WaiToSelect(baseInteractable, baseInteractor, grabable, false));
+        grabable.OnHitGround.RemoveListener(RespawnPiece) ;
         grabable.OnHitGround.AddListener(RespawnPiece);
-
-
+        currentFloxNumber--;
+        floxCount.text = currentFloxNumber.ToString() + " / " + floxNumber.ToString();
         mainPool[currentPool].floxes[index].transform.position = baseInteractor.transform.position;
         mainPool[currentPool].isSelected[index] = true;
         for (int i = 0; i < mainPool[currentPool].isSelected.Count; i++)
@@ -540,9 +634,9 @@ public class GrabManager : MonoBehaviour
 
     public void GetPieceModifier(XRBaseInteractor baseInteractor, int index, bool isMalus, int indexInList)
     {
-        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.RightHand && !isGrabRight)
+        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.RightHand && !isGrabRight && baseInteractor.allowHover && baseInteractor.allowSelect)
             return;
-        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.LeftHand && !isGrabLeft)
+        if (baseInteractor.GetComponent<HandController>().controllerNode == UnityEngine.XR.XRNode.LeftHand && !isGrabLeft && baseInteractor.allowHover && baseInteractor.allowSelect)
             return;
         representationsModifiers[index].gameObject.SetActive(false);
         if (isMalus)
@@ -603,47 +697,51 @@ public class GrabManager : MonoBehaviour
     }
     private bool IsInCurrentPool(GrabbableObject coll)
     {
-        for (int i = 0; i < mainPool[currentPool].floxes.Count; i++)
+        for (int x = 0; x < mainPool[currentPool].floxes.Count; x++)
         {
-            if (mainPool[currentPool].floxes[i] == coll.gameObject && !coll.isGrab)
+            if (mainPool[currentPool].floxes[x] == coll.gameObject && !coll.isGrab)
             {
-                mainPool[currentPool].isSelected[i] = false;
+                mainPool[currentPool].isSelected[x] = false;
                 mainPool[currentPool].isEmpty = false;
-                representations[i].gameObject.SetActive(true);
+                representations[x].gameObject.SetActive(true);
                 coll.GetComponent<Rigidbody>().useGravity = false;
                 coll.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                coll.GetComponent<Rigidbody>().angularVelocity= Vector3.zero;
                 coll.transform.rotation = Quaternion.identity;
-                coll.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
+                currentFloxNumber++;
+                floxCount.text = currentFloxNumber.ToString() + " / " + floxNumber.ToString();
+                coll.transform.position = new Vector3(-300 + (x + 6) * 20 * +currentPool * 5, 300 + (x + 6) * 20 + currentPool * 5, 300 + (x + 6) * 20 + currentPool * 5);
                 return true;
             }
         }
         if(mainPool[currentPool].bonusSelected != null)
-        for (int i = 0; i < mainPool[currentPool].bonusSelected.Count; i++)
+        for (int x = 0; x < representationsModifiers.Length; x++)
         {
-            if (mainPool[currentPool].bonusSelected[i] == coll.gameObject && !coll.isGrab)
+            if (representationsModifiers[x].flox == coll && !coll.isGrab)
             {
-                mainPool[currentPool].isSelectedModifier[mainPool[currentPool].bonusIndex[i]] = false;
+                mainPool[currentPool].isSelectedModifier[x] = false;
                 mainPool[currentPool].isEmptyModifier = false;
-                representationsModifiers[mainPool[currentPool].bonusIndex[i]].gameObject.SetActive(true);
+                representationsModifiers[x].gameObject.SetActive(true);
                 coll.GetComponent<Rigidbody>().useGravity = false;
                 coll.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 coll.transform.rotation = Quaternion.identity;
-                coll.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
+                coll.GetComponent<Rigidbody>().angularVelocity= Vector3.zero;
+                coll.transform.position = new Vector3(-300 + (x + 6) * 20 * +currentPool * 5, 300 + (x + 6) * 20 + currentPool * 5, 300 + (x + 6) * 20 + currentPool * 5);
                 return true;
             }
         }
         if (mainPool[currentPool].malusSeletcted != null)
-            for (int i = 0; i < mainPool[currentPool].malusSeletcted.Count; i++)
+            for (int x = 0; x < representationsModifiers.Length; x++)
         {
-            if (mainPool[currentPool].malusSeletcted[i] == coll.gameObject && !coll.isGrab)
-            {
-                mainPool[currentPool].isSelectedModifier[mainPool[currentPool].malusIndex[i]] = false;
+            if (representationsModifiers[x].flox == coll && !coll.isGrab)
+                {
+                mainPool[currentPool].isSelectedModifier[x] = false;
                 mainPool[currentPool].isEmptyModifier = false;
-                representationsModifiers[mainPool[currentPool].malusIndex[i]].gameObject.SetActive(true);
+                representationsModifiers[x].gameObject.SetActive(true);
                 coll.GetComponent<Rigidbody>().useGravity = false;
                 coll.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 coll.transform.rotation = Quaternion.identity;
-                coll.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
+                coll.transform.position = new Vector3(-300 + (x + 8) * 20 * +currentPool * 5, 300 + (x + 8) * 20 + currentPool * 5, 300 + (x + 8) * 20 + currentPool * 5);
                 return true;
             }
         }
@@ -680,6 +778,7 @@ public class GrabManager : MonoBehaviour
             _object.GetComponent<Rigidbody>().useGravity = false;
             _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
             _object.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+           
             StartCoroutine( _object.GetComponent<DissolveFlox>().StartDissolve(_object, initPos,false,this,isGrab));
         }
     }
@@ -701,8 +800,10 @@ public class GrabManager : MonoBehaviour
                             mainPool[i].isEmpty = true;
                             _object.GetComponent<Rigidbody>().useGravity = false;
                             _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                            _object.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+
                             _object.transform.rotation = Quaternion.identity;
-                            _object.transform.position = new Vector3(300 + i * 5, 300 + i * 5, 300);
+                            _object.transform.position = new Vector3(300 + (x * 5 + 1) * 20 * (i * 5 + 1), 300 + x * 20, 300 + x);
                         }
 
                         //find a way to add recreat a bacth with only one piece and nee to add this piece with others
@@ -727,6 +828,7 @@ public class GrabManager : MonoBehaviour
                             mainPool[i].isSelected[x] = false;
                             batches[i].isEmpty = false;
                             mainPool[i].isEmpty = true;
+                            _object.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
                             _object.GetComponent<Rigidbody>().useGravity = false;
                             _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
                             _object.transform.rotation = Quaternion.identity;
@@ -745,6 +847,7 @@ public class GrabManager : MonoBehaviour
                             {
                                 mainPool[i].isSelectedModifier[mainPool[i].bonusIndex[i]] = false;
                                 mainPool[i].isEmptyModifier = false;
+                            _object.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
                                 _object.GetComponent<Rigidbody>().useGravity = false;
                                 _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
                                 _object.transform.rotation = Quaternion.identity;
@@ -762,6 +865,7 @@ public class GrabManager : MonoBehaviour
                             {
                                 mainPool[i].isSelectedModifier[mainPool[i].malusIndex[i]] = false;
                                 mainPool[i].isEmptyModifier = false;
+                            _object.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
                                 _object.GetComponent<Rigidbody>().useGravity = false;
                                 _object.GetComponent<Rigidbody>().velocity = Vector3.zero;
                                 _object.transform.rotation = Quaternion.identity;
@@ -776,16 +880,13 @@ public class GrabManager : MonoBehaviour
         }
     }
 
-
     public virtual void DestroyFlock(GameObject flock, int indexOfPool)
     {
         
-        if(mainPool[indexOfPool].floxes.Contains( flock))
+       if(mainPool[indexOfPool].floxes.Contains( flock))
         {
             int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
             StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true)); 
-           
-
             GameObject _flock = Instantiate(batches[indexOfPool].pieces[indexOfFlock], new Vector3(302 + (indexOfFlock * 5 + 1) * 20 * (indexOfPool * 5 + 1), 300 + indexOfFlock * 20, 300 + indexOfFlock), Quaternion.identity);
             Modifier _modifer = baseModifier;
             Type type = _modifer.actions.GetType();
@@ -794,49 +895,64 @@ public class GrabManager : MonoBehaviour
             _flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
             _flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
 
+            currentFloxNumber++;
+            floxCount.text = currentFloxNumber.ToString() + " /" + floxNumber.ToString();
             _flock.GetComponent<Rigidbody>().useGravity = false;
             mainPool[indexOfPool].floxes[indexOfFlock] = _flock;
             mainPool[indexOfPool].isSelected[indexOfFlock] = false;
             mainPool[indexOfPool].isEmpty = false;
+            batches[indexOfPool].isEmpty = false;
         }
-        else if (mainPool[indexOfPool].floxes.Contains(flock))
+       else if (mainPool[indexOfPool].bonus.Contains(flock))
         {
             StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true));
-            int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
+            int indexOfFlock = mainPool[indexOfPool].bonus.IndexOf(flock);
 
 
             GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.positiveModifiers[indexOfFlock], new Vector3(-302 + (indexOfFlock + 6) * 20 * +indexOfPool * 5, 300 + (indexOfFlock + 6) * 20 + indexOfPool * 5, 300 + (indexOfFlock + 6) * 20 + indexOfFlock * 5), Quaternion.identity);
             Modifier _modifer = baseModifier;
-            Type type = _modifer.actions.GetType();
-            var _object = GetComponent(type);
+            Modifier _modifierPiece = positiveModifiers[UnityEngine.Random.Range(0, positiveModifiers.Count)];
+            Type typePiece = _modifierPiece.actions.GetType();
+
+            var _object = GetComponent(typePiece);
             _flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
             _flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
             _flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
 
             _flock.GetComponent<Rigidbody>().useGravity = false;
             mainPool[indexOfPool].bonus[indexOfFlock] = _flock;
-            mainPool[indexOfPool].isEmptyModifier = false;
+            mainPool[indexOfPool].isEmptyModifier = true;
         }
-        else if (mainPool[indexOfPool].floxes.Contains(flock))
-        {
-            StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true));
-            int indexOfFlock = mainPool[indexOfPool].floxes.IndexOf(flock);
+         else if (mainPool[indexOfPool].malus.Contains(flock))
+         {
+             StartCoroutine(flock.GetComponent<DissolveFlox>().StartDissolve(default, Vector3.zero, true));
+             int indexOfFlock = mainPool[indexOfPool].malus.IndexOf(flock);
 
+            Modifier _modifierPiece = negativeModifiers[UnityEngine.Random.Range(0, negativeModifiers.Count)];
+            Type typePiece = _modifierPiece.actions.GetType();
             GameObject _flock = Instantiate(batches[indexOfPool].batchModifier.negativeModifier[indexOfFlock], new Vector3(-302 + (indexOfFlock + 8) * 20 * +indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfPool * 5, 300 + (indexOfFlock + 8) * 20 + indexOfFlock * 5), Quaternion.identity);
-            Modifier _modifer = baseModifier;
-            Type type = _modifer.actions.GetType();
-            var _object = GetComponent(type);
-            _flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifer, _object as ModifierAction, basicMats);
-            _flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
-            _flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
+             var _object = GetComponent(typePiece);
+             _flock.GetComponent<GrabablePhysicsHandler>().ChangeBehavior(_modifierPiece, _object as ModifierAction, basicMats);
+             _flock.GetComponent<GrabablePhysicsHandler>().enabled = false;
+             _flock.GetComponent<GrabablePhysicsHandler>().inputManager = inputManager;
 
-            _flock.GetComponent<Rigidbody>().useGravity = false;
-            mainPool[indexOfPool].malus[indexOfFlock] = _flock;
-            mainPool[indexOfPool].isEmptyModifier = false;
+             _flock.GetComponent<Rigidbody>().useGravity = false;
+             mainPool[indexOfPool].malus[indexOfFlock] = _flock;
+              mainPool[indexOfPool].isEmptyModifier = true;
+
         }
+
     }
 
-
+    public virtual void FreezHotPotato(GameObject flox)
+    {
+        int value = 100;
+       value =  mainPool[currentPool].malus.IndexOf(flox);
+        if (value != 100)
+            reset.AddFreezFlock(flox, currentPool, value, true);
+        else
+            Debug.Log("its a bug");
+    }
 }
 
 public class pool

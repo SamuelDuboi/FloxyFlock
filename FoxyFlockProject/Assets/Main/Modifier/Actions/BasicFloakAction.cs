@@ -11,6 +11,7 @@ public class BasicFloakAction : ModifierAction
     }
     public override void OnGrabed(GameObject _object)
     {
+        timerSlow = 0;
         grabSound = "BasicGrab";
         base.OnGrabed(_object);
     }

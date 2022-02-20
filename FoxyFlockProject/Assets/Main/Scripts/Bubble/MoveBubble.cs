@@ -44,6 +44,9 @@ public class MoveBubble : MonoBehaviour
     public float hf;
     public float hfPrime;
     public float offset;
+    private bool moveFireBall;
+    private bool isNotFirstBacth;
+    private int iterationNumber;
    public void MoveBubbles(float _playgroundRayon, float Tposition, Vector3 pPos, List<GameObject> bonus, List<GameObject> malus, List<Vector3> position)
     {
         playgroundRayon = _playgroundRayon;
@@ -51,7 +54,7 @@ public class MoveBubble : MonoBehaviour
         /* v1 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees));
          v2 = new Vector3(Tposition.x + Mathf.Cos(angleInDegrees+Mathf.PI), Tposition.y, Tposition.z + Mathf.Sin(angleInDegrees+180));*/
 
-        J = Mathf.Abs(Vector3.Distance(Vector3.up* Tposition, pPos));
+        J = Mathf.Abs(Vector3.Distance(Vector3.up* Tposition, pPos+Vector3.up*(Tposition-pPos.y)));
         minAngle = 0;
         maxAngle = Mathf.PI;
 
@@ -60,10 +63,10 @@ public class MoveBubble : MonoBehaviour
         {
             // security until Simon find the probleme
             float angleValue = (spawnMax * spawnMax - _playgroundRayon * _playgroundRayon - J * J) / (-2 * _playgroundRayon * J);
-            if (angleValue > 1)
+            /*if (angleValue > 1)
                 angleValue = 1;
             if (angleValue < -1)
-                angleValue = -1;
+                angleValue = -1;*/
             angle = Mathf.Acos(angleValue);
             minAngle = angle;
             maxAngle = Mathf.PI - angle;
@@ -73,22 +76,24 @@ public class MoveBubble : MonoBehaviour
         int index = 0;
         for (int i = 0; i < bonus.Count; i++)
         {
-            if (bonus[i].GetComponent<Bubble>().OnDestroyed()) 
+            if (bonus[i].GetComponent<Bubble>().OnDestroyed(isNotFirstBacth)) 
             {
+                if(isNotFirstBacth)
                 bonus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
                 index++;
             }
         }
         for (int i = 0; i < malus.Count; i++)
         {
-            if (malus[i].GetComponent<Bubble>().OnDestroyed())
+            if (malus[i].GetComponent<Bubble>().OnDestroyed(isNotFirstBacth))
             {
-                malus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
+                if (isNotFirstBacth)
+                    malus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
                 index++;
             }
         }
 
-
+        iterationNumber = 0;
 
         #region bonus
         for (int i = 0; i < bonus.Count; i++)
@@ -102,13 +107,15 @@ public class MoveBubble : MonoBehaviour
             bonus[i].transform.localPosition = c + Vector3.up*r3 * bonus[i].transform.lossyScale.y; 
             if(i == 1)
             {
-                if(Mathf.Abs( Vector3.Distance(bonus[i-1].transform.position, bonus[i].transform.position)) < rayonBuble*2)
+                if(Mathf.Abs( Vector3.Distance(bonus[i-1].transform.position, bonus[i].transform.position)) < rayonBuble*2 && iterationNumber<40)
                 {
+                    iterationNumber++;
                     i--;
                 }
             }
         }
         #endregion
+        iterationNumber = 0;
         #region malus
         for (int i = 0; i < malus.Count; i++)
         {
@@ -119,14 +126,15 @@ public class MoveBubble : MonoBehaviour
             c = new Vector3( Mathf.Cos(angleInDegrees2) * x * malus[i].transform.lossyScale.x, Tposition,Mathf.Sin(angleInDegrees2) * x * malus[i].transform.lossyScale.z);
             d = Mathf.Abs(Vector3.Distance(c, Vector3.zero));
             //will never be equal to 0 due to float 32 round, so I added a bit more
-            if (d < 0.1f)
+            if (d < 0.1f && iterationNumber < 40)
             {
+                iterationNumber++;
                 i--;
                 continue;
             }
             r3 = Random.Range(0, Mathf.Abs(Vector3.Distance(c, Vector3.zero)) / 2.0f);
 
-           
+            
             cPrime = Vector3.Lerp(c,new Vector3( 0,Tposition,0), r3 / d);
             d = Mathf.Abs(Vector3.Distance(cPrime, bonus[0].transform.localPosition));
             d1= Mathf.Abs(Vector3.Distance(cPrime, bonus[1].transform.localPosition));
@@ -134,8 +142,9 @@ public class MoveBubble : MonoBehaviour
             {
                 d = d1;
             }
-            if (d < rayonBuble*2)
+            if (d < rayonBuble*2&& iterationNumber < 40)
             {
+                iterationNumber++;
                 i--;
                 continue;
             }
@@ -145,8 +154,9 @@ public class MoveBubble : MonoBehaviour
            
            
             malus[i].transform.localPosition = cPrimePrime + Vector3.up * r5 * malus[i].transform.lossyScale.y;
-            if (IsInContactBonus(malus[i].transform.localPosition, bonus, malus, i))
+            if (IsInContactBonus(malus[i].transform.localPosition, bonus, malus, i) && iterationNumber<40)
             {
+                iterationNumber++;
                 i--;
                 continue;
             }
@@ -159,7 +169,8 @@ public class MoveBubble : MonoBehaviour
         {
             Vector3.MoveTowards(malus[i].transform.position, Vector3.up * Tposition - pPos, J);
         }
-
+        if (!isNotFirstBacth)
+            isNotFirstBacth = true;
         #endregion
     }
     public void MoveBubbles(float _playgroundRayon, float Tposition, Vector3 pPos, List<GameObject> bonus, List<GameObject> malus,GameObject fireball, List<Vector3> position)
@@ -169,7 +180,7 @@ public class MoveBubble : MonoBehaviour
         J = Mathf.Abs(Vector3.Distance(Vector3.up * Tposition, pPos));
         minAngle = 0;
         maxAngle = Mathf.PI;
-
+        iterationNumber = 0;
         if (J >= spawnMax)
          {
                     float angleValue = (spawnMax * spawnMax - _playgroundRayon * _playgroundRayon - J * J) / (-2 * _playgroundRayon * J);
@@ -189,25 +200,36 @@ public class MoveBubble : MonoBehaviour
         int index = 0;
         for (int i = 0; i < bonus.Count; i++)
         {
-            if (bonus[i].GetComponent<Bubble>().OnDestroyed())
+            if (bonus[i].GetComponent<Bubble>().OnDestroyed(isNotFirstBacth))
             {
-                bonus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
+                if (isNotFirstBacth)
+                    bonus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
                 index++;
             }
         }
         for (int i = 0; i < malus.Count; i++)
         {
-            if (malus[i].GetComponent<Bubble>().OnDestroyed())
+            if (malus[i].GetComponent<Bubble>().OnDestroyed(isNotFirstBacth))
             {
-                malus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
+                if (isNotFirstBacth)
+                    malus[i].GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
                 index++;
             }
         }
-      if(fireball.GetComponent<Bubble>().OnDestroyed())
+        if (moveFireBall)
         {
-            fireball.GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
-            index++;
+            fireball.SetActive(true);
+            if (fireball.GetComponent<Bubble>().OnDestroyed(isNotFirstBacth))
+            {
+                if (position.Count!= index)
+                {
+                    if (isNotFirstBacth)
+                        fireball.GetComponent<Bubble>().particuleBubble.GetComponent<BubbleToDispenser>().Move(position[index]);
+                    index++;
+                }
+            }
         }
+   
         #region bonus
         for (int i = 0; i < bonus.Count; i++)
         {
@@ -220,14 +242,16 @@ public class MoveBubble : MonoBehaviour
             bonus[i].transform.localPosition = c + Vector3.up * r3 * bonus[i].transform.lossyScale.y;
             if (i == 1)
             {
-                if (Mathf.Abs(Vector3.Distance(bonus[i - 1].transform.position, bonus[i].transform.position)) < rayonBuble * 2)
+                if (Mathf.Abs(Vector3.Distance(bonus[i - 1].transform.position, bonus[i].transform.position)) < rayonBuble * 2 && iterationNumber < 40)
                 {
+                    iterationNumber++;
                     i--;
                 }
             }
         }
         #endregion
         #region malus
+        iterationNumber = 0;
         for (int i = 0; i < malus.Count; i++)
         {
             r1 = Random.Range(0, playgroundRayon - cm );
@@ -237,8 +261,9 @@ public class MoveBubble : MonoBehaviour
             c = new Vector3(Mathf.Cos(angleInDegrees2) * x * malus[i].transform.lossyScale.x, Tposition, Mathf.Sin(angleInDegrees2) * x * malus[i].transform.lossyScale.z);
             d = Mathf.Abs(Vector3.Distance(c, Vector3.zero));
             //will never be equal to 0 due to float 32 round, so I added a bit more
-            if (d < 0.1)
+            if (d < 0.1 && iterationNumber < 40)
             {
+                iterationNumber++;
                 i--;
                 continue;
             }
@@ -256,35 +281,50 @@ public class MoveBubble : MonoBehaviour
 
 
             malus[i].transform.localPosition = cPrimePrime + Vector3.up * r5 * malus[i].transform.lossyScale.y;
-            if (IsInContactBonus(malus[i].transform.localPosition, bonus, malus, i))
+            if (IsInContactBonus(malus[i].transform.localPosition, bonus, malus, i) && iterationNumber < 40)
             {
+                iterationNumber++;
                 i--;
                 continue;
             }
         }
         #endregion
         #region fireBall
-        do
+        iterationNumber = 0;
+        if (moveFireBall)
         {
-            r1 = Random.Range(0, playgroundRayon - cf );
-            r2 = Random.Range(cfMin, playgroundRayon - cfPrime);
-            angleInDegrees2 = Random.Range(angleInDegrees, angleInDegrees + (Mathf.PI / 3) * 2);
-            x = (r1 + r2) / 2.0f;
-            r3 = Random.Range(hf, hfPrime);
-            c = new Vector3( Mathf.Cos(angleInDegrees2) * x *fireball.transform.lossyScale.x, Tposition, Mathf.Sin(angleInDegrees2) * x * fireball.transform.lossyScale.z);
-            c += Vector3.up * r3 * fireball.transform.lossyScale.y;
+            do
+            {
+                r1 = Random.Range(0, playgroundRayon - cf);
+                r2 = Random.Range(cfMin, playgroundRayon - cfPrime);
+                angleInDegrees2 = Random.Range(angleInDegrees, angleInDegrees + (Mathf.PI / 3) * 2);
+                x = (r1 + r2) / 2.0f;
+                r3 = Random.Range(hf, hfPrime);
+                c = new Vector3(Mathf.Cos(angleInDegrees2) * x * fireball.transform.lossyScale.x, Tposition, Mathf.Sin(angleInDegrees2) * x * fireball.transform.lossyScale.z);
+                c += Vector3.up * r3 * fireball.transform.lossyScale.y;
+                iterationNumber++;
+                if (iterationNumber > 40f)
+                    break;
+            }
+            while (IsInContact(c, bonus, malus));
+            fireball.transform.localPosition = c;
+            for (int i = 0; i < bonus.Count; i++)
+            {
+                Vector3.MoveTowards(bonus[i].transform.position, Vector3.up * Tposition - pPos, J);
+            }
+            for (int i = 0; i < malus.Count; i++)
+            {
+                Vector3.MoveTowards(malus[i].transform.position, Vector3.up * Tposition - pPos, J);
+            }
+            Vector3.MoveTowards(fireball.transform.position, Vector3.up * Tposition - pPos, J);
         }
-        while (IsInContact(c,bonus,malus));
-        fireball.transform.localPosition = c;
-        for (int i = 0; i < bonus.Count; i++)
+        else
         {
-            Vector3.MoveTowards(bonus[i].transform.position, Vector3.up * Tposition - pPos, J);
+            fireball.SetActive(false);
         }
-        for (int i = 0; i < malus.Count; i++)
-        {
-            Vector3.MoveTowards(malus[i].transform.position, Vector3.up * Tposition - pPos, J);
-        }
-        Vector3.MoveTowards(fireball.transform.position, Vector3.up * Tposition - pPos, J);
+        moveFireBall = !moveFireBall;
+        if(!isNotFirstBacth)
+        isNotFirstBacth = true;
         #endregion
     }
     private bool IsInContact(Vector3 pos, List<GameObject> bonus, List<GameObject> malus)
