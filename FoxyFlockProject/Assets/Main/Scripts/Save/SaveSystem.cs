@@ -20,6 +20,6 @@ public class SaveSystem : MonoBehaviour
     {
         Save mySave = new  Save();
         string json = JsonUtility.ToJson(mySave);
-        string jsonTest = JsonUtility.FromJsonOverwrite(json, mySave);
+        //string jsonTest = JsonUtility.FromJsonOverwrite(json, mySave);
     }
 }
