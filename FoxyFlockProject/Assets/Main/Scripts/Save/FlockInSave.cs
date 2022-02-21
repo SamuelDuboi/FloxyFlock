@@ -1,18 +1,19 @@
 using UnityEngine;
 using System.Collections.Generic;
-[SerializeField]
+using System;
+[Serializable]
 public class FlockInSave 
 {
-    int index;
-    int numberOfFall;
-    List<Vector3> positionOfFall;
-    string name;
-    int spawnNumber;
+   public int index;
+   public int numberOfFall;
+   public List<Vector2> positionOfFall;
+   public string name;
+   public int spawnNumber;
 
     public FlockInSave(int _index)
     {
         index = _index;
-        positionOfFall = new List<Vector3>();
+        positionOfFall = new List<Vector2>();
         int numberOfFall = 0;
         int spawnNumber = 0;
         switch (index)

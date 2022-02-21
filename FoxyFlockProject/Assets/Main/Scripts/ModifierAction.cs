@@ -84,6 +84,7 @@ public class ModifierAction : MonoBehaviour
             sound = GetComponent<SoundReader>();
         sound.ForthClipName = "Dissolve";
         sound.Playforth();
+        SaveSystem.instance.Saving(gameObject.name, new Vector2(transform.position.x, transform.position.z));
     }
     public virtual void OnExitStasis(GameObject _object)
     {

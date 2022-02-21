@@ -2,17 +2,17 @@ import tkinter as tk
 from tkinter import ttk
 # initialize tkinter
 my_w=tk.Tk()
-my_w.geometry('500x500')
+my_w.geometry('1500x500')
 my_w.title('test')
-l1 = tk.Label(my_w,  width=15, height = 15 )
+l1 = tk.Label(my_w,  width=10, height = 1 )
 l1.grid(row=1,column=0) 
-ayo_img = tk.PhotoImage(file = "D:\\Unity\\FoxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\AYO.png")
-beanie_img = tk.PhotoImage(file = "D:\\Unity\\FoxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\BEANIE.png")
-garry_img = tk.PhotoImage(file = "D:\\Unity\\FoxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\GARRY.png")
-hehe_img = tk.PhotoImage(file = "D:\\Unity\\FoxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\HEHE.png")
-jcvf_img = tk.PhotoImage(file = "D:\\Unity\\FoxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\JCVF.png")
-jit_img = tk.PhotoImage(file = "D:\\Unity\\FoxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\JIT.png")
-woo_img = tk.PhotoImage(file = "D:\\Unity\\FoxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\WOO.png")
+ayo_img = tk.PhotoImage(file = "D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\AYO.png")
+beanie_img = tk.PhotoImage(file = "D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\BEANIE.png")
+garry_img = tk.PhotoImage(file = "D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\GARRY.png")
+hehe_img = tk.PhotoImage(file = "D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\HEHE.png")
+jcvf_img = tk.PhotoImage(file = "D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\JCVF.png")
+jit_img = tk.PhotoImage(file = "D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\JIT.png")
+woo_img = tk.PhotoImage(file = "D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\WOO.png")
 array_img =[ayo_img,beanie_img,hehe_img,jcvf_img,jit_img,woo_img]
 arrayName = ["Ayo : ","Beanie : ","Garry : ","Hehe : ","Jcvf : ","Jit : ","Woo : "]
 for i in range(len(array_img)):
@@ -28,7 +28,7 @@ my_w.mainloop()
 #app.
 # show window
 #root.mainloop()
-
+C:\Users\s.dubois\AppData\LocalLow\FoxyTeam\Foxy Flox
 # Opening JSON file
 #f = open('data.json')
  
