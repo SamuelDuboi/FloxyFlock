@@ -21,6 +21,7 @@ public class SaveSystem : MonoBehaviour
     void Start()
     {
         Load();
+        Saving(0, new Vector2(10, 15));
     }
 
     public void Saving(int index, Vector2 fallPos)
