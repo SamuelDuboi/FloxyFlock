@@ -1,5 +1,5 @@
 import tkinter as tk
-
+from threading import Thread
 from PIL import ImageTk
 import PIL.Image
 from tkinter import ttk
@@ -28,14 +28,15 @@ hehe_img =ImageTk.PhotoImage(PIL.Image.open("D:\\Unity\\FloxyFlock\\FoxyFlockPro
 jcvf_img =ImageTk.PhotoImage(PIL.Image.open("D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\JCVF.png").resize((150,150)))
 jit_img = ImageTk.PhotoImage(PIL.Image.open("D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\JIT.png").resize((150,150)))
 woo_img = ImageTk.PhotoImage(PIL.Image.open("D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\WOO.png").resize((150,150)))
-array_img =[ayo_img,beanie_img,hehe_img,jcvf_img,jit_img,woo_img]
+array_img =[ayo_img,beanie_img,garry_img,hehe_img,jcvf_img,jit_img,woo_img]
 arrayName = ["Ayo : ","Beanie : ","Garry : ","Hehe : ","Jcvf : ","Jit : ","Woo : "]
 f=open(Path(r'C:\Users\s.dubois\AppData\LocalLow\FoxyTeam\Foxy Flox\save.json'))
 data = json.load(f)
 arrayOfFlox = [""]
 for i in data['flocks']:
     arrayOfFlox.append(i)
-f.close()
+
+
 
 for i in range(len(array_img)):
     l2 = tk.Label(frame1,  image=array_img[i] )
@@ -53,30 +54,30 @@ canvas=Canvas(frame2, width=1920, height=1080)
 canvas.pack()
 
 backgroundImage =ImageTk.PhotoImage(PIL.Image.open("C:\\Users\\s.dubois\\AppData\\LocalLow\\FoxyTeam\\Foxy Flox\\Background.png").resize((900,900)))
-dot =ImageTk.PhotoImage(PIL.Image.open("C:\\Users\\s.dubois\\AppData\\LocalLow\\FoxyTeam\\Foxy Flox\\Dot.png").resize((4,4)))
+ayo_img2 =ImageTk.PhotoImage(PIL.Image.open("D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\AYO.png").resize((16,16)))
+beanie_img2 =ImageTk.PhotoImage(PIL.Image.open("D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\BEANIE.png").resize((16,16)))
+garry_img2 =ImageTk.PhotoImage(PIL.Image.open("D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\GARRY.png").resize((16,16))) 
+hehe_img2 =ImageTk.PhotoImage(PIL.Image.open("D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\HEHE.png").resize((16,16)))
+jcvf_img2 =ImageTk.PhotoImage(PIL.Image.open("D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\JCVF.png").resize((16,16)))
+jit_img2 = ImageTk.PhotoImage(PIL.Image.open("D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\JIT.png").resize((16,16)))
+woo_img2 = ImageTk.PhotoImage(PIL.Image.open("D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\WOO.png").resize((16,16)))
+
+array_img2 =[ayo_img2,beanie_img2,garry_img2,hehe_img2,jcvf_img2,jit_img2,woo_img2]
+
 
 canvas.create_image(450, 450, image=backgroundImage)
-canvas.create_image(2, 2, image=dot)
-#scrollbar = ttk.Scrollbar(my_w, orient='vertical', command=ayo_img)
-#scrollbar.grid(row=0, column=1, sticky='ns')
-my_w.mainloop()
-# set window title
-#root.wm_title("Tkinter window")
-#app.
-# show window
-#root.mainloop()
-#C:\Users\s.dubois\AppData\LocalLow\FoxyTeam\Foxy Flox
-# Opening JSON file
-#f = open('data.json')
- 
-# returns JSON object as
-# a dictionary
-#data = json.load(f)
- 
-# Iterating through the json
-# list
-#for i in data['emp_details']:
- #   print(i)
- 
-# Closing file
-#f.close()
+def threaded_function(arg):
+    while True:
+        f=open(Path(r'C:\Users\s.dubois\AppData\LocalLow\FoxyTeam\Foxy Flox\save.json'))
+        data = json.load(f)
+        for i in data['flocks']:
+            for x in range(i['numberOfFall']):
+                print((1.4-(i['positionOfFall'][x]['y']+0.7)));
+                canvas.create_image((i['positionOfFall'][x]['x']+0.7)/1.4 *900.0, (1.4-(i['positionOfFall'][x]['y']+0.7))/1.4 *900.0, image=array_img2[i['index']])
+        f.close()
+if __name__ == "__main__":
+    thread = Thread(target = threaded_function, args = (12,))
+    thread.start()
+
+    my_w.mainloop()
+

@@ -22,7 +22,8 @@ public class Representation : MonoBehaviour
     [SerializeField] private float timeBetweenFlashesIntervalScale = 3f;
     public bool isFireBall;
      public int indexInList;
-    [HideInInspector]public GrabbableObject flox;
+    public GrabbableObject flox;
+    private GameObject floxObject;
     private MaterialPropertyBlock propBlock;
     private void Start()
     {
@@ -152,6 +153,7 @@ public class Representation : MonoBehaviour
     public void ApplyVisual(Mesh _mesh, Material _mat, GrabbableObject _flox)
     {
         flox = _flox;
+        floxObject = flox.gameObject;
         mesh.mesh = _mesh;
         meshMat.material = _mat;
     }
@@ -217,5 +219,11 @@ public class Representation : MonoBehaviour
             else
                 yield return new WaitForSeconds(timeBetweenFlashes);
         }
+    }
+    public GameObject IsMalus()
+    {
+        if (isModifier && isMalus)
+            return floxObject;
+        return null;
     }
 }

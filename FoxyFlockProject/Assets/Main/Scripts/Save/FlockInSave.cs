@@ -23,7 +23,7 @@ public class FlockInSave
                 name = "Ayo";
                 break;
             case 1:
-                name = "Beannie";
+                name = "Beanie";
                 break;
             case 2:
                 name = "Garry";

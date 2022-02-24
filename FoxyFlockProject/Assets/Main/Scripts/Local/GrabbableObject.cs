@@ -88,8 +88,6 @@ public class GrabbableObject : XRGrabInteractable
             return;
         base.OnHoverEntered(interactor);
         OnHover.Invoke();
-        Debug.Log("OnHoverFlox");
-
     }
     protected override void OnHoverExited(XRBaseInteractor interactor)
     {

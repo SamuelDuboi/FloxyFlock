@@ -21,7 +21,6 @@ public class SaveSystem : MonoBehaviour
     void Start()
     {
         Load();
-        Saving(0, new Vector2(10, 15));
     }
 
     public void Saving(int index, Vector2 fallPos)
@@ -40,7 +39,6 @@ public class SaveSystem : MonoBehaviour
         save.AddFall(name, fallPos);
         var dataPath = Path.Combine(Application.persistentDataPath, "save.json");
         string json = JsonUtility.ToJson(save);
-        Debug.Log(json);
         StreamWriter sw = File.CreateText(dataPath);
         sw.Close();
         File.WriteAllText(dataPath, json);

@@ -15,9 +15,9 @@ public class Save
         int index =0;
         for (int i = 0; i < flocks.Count; i++)
         {
-            if (flocks[i].name.Contains(name))
+            if (name.Contains(flocks[i].name))
             {
-                index = 0;
+                index = i;
                 break;
             }
         }
