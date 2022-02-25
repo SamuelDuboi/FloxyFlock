@@ -78,6 +78,9 @@ public class OptionManager : MonoBehaviour
     }
     public void LunchScene(int index)
     {
+        if (SaveSystem.instance)
+            StartCoroutine(SaveSystem.instance.Send(index));
+        else
         ScenesManagement.instance.LunchScene(index);
     }
     public void OnReturnLobby()

@@ -9,8 +9,8 @@ public class ShowUi : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void CmdChangeUi(int index)
     {
-
         player.avatartImage.sprite = avatars[index];
+        if(NetworkServer.connections.Count>1)
         RpcChangeUI(index);
     }
     [ClientRpc]
