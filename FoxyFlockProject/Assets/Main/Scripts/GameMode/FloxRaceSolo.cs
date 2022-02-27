@@ -25,7 +25,7 @@ public class FloxRaceSolo : GameModeSolo
         propBlock = new MaterialPropertyBlock();
 
     }
-
+    bool doOnce;
     public override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -76,6 +76,7 @@ public class FloxRaceSolo : GameModeSolo
             else
             {
                 UIGlobalManager.instance.Win(0);
+                if(!doOnce)
                 StartCoroutine(WaitToCallMenu());
             }
            
@@ -85,6 +86,7 @@ public class FloxRaceSolo : GameModeSolo
 
     IEnumerator WaitToCallMenu()
     {
+        doOnce = true;
         yield return new WaitForSeconds(5.0f);
         inputManager.OnMenuPressed.Invoke();
         Destroy(this);

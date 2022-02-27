@@ -314,11 +314,21 @@ public class GrabManagerMulti : GrabManager
         }
         else if (mainPool[currentPool].bonus.Contains(flock))
         {
-            mainPool[currentPool].malus.Remove(flock);
+            mainPool[currentPool].bonus.Remove(flock);
         }
         else if (mainPool[currentPool].malus.Contains(flock))
         {
-            mainPool[currentPool].bonus.Remove(flock);
+            int indexOfModifier = 100;
+                for (int i = 0; i < representationsModifiers.Length; i++)
+                {
+                    if (representationsModifiers[i].IsMalus() == flock)
+                        indexOfModifier = i;
+                }
+            mainPool[currentPool].isEmptyModifier = false;
+            mainPool[currentPool].isSelectedModifier[indexOfModifier] = false;
+            directionForBubble.Add(representationsModifiers[indexOfModifier].transform.position);
+            representationsModifiers[indexOfModifier].gameObject.SetActive(true);
+            flock.layer = 6;
         }
         flock.transform.position = flock.GetComponent<GrabablePhysicsHandler>().initPos;
         var rgb = flock.GetComponent<Rigidbody>();
@@ -327,6 +337,7 @@ public class GrabManagerMulti : GrabManager
             flock.GetComponent<Rigidbody>().angularVelocity= Vector3.zero;
             flock.GetComponent<Rigidbody>().useGravity= false;
             flock.GetComponent<Rigidbody>().isKinematic = false;
+        flock.GetComponent<DissolveFlox>().dissolveState =1;
         flock.GetComponent<GrabablePhysicsHandler>().OnUnFreez();
     }
 
@@ -346,6 +357,7 @@ public class GrabManagerMulti : GrabManager
     {
         int value = 100;
         value = mainPool[currentPool].malus.IndexOf(flox);
+        flox.layer = 14;
         if (value != 100)
             resetMulti.AddFreezFlock(flox, currentPool, value, true);
         else

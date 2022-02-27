@@ -6,6 +6,7 @@ using System.Globalization;
 public class SaveSystem : MonoBehaviour
 {
     Save save;
+    Save saveToSend;
     public static SaveSystem instance;
     [SerializeField]
     private string BASE_URL = "https://docs.google.com/forms/u/1/d/e/1FAIpQLScBIvn5vjaaOgkxhr4hWRG_S_olQP5JR0Qk7DB1AKDvwBgJdQ/formResponse";
@@ -34,7 +35,6 @@ public class SaveSystem : MonoBehaviour
         save.AddFall(index, fallPos);
         var dataPath = Path.Combine(Application.persistentDataPath, "save.json");
         string json = JsonUtility.ToJson(save);
-        Debug.Log(json);
         StreamWriter sw = File.CreateText(dataPath); 
         sw.Close();
         File.WriteAllText(dataPath, json); 
@@ -90,19 +90,49 @@ public class SaveSystem : MonoBehaviour
         }
 
     }
-    public IEnumerator Send(int index)
+    public void ReadCsvBeforSend( )
     {
+        var csv = new List<string[]>(); // or, List<YourClass>
+        var dataPath = Path.Combine(Application.persistentDataPath, "Flocks.csv");
+        var lines = File.ReadAllLines(dataPath);
+        foreach (string line in lines)
+            csv.Add(line.Split(',')); // or, populate YourClass
+        csv.RemoveAt(0);
+        saveToSend = new Save();
+        Save tempSave = new Save();
+        foreach (var flox in csv)
+        {
+            int indexOfY = flox[3].IndexOf('y');
+            string x = flox[3];
+            x = x.Remove(indexOfY - 1, x.Length - indexOfY - 1);
+            x = x.Remove(0, 2);
+            string y = flox[3].Remove(0, indexOfY + 2);
+            Vector2 pos = new Vector2(float.Parse(x, CultureInfo.InvariantCulture), float.Parse(y, CultureInfo.InvariantCulture));
+            tempSave.AddFall(int.Parse(flox[1]), pos);
+        }
         for (int i = 0; i < save.flocks.Count; i++)
         {
-            for (int x = 0; x < save.flocks[i].numberOfFall; x++)
+            foreach (Vector2 pos in save.flocks[i].positionOfFall)
+            {
+                if (!tempSave.flocks[i].positionOfFall.Contains(pos))
+                    saveToSend.AddFall(i, pos);
+            }
+        }
+    }
+    public IEnumerator Send(int index)
+    {
+        ReadCsvBeforSend();
+        for (int i = 0; i < saveToSend.flocks.Count; i++)
+        {
+            for (int x = 0; x < saveToSend.flocks[i].numberOfFall; x++)
             {
                 WWWForm form = new WWWForm();
-                form.AddField("entry.39333867", save.flocks[i].index);
-                form.AddField("entry.1176866422", save.flocks[i].numberOfFall);
-                string numberOfPos = save.flocks[i].positionOfFall[x].x.ToString() + ";y:" + save.flocks[i].positionOfFall[x].y.ToString();
+                form.AddField("entry.39333867", saveToSend.flocks[i].index);
+                form.AddField("entry.1176866422", saveToSend.flocks[i].numberOfFall);
+                string numberOfPos = saveToSend.flocks[i].positionOfFall[x].x.ToString() + ";y:" + saveToSend.flocks[i].positionOfFall[x].y.ToString();
                 numberOfPos=  numberOfPos.Replace(',', '.');
                 form.AddField("entry.695868410", "x:" + numberOfPos);
-                form.AddField("entry.1350431349", save.flocks[i].name);
+                form.AddField("entry.1350431349", saveToSend.flocks[i].name);
                 byte[] rawData = form.data;
                 WWW www = new WWW(BASE_URL, rawData);
                 yield return www;

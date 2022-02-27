@@ -977,6 +977,7 @@ public class GrabManager : MonoBehaviour
     {
         int value = 100;
        value =  mainPool[currentPool].malus.IndexOf(flox);
+        flox.layer = 14;
         if (value != 100)
             reset.AddFreezFlock(flox, currentPool, value, true);
         else

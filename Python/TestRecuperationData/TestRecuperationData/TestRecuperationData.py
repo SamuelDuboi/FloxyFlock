@@ -10,6 +10,7 @@ from pathlib import Path
 my_w=tk.Tk()
 my_w.geometry('1920x1080')
 my_w.title('test')
+my_w.update()
 tabs = ttk.Notebook(my_w);
 tabs.pack(fill=BOTH, expand=TRUE)
 frame1 = ttk.Frame(tabs)
@@ -19,8 +20,7 @@ tabs.add(frame2, text="Tab Two")
 
 
 #first tab
-l1 = tk.Label(frame1,  width=10 )
-l1.grid(row=1,column=1) 
+
 ayo_img =ImageTk.PhotoImage(PIL.Image.open("D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\AYO.png").resize((150,150)))
 beanie_img =ImageTk.PhotoImage(PIL.Image.open("D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\BEANIE.png").resize((150,150)))
 garry_img =ImageTk.PhotoImage(PIL.Image.open("D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\GARRY.png").resize((150,150))) 
@@ -29,22 +29,26 @@ jcvf_img =ImageTk.PhotoImage(PIL.Image.open("D:\\Unity\\FloxyFlock\\FoxyFlockPro
 jit_img = ImageTk.PhotoImage(PIL.Image.open("D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\JIT.png").resize((150,150)))
 woo_img = ImageTk.PhotoImage(PIL.Image.open("D:\\Unity\\FloxyFlock\\FoxyFlockProject\\Assets\\Main\\Art\\Sprites\\Avatars\\WOO.png").resize((150,150)))
 array_img =[ayo_img,beanie_img,garry_img,hehe_img,jcvf_img,jit_img,woo_img]
-arrayName = ["Ayo : ","Beanie : ","Garry : ","Hehe : ","Jcvf : ","Jit : ","Woo : "]
 f=open(Path(r'C:\Users\s.dubois\AppData\LocalLow\FoxyTeam\Foxy Flox\save.json'))
 data = json.load(f)
-arrayOfFlox = [""]
+arrayOfFlox = []
 for i in data['flocks']:
     arrayOfFlox.append(i)
 
+def getNumberOfFall(e):
+    return e['numberOfFall']
 
+#arrange the flox from the one tha fall the most to the less
+arrayOfFlox.sort(key=getNumberOfFall, reverse=True)
 
 for i in range(len(array_img)):
-    l2 = tk.Label(frame1,  image=array_img[i] )
+    l2 = tk.Label(frame1,  image=array_img[arrayOfFlox[i]['index']] )
     l2.grid(row=i,column=1) 
-    l3 = tk.Label(frame1, text =arrayName[i] )
+    l3 = tk.Label(frame1, text = arrayOfFlox[i]['name'])
     l3.grid(row= i, column=2)
-    l4= tk.Label(frame1, text =arrayOfFlox[i+1] )
+    l4= tk.Label(frame1, text = "has fall: "  +str(arrayOfFlox[i]['numberOfFall'] ) +" times")
     l4.grid(row= i, column=3)
+
 
 
 
@@ -66,18 +70,29 @@ array_img2 =[ayo_img2,beanie_img2,garry_img2,hehe_img2,jcvf_img2,jit_img2,woo_im
 
 
 canvas.create_image(450, 450, image=backgroundImage)
-def threaded_function(arg):
-    while True:
-        f=open(Path(r'C:\Users\s.dubois\AppData\LocalLow\FoxyTeam\Foxy Flox\save.json'))
-        data = json.load(f)
-        for i in data['flocks']:
-            for x in range(i['numberOfFall']):
-                print((1.4-(i['positionOfFall'][x]['y']+0.7)));
-                canvas.create_image((i['positionOfFall'][x]['x']+0.7)/1.4 *900.0, (1.4-(i['positionOfFall'][x]['y']+0.7))/1.4 *900.0, image=array_img2[i['index']])
-        f.close()
-if __name__ == "__main__":
-    thread = Thread(target = threaded_function, args = (12,))
-    thread.start()
 
-    my_w.mainloop()
+#if u want it to be in update
+#def threaded_function(arg):
+#   while True:
+#        f=open(Path(r'C:\Users\s.dubois\AppData\LocalLow\FoxyTeam\Foxy Flox\save.json'))
+#        data = json.load(f)
+#        for i in data['flocks']:
+#            for x in range(i['numberOfFall']):
+#                #print((1.4-(i['positionOfFall'][x]['y']+0.7)));
+#                canvas.create_image((i['positionOfFall'][x]['x']+0.7)/1.4 *900.0, (1.4-(i['positionOfFall'][x]['y']+0.7))/1.4 *900.0, image=array_img2[i['index']])
+#        f.close()
+#if __name__ == "__main__":
+#    thread = Thread(target = threaded_function, args = (12,))
+#    thread.start()
 
+#   my_w.mainloop()
+
+#esle
+f=open(Path(r'C:\Users\s.dubois\AppData\LocalLow\FoxyTeam\Foxy Flox\save.json'))
+data = json.load(f)
+for i in data['flocks']:
+    for x in range(i['numberOfFall']):
+        #print((1.4-(i['positionOfFall'][x]['y']+0.7)));
+        canvas.create_image((i['positionOfFall'][x]['x']+0.7)/1.4 *900.0, (1.4-(i['positionOfFall'][x]['y']+0.7))/1.4 *900.0, image=array_img2[i['index']])
+f.close()
+my_w.mainloop()

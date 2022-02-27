@@ -26,6 +26,8 @@ public class Save
     }
     public void AddFall(int indexOfFlox, Vector2 fallPos)
     {
+        if (flocks[indexOfFlox].positionOfFall.Contains(fallPos))
+            return;
         flocks[indexOfFlox].positionOfFall.Add(fallPos);
         flocks[indexOfFlox].numberOfFall++;
     }
