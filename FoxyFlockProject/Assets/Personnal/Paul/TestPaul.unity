@@ -636,6 +636,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Piece
       objectReference: {fileID: 0}
+    - target: {fileID: 8112563765251549662, guid: 98c6ae1acc34f734a83930c767b03bee, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: eb5a104b09be4864cb86f87a7d0408ee, type: 2}
     - target: {fileID: 8252363230305660045, guid: 98c6ae1acc34f734a83930c767b03bee, type: 3}
       propertyPath: m_TagString
       value: Piece
@@ -766,6 +770,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Piece
       objectReference: {fileID: 0}
+    - target: {fileID: 1134475267521378780, guid: da98e338cc291544881dfaf700deb660, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 2506733526473593662, guid: 24b1060718cb91243898461e291f0c95, type: 3}
     - target: {fileID: 1169166839688831692, guid: da98e338cc291544881dfaf700deb660, type: 3}
       propertyPath: m_TagString
       value: Piece
@@ -919,7 +927,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh31890
+  m_Name: pb_Mesh34290
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1728,7 +1736,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh31784
+  m_Name: pb_Mesh34184
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2540,6 +2548,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1611874930}
     m_Modifications:
+    - target: {fileID: 1617838397707945726, guid: b33fc83a3466a3e40aabb143ac1a2f22, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 7890481714117062336, guid: b91c8b23087658d43ae193740653a009, type: 3}
     - target: {fileID: 1774929763854386011, guid: b33fc83a3466a3e40aabb143ac1a2f22, type: 3}
       propertyPath: m_TagString
       value: Piece
@@ -2940,6 +2952,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Piece
       objectReference: {fileID: 0}
+    - target: {fileID: 4915598046754468926, guid: 68833875d141d3e47805fd6889487399, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8d186f9ce224a684ebd407b52fc2981f, type: 2}
     - target: {fileID: 6087910935110389585, guid: 68833875d141d3e47805fd6889487399, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -4658,6 +4674,7 @@ MonoBehaviour:
   heatPourcentage: 0
   doOnce: 0
   wigglePower: 0
+  heatState: 0
 --- !u!4 &5721291045101049222
 Transform:
   m_ObjectHideFlags: 0
@@ -4787,6 +4804,7 @@ MonoBehaviour:
   heatPourcentage: 0
   doOnce: 0
   wigglePower: 0
+  heatState: 0
 --- !u!1001 &6291193339659244885
 PrefabInstance:
   m_ObjectHideFlags: 0

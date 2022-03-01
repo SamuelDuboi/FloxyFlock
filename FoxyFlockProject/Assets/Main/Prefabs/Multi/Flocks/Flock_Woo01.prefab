@@ -376,6 +376,7 @@ MonoBehaviour:
   applyAudioOnStart: 0
   randomSelectionOnStart: 0
   doOnce: 0
+  doTwice: 0
 --- !u!1 &4487923286532648934
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,7 +517,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6861033994696840683}
-  m_Mesh: {fileID: 7890481714117062336, guid: cf46a744e20239c488fda49c5c174df2, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 9d3bf55a1dca97e45a4149cfd029c42a, type: 2}
 --- !u!23 &4915598046754468926
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -763,6 +764,7 @@ MonoBehaviour:
   OnExitStasis:
     m_PersistentCalls:
       m_Calls: []
+  initPos: {x: 0, y: 0, z: 0}
   slowForce: 0
   timeToSlow: 0
   physicMaterials:
@@ -773,6 +775,7 @@ MonoBehaviour:
   timerToExit: 0
   inputManager: {fileID: 0}
   initialModifier: {fileID: 11400000, guid: 4699a5b6ae4b6d84b950885f34b07e25, type: 2}
+  isDestroyed: 0
 --- !u!114 &4578151830158261572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -902,6 +905,7 @@ MonoBehaviour:
   applyAudioOnStart: 0
   randomSelectionOnStart: 0
   doOnce: 0
+  doTwice: 0
 --- !u!114 &1794132747986546923
 MonoBehaviour:
   m_ObjectHideFlags: 0
